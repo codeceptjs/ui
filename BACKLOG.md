@@ -12,9 +12,11 @@
 ## In Progress
 
 - Parse xml
+- Show run status
 - Center screenshot
 - Implement element highlighting for appium
 
 ## Backlog
 
+- Persist test run data in local storage
 - Implement pause() with websockets

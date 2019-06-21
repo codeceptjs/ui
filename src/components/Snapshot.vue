@@ -30,6 +30,18 @@ function arrayBufferToBase64(buffer) {
     return window.btoa(binary);
 }
 
+const getAndroidBoundedElements = source => {
+  const oParser = new DOMParser();
+  const oDOM = oParser.parseFromString(source, "application/xml");
+
+  let els = [];
+  const query = oDOM.evaluate('//*[@bounds]', oDOM, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+  for (let i = 0, length = query.snapshotLength; i < length; ++i) {
+    els.push(query.snapshotItem(i));
+  }
+  return els;
+}
+
 export default {
   name: 'Snapshot',
   props: ['selected'],
@@ -40,6 +52,8 @@ export default {
 
     toggleShowScreenshot() {
       this.showScreenshot = !this.showScreenshot;
+
+      console.log(getAndroidBoundedElements(this.$props.selected.snapshot.source));
     }
   },
   data: function () {

@@ -1,21 +1,25 @@
 <template>
   <div class="Snapshot" v-if="selected.snapshot">
-    <div class="Actions">
+    
+    <div class="Snapshot-actions">
       <b-button type="is-primary" outlined v-on:click="toggleShowScreenshot()">
         Screenshot/Source
       </b-button>
     </div>
-    <div>
-      <a :href="selected.pageUrl">{{selected.pageTitle}}</a>
+
+    <div class="Snapshot-pageUrl">
+      <a :href="selected.snapshot.pageUrl">{{selected.snapshot.pageTitle}}</a>
     </div>
-    <div v-if="selected.snapshot">
-      <img v-if="showScreenshot" width="480" :src="toDataUri(selected.snapshot.screenshot)" :alt="selected.name">
+
+    <div class="Snapshot-data" v-if="selected.snapshot">
+      <img class="Snapshot-image" v-if="showScreenshot" :src="toDataUri(selected.snapshot.screenshot)" :alt="selected.name">
       <code v-if="!showScreenshot">
         <pre>
           {{selected.snapshot.source}}
         </pre>
       </code>
     </div>
+
   </div>
 </template>
 
@@ -30,7 +34,11 @@ function arrayBufferToBase64(buffer) {
     return window.btoa(binary);
 }
 
-const getAndroidBoundedElements = source => {
+const getAndroidBoundedElements = (source, contentType) => {
+  if (contentType !== 'xml') {
+    return;
+  }
+
   const oParser = new DOMParser();
   const oDOM = oParser.parseFromString(source, "application/xml");
 
@@ -52,8 +60,7 @@ export default {
 
     toggleShowScreenshot() {
       this.showScreenshot = !this.showScreenshot;
-
-      console.log(getAndroidBoundedElements(this.$props.selected.snapshot.source));
+      console.log(getAndroidBoundedElements(this.$props.selected.snapshot.source, this.$props.selected.snapshot.sourceContentType));
     }
   },
   data: function () {
@@ -65,8 +72,14 @@ export default {
 </script>
 
 <style scoped>
-.Step {
-  margin-top: 1em;
-  color: #4f5959;
+
+.Snapshot-actions {
+  margin-bottom: 1em;
 }
+
+.Snapshot-image {
+  min-width: 480px;
+  max-width: 100%;
+}
+
 </style>

@@ -20,6 +20,7 @@
       </b-message>
     </div>
 
+    <div class="Test-spacer"></div>
   </div>
 </template>
 
@@ -36,5 +37,8 @@ export default {
 </script>
 
 <style scoped>
-
+.Test-spacer {
+  height: 2em;
+  width: 100%;
+}
 </style>

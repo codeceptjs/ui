@@ -34,6 +34,18 @@
 import Test from './Test';
 import Snapshot from './Snapshot';
 
+const scrollToLastStep = () => {
+  setTimeout(() => {
+    const element = document.querySelector('.Test-spacer');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end'
+      });
+    }
+  }, 100);     
+}
+
 export default {
   name: 'Home',
   props: {},
@@ -45,10 +57,12 @@ export default {
     connect: function () {
     },
     'suite.before': function () {
+      // TODO Check is this fired?
       this.$store.commit('clearTests');
       this.$store.commit('setRunning', true);
     },
     'test.before': function (test) {
+      this.$store.commit('clearTests');
       this.$store.commit('addTest', test);
     },
     'test.failed': function (error) {
@@ -60,9 +74,13 @@ export default {
     'step.before': function (step) {
       this.$store.commit('setSelectedStep', step);
       this.$store.commit('addStepToCurrentTest', step);
+
+      scrollToLastStep();
     },
     'finish': function () {
       this.$store.commit('setRunning', false);
+
+      scrollToLastStep();
     }
   },
   computed: {
@@ -84,6 +102,7 @@ export default {
 <style scoped>
 .Header {
   height: 60px;
+  padding: 0 5px;
   box-shadow: 0 2px 0 0 #f5f5f5;
 }
 

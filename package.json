@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "buefy": "^0.7.7",
+    "codeceptjs": "^2.1.5",
     "core-js": "^2.6.5",
     "expressjs": "^1.0.1",
     "socket.io": "^2.2.0",

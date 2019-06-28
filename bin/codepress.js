@@ -12,16 +12,21 @@ io.on('connection', socket => {
   // eslint-disable-next-line no-console
   console.log('socket connects');
 
-  socket.on('suite.before', (data) => {
+  socket.on('output', (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
+  })
+
+  socket.on('suite.before', (data) => {
+    // eslint-disable-next-line no-console
+    // console.log(data);
 
     socket.broadcast.emit('suite.before', data);
   })
 
   socket.on('test.before', (data) => {
     // eslint-disable-next-line no-console
-    console.log(data);
+    // console.log(data);
 
     socket.broadcast.emit('test.before', data);
   })
@@ -42,14 +47,14 @@ io.on('connection', socket => {
 
   socket.on('step.before', (data) => {
     // eslint-disable-next-line no-console
-    console.log(data);
+    // console.log(data);
 
     socket.broadcast.emit('step.before', data);
   })
 
   socket.on('finish', (data) => {
     // eslint-disable-next-line no-console
-    console.log('Testrun finished');
+    // console.log('Testrun finished');
 
     socket.broadcast.emit('finish', data);
   })

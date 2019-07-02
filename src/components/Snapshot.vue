@@ -9,21 +9,30 @@
 
     <div class="Snapshot-pageUrl">
       <a :href="selected.snapshot.pageUrl">{{selected.snapshot.pageTitle}}</a>
+      <input class="input is-rounded" type="text" :placeholder="selected.snapshot.pageUrl">
     </div>
 
     <div class="Snapshot-data" v-if="selected.snapshot">
-      <img class="Snapshot-image" v-if="showScreenshot" :src="toDataUri(selected.snapshot.screenshot)" :alt="selected.name">
-      <code v-if="!showScreenshot">
-        <pre>
-          {{selected.snapshot.source}}
-        </pre>
-      </code>
+      <img v-if="showScreenshot" 
+        class="Snapshot-image"
+        :src="toDataUri(selected.snapshot.screenshot)" 
+        :alt="selected.name"
+      >
+
+      <snapshot-source 
+        v-if="!showScreenshot"
+        v-bind:pageUrl="selected.snapshot.pageUrl"
+        v-bind:source="selected.snapshot.source"
+        v-bind:sourceContentType="selected.snapshot.sourceContentType"
+      />
     </div>
 
   </div>
 </template>
 
 <script>
+import SnapshotSource from './SnapshotSource'
+
 function arrayBufferToBase64(buffer) {
     let binary = '';
     let bytes = new Uint8Array(buffer);
@@ -52,6 +61,9 @@ const getAndroidBoundedElements = (source, contentType) => {
 
 export default {
   name: 'Snapshot',
+  components: {
+    SnapshotSource
+  },
   props: ['selected'],
   methods: {
     toDataUri(buf) {
@@ -60,7 +72,7 @@ export default {
 
     toggleShowScreenshot() {
       this.showScreenshot = !this.showScreenshot;
-      console.log(getAndroidBoundedElements(this.$props.selected.snapshot.source, this.$props.selected.snapshot.sourceContentType));
+      // console.log(getAndroidBoundedElements(this.$props.selected.snapshot.source, this.$props.selected.snapshot.sourceContentType));
     }
   },
   data: function () {
@@ -74,7 +86,16 @@ export default {
 <style scoped>
 
 .Snapshot-actions {
+  margin: 0 auto;
   margin-bottom: 1em;
+  width: 200px;
+}
+
+.Snapshot-data {
+}
+
+.Snapshot-pageUrl {
+  margin-bottom: .5em;
 }
 
 .Snapshot-image {

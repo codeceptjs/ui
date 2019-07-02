@@ -17,17 +17,13 @@
     <div 
       v-else-if="isWaitStep" 
       class="Step-wait">
-      <i class="fas fa-hourglass"></i> {{step.humanized}} {{step.args[0]}}
+      <i class="fas fa-hourglass"></i> {{step.humanized}} <span class="Step-args">{{step.args[0]}}</span>
 
     </div>
 
     <div v-else class="Step">
       <div class="Step-name">
-        I {{step.humanized}}
-      </div>
-
-      <div class="Step-args">
-        {{step.args[0]}}
+        I {{step.humanized}} <span class="Step-args">{{getSelector(step.args)}}</span>
       </div>
     </div>
   </div>
@@ -67,6 +63,16 @@ export default {
     isWaitStep: function () {
       const step = this.$props.step;
       return step.name.indexOf('wait') === 0;
+    }
+  },
+  methods: {
+    getSelector: function (stepArgs) {
+      const first = stepArgs[0];
+
+      if (typeof first === 'object') {
+        return first.output || first;
+      }
+      return `"${first}"`;
     }
   }
 }
@@ -116,13 +122,12 @@ export default {
 
 .Step-name {
   font-weight: bold;
-}
-
-.Step-args {
-  margin-left: 1em;
-  color: hsl(204, 86%, 53%);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.Step-args {
+  color: hsl(204, 86%, 53%);
 }
 </style>

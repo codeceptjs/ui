@@ -56,6 +56,15 @@ export default {
   sockets: {
     connect: function () {
     },
+    'cli.start': function (data) {
+      console.log('Start cli', data);
+    },
+    'cli.output': function (data) {
+      console.log('Output', data);
+    },
+    'cli.error': function (data) {
+      console.log('Error', data);
+    },
     'suite.before': function () {
       // TODO Check is this fired?
       this.$store.commit('clearTests');

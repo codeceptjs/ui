@@ -12,9 +12,16 @@ io.on('connection', socket => {
   // eslint-disable-next-line no-console
   console.log('socket connects');
 
-  socket.on('output', (data) => {
+  socket.on('cli.start', (data) => {
     // eslint-disable-next-line no-console
-    console.log(data);
+    console.log('cli.start');
+    socket.broadcast.emit('cli.start', data);
+  })
+  socket.on('cli.output', (data) => {
+    socket.broadcast.emit('cli.output', data);
+  })
+  socket.on('cli.error', (data) => {
+    socket.broadcast.emit('cli.error', data);
   })
 
   socket.on('suite.before', (data) => {

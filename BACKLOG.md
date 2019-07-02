@@ -10,16 +10,18 @@
 - Use font awesome
 - distinguish html xml
 - Parse xml
+- Show html snapshot in iframe
 
 ## In Progress
 
+- Implement web console
+
+## Backlog
+
+- Highlight elements in screenshot
 - determine original and current image size
 - Show run status
 - Center screenshot
 - Implement element highlighting for appium
-
-## Backlog
-
-- Show html snapshot in iframe
 - Persist test run data in local storage
 - Implement pause() with websockets

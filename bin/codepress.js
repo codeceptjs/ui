@@ -23,6 +23,9 @@ io.on('connection', socket => {
   socket.on('cli.error', (data) => {
     socket.broadcast.emit('cli.error', data);
   })
+  socket.on('cli.line', (data) => {
+    socket.broadcast.emit('cli.line', data);
+  })
 
   socket.on('suite.before', (data) => {
     // eslint-disable-next-line no-console

@@ -18,7 +18,8 @@
     "socket.io-client": "^2.2.0",
     "vue": "^2.6.10",
     "vue-socket.io": "^3.0.7",
-    "vuex": "^3.1.1"
+    "vuex": "^3.1.1",
+    "vuex-persist": "^2.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",

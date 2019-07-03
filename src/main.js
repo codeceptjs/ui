@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
+import Vuex from 'vuex';
 import VueSocketIO from 'vue-socket.io';
 import Buefy from 'buefy';
-import Vuex from 'vuex';
 import 'buefy/dist/buefy.css';
 
 Vue.use(Vuex)

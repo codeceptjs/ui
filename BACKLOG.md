@@ -11,13 +11,20 @@
 - distinguish html xml
 - Parse xml
 - Show html snapshot in iframe
+- Persist vuex state
 
 ## In Progress
 
 - Implement web console
+    * Show error message
+    * Close shell (and continue test)
+    * Step-by-step execution
+    * Pick element
+    * Record cli commands (and copy to clipboard)
 
 ## Backlog
 
+- Snapshot: Store scroll position and window size
 - Highlight elements in screenshot
 - determine original and current image size
 - Show run status

@@ -54,17 +54,7 @@ export default {
     Snapshot
   },
   sockets: {
-    connect: function () {
-    },
-    'cli.start': function (data) {
-      console.log('Start cli', data);
-    },
-    'cli.output': function (data) {
-      console.log('Output', data);
-    },
-    'cli.error': function (data) {
-      console.log('Error', data);
-    },
+    connect: function () {},
     'suite.before': function () {
       // TODO Check is this fired?
       this.$store.commit('clearTests');
@@ -136,8 +126,7 @@ export default {
   left: 461px;
   right: 0;
   bottom: 0;
-  overflow-x: scroll;
-  overflow-y: scroll;
+  overflow: hidden;
   padding: 10px;
 }
 </style>

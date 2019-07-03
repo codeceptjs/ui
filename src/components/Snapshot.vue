@@ -2,9 +2,10 @@
   <div class="Snapshot" v-if="selected.snapshot">
     
     <div class="Snapshot-actions">
-      <b-button type="is-primary" outlined v-on:click="toggleShowScreenshot()">
-        Screenshot/Source
-      </b-button>
+      <div class="buttons has-addons">
+        <span class="button" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">Image</span>
+        <span class="button" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">Source</span>
+      </div>
     </div>
 
     <div class="Snapshot-pageUrl">
@@ -13,14 +14,14 @@
     </div>
 
     <div class="Snapshot-data" v-if="selected.snapshot">
-      <img v-if="showScreenshot" 
+      <img v-if="isShowImage" 
         class="Snapshot-image"
         :src="toDataUri(selected.snapshot.screenshot)" 
         :alt="selected.name"
       >
 
       <snapshot-source 
-        v-if="!showScreenshot"
+        v-if="isShowSource"
         v-bind:pageUrl="selected.snapshot.pageUrl"
         v-bind:source="selected.snapshot.source"
         v-bind:sourceContentType="selected.snapshot.sourceContentType"
@@ -70,14 +71,25 @@ export default {
       return `data:image/png;base64,` + arrayBufferToBase64(buf);
     },
 
-    toggleShowScreenshot() {
-      this.showScreenshot = !this.showScreenshot;
-      // console.log(getAndroidBoundedElements(this.$props.selected.snapshot.source, this.$props.selected.snapshot.sourceContentType));
+    showImage() {
+       this.$store.commit('setShowImage');
+    },
+
+    showSource() {
+       this.$store.commit('setShowSource');
     }
   },
   data: function () {
     return {
-      showScreenshot: true,
+      show: 'image',
+    }
+  },
+  computed: {
+    isShowImage() {
+      return this.$store.state.show === 'image';
+    },
+    isShowSource() {
+      return this.$store.state.show === 'source';
     }
   }
 }

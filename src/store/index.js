@@ -1,16 +1,27 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VuexPersistence from 'vuex-persist'
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage
+})
 
 const store = new Vuex.Store({
     state: {
+        isRunning: undefined,
+        show: 'image',
         lastSnapshot: undefined,
         selectedStep: undefined,
-        tests: []
+        tests: [],
+
+        cliStarted: false,
     },
     mutations: {
       clearTests: (state) => {
+        state.isRunning = undefined;
         state.tests = [];
         state.selectedStep = undefined;
+        state.cliStarted = false;
       },
       addTest: (state, test) => {
         Vue.set(test, 'steps', [])
@@ -48,8 +59,23 @@ const store = new Vuex.Store({
       },
       setRunning: (state, isRunning) => {
         state.isRunning = isRunning;
+      },
+
+      setShowImage: (state) => {
+        state.show = 'image';
+      },
+      setShowSource: (state) => {
+        state.show = 'source';
+      },
+
+      startCli: (state) => {
+        state.cliStarted = true;
+      },
+      stopCli: (state) => {
+        state.cliStarted = false;
       }
-    }
+    },
+    plugins: [vuexLocal.plugin]
 });
 
 export default store;

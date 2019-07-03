@@ -49,6 +49,7 @@ export default {
       if (step.name.includes('sendDelete')) {
         return 'delete';
       }
+      return 'unknown';
     },
 
     urlRearPart: function () {

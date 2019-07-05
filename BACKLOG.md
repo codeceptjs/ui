@@ -12,19 +12,24 @@
 - Parse xml
 - Show html snapshot in iframe
 - Persist vuex state
+- Make absolute link href="node_modules/..."
 
 ## In Progress
 
 - Implement web console
-    * Show error message
     * Close shell (and continue test)
+    * Show error message
     * Step-by-step execution
     * Pick element
     * Record cli commands (and copy to clipboard)
+    * Show screenshot when hovering over step
 
 ## Backlog
 
-- Snapshot: Store scroll position and window size
+- Steps: Format assertion steps ala cypress
+- Steps: Format presskey steps using key icon
+- HTML Snapshot: Preserve input values
+- HTML Snapshot: Store scroll position and window size
 - Highlight elements in screenshot
 - determine original and current image size
 - Show run status

@@ -12,8 +12,9 @@ export default {
         toDataUri(pageUrl, source) {
             const url = new URL(pageUrl);
             let processedSource = source
-            processedSource = source.replace(/href="\/\//g, `href="https://`);
-            processedSource = processedSource.replace(/href="\//g, `href="https://${url.hostname}/`);
+            processedSource = processedSource.replace(/href="([^\/])/gi, `href="${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}${url.pathname}$1`);
+            processedSource = processedSource.replace(/href="\/\//gi, `href="https://`);
+            processedSource = processedSource.replace(/href="\//gi, `href="https://${url.hostname}/`);
             return `data:text/html;charset=iso-8859-1,` + escape(processedSource);
         }
     }

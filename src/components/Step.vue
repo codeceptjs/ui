@@ -69,6 +69,7 @@ export default {
   methods: {
     getSelector: function (stepArgs) {
       const first = stepArgs[0];
+      if (!first) return '';
 
       if (typeof first === 'object') {
         return first.output || first;

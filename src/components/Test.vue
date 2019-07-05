@@ -14,12 +14,20 @@
       </li>
     </ul>
 
-    <div class="Cli box" v-if="isCliStarted">
+    <div class="InteractiveShell box" v-if="isCliStarted">
       Interactive shell started
+      <i class="InteractiveShell-closeButton fa fa-times is-pulled-right" v-on:click.once="closeInteractiveShell()" />
+
+      <ul class="InteractiveShell-commands">
+        <li v-on:click="execCommand('click')">click</li>
+        <li>fillField</li>
+        <li>see</li>
+      </ul>
+
       <input 
-        class="input" 
+        class="is-small input" 
         type="text" 
-        placeholder="I." 
+        placeholder="Enter CodeceptJS command" 
         v-model="command"  
         v-on:keyup.enter="sendCommand(command)" />
     </div>
@@ -71,6 +79,10 @@ export default {
   methods: {
     sendCommand(command) {
       this.$socket.emit('cli.line', command)
+    },
+    closeInteractiveShell() {
+      this.$socket.emit('cli.line', 'exit')
+      this.$store.commit('stopCli');
     }
   },
   computed: {
@@ -85,5 +97,13 @@ export default {
 .Test-spacer {
   height: 2em;
   width: 100%;
+}
+
+.InteractiveShell {
+  margin-top: 1em;
+}
+
+.InteractiveShell-closeButton {
+  cursor: pointer;
 }
 </style>

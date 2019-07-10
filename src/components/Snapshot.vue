@@ -1,10 +1,14 @@
 <template>
   <div class="Snapshot" v-if="selected.snapshot">
     
-    <div class="Snapshot-actions">
+    <div class="Snapshot-actions" v-if="selected.snapshot">
       <div class="buttons has-addons">
-        <span class="button" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">Image</span>
-        <span class="button" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">Source</span>
+        <span class="button" v-if="selected.snapshot.screenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
+          Image
+        </span>
+        <span class="button" v-if="selected.snapshot.source" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">
+          Source
+        </span>
       </div>
     </div>
 

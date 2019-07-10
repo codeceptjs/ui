@@ -17,13 +17,36 @@
     <div 
       v-else-if="isWaitStep" 
       class="Step-wait">
-      <i class="fas fa-hourglass"></i> {{step.humanized}} <span class="Step-args">{{step.args[0]}}</span>
+      <i class="fas fa-hourglass"></i> {{step.humanized}} <span>{{step.args[0]}}</span>
+    </div>
 
+    <div 
+      v-else-if="isPressKeyStep" 
+      class="Step-pressKey">
+      <i class="fas fa-keyboard"></i>&nbsp;<span>{{step.args[0]}}</span>
+    </div>
+
+    <div 
+      v-else-if="isSaveScreenshotStep" 
+      class="Step-saveScreenshot">
+      <i class="fas fa-image"></i>&nbsp;<span>{{step.args[0]}}</span>
+    </div>
+
+    <div 
+      v-else-if="isSeeStep" 
+      class="Step-see">
+        <span class="tag is-success">
+          {{step.humanized}}
+        </span>
+        <span class="Step-argSelector">{{getSelector(step.args)}}</span>
+        <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
     </div>
 
     <div v-else class="Step">
       <div class="Step-name">
-        I {{step.humanized}} <span class="Step-args">{{getSelector(step.args)}}</span>
+        I {{step.humanized}}
+        <span class="Step-argSelector">{{getSelector(step.args)}}</span>
+        <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
       </div>
     </div>
   </div>
@@ -64,6 +87,21 @@ export default {
     isWaitStep: function () {
       const step = this.$props.step;
       return step.name.indexOf('wait') === 0;
+    },
+
+    isPressKeyStep: function () {
+      const step = this.$props.step;
+      return step.name.indexOf('pressKey') === 0;
+    },
+
+    isSeeStep: function () {
+      const step = this.$props.step;
+      return step.name.indexOf('see') === 0;
+    },
+
+    isSaveScreenshotStep: function () {
+      const step = this.$props.step;
+      return step.name.indexOf('saveScreenshot') === 0;
     }
   },
   methods: {
@@ -74,7 +112,12 @@ export default {
       if (typeof first === 'object') {
         return first.output || first;
       }
-      return `"${first}"`;
+      return first;
+    },
+
+    toStringOrNumber: function (stringOrNumber) {
+      if (typeof stringOrNumber === 'number') return stringOrNumber;
+      return `"${stringOrNumber}"`
     }
   }
 }
@@ -122,14 +165,40 @@ export default {
   color: hsl(0, 0%, 71%);
 }
 
+.Step-pressKey {
+  font-size: 0.8em;
+  margin-left: 1em;
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: hsl(0, 0%, 71%);
+}
+
+.Step-see {
+  padding: 2px 5px;
+}
+
+.Step-saveScreenshot {
+  font-size: 0.8em;
+  margin-left: 1em;
+  color: hsl(0, 0%, 71%);
+  padding: 2px 5px;
+}
+
+
 .Step-name {
-  font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.Step-args {
+.Step-argSelector {
+  margin-left: 0.5em;
   color: hsl(204, 86%, 53%);
+}
+.Step-argOther {
+  margin-left: 0.5em;
+  color:hsl(171, 100%, 41%)
 }
 </style>

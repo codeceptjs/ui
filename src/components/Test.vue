@@ -14,22 +14,51 @@
       </li>
     </ul>
 
-    <div class="InteractiveShell box" v-if="isCliStarted">
-      Interactive shell started
-      <i class="InteractiveShell-closeButton fa fa-times is-pulled-right" v-on:click.once="closeInteractiveShell()" />
+    <div class="InteractiveShell box" v-if="isShowCli">
+      <div class="InteractiveShell-actions is-clearfix">
+        <i class="InteractiveShell-closeButton fa fa-times is-pulled-right" v-on:click.once="closeInteractiveShell()" />
+        <i class="InteractiveShell-nextStepButton fas fa-step-forward is-pulled-right" v-on:click="nextStep()"></i>
+      </div>
+
+      <article class="InteractiveShell-error message is-danger" v-if="hasErrorCli">
+        <div class="message-header">
+          <p>Command failed</p>
+        </div>
+        <div class="message-body">
+          {{cliError}}
+        </div>
+      </article>
 
       <ul class="InteractiveShell-commands">
-        <li v-on:click="execCommand('click')">click</li>
-        <li>fillField</li>
-        <li>see</li>
+        <li v-on:click="execCommand('click')">
+          <a href="">
+            click
+          </a>
+        </li>
+        <li>
+          <a href="">
+            fillField
+          </a>
+        </li>
+        <li>
+          <a href="">
+            see
+          </a>
+        </li>
+        <li>
+          <a href="">
+            other ...
+          </a>
+
+          <input 
+            class="is-small input" 
+            type="text" 
+            placeholder="Enter CodeceptJS command" 
+            v-model="command"  
+            v-on:keyup.enter="sendCommand(command)" />
+        </li>
       </ul>
 
-      <input 
-        class="is-small input" 
-        type="text" 
-        placeholder="Enter CodeceptJS command" 
-        v-model="command"  
-        v-on:keyup.enter="sendCommand(command)" />
     </div>
 
     <div v-if="test.error" class="Test-error">
@@ -74,20 +103,37 @@ export default {
     'cli.error': function (data) {
       // eslint-disable-next-line no-console
       console.log('Error', data);
+      this.$store.commit('setCliError', data);
     },
   },
   methods: {
     sendCommand(command) {
+      this.$store.commit('clearCliError');
       this.$socket.emit('cli.line', command)
     },
     closeInteractiveShell() {
       this.$socket.emit('cli.line', 'exit')
       this.$store.commit('stopCli');
+    },
+    nextStep() {
+      this.$socket.emit('cli.line', '')
     }
   },
   computed: {
-    isCliStarted() {
-      return this.$store.state.cliStarted;
+    isShowCli() {
+      return this.$store.state.cli !== undefined;
+    },
+
+    hasErrorCli() {
+      return this.$store.state.cli && this.$store.state.cli.message;
+    },
+
+    cliPrompt() {
+      return this.$store.state.cli.prompt;
+    },
+
+    cliError() {
+      return this.$store.state.cli.message;
     }
   }
 }
@@ -103,7 +149,18 @@ export default {
   margin-top: 1em;
 }
 
+.InteractiveShell-error {
+  margin-top: 1em;
+  font-size: 0.8em;
+}
+
 .InteractiveShell-closeButton {
   cursor: pointer;
+  margin-left: 1em;
+}
+
+.InteractiveShell-nextStepButton {
+  cursor: pointer;
+  margin-left: 1em;
 }
 </style>

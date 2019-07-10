@@ -9,19 +9,19 @@ const vuexLocal = new VuexPersistence({
 const store = new Vuex.Store({
     state: {
         isRunning: undefined,
-        show: 'image',
+        show: 'source',
         lastSnapshot: undefined,
         selectedStep: undefined,
         tests: [],
 
-        cliStarted: false,
+        cli: undefined,
     },
     mutations: {
       clearTests: (state) => {
         state.isRunning = undefined;
         state.tests = [];
         state.selectedStep = undefined;
-        state.cliStarted = false;
+        state.cli = undefined;
       },
       addTest: (state, test) => {
         Vue.set(test, 'steps', [])
@@ -68,11 +68,24 @@ const store = new Vuex.Store({
         state.show = 'source';
       },
 
-      startCli: (state) => {
-        state.cliStarted = true;
+      startCli: (state, data) => {
+        state.cli = state.cli ? state.cli : {};
+        
+        state.cli.prompt = data.prompt;
+        if (data.commands) {
+          state.cli.commands = data.commands;
+        }
       },
       stopCli: (state) => {
-        state.cliStarted = false;
+        state.cli = undefined;
+      },
+      clearCliError: (state) => {
+        state.cli.message = undefined;
+      },
+      setCliError: (state, data) => {
+        if (!state.cli) return;
+
+        state.cli.message = data.message;
       }
     },
     plugins: [vuexLocal.plugin]

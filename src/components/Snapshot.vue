@@ -27,6 +27,7 @@
       <snapshot-source 
         v-if="isShowSource"
         v-bind:stepId="selected.id"
+        v-bind:highlight="getSelector(selected)"
       />
     </div>
 
@@ -46,21 +47,21 @@ function arrayBufferToBase64(buffer) {
     return window.btoa(binary);
 }
 
-const getAndroidBoundedElements = (source, contentType) => {
-  if (contentType !== 'xml') {
-    return;
-  }
+// const getAndroidBoundedElements = (source, contentType) => {
+//   if (contentType !== 'xml') {
+//     return;
+//   }
 
-  const oParser = new DOMParser();
-  const oDOM = oParser.parseFromString(source, "application/xml");
+//   const oParser = new DOMParser();
+//   const oDOM = oParser.parseFromString(source, "application/xml");
 
-  let els = [];
-  const query = oDOM.evaluate('//*[@bounds]', oDOM, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-  for (let i = 0, length = query.snapshotLength; i < length; ++i) {
-    els.push(query.snapshotItem(i));
-  }
-  return els;
-}
+//   let els = [];
+//   const query = oDOM.evaluate('//*[@bounds]', oDOM, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+//   for (let i = 0, length = query.snapshotLength; i < length; ++i) {
+//     els.push(query.snapshotItem(i));
+//   }
+//   return els;
+// }
 
 export default {
   name: 'Snapshot',
@@ -69,6 +70,7 @@ export default {
   },
   props: ['selected'],
   methods: {
+    // TODO Get screenshot image from api
     toDataUri(buf) {
       return `data:image/png;base64,` + arrayBufferToBase64(buf);
     },
@@ -79,6 +81,10 @@ export default {
 
     showSource() {
        this.$store.commit('setShowSource');
+    },
+
+    getSelector(step) {
+      return step.args[0];
     }
   },
   data: function () {

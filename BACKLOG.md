@@ -15,11 +15,12 @@
 - Make absolute link href="node_modules/..."
 - Steps: Format assertion steps ala cypress
 - Steps: Format presskey steps using key icon
+- Proxy http calls from dev server to api backend
+- Implement API route which returns html snapshot
+- Highlight element in html snapshot using selector from step
 
 ## In Progress
 
-- Proxy http calls from dev server to api backend
-- Implement API route which returns html snapshot
 - Implement web console
     * x Close shell (and continue test)
     * x Step-by-step execution

@@ -5,13 +5,34 @@
 </template>
 
 <script>
+
+const highlightInIframe = (iframeId, sel) => {
+    const iframe = document.getElementById(iframeId);
+    const innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    const els = innerDoc.querySelectorAll(sel)
+    if (els) {
+        els.forEach(el => {
+            el.style.transition = 'all .5s ease';
+            el.style.border = '2px solid hsl(348, 100%, 61%)';
+            el.style['border-radius'] = '2px';
+        })
+    }
+}
+
 export default {
     name: 'SnapshotSource',
-    props: ['stepId'],
+    props: ['stepId', 'highlight'],
     methods: {
         buildSnapshotUrl(stepId) {
             return `/api/snapshots/html/${stepId}`;
         }
+    },
+
+    updated() {
+        setTimeout(() => {
+            highlightInIframe('source', this.$props.highlight);
+        }, 500);
     }
 }
 </script>

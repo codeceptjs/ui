@@ -73,6 +73,7 @@
 
 <script>
 import Step from './Step';
+import Convert from 'ansi-to-html';
 
 export default {
   name: 'Test',
@@ -133,7 +134,9 @@ export default {
     },
 
     cliError() {
-      return this.$store.state.cli.message;
+      var convert = new Convert();
+
+      return convert.toHtml(this.$store.state.cli.message);
     }
   }
 }

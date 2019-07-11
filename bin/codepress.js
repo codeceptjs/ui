@@ -4,10 +4,44 @@ var express = require('express');
 var app = express();
 const io = require('socket.io')();
 
-app.use(express.static('./dist'));
-
+// Base port
 const PORT = 3000;
 
+// Store
+let steps = {}
+
+const processStep = step => {
+  if (step.snapshot.sourceContentType === 'html') {
+    const url = new URL(step.snapshot.pageUrl);
+
+    // Fix up css and script links
+    let processedSource = step.snapshot.source;
+    processedSource = processedSource.replace(/href="([^\/])/gi, `href="${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}${url.pathname}$1`);
+    processedSource = processedSource.replace(/href="\/\//gi, `href="https://`);
+    processedSource = processedSource.replace(/href="\//gi, `href="https://${url.hostname}/`);
+  
+    step.snapshot.source = processedSource;  
+  }
+  return step; 
+}
+
+/**
+ * HTTP Routes
+ */
+app.get('/api/snapshots/html/:id', function (req, res) {
+  const {id} = req.params;
+
+  if (!steps[id]) {
+    res.status(404).send(`No step for id ${id}`);
+    return;
+  }
+
+  res.send(steps[id].snapshot.source);
+});
+
+/**
+ * Websocket Events
+ */
 io.on('connection', socket => {
   // eslint-disable-next-line no-console
   console.log('socket connects');
@@ -32,10 +66,14 @@ io.on('connection', socket => {
   })
 
   socket.on('suite.before', (data) => {
+    steps = {};
+
     socket.broadcast.emit('suite.before', data);
   })
 
   socket.on('test.before', (data) => {
+    steps = {};
+
     socket.broadcast.emit('test.before', data);
   })
 
@@ -48,7 +86,9 @@ io.on('connection', socket => {
   })
 
   socket.on('step.before', (data) => {
-    socket.broadcast.emit('step.before', data);
+    steps[data.id] = processStep(data);
+
+    socket.broadcast.emit('step.before', steps[data.id]);
   })
 
   socket.on('finish', (data) => {

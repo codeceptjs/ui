@@ -18,6 +18,8 @@
 
 ## In Progress
 
+- Proxy http calls from dev server to api backend
+- Implement API route which returns html snapshot
 - Implement web console
     * x Close shell (and continue test)
     * x Step-by-step execution

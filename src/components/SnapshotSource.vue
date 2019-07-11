@@ -1,21 +1,16 @@
 <template>
     <div class="SnapshotSource">
-        <iframe id="source" :src="toDataUri(pageUrl, source, sourceContentType)" frameborder="0"></iframe>
+        <iframe id="source" :src="buildSnapshotUrl(stepId)" frameborder="0"></iframe>
     </div>
 </template>
 
 <script>
 export default {
     name: 'SnapshotSource',
-    props: ['pageUrl', 'source', 'sourceContentType'],
+    props: ['stepId'],
     methods: {
-        toDataUri(pageUrl, source) {
-            const url = new URL(pageUrl);
-            let processedSource = source
-            processedSource = processedSource.replace(/href="([^\/])/gi, `href="${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}${url.pathname}$1`);
-            processedSource = processedSource.replace(/href="\/\//gi, `href="https://`);
-            processedSource = processedSource.replace(/href="\//gi, `href="https://${url.hostname}/`);
-            return `data:text/html;charset=iso-8859-1,` + escape(processedSource);
+        buildSnapshotUrl(stepId) {
+            return `/api/snapshots/html/${stepId}`;
         }
     }
 }

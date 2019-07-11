@@ -26,9 +26,7 @@
 
       <snapshot-source 
         v-if="isShowSource"
-        v-bind:pageUrl="selected.snapshot.pageUrl"
-        v-bind:source="selected.snapshot.source"
-        v-bind:sourceContentType="selected.snapshot.sourceContentType"
+        v-bind:stepId="selected.id"
       />
     </div>
 

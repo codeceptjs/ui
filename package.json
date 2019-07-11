@@ -10,6 +10,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@medv/finder": "^1.1.1",
     "ansi-to-html": "^0.6.11",
     "buefy": "^0.7.7",
     "codeceptjs": "^2.1.5",

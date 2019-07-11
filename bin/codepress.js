@@ -11,7 +11,7 @@ const PORT = 3000;
 let steps = {}
 
 const processStep = step => {
-  if (step.snapshot.sourceContentType === 'html') {
+  if (step.snapshot && step.snapshot.sourceContentType === 'html') {
     const url = new URL(step.snapshot.pageUrl);
 
     // Fix up css and script links
@@ -33,6 +33,10 @@ app.get('/api/snapshots/html/:id', function (req, res) {
 
   if (!steps[id]) {
     res.status(404).send(`No step for id ${id}`);
+    return;
+  }
+  if (!steps[id].snapshot) {
+    res.status(404).send(`No snapshot for step id ${id}`);
     return;
   }
 

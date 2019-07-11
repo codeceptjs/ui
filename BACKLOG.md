@@ -38,6 +38,7 @@
 - HTML Snapshot: Preserve input values
 - HTML Snapshot: Store scroll position, window size, cursor position
 - Highlight elements in screenshot
+- Open file (test/page object) from step
 - determine original and current image size
 - Show run status
 - Center screenshot

@@ -43,6 +43,11 @@
         <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
     </div>
 
+    <div v-else-if="isAmOnPageStep" class="Step-amOnPage">
+      I {{step.humanized}}
+      <a class="Step-argUrl" :href="step.args[0]">{{step.args[0]}}</a>
+    </div>
+
     <div v-else class="Step">
       <div class="Step-name">
         I {{step.humanized}}
@@ -55,6 +60,13 @@
 
 <script>
 import {getSelectorString} from '../services/selector';
+
+const trunc = (str, maxlen) => {
+  if (str.length > maxlen) {
+    return str.slice(1, maxlen) + '...';
+  }
+  return str;
+}
 
 export default {
   name: 'Step',
@@ -97,6 +109,11 @@ export default {
       return step.name.indexOf('pressKey') === 0;
     },
 
+    isAmOnPageStep: function () {
+      const step = this.$props.step;
+      return step.name.startsWith('amOnPage');
+    },
+
     isSeeStep: function () {
       const step = this.$props.step;
       return step.name.indexOf('see') === 0;
@@ -109,7 +126,8 @@ export default {
   },
   methods: {
     getSelector: function (stepArgs) {
-      return getSelectorString(stepArgs[0]).label;
+      const {label} = getSelectorString(stepArgs[0]);
+      return trunc(label, 20);
     },
 
     toStringOrNumber: function (stringOrNumber) {
@@ -183,6 +201,9 @@ export default {
   padding: 2px 5px;
 }
 
+.Step-amOnPage {
+  padding: 2px 5px;
+}
 
 .Step-name {
   white-space: nowrap;
@@ -194,6 +215,13 @@ export default {
   margin-left: 0.5em;
   color: hsl(204, 86%, 53%);
 }
+
+.Step-argUrl {
+  display: inline;
+  margin-left: 0.5em;
+  color:hsl(171, 100%, 41%)
+}
+
 .Step-argOther {
   margin-left: 0.5em;
   color:hsl(171, 100%, 41%)

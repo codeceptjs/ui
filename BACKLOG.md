@@ -23,10 +23,11 @@
 - Selectors: Use value property of object literals
 - codepress command should copy support files to current test project (helpers etc.)
 - Implement pause() with websockets
+- Codepress should serve vuejs app from codepress dir
+- Bug: Error step not shown
 
 ## In Progress
 
-- Codepress should serve vuejs app from codepress dir
 - codepress should list tests
 - Send highlighted element to cli / "clipboard"
 - Implement web console
@@ -42,6 +43,7 @@
 
 - "fuzzy full text search" for elements (on class names) would be nice
 - click: Take before AND after screenshot
+- Make a special executeScript step
 - Make a special refreshPage step
 - Make a special grab... step
 - Support showing multiple tests not just one

@@ -1,11 +1,17 @@
 #!/usr/bin/env node
+const path = require('path');
 const express = require('express');
 const app = express();
 const io = require('socket.io')();
+const open = require('open');
+const {URL} = require('url');
 
 const {init} = require('../lib/init');
+const {listScenarios} = require('../lib/list-scenarios');
 
-init();
+(async function() {
+  await init();
+})()
 
 // Base port
 const PORT = 3000;
@@ -28,10 +34,11 @@ const processStep = step => {
   return step; 
 }
 
+const AppDir = path.join(__dirname, '..', 'dist');
 /**
  * HTTP Routes
  */
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(AppDir));
 
 app.get('/api/snapshots/html/:id', function (req, res) {
   const {id} = req.params;
@@ -46,6 +53,10 @@ app.get('/api/snapshots/html/:id', function (req, res) {
   }
 
   res.send(steps[id].snapshot.source);
+});
+
+app.get('/api/scenarios', (req, res) => {
+  res.send(listScenarios());
 });
 
 /**
@@ -112,8 +123,8 @@ io.on('connection', socket => {
 
 // eslint-disable-next-line no-console
 console.log(`Listening for websocket connections on port ${PORT}`);
-// eslint-disable-next-line no-console
-console.log(`Go to http://localhost:${PORT+1}`);
+
+open(`http://localhost:${PORT+1}`);
 
 io.listen(PORT);
 app.listen(PORT + 1);

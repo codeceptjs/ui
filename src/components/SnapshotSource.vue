@@ -1,7 +1,7 @@
 <template>
     <div class="SnapshotSource">
         <div class="SnapshotSource-mouseInterceptor"></div>
-        <iframe id="source" :src="buildSnapshotUrl(stepId)" frameborder="0"></iframe>
+        <iframe id="source" :src="buildSnapshotUrl(snapshotId)" frameborder="0"></iframe>
     </div>
 </template>
 
@@ -117,10 +117,10 @@ const highlightInIframe = (doc, sel) => {
 
 export default {
     name: 'SnapshotSource',
-    props: ['stepId', 'highlight'],
+    props: ['snapshotId', 'highlight'],
     methods: {
-        buildSnapshotUrl(stepId) {
-            return `/api/snapshots/html/${stepId}`;
+        buildSnapshotUrl(snapshotId) {
+            return `/api/snapshots/html/${snapshotId}`;
         }
     },
 

@@ -26,7 +26,7 @@
 
       <snapshot-source 
         v-if="isShowSource"
-        v-bind:stepId="selected.id"
+        v-bind:snapshotId="selected.snapshot.id"
         v-bind:highlight="getSelector(selected)"
       />
     </div>

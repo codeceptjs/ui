@@ -62,7 +62,7 @@
     </div>
 
     <div v-if="test.error" class="Test-error">
-      <b-message :title="test.error.name" type="is-danger">
+      <b-message type="is-danger">
         {{test.error.message}}
       </b-message>
     </div>
@@ -146,6 +146,11 @@ export default {
 .Test-spacer {
   height: 2em;
   width: 100%;
+}
+
+.Test-error {
+  font-size: 0.8em;
+  margin-top: 1em;
 }
 
 .InteractiveShell {

@@ -1,8 +1,11 @@
 #!/usr/bin/env node
-
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 const io = require('socket.io')();
+
+const {init} = require('../lib/init');
+
+init();
 
 // Base port
 const PORT = 3000;
@@ -28,6 +31,8 @@ const processStep = step => {
 /**
  * HTTP Routes
  */
+app.use(express.static(__dirname + '/dist'));
+
 app.get('/api/snapshots/html/:id', function (req, res) {
   const {id} = req.params;
 
@@ -106,7 +111,7 @@ io.on('connection', socket => {
 });
 
 // eslint-disable-next-line no-console
-console.log(`Waiting for websocket connections on port ${PORT}`);
+console.log(`Listening for websocket connections on port ${PORT}`);
 // eslint-disable-next-line no-console
 console.log(`Go to http://localhost:${PORT+1}`);
 

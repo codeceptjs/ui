@@ -20,10 +20,10 @@
 - Highlight element in html snapshot using selector from step
 - Highlight elements in iframe when hovering
 - Highlight: Show css sel for highlighted element
+- Selectors: Use value property of object literals
 
 ## In Progress
 
-- Selectors: Use value property of object literals
 - codepress command should copy support files to current test project (helpers etc.)
 - Send highlighted element to cli / "clipboard"
 - Implement web console

@@ -30,8 +30,12 @@ const findShortSelector = (doc, el) => {
 }
 
 const dehighlightAll = doc => {
-    var oldOutlines = doc.querySelectorAll('.codepress-outline')
-    oldOutlines.forEach(ol => ol.remove())
+    try {
+        const oldOutlines = doc.querySelectorAll('.codepress-outline')
+        oldOutlines.forEach(ol => ol.remove())
+    } catch (err) {
+        console.warn(err);
+    }
 }
 
 const highlightElement = el => {
@@ -74,12 +78,36 @@ const highlightElement = el => {
     doc.querySelector('body').appendChild(textContainer)
 }
 
-const highlightInIframe = (doc, sel) => {
-    let els = doc.querySelectorAll(sel)
-    if (!els || els.length === 0) {
-        let res = doc.evaluate(`//*[contains(text(),'${sel}')]`, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
-        els = [res.singleNodeValue];
+const findByCssOrXPath = (doc, sel) => {
+    let els;
+    try {
+        els = doc.querySelectorAll(sel)
+    } catch (err) {
+        console.warn(err);
     }
+
+    if (!els || els.length === 0) {
+        try {
+            let res = doc.evaluate(sel, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
+            els = [res.singleNodeValue];
+        } catch (err) {
+            console.warn(err);
+        }
+    }
+
+    return els;
+}
+
+const highlightInIframe = (doc, sel) => {
+    let els = findByCssOrXPath(doc, sel);
+
+    if (!els || els.length === 0) {
+        try {
+            let res = doc.evaluate(`//*[contains(text(),'${sel}')]`, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
+            els = [res.singleNodeValue];
+        } catch (_) {}
+    }
+
     if (els) {
         els.forEach(el => {
             highlightElement(el);

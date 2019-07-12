@@ -22,6 +22,9 @@
 - Highlight: Show css sel for highlighted element
 
 ## In Progress
+
+- Selectors: Use value property of object literals
+- codepress command should copy support files to current test project (helpers etc.)
 - Send highlighted element to cli / "clipboard"
 - Implement web console
     * x Close shell (and continue test)
@@ -34,7 +37,13 @@
 
 ## Backlog
 
-- codepress command should copy support files to current test project (helpers etc.)
+- "full text search" for elements could be nice
+- click: Take before AND after screenshot
+- Make a special refreshPage step
+- Make a special grab... step
+- Support showing multiple tests not just one
+- Show snapshot when hovering over step
+- HTML Snapshot: Does not scroll anymore (probably because of mouse click overlay)
 - HTML Snapshot: Preserve input values
 - HTML Snapshot: Store scroll position, window size, cursor position
 - Highlight elements in screenshot

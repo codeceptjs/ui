@@ -32,12 +32,13 @@
       <i class="fas fa-image"></i>&nbsp;<span>{{step.args[0]}}</span>
     </div>
 
-    <div 
+    <div class="Step-see"
       v-else-if="isSeeStep" 
-      class="Step-see">
+    >
         <span class="tag is-success">
-          {{step.humanized}}
+          assert
         </span>
+        {{step.humanized}}
         <span class="Step-argSelector">{{getSelector(step.args)}}</span>
         <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
     </div>
@@ -53,6 +54,8 @@
 </template>
 
 <script>
+import {getSelectorString} from '../services/selector';
+
 export default {
   name: 'Step',
   props: ['step', 'selectedStep', 'isSelected', 'error'],
@@ -106,13 +109,7 @@ export default {
   },
   methods: {
     getSelector: function (stepArgs) {
-      const first = stepArgs[0];
-      if (!first) return '';
-
-      if (typeof first === 'object') {
-        return first.output || first;
-      }
-      return first;
+      return getSelectorString(stepArgs[0]).label;
     },
 
     toStringOrNumber: function (stringOrNumber) {

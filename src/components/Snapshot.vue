@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import {getSelectorString} from '../services/selector';
 import SnapshotSource from './SnapshotSource'
 
 function arrayBufferToBase64(buffer) {
@@ -84,7 +85,7 @@ export default {
     },
 
     getSelector(step) {
-      return step.args[0];
+      return getSelectorString(step.args[0]).value;
     }
   },
   data: function () {

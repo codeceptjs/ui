@@ -21,10 +21,13 @@
 - Highlight elements in iframe when hovering
 - Highlight: Show css sel for highlighted element
 - Selectors: Use value property of object literals
+- codepress command should copy support files to current test project (helpers etc.)
+- Implement pause() with websockets
 
 ## In Progress
 
-- codepress command should copy support files to current test project (helpers etc.)
+- Codepress should serve vuejs app from codepress dir
+- codepress should list tests
 - Send highlighted element to cli / "clipboard"
 - Implement web console
     * x Close shell (and continue test)
@@ -37,7 +40,7 @@
 
 ## Backlog
 
-- "full text search" for elements could be nice
+- "fuzzy full text search" for elements (on class names) would be nice
 - click: Take before AND after screenshot
 - Make a special refreshPage step
 - Make a special grab... step
@@ -53,4 +56,3 @@
 - Center screenshot
 - Implement element highlighting for appium
 - Persist test run data in local storage
-- Implement pause() with websockets

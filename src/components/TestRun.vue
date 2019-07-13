@@ -47,7 +47,7 @@ const scrollToLastStep = () => {
 }
 
 export default {
-  name: 'Home',
+  name: 'TestRun',
   props: {},
   components: {
     Test,
@@ -116,7 +116,7 @@ export default {
   -webkit-overflow-scrolling: touch;
   padding: 5px 5px 5px 10px;
   width: 460px;
-  background-color: #f5f5f5;
+  background-color: #fafafa;
 }
 
 .Content {

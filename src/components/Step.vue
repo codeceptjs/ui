@@ -149,11 +149,11 @@ export default {
 }
 
 .StepContainer--passed {
-  border-left: 3px solid hsl(141, 71%, 48%);
+  border-left: 4px solid hsl(141, 71%, 48%);
 }
 
 .StepContainer--failed {
-  border-left: 3px solid hsl(348, 100%, 61%);
+  border-left: 4px solid hsl(348, 100%, 61%);
 }
 
 .Step {

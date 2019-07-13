@@ -34,6 +34,7 @@ const dehighlightAll = doc => {
         const oldOutlines = doc.querySelectorAll('.codepress-outline')
         oldOutlines.forEach(ol => ol.remove())
     } catch (err) {
+        // eslint-disable-next-line
         console.warn(err);
     }
 }
@@ -83,6 +84,7 @@ const findByCssOrXPath = (doc, sel) => {
     try {
         els = doc.querySelectorAll(sel)
     } catch (err) {
+        // eslint-disable-next-line
         console.warn(err);
     }
 
@@ -91,6 +93,7 @@ const findByCssOrXPath = (doc, sel) => {
             let res = doc.evaluate(sel, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
             els = [res.singleNodeValue];
         } catch (err) {
+            // eslint-disable-next-line
             console.warn(err);
         }
     }
@@ -105,7 +108,10 @@ const highlightInIframe = (doc, sel) => {
         try {
             let res = doc.evaluate(`//*[contains(text(),'${sel}')]`, doc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
             els = [res.singleNodeValue];
-        } catch (_) {}
+        } catch (err) {
+            // eslint-disable-next-line
+            console.warn(err);
+        }
     }
 
     if (els) {

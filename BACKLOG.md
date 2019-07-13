@@ -25,10 +25,11 @@
 - Implement pause() with websockets
 - Codepress should serve vuejs app from codepress dir
 - Bug: Error step not shown
+- codepress should list tests
 
 ## In Progress
 
-- codepress should list tests
+- Select a scenario and run it
 - Send highlighted element to cli / "clipboard"
 - Implement web console
     * x Close shell (and continue test)

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="TestRun">
     <div class="Header">
       <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Test from './Test';
 import Snapshot from './Snapshot';
 
@@ -82,6 +83,9 @@ export default {
       scrollToLastStep();
     }
   },
+  created: function () {
+    this.run();
+  },
   computed: {
     tests() {
       return this.$store.state.tests;
@@ -93,6 +97,12 @@ export default {
   methods: {
     onSelectStep(step) {
       this.$store.commit('setSelectedStep', step);
+    },
+
+    run() {
+      const scenario = this.$route.params.scenario;
+      if (!scenario) console.error('Scenario must be given in route params');
+      axios.get(`/api/scenarios/${encodeURIComponent(scenario)}/run`);
     }
   }
 }

@@ -26,10 +26,14 @@
 - Codepress should serve vuejs app from codepress dir
 - Bug: Error step not shown
 - codepress should list tests
+- Select a scenario and run it
 
 ## In Progress
 
-- Select a scenario and run it
+- Show loading spinner when test runs
+- Support multiple tests in test run view
+- Add a button to run a test again
+- Fix console error message
 - Send highlighted element to cli / "clipboard"
 - Implement web console
     * x Close shell (and continue test)
@@ -42,6 +46,7 @@
 
 ## Backlog
 
+- BUG finder sometimes does not generate selectors
 - "fuzzy full text search" for elements (on class names) would be nice
 - click: Take before AND after screenshot
 - Make a special executeScript step

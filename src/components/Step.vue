@@ -62,6 +62,7 @@
 import {getSelectorString} from '../services/selector';
 
 const trunc = (str, maxlen) => {
+  if (!str) return;
   if (str.length > maxlen) {
     return str.slice(1, maxlen) + '...';
   }

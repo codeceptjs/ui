@@ -4,10 +4,10 @@ const express = require('express');
 const app = express();
 const io = require('socket.io')();
 const open = require('open');
-const {URL} = require('url');
 
-const {init} = require('../lib/init');
-const {listScenarios} = require('../lib/list-scenarios');
+const {init} = require('../lib/commands/init');
+const api = require('../lib/api');
+const snapshotStore = require('../lib/model/snapshot-store');
 
 (async function() {
   await init();
@@ -16,48 +16,13 @@ const {listScenarios} = require('../lib/list-scenarios');
 // Base port
 const PORT = 3000;
 
-// Store
-let steps = {}
-
-const processStep = step => {
-  if (step.snapshot && step.snapshot.sourceContentType === 'html') {
-    const url = new URL(step.snapshot.pageUrl);
-
-    // Fix up css and script links
-    let processedSource = step.snapshot.source;
-    processedSource = processedSource.replace(/href="([^\/])/gi, `href="${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}${url.pathname}$1`);
-    processedSource = processedSource.replace(/href="\/\//gi, `href="https://`);
-    processedSource = processedSource.replace(/href="\//gi, `href="https://${url.hostname}/`);
-  
-    step.snapshot.source = processedSource;  
-  }
-  return step; 
-}
-
+// Serve frontend from dist
 const AppDir = path.join(__dirname, '..', 'dist');
 /**
  * HTTP Routes
  */
 app.use(express.static(AppDir));
-
-app.get('/api/snapshots/html/:id', function (req, res) {
-  const {id} = req.params;
-
-  if (!steps[id]) {
-    res.status(404).send(`No step for id ${id}`);
-    return;
-  }
-  if (!steps[id].snapshot) {
-    res.status(404).send(`No snapshot for step id ${id}`);
-    return;
-  }
-
-  res.send(steps[id].snapshot.source);
-});
-
-app.get('/api/scenarios', (req, res) => {
-  res.send(listScenarios());
-});
+app.use('/api', api);
 
 /**
  * Websocket Events
@@ -86,13 +51,13 @@ io.on('connection', socket => {
   })
 
   socket.on('suite.before', (data) => {
-    steps = {};
+    snapshotStore.clear();
 
     socket.broadcast.emit('suite.before', data);
   })
 
   socket.on('test.before', (data) => {
-    steps = {};
+    snapshotStore.clear();
 
     socket.broadcast.emit('test.before', data);
   })
@@ -106,9 +71,8 @@ io.on('connection', socket => {
   })
 
   socket.on('step.before', (data) => {
-    steps[data.id] = processStep(data);
-
-    socket.broadcast.emit('step.before', steps[data.id]);
+    const step = snapshotStore.add(data.id, data);
+    socket.broadcast.emit('step.before', step);
   })
 
   socket.on('finish', (data) => {

@@ -1,20 +1,11 @@
 <template>
   <div class="TestRun">
     <div class="Header">
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <h3 class="title">codepress</h3>
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      </nav>
-   </div>
+      <Header :loading="isRunning" v-on:run="run()" />
+    </div>
 
     <aside class="Sidebar">
-      <test v-for="test in tests"
+      <Test v-for="test in tests"
         v-bind:key="test.title"
         v-bind:test="test"
         v-bind:selectedStep="selectedStep"
@@ -23,7 +14,7 @@
     </aside>
 
     <div class="Content">
-      <snapshot v-if="selectedStep"
+      <Snapshot v-if="selectedStep"
         v-bind:selected="selectedStep"
       />
     </div>
@@ -32,6 +23,7 @@
 
 <script>
 import axios from 'axios';
+import Header from './Header';
 import Test from './Test';
 import Snapshot from './Snapshot';
 
@@ -51,6 +43,7 @@ export default {
   name: 'TestRun',
   props: {},
   components: {
+    Header,
     Test,
     Snapshot
   },
@@ -62,6 +55,7 @@ export default {
       this.$store.commit('setRunning', true);
     },
     'test.before': function (test) {
+      this.$store.commit('setRunning', true);
       this.$store.commit('clearTests');
       this.$store.commit('addTest', test);
     },
@@ -84,7 +78,7 @@ export default {
     }
   },
   created: function () {
-    this.run();
+    // this.run();
   },
   computed: {
     tests() {
@@ -93,6 +87,9 @@ export default {
     selectedStep() {
       return this.$store.state.selectedStep;
     },
+    isRunning() {
+      return this.$store.state.isRunning;
+    }
   },
   methods: {
     onSelectStep(step) {

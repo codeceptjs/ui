@@ -3,10 +3,10 @@
     
     <div class="Snapshot-actions" v-if="selected.snapshot">
       <div class="buttons has-addons">
-        <span class="button" v-if="selected.snapshot.screenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
+        <span class="button" v-if="selected.snapshot.hasScreenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
           <i class="far fa-image"></i>
         </span>
-        <span class="button" v-if="selected.snapshot.source" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">
+        <span class="button" v-if="selected.snapshot.hasSource" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">
           <i class="far fa-file-code"></i>
         </span>
       </div>
@@ -18,9 +18,10 @@
     </div>
 
     <div class="Snapshot-data" v-if="selected.snapshot">
+      <!-- TODO get image from server -->
       <img v-if="isShowImage" 
         class="Snapshot-image"
-        :src="toDataUri(selected.snapshot.screenshot)" 
+        :src="toImageUrl(selected.snapshot)" 
         :alt="selected.name"
       >
 
@@ -71,9 +72,8 @@ export default {
   },
   props: ['selected'],
   methods: {
-    // TODO Get screenshot image from api
-    toDataUri(buf) {
-      return `data:image/png;base64,` + arrayBufferToBase64(buf);
+    toImageUrl(snapshot) {
+      return `/api/snapshots/screenshot/${snapshot.id}`;
     },
 
     showImage() {

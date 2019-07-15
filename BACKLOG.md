@@ -27,12 +27,15 @@
 - Bug: Error step not shown
 - codepress should list tests
 - Select a scenario and run it
+- Add realtime report helper on the fly
+- Add a button to run a test again
+- make http method  equal width
 
 ## In Progress
 
+- Make icons equal width
 - Show loading spinner when test runs
 - Support multiple tests in test run view
-- Add a button to run a test again
 - Fix console error message
 - Send highlighted element to cli / "clipboard"
 - Implement web console
@@ -46,12 +49,16 @@
 
 ## Backlog
 
+- SnapshotSource: Must update selector highlighting even if snapshot did not change (waitForVisible)
+- Html Snapshot: Rewrite image urls
+- Collapse subsequent REST requests into a collapsible step
+- Steps: Special xxxCookie step
 - BUG finder sometimes does not generate selectors
 - "fuzzy full text search" for elements (on class names) would be nice
 - click: Take before AND after screenshot
-- Make a special executeScript step
-- Make a special refreshPage step
-- Make a special grab... step
+- Steps: Make a special executeScript step
+- Steps: Make a special refreshPage step
+- Steps: Make a special grab... step
 - Support showing multiple tests not just one
 - Show snapshot when hovering over step
 - HTML Snapshot: Does not scroll anymore (probably because of mouse click overlay)

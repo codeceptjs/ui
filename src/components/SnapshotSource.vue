@@ -74,6 +74,7 @@ const highlightElement = el => {
     textContainer.style.top = rect.top + window.scrollY + 'px'
     textContainer.style.left = rect.left + window.scrollX + 'px'
     textContainer.style['pointer-events'] = 'none'; // be able to click through this element
+    textContainer.style['z-index'] = '10000';
 
     doc.querySelector('body').appendChild(newOutline)
     doc.querySelector('body').appendChild(textContainer)

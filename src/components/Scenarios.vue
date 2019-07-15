@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style>
+.TestFile {
+  margin-bottom: 0.5em;
+}
+
 .TestFile-fileName {
   font-size: 0.8em;
   color: #ccc;

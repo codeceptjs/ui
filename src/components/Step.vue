@@ -7,35 +7,43 @@
       v-if="step.name.includes('send')" 
       class="Step-rest">
       <div>
-        <span class="tag is-info">
+        <span class="Step-restMethod">
           {{httpMethod}}
         </span>
-        {{urlRearPart}}
+        <span class="Step-restUrl">
+          {{urlRearPart}}
+        </span>
       </div>
     </div>
 
     <div 
       v-else-if="isWaitStep" 
       class="Step-wait">
-      <i class="fas fa-hourglass"></i> {{step.humanized}} <span>{{step.args[0]}}</span>
+      <i class="Step-icon fas fa-hourglass"></i> {{step.humanized}} <span>{{step.args[0]}}</span>
+    </div>
+
+    <div 
+      v-else-if="isCookieStep" 
+      class="Step-cookie">
+      <i class="Step-icon fas fa-cookie"></i> {{step.humanized}}
     </div>
 
     <div 
       v-else-if="isPressKeyStep" 
       class="Step-pressKey">
-      <i class="fas fa-keyboard"></i>&nbsp;<span>{{step.args[0]}}</span>
+      <i class="Step-icon fas fa-keyboard"></i>&nbsp;<span>{{step.args[0]}}</span>
     </div>
 
     <div 
       v-else-if="isSaveScreenshotStep" 
       class="Step-saveScreenshot">
-      <i class="fas fa-image"></i>&nbsp;<span>{{step.args[0]}}</span>
+      <i class="Step-icon fas fa-image"></i>&nbsp;<span>{{step.args[0]}}</span>
     </div>
 
     <div class="Step-see"
       v-else-if="isSeeStep" 
     >
-        <span class="tag is-success">
+        <span class="Step-seeAssert tag is-success is-small">
           assert
         </span>
         {{step.humanized}}
@@ -44,8 +52,7 @@
     </div>
 
     <div v-else-if="isAmOnPageStep" class="Step-amOnPage">
-      I {{step.humanized}}
-      <a class="Step-argUrl" :href="step.args[0]">{{step.args[0]}}</a>
+      I {{step.humanized}} <span class="Step-argOther">{{step.args[0]}}</span>
     </div>
 
     <div v-else class="Step">
@@ -97,12 +104,17 @@ export default {
       if (!url) return;
       url = new URL(url);
 
-      return '...' + url.pathname.slice(-40);
+      return url.pathname;
     },
 
     isWaitStep: function () {
       const step = this.$props.step;
       return step.name.indexOf('wait') === 0;
+    },
+
+    isCookieStep: function () {
+      const step = this.$props.step;
+      return step.name.includes('Cookie');
     },
 
     isPressKeyStep: function () {
@@ -128,7 +140,7 @@ export default {
   methods: {
     getSelector: function (stepArgs) {
       const {label} = getSelectorString(stepArgs[0]);
-      return trunc(label, 20);
+      return label;
     },
 
     toStringOrNumber: function (stringOrNumber) {
@@ -142,7 +154,8 @@ export default {
 <style scoped>
 .StepContainer {
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: 0.85em;
+  font-family: monospace; 
 }
 
 .StepContainer--selected {
@@ -162,6 +175,11 @@ export default {
   color: #4f5959;
 }
 
+.Step-icon {
+  display: inline-block;
+  width: 1em;
+}
+
 .Step-rest {
   font-size: 0.8em;
   margin-left: 1em;
@@ -171,6 +189,18 @@ export default {
   text-overflow: ellipsis;
 }
 
+.Step-restMethod {
+  display: inline-block;
+  border-radius: 2px;
+  color: blue;
+  width: 4em;
+  text-transform: uppercase;
+}
+
+.Step-restUrl {
+  color: hsl(0, 0%, 71%);
+}
+
 .Step-wait {
   font-size: 0.8em;
   margin-left: 1em;
@@ -178,6 +208,13 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: hsl(0, 0%, 71%);
+}
+
+.Step-cookie {
+  font-size: 0.8em;
+  margin-left: 1em;
+  padding: 2px 5px;
   color: hsl(0, 0%, 71%);
 }
 
@@ -193,6 +230,13 @@ export default {
 
 .Step-see {
   padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Step-seeAssert {
+  padding: 2px;
 }
 
 .Step-saveScreenshot {
@@ -204,6 +248,9 @@ export default {
 
 .Step-amOnPage {
   padding: 2px 5px;
+   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Step-name {

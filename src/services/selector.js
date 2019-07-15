@@ -7,7 +7,10 @@ export function getSelectorString(stepArg) {
     if (!first) return { label, value: '' };
 
     if (typeof first === 'object') {
-        if (first.output) {
+        if (first.xpath || first.css) {
+            value = first.xpath || first.css;
+            label = value;
+        } else if (first.output) {
             label = `"${first.output}"`;
             value = first.value || first;
         } else {

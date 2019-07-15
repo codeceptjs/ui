@@ -30,10 +30,12 @@
 - Add realtime report helper on the fly
 - Add a button to run a test again
 - make http method  equal width
+- Make icons equal width
 
 ## In Progress
 
-- Make icons equal width
+- Fix error screenshot/snapshot
+- "Back to Scenarios" button
 - Show loading spinner when test runs
 - Support multiple tests in test run view
 - Fix console error message
@@ -49,6 +51,9 @@
 
 ## Backlog
 
+- "Linting": e.g detect missing waits, unncessary fixed waits etc.
+- Testrun Actions: Stop on error button
+- Testrun Actions: Run with making screenshots
 - SnapshotSource: Must update selector highlighting even if snapshot did not change (waitForVisible)
 - Html Snapshot: Rewrite image urls
 - Collapse subsequent REST requests into a collapsible step

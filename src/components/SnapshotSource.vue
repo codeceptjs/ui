@@ -18,7 +18,7 @@ const findShortSelector = (doc, el) => {
     try {
         return finder(el, {
             root: doc,
-            className: (name) => !name.startsWith('ng-'),
+            className: (name) => !name.startsWith('ng-') && !name.startsWith('css-'),
             tagName: (name) => !['div', 'span'].includes(name) && !name.startsWith('ng-'),
             seedMinLength: 1,
             optimizedMinLength: 2,

@@ -31,11 +31,11 @@
 - Add a button to run a test again
 - make http method  equal width
 - Make icons equal width
+- "Back to Scenarios" button
+- Fix error screenshot/snapshot
 
 ## In Progress
 
-- Fix error screenshot/snapshot
-- "Back to Scenarios" button
 - Show loading spinner when test runs
 - Support multiple tests in test run view
 - Fix console error message
@@ -51,6 +51,9 @@
 
 ## Backlog
 
+- assert should be read when step failed
+- Should throttle mousemove over iframe (high cpu usage with all that selector stuff)
+- BUG: Can not extract scenario title in backticks
 - "Linting": e.g detect missing waits, unncessary fixed waits etc.
 - Testrun Actions: Stop on error button
 - Testrun Actions: Run with making screenshots

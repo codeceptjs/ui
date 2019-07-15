@@ -55,8 +55,6 @@ export default {
       this.$store.commit('setRunning', true);
     },
     'test.before': function (test) {
-      this.$store.commit('setRunning', true);
-      this.$store.commit('clearTests');
       this.$store.commit('addTest', test);
     },
     'test.failed': function (error) {
@@ -78,7 +76,7 @@ export default {
     }
   },
   created: function () {
-    // this.run();
+    this.$store.commit('clearTests');
   },
   computed: {
     tests() {
@@ -98,8 +96,10 @@ export default {
 
     run() {
       const scenario = this.$route.params.scenario;
-      if (!scenario) console.error('Scenario must be given in route params');
       axios.get(`/api/scenarios/${encodeURIComponent(scenario)}/run`);
+
+      this.$store.commit('clearTests');
+      this.$store.commit('setRunning', true);
     }
   }
 }

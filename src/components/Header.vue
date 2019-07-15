@@ -16,8 +16,9 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a v-if="loading" class="navbar-item">
-                    <i class="fas fa-circle-notch fa-spin"></i>
+                <a class="navbar-item">
+                    <i v-if="loading" class="fas fa-circle-notch fa-spin fixed-width"></i>
+                    <span v-else class="fixed-width"></span>
                 </a>
 
                 <div class="navbar-item">
@@ -31,20 +32,15 @@
 
             </div>
 
-            <!--
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
+                    <a class="button is-primary is-small" href="/#/">
+                        Scenarios
                     </a>
                     </div>
                 </div>
             </div>
-            -->
         </div>
     </nav>
 </template>
@@ -60,4 +56,12 @@ export default {
     }
 }
 </script>
+
+<style>
+.fixed-width {
+    display: inline-block;
+    width: 1em;
+}
+</style>
+
 

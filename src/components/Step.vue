@@ -29,6 +29,12 @@
     </div>
 
     <div 
+      v-else-if="isRefreshPageStep" 
+      class="Step-refreshPage">
+      <i class="Step-icon fas fa-sync"></i> {{step.humanized}}
+    </div>
+
+    <div 
       v-else-if="isPressKeyStep" 
       class="Step-pressKey">
       <i class="Step-icon fas fa-keyboard"></i>&nbsp;<span>{{step.args[0]}}</span>
@@ -115,6 +121,11 @@ export default {
     isCookieStep: function () {
       const step = this.$props.step;
       return step.name.includes('Cookie');
+    },
+
+    isRefreshPageStep: function () {
+      const step = this.$props.step;
+      return step.name.startsWith('refreshPage');
     },
 
     isPressKeyStep: function () {
@@ -212,6 +223,13 @@ export default {
 }
 
 .Step-cookie {
+  font-size: 0.8em;
+  margin-left: 1em;
+  padding: 2px 5px;
+  color: hsl(0, 0%, 71%);
+}
+
+.Step-refreshPage {
   font-size: 0.8em;
   margin-left: 1em;
   padding: 2px 5px;

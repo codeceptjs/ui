@@ -33,10 +33,10 @@
 - Make icons equal width
 - "Back to Scenarios" button
 - Fix error screenshot/snapshot
+- Show loading spinner when test runs
 
 ## In Progress
 
-- Show loading spinner when test runs
 - Support multiple tests in test run view
 - Fix console error message
 - Send highlighted element to cli / "clipboard"
@@ -51,6 +51,8 @@
 
 ## Backlog
 
+- Strange snapshot route calls http://localhost:3001/api/snapshots/html/node_modules/angular/angular.js
+- HtmlSnapshot: Remove all script tags to prevent interference with codepress
 - assert should be read when step failed
 - Should throttle mousemove over iframe (high cpu usage with all that selector stuff)
 - BUG: Can not extract scenario title in backticks

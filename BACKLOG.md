@@ -37,9 +37,9 @@
 
 ## In Progress
 
+- Send highlighted element to cli / "clipboard"
 - Support multiple tests in test run view
 - Fix console error message
-- Send highlighted element to cli / "clipboard"
 - Implement web console
     * x Close shell (and continue test)
     * x Step-by-step execution
@@ -51,6 +51,14 @@
 
 ## Backlog
 
+- Testrun Page: Show last result of testrun
+- Show Metasteps in test run protocol
+- Steps: Open source location per click
+- Selector Finder: would be nice to specify attributes which should be preferred to use for selector building (like data-test)
+- Error Handling: Show error when undeclared page objects in tests
+- Show overall duration of a single test
+- Measure step duration
+- Show duration of REST requests
 - Strange snapshot route calls http://localhost:3001/api/snapshots/html/node_modules/angular/angular.js
 - HtmlSnapshot: Remove all script tags to prevent interference with codepress
 - assert should be read when step failed
@@ -81,3 +89,4 @@
 - Center screenshot
 - Implement element highlighting for appium
 - Persist test run data in local storage
+- Make environment variables configurable (or more generally: Make run configuations configurable)

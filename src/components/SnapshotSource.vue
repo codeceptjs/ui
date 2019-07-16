@@ -7,10 +7,23 @@
 
 <script>
 import finder from '@medv/finder';
+import copy from 'copy-text-to-clipboard';
+
+const throttled = (delay, fn) => {
+  let lastCall = 0;
+  return function (...args) {
+    const now = (new Date).getTime();
+    if (now - lastCall < delay) {
+      return;
+    }
+    lastCall = now;
+    return fn(...args);
+  }
+}
 
 const getIframeDoc = iframeId => {
     const iframe = document.getElementById(iframeId);
-    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
     return {iframe, doc};
 }
 
@@ -45,6 +58,8 @@ const highlightElement = el => {
     const doc = el.ownerDocument;
     const rect = el.getBoundingClientRect()
 
+    const shortestSelector = findShortSelector(doc, el);
+
     const highlightColor = 'hsl(348, 100%, 61%)';
 
     var newOutline = doc.createElement('div')
@@ -66,7 +81,7 @@ const highlightElement = el => {
 
     const textContainer = doc.createElement('div');
     textContainer.className = 'codepress-outline'
-    textContainer.append(doc.createTextNode(findShortSelector(doc, el)));
+    textContainer.append(doc.createTextNode(shortestSelector));
     textContainer.style.position = 'absolute';
     textContainer.style['background-color'] = highlightColor;
     textContainer.style.color = 'white';
@@ -78,6 +93,8 @@ const highlightElement = el => {
 
     doc.querySelector('body').appendChild(newOutline)
     doc.querySelector('body').appendChild(textContainer)
+
+    return shortestSelector;
 }
 
 const findByCssOrXPath = (doc, sel) => {
@@ -143,18 +160,25 @@ export default {
 
         // Intercept mouse events and highlight in iframe
         const mouseInterceptor = document.querySelector('.SnapshotSource-mouseInterceptor');
-        mouseInterceptor.addEventListener('mousemove', e => {
+        mouseInterceptor.addEventListener('mousemove', throttled(200, e => {
             const {doc} = getIframeDoc('source');
 
             const el = doc.elementFromPoint(e.offsetX, e.offsetY);
             dehighlightAll(doc);
             highlightElement(el);
+        }));
+        mouseInterceptor.addEventListener('click', e => {
+            const {doc} = getIframeDoc('source');
+
+            const el = doc.elementFromPoint(e.offsetX, e.offsetY);
+            const shortestSelector = highlightElement(el);
+            copy(shortestSelector);
         });
-        mouseInterceptor.addEventListener('mouseout', () => {
+        mouseInterceptor.addEventListener('mouseout', throttled(200, () => {
             const {doc} = getIframeDoc('source');
             dehighlightAll(doc);
             highlightInIframe(doc, this.$props.highlight);
-        })
+        }));
     }
 }
 </script>

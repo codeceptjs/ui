@@ -34,12 +34,45 @@
 - "Back to Scenarios" button
 - Fix error screenshot/snapshot
 - Show loading spinner when test runs
+- Send highlighted element to cli / "clipboard"
+- Should throttle mousemove over iframe (high cpu usage with all that selector stuff)
+- BUG finder sometimes does not generate selectors
+- Highlight elements in screenshot
+- Fix console error message
+- waitForVisible: format locator builders correctly
+- click with 2 parameters: format selector correctly
 
 ## In Progress
 
-- Send highlighted element to cli / "clipboard"
+## V 0.1
+
+- Show final passed label
+- BUG: Should switch back to html snapshot if there is no screenshot (but screenshot previously selected)
+- Fix: pressKey Step
+- Steps: dontSee step
 - Support multiple tests in test run view
-- Fix console error message
+- Show Metasteps in test run protocol
+- Testrun Page: Show last result of testrun
+- Steps: Open source location per click
+- Selector Finder: would be nice to specify attributes which should be preferred to use for selector building (like data-test)
+- Show overall duration of a single test
+- HtmlSnapshot: Remove all script tags to prevent interference with codepress
+- Html Snapshot: Rewrite image urls
+- Show snapshot when hovering over step
+- Steps: Special xxxCookie step
+- Steps: Make a special executeScript step
+- Steps: Make a special refreshPage step
+- Steps: Make a special grab... step
+- HTML Snapshot: Does not scroll anymore (probably because of mouse click overlay)
+- HTML Snapshot: Preserve input values
+- HTML Snapshot: Store scroll position, window size, cursor position
+
+## V 0.2
+
+- REST Steps: Show request and response
+- click: Take before AND after screenshot
+- Remote CLI: Would be nice to have a full snapshot when the console opens
+- Remote CLI: Refresh button to take a full snapshot anytime I want
 - Implement web console
     * x Close shell (and continue test)
     * x Step-by-step execution
@@ -49,40 +82,22 @@
     * Record cli commands (and copy to clipboard)
     * Show screenshot when hovering over step
 
+
 ## Backlog
 
-- Testrun Page: Show last result of testrun
-- Show Metasteps in test run protocol
-- Steps: Open source location per click
-- Selector Finder: would be nice to specify attributes which should be preferred to use for selector building (like data-test)
 - Error Handling: Show error when undeclared page objects in tests
-- Show overall duration of a single test
 - Measure step duration
 - Show duration of REST requests
 - Strange snapshot route calls http://localhost:3001/api/snapshots/html/node_modules/angular/angular.js
-- HtmlSnapshot: Remove all script tags to prevent interference with codepress
 - assert should be read when step failed
-- Should throttle mousemove over iframe (high cpu usage with all that selector stuff)
 - BUG: Can not extract scenario title in backticks
 - "Linting": e.g detect missing waits, unncessary fixed waits etc.
 - Testrun Actions: Stop on error button
 - Testrun Actions: Run with making screenshots
 - SnapshotSource: Must update selector highlighting even if snapshot did not change (waitForVisible)
-- Html Snapshot: Rewrite image urls
 - Collapse subsequent REST requests into a collapsible step
-- Steps: Special xxxCookie step
-- BUG finder sometimes does not generate selectors
 - "fuzzy full text search" for elements (on class names) would be nice
-- click: Take before AND after screenshot
-- Steps: Make a special executeScript step
-- Steps: Make a special refreshPage step
-- Steps: Make a special grab... step
 - Support showing multiple tests not just one
-- Show snapshot when hovering over step
-- HTML Snapshot: Does not scroll anymore (probably because of mouse click overlay)
-- HTML Snapshot: Preserve input values
-- HTML Snapshot: Store scroll position, window size, cursor position
-- Highlight elements in screenshot
 - Open file (test/page object) from step
 - determine original and current image size
 - Show run status

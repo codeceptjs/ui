@@ -69,7 +69,7 @@ const highlightElement = el => {
     newOutline.style['border-radius'] = '2px';
     newOutline.style.border = `2px solid ${highlightColor}`
     newOutline.style['padding'] = '1px';
-    newOutline.style['z-index'] = '10000';
+    newOutline.style['z-index'] = '999999999';
     newOutline.style['pointer-events'] = 'none'; // be able to click through this element
     newOutline.style.opacity = 0.2;
     newOutline.style['background-color'] = highlightColor
@@ -83,13 +83,14 @@ const highlightElement = el => {
     textContainer.className = 'codepress-outline'
     textContainer.append(doc.createTextNode(shortestSelector));
     textContainer.style.position = 'absolute';
+    textContainer.style['font-size'] = '.8em';
     textContainer.style['background-color'] = highlightColor;
     textContainer.style.color = 'white';
     textContainer.style.padding = '2px';
     textContainer.style.top = rect.top + window.scrollY + 'px'
     textContainer.style.left = rect.left + window.scrollX + 'px'
     textContainer.style['pointer-events'] = 'none'; // be able to click through this element
-    textContainer.style['z-index'] = '10000';
+    textContainer.style['z-index'] = '999999999';
 
     doc.querySelector('body').appendChild(newOutline)
     doc.querySelector('body').appendChild(textContainer)
@@ -174,10 +175,10 @@ export default {
             const shortestSelector = highlightElement(el);
             copy(shortestSelector);
         });
-        mouseInterceptor.addEventListener('mouseout', throttled(200, () => {
+        mouseInterceptor.addEventListener('mouseout', throttled(500, () => {
             const {doc} = getIframeDoc('source');
             dehighlightAll(doc);
-            highlightInIframe(doc, this.$props.highlight);
+            highlightInIframe(doc, this.$props.highlight); // highlight step locator again
         }));
     }
 }
@@ -199,7 +200,7 @@ export default {
     left: 0;
     height: 90%;
     width: 100%;
-    z-index: 1000;
+    z-index: 9999999999;
 }
 
 #source {

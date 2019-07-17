@@ -46,31 +46,31 @@
 - HtmlSnapshot: Remove all script tags to prevent interference with codepress
 - Steps: Special xxxCookie step
 - Steps: Make a special refreshPage step
+- Steps: Make a special executeScript step
+- Make sidebar broader
+- Improve scenario parsing
+- Show overall duration of a single test
 
 ## In Progress
 
+- Fix: TODO Mvc Snapshots no CSS
 - executeScript: script missing
 - Steps: Make a special grab... step
 - Steps: dontSee step
-- Steps: Make a special executeScript step
 - Fix: pressKey Step
 - Fix: Check see step, does not look right
-- Fix: TODO Mvc Snapshots no CSS
 
 ## V 0.1
 
 - click: Take before AND after screenshot
+- Show Metasteps in test run protocol
 - BUG: Scroll to bottom does not work for multiple tests
-- Make sidebar broader
 - Refactor test model (persist and show last test result, support multiple tests)
-- Improve scenario parsing
 - BUG: Should switch back to html snapshot if there is no screenshot (but screenshot previously selected)
 - Support multiple tests in test run view
-- Show Metasteps in test run protocol
 - Testrun Page: Show last result of testrun
 - Steps: Open source location per click
 - Selector Finder: would be nice to specify attributes which should be preferred to use for selector building (like data-test)
-- Show overall duration of a single test
 - Html Snapshot: Rewrite image urls
 - Show snapshot when hovering over step
 - BUG: HTML Snapshot: Does not scroll anymore (because of mouse interceptor)

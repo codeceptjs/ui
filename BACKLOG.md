@@ -49,11 +49,13 @@
 
 ## In Progress
 
+- executeScript: script missing
 - Steps: Make a special grab... step
 - Steps: dontSee step
 - Steps: Make a special executeScript step
 - Fix: pressKey Step
 - Fix: Check see step, does not look right
+- Fix: TODO Mvc Snapshots no CSS
 
 ## V 0.1
 

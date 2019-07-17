@@ -42,41 +42,43 @@
 - waitForVisible: format locator builders correctly
 - click with 2 parameters: format selector correctly
 - Show final passed label with duration
+- Html Snapshot: Improve using code from heimdal
+- HtmlSnapshot: Remove all script tags to prevent interference with codepress
+- Steps: Special xxxCookie step
+- Steps: Make a special refreshPage step
 
 ## In Progress
 
-- Html Snapshot: Improve using code from heimdal
-- Steps: Special xxxCookie step
-- Steps: Make a special executeScript step
-- Steps: Make a special refreshPage step
 - Steps: Make a special grab... step
+- Steps: dontSee step
+- Steps: Make a special executeScript step
+- Fix: pressKey Step
+- Fix: Check see step, does not look right
 
 ## V 0.1
 
+- click: Take before AND after screenshot
 - BUG: Scroll to bottom does not work for multiple tests
 - Make sidebar broader
 - Refactor test model (persist and show last test result, support multiple tests)
 - Improve scenario parsing
 - BUG: Should switch back to html snapshot if there is no screenshot (but screenshot previously selected)
-- Fix: pressKey Step
-- Steps: dontSee step
 - Support multiple tests in test run view
 - Show Metasteps in test run protocol
 - Testrun Page: Show last result of testrun
 - Steps: Open source location per click
 - Selector Finder: would be nice to specify attributes which should be preferred to use for selector building (like data-test)
 - Show overall duration of a single test
-- HtmlSnapshot: Remove all script tags to prevent interference with codepress
 - Html Snapshot: Rewrite image urls
 - Show snapshot when hovering over step
-- HTML Snapshot: Does not scroll anymore (probably because of mouse click overlay)
+- BUG: HTML Snapshot: Does not scroll anymore (because of mouse interceptor)
+- BUG Html Snapshot: Element highlighting does not work reliably
 - HTML Snapshot: Preserve input values
 - HTML Snapshot: Store scroll position, window size, cursor position
 
 ## V 0.2
 
 - REST Steps: Show request and response
-- click: Take before AND after screenshot
 - Remote CLI: Would be nice to have a full snapshot when the console opens
 - Remote CLI: Refresh button to take a full snapshot anytime I want
 - Implement web console

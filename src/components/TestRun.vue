@@ -122,7 +122,7 @@ export default {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 5px 5px 5px 10px;
-  width: 460px;
+  width: 33%;
   background-color: #fafafa;
 }
 
@@ -130,7 +130,7 @@ export default {
   position: absolute;
   z-index: 10;
   top: 61px;
-  left: 461px;
+  left: 33%;
   right: 0;
   bottom: 0;
   overflow: hidden;

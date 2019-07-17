@@ -23,6 +23,10 @@
       <SeeStep v-bind:step="step" />
     </div>
 
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('dointSee')">
+      <DontSeeStep v-bind:step="step" />
+    </div>
+
     <div class="StepWrapper" v-else-if="stepNameStartsWith('amOnPage')">
       <AmOnPageStep v-bind:step="step" />
     </div>
@@ -37,6 +41,14 @@
 
     <div class="StepWrapper" v-else-if="stepNameStartsWith('press')">
       <PressStep v-bind:step="step" />
+    </div>
+
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('execute')">
+      <ExecuteStep v-bind:step="step" />
+    </div>
+
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('grab')">
+      <GrabStep v-bind:step="step" />
     </div>
 
     <div class="StepWrapper" v-else-if="stepNameStartsWith('saveScreenshot')">
@@ -57,6 +69,7 @@
 import {getSelectorString} from '../services/selector';
 import SendStep from './steps/SendStep';
 import SeeStep from './steps/SeeStep';
+import DontSeeStep from './steps/DontSeeStep';
 import WaitStep from './steps/WaitStep';
 import ClickStep from './steps/ClickStep';
 import AmOnPageStep from './steps/AmOnPageStep';
@@ -65,14 +78,8 @@ import PressStep from './steps/PressStep';
 import RefreshPageStep from './steps/RefreshPageStep';
 import SaveScreenshotStep from './steps/SaveScreenshotStep';
 import FillFieldStep from './steps/FillFieldStep';
-
-// const trunc = (str, maxlen) => {
-//   if (!str) return;
-//   if (str.length > maxlen) {
-//     return str.slice(1, maxlen) + '...';
-//   }
-//   return str;
-// }
+import ExecuteStep from './steps/ExecuteStep';
+import GrabStep from './steps/GrabStep';
 
 export default {
   name: 'Step',
@@ -80,6 +87,7 @@ export default {
   components: {
     SendStep,
     SeeStep,
+    DontSeeStep,
     WaitStep,
     ClickStep,
     AmOnPageStep,
@@ -87,7 +95,9 @@ export default {
     PressStep,
     RefreshPageStep,
     SaveScreenshotStep,
-    FillFieldStep
+    FillFieldStep,
+    ExecuteStep,
+    GrabStep,
   },
   methods: {
     stepNameStartsWith(methodName) {

@@ -1,18 +1,21 @@
 <template>
-    <div class="RefreshPageStep">
-        <i class="Step-icon fas fa-sync"></i> {{step.humanized}}
+    <div class="ExecuteStep">
+        <i class="Step-icon far fa-play-circle"></i> 
+        {{step.humanized}}
+
+        {{step.args[0]}}
     </div>
 </template>
 
 <script>
 export default {
-    name: 'RefreshPageStep',
+    name: 'ExecuteStep',
     props: ['step']
 }
 </script>
 
 <style>
-.RefreshPageStep {
+.ExecuteStep {
   font-size: 0.8em;
   margin-left: 1em;
   padding: 2px 5px;

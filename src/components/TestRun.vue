@@ -58,10 +58,10 @@ export default {
       this.$store.commit('addTest', test);
     },
     'test.failed': function (error) {
-      this.$store.commit('markAsFailedCurrentTest', error)
+      this.$store.commit('markAsFailedCurrentTest', error);
     },
-    'test.passed': function () {
-      this.$store.commit('markAsPassedCurrentTest')
+    'test.passed': function (data) {
+      this.$store.commit('markAsPassedCurrentTest', data);
     },
     'step.before': function (step) {
       this.$store.commit('setSelectedStep', step);

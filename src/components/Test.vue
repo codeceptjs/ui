@@ -1,8 +1,16 @@
 <template>
   <div class="Test menu">
-    <p class="menu-label">
-      {{test.title}}
-    </p>
+
+    <div class="columns menu-label">
+      <div class="column is-1">
+        <i v-if="test.result == 'passed'" class="fas fa-check has-text-success" />
+        <i v-if="test.result == 'failed'" class="fas fa-times has-text-danger" />
+        <i v-if="test.result == 'running'" class="fas fa-circle-notch fa-spin has-text-grey" />
+      </div>
+      <div class="column">
+        {{test.title}}
+      </div>
+    </div>
 
     <ul class="menu-list">
       <li v-for="step in test.steps" v-bind:key="step.title">
@@ -61,10 +69,13 @@
 
     </div>
 
-    <div v-if="test.error" class="Test-error">
+    <div v-if="test.result === 'failed'" class="Test-error">
       <b-message type="is-danger">
         {{test.error.message}}
       </b-message>
+    </div>
+    <div v-if="test.result === 'passed'" class="Test-passed notification is-success">
+        PASSED in {{test.duration}}s
     </div>
 
     <div class="Test-spacer"></div>
@@ -150,7 +161,11 @@ export default {
 
 .Test-error {
   font-size: 0.8em;
-  margin-top: 1em;
+  margin-top: .5em;
+}
+
+.Test-passed {
+  margin-top: .5em;
 }
 
 .InteractiveShell {

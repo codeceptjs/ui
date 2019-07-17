@@ -41,12 +41,22 @@
 - Fix console error message
 - waitForVisible: format locator builders correctly
 - click with 2 parameters: format selector correctly
+- Show final passed label with duration
 
 ## In Progress
 
+- Html Snapshot: Improve using code from heimdal
+- Steps: Special xxxCookie step
+- Steps: Make a special executeScript step
+- Steps: Make a special refreshPage step
+- Steps: Make a special grab... step
+
 ## V 0.1
 
-- Show final passed label
+- BUG: Scroll to bottom does not work for multiple tests
+- Make sidebar broader
+- Refactor test model (persist and show last test result, support multiple tests)
+- Improve scenario parsing
 - BUG: Should switch back to html snapshot if there is no screenshot (but screenshot previously selected)
 - Fix: pressKey Step
 - Steps: dontSee step
@@ -59,10 +69,6 @@
 - HtmlSnapshot: Remove all script tags to prevent interference with codepress
 - Html Snapshot: Rewrite image urls
 - Show snapshot when hovering over step
-- Steps: Special xxxCookie step
-- Steps: Make a special executeScript step
-- Steps: Make a special refreshPage step
-- Steps: Make a special grab... step
 - HTML Snapshot: Does not scroll anymore (probably because of mouse click overlay)
 - HTML Snapshot: Preserve input values
 - HTML Snapshot: Store scroll position, window size, cursor position

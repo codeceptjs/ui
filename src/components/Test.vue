@@ -166,6 +166,8 @@ export default {
 
 .Test-passed {
   margin-top: .5em;
+  font-size: 0.8em;
+  padding: .5em;
 }
 
 .InteractiveShell {

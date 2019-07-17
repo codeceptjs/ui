@@ -11,12 +11,13 @@
         <ul>
           <li v-for="file in files">
             <div class="TestFile box">
-              <a class="TestFile-fileName">{{file.file}}</a>
-              <h4 class="subtitle">{{file.feature}}</h4>
+              <a class="TestFile-fileName" v-on:click="linkToOpen(file.file)">{{file.file}}</a>
+              <h4 class="subtitle">{{file.feature.title}}</h4>
 
               <ul>
                 <li class="TestFile-scenario" v-for="scenario in file.scenarios">
-                  <a class="TestFile-scenarioRunLink" :href="linkToScenario(scenario)">{{scenario}}</a>
+                  <a class="TestFile-scenarioRunLink" :href="linkToScenario(scenario)">{{scenario.title}}</a>
+                  <span class="tag is-light" v-for="tag in scenario.tags">{{tag}}</span>
                 </li>
               </ul>
             </div>
@@ -56,7 +57,11 @@ export default {
       },
 
       linkToScenario(scenario) {
-        return `/#/testrun/${encodeURIComponent(scenario)}`
+        return `/#/testrun/${encodeURIComponent(scenario.orgTitle)}`;
+      },
+
+      linkToOpen(file) {
+        axios.get(`/api/tests/${encodeURIComponent(file)}/open`);
       }
   }
 }

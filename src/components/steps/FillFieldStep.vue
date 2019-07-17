@@ -1,7 +1,7 @@
 <template>
     <div class="FillFieldStep">
         I {{step.humanized}}
-        <span class="FillFieldStep-selector">{{formatSelector(step.args)}}</span>
+        <span class="FillFieldStep-selector">{{formatSelector(step.args[0])}}</span>
         &nbsp;
         <span class="FillFieldStep-text" v-if="step.args[1]">"{{step.args[1]}}"</span>
     </div>

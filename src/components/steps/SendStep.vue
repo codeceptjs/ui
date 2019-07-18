@@ -1,9 +1,10 @@
 <template>
     <div class="SeeStep">
-        <span class="Step-restMethod">
+        <span class="Step-restMethod has-text-info">
           {{httpMethod}}
         </span>
-        <span class="Step-restUrl">
+        <span class="Step-restDuration has-text-grey-light">{{step.duration}}</span>
+        <span class="Step-restUrl has-text-grey">
           {{urlRearPart}}
         </span>
     </div>
@@ -16,20 +17,9 @@ export default {
   computed: {
     httpMethod: function () {
       const step = this.$props.step;
-
-      if (step.name.includes('sendGet')) {
-        return 'get';
-      }
-      if (step.name.includes('sendPut')) {
-        return 'put';
-      }
-      if (step.name.includes('sendPost')) {
-        return 'post';
-      }
-      if (step.name.includes('sendDelete')) {
-        return 'delete';
-      }
-      return 'unknown';
+      return step.name
+        .replace('send', '').replace('Request', '')
+        .toLowerCase();
     },
 
     urlRearPart: function () {
@@ -57,13 +47,16 @@ export default {
 .Step-restMethod {
   display: inline-block;
   border-radius: 2px;
-  color: blue;
   width: 4em;
   text-transform: uppercase;
 }
 
 .Step-restUrl {
-  color: hsl(0, 0%, 71%);
+}
+
+.Step-restDuration {
+  display: inline-block;
+  width: 3em;
 }
 
 </style>

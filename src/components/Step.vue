@@ -23,7 +23,7 @@
       <SeeStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('dointSee')">
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('dontSee')">
       <DontSeeStep v-bind:step="step" />
     </div>
 
@@ -49,6 +49,10 @@
 
     <div class="StepWrapper" v-else-if="stepNameStartsWith('grab')">
       <GrabStep v-bind:step="step" />
+    </div>
+
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('comment')">
+      <CommentStep v-bind:step="step" />
     </div>
 
     <div class="StepWrapper" v-else-if="stepNameStartsWith('saveScreenshot')">
@@ -80,6 +84,7 @@ import SaveScreenshotStep from './steps/SaveScreenshotStep';
 import FillFieldStep from './steps/FillFieldStep';
 import ExecuteStep from './steps/ExecuteStep';
 import GrabStep from './steps/GrabStep';
+import CommentStep from './steps/CommentStep';
 
 export default {
   name: 'Step',
@@ -98,6 +103,7 @@ export default {
     FillFieldStep,
     ExecuteStep,
     GrabStep,
+    CommentStep,
   },
   methods: {
     stepNameStartsWith(methodName) {

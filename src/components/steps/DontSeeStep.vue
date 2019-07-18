@@ -4,12 +4,12 @@
         assert
       </span>
 
-      <div v-if="step.args.length == 1">
-        <i class="Step-icon far fa-eye-slash"></i> {{step.humanized}} <span class="DontSeeStep-arg">{{formatSelector(step.args[0])}}</span>
-      </div>
-      <div v-else>
-        <i class="Step-icon far fa-eye-slash"></i> {{step.humanized}} <span class="DontSeeStep-arg">{{step.args[0]}}</span>
-      </div>
+      <span v-if="step.args.length == 1">
+        {{step.humanized}} <span class="DontSeeStep-arg">{{formatSelector(step.args[0])}}</span>
+      </span>
+      <span v-else>
+        {{step.humanized}} <span class="DontSeeStep-arg">{{step.args[0]}}</span>
+      </span>
     </div>
 </template>
 

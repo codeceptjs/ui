@@ -1,7 +1,7 @@
 <template>
     <div class="GrabStep">
         <i class="Step-icon fas fa-hands"></i> 
-        {{step.humanized}} {{formatSelector(step.args[0])}} = {{step.grabValue}}
+        {{step.humanized}} {{formatSelector(step.args[0])}} = {{step.returnValue}}
     </div>
 </template>
 

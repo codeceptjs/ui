@@ -1,35 +1,45 @@
 <template>
-  <div class="Snapshot" v-if="selected.snapshot">
+  <div class="Snapshot">
     
-    <div class="Snapshot-actions" v-if="selected.snapshot">
-      <div class="buttons has-addons">
-        <span class="button" v-if="selected.snapshot.hasScreenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
-          <i class="far fa-image"></i>
-        </span>
-        <span class="button" v-if="selected.snapshot.hasSource" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">
-          <i class="far fa-file-code"></i>
-        </span>
+    <div class="Snapshot-browser" v-if="selected.name !== 'comment' && selected.snapshot">
+
+      <div class="Snapshot-actions" v-if="selected.snapshot">
+        <div class="buttons has-addons">
+          <span class="button" v-if="selected.snapshot.hasScreenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
+            <i class="far fa-image"></i>
+          </span>
+          <span class="button" v-if="selected.snapshot.hasSource" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">
+            <i class="far fa-file-code"></i>
+          </span>
+        </div>
       </div>
+
+      <div class="Snapshot-pageUrl">
+        <a :href="selected.snapshot.pageUrl">{{selected.snapshot.pageTitle}}</a>
+        <input class="input is-rounded" type="text" :placeholder="selected.snapshot.pageUrl">
+      </div>
+
+      <div class="Snapshot-data" v-if="selected.snapshot">
+        <!-- TODO get image from server -->
+        <img v-if="isShowImage" 
+          class="Snapshot-image"
+          :src="toImageUrl(selected.snapshot)" 
+          :alt="selected.name"
+        >
+
+        <snapshot-source 
+          v-if="isShowSource"
+          v-bind:snapshotId="selected.snapshot.id"
+          v-bind:highlight="getSelector(selected)"
+        />
+      </div>
+
     </div>
 
-    <div class="Snapshot-pageUrl">
-      <a :href="selected.snapshot.pageUrl">{{selected.snapshot.pageTitle}}</a>
-      <input class="input is-rounded" type="text" :placeholder="selected.snapshot.pageUrl">
-    </div>
-
-    <div class="Snapshot-data" v-if="selected.snapshot">
-      <!-- TODO get image from server -->
-      <img v-if="isShowImage" 
-        class="Snapshot-image"
-        :src="toImageUrl(selected.snapshot)" 
-        :alt="selected.name"
-      >
-
-      <snapshot-source 
-        v-if="isShowSource"
-        v-bind:snapshotId="selected.snapshot.id"
-        v-bind:highlight="getSelector(selected)"
-      />
+    <div class="Snapshot-http" v-if="selected.name === 'comment'">
+      <pre>
+        <code>{{JSON.stringify(selected.args[0], null, 2)}}</code>
+      </pre>
     </div>
 
   </div>
@@ -124,4 +134,7 @@ export default {
   max-width: 100%;
 }
 
+.Snapshot-http {
+  font-size: 0.8em;
+}
 </style>

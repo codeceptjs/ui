@@ -160,11 +160,13 @@ export default {
 }
 
 .Test-error {
+  font-family: monospace; 
   font-size: 0.8em;
   margin-top: .5em;
 }
 
 .Test-passed {
+  font-family: monospace; 
   margin-top: .5em;
   font-size: 0.8em;
   padding: .5em;

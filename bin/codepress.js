@@ -63,11 +63,13 @@ io.on('connection', socket => {
   })
 
   socket.on('test.failed', (data) => {
-    emit('test.failed', data);
+    const dataWithoutSnapshot = snapshotStore.add(data.id, data);
+    emit('test.failed', dataWithoutSnapshot);
   })
 
   socket.on('test.passed', (data) => {
-    emit('test.passed', data);
+    const dataWithoutSnapshot = snapshotStore.add(data.id, data);
+    emit('test.passed', dataWithoutSnapshot);
   })
 
   socket.on('step.before', (data) => {

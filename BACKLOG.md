@@ -50,22 +50,29 @@
 - Make sidebar broader
 - Improve scenario parsing
 - Show overall duration of a single test
+- dontSee show assert label
+- Steps: Make a special grab... step
+- Steps: dontSee step
+- REST step: Add duration
+- Fix failed step not shown
 
 ## In Progress
 
+- Simple response view for get responses
+- click/amOnPage should have top margin
+- Shorten amOnPageUrl to pathname
+- Show NODE_ENV value
 - TestRun Empty State: Show sleected test name always
-- dontSee show assert label
 - Fix: TODO Mvc Snapshots no CSS
-- Also detect skipped scenarios
 - Show error when codecept command fails to start
 - executeScript: script missing
-- Steps: Make a special grab... step
-- Steps: dontSee step
 - Fix: pressKey Step
 - Fix: Check see step, does not look right
 
 ## V 0.1
 
+- BUG fix scrolling to last step
+- break on error (how ?)
 - BUG last step in passed tests seems to be duplicated
 - Support data-driven tests properly (keep snapshots for all test runs)
 - click: Take before AND after screenshot
@@ -83,9 +90,11 @@
 - BUG Html Snapshot: Element highlighting does not work reliably
 - HTML Snapshot: Preserve input values
 - HTML Snapshot: Store scroll position, window size, cursor position
+- Also detect skipped scenarios
 
 ## V 0.2
 
+- Selector Playground: Show options when clicking on select field
 - REST Steps: Show request and response
 - Remote CLI: Would be nice to have a full snapshot when the console opens
 - Remote CLI: Refresh button to take a full snapshot anytime I want

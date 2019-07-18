@@ -8,7 +8,7 @@
         {{step.humanized}} <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
       </span>
       <span v-else>
-        {{step.humanized}} <span class="SeeStep-text">{{step.args[0]}}</span>&nbsp;<span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
+        {{step.humanized}} <span class="SeeStep-text">"{{step.args[0]}}"</span>&nbsp;<span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
       </span>
 
     </div>

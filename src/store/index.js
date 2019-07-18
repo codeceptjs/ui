@@ -48,11 +48,15 @@ const store = new Vuex.Store({
         Vue.set(currentTest, 'duration', data.duration);
 
         Vue.set(currentStep, 'result', 'failed');
+        Vue.set(currentStep, 'snapshot', data.snapshot);
       },
       markAsPassedCurrentTest: (state, data) => {
         const currentTest = state.tests[state.tests.length - 1];
+        const currentStep = currentTest.steps[currentTest.steps.length - 1];
+
         Vue.set(currentTest, 'duration', data.duration);
         currentTest.result = 'passed';
+        Vue.set(currentStep, 'snapshot', data.snapshot);
       },
       setSelectedStep: (state, selectedStep) => {
         if (!selectedStep) return;

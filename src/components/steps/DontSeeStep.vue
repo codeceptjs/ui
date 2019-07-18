@@ -1,5 +1,9 @@
 <template>
     <div class="DontSeeStep">
+      <span class="tag is-success">
+        assert
+      </span>
+
       <div v-if="step.args.length == 1">
         <i class="Step-icon far fa-eye-slash"></i> {{step.humanized}} <span class="DontSeeStep-arg">{{formatSelector(step.args[0])}}</span>
       </div>

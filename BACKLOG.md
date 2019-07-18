@@ -53,7 +53,11 @@
 
 ## In Progress
 
+- TestRun Empty State: Show sleected test name always
+- dontSee show assert label
 - Fix: TODO Mvc Snapshots no CSS
+- Also detect skipped scenarios
+- Show error when codecept command fails to start
 - executeScript: script missing
 - Steps: Make a special grab... step
 - Steps: dontSee step
@@ -62,6 +66,8 @@
 
 ## V 0.1
 
+- BUG last step in passed tests seems to be duplicated
+- Support data-driven tests properly (keep snapshots for all test runs)
 - click: Take before AND after screenshot
 - Show Metasteps in test run protocol
 - BUG: Scroll to bottom does not work for multiple tests

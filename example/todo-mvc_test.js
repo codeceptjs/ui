@@ -2,6 +2,7 @@ Feature('Tood MVC')
 
 Before(async (I) => {
   I.amOnPage('http://todomvc.com/examples/angularjs/#/')
+  // I.amOnPage('http://localhost:8888')
   I.refreshPage()
 
   I.say('Given I already have some todos')
@@ -37,16 +38,16 @@ Scenario('Create multiple todo items @smoke', async (I) => {
   I.fillField(locate('.new-todo').as('TODO Input'), 'Support Appium')
   I.pressKey('Enter')
 
-  I.fillField('.new-todo', 'Become REALLY productive writing E2E Tests with codepress and CodeceptJS')
+  I.fillField({ css: '.new-todo'}, 'Become REALLY productive writing E2E Tests with codepress and CodeceptJS')
   I.pressKey('Enter')
 
   I.say('And I see them in the list')
   I.seeNumberOfVisibleElements('.todo-list li', 6)
-  I.see('Create a cypress like runner', 'li:nth-child(1) label')
+  I.see('Create a cypress like runner', { css: 'li:nth-child(1) label'})
   I.dontSee('Nightmare', '.main')
 
   I.say('I complete a todo')
-  I.click('li:nth-child(1) .toggle')
+  I.click({ css: 'li:nth-child(1) .toggle'})
   I.seeElement('li:nth-child(1).completed')
 
   I.say('I mark all as completed')

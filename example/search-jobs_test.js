@@ -2,6 +2,7 @@ Feature('Super cool Feature')
 
 Scenario('Goto CHECK24 home', (I) => {
   I.amOnPage('http://www.check24.de')
+  I.scrollTo(locate().withText('Die meistgenutzten').as('Heading "Vergleiche"'))
   I.see('Die meistgenutzten')
   I.saveScreenshot('final.png')
 })

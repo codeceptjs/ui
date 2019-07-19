@@ -160,7 +160,7 @@ export default {
 }
 
 .Test-error {
-  font-family: monospace; 
+  font-family:  Consolas, Monaco, "Andale Mono", monospace;; 
   font-size: 0.8em;
   margin-top: .5em;
 }

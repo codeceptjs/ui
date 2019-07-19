@@ -1,5 +1,5 @@
 <template>
-    <div class="RefreshPageStep">
+    <div class="RefreshPageStep has-text-grey">
         <i class="Step-icon fas fa-sync"></i> {{step.humanized}}
     </div>
 </template>
@@ -16,7 +16,6 @@ export default {
   font-size: 0.8em;
   margin-left: 1em;
   padding: 2px 5px;
-  color: hsl(0, 0%, 71%);
 }
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="GrabStep">
+    <div class="GrabStep has-text-grey">
         <i class="Step-icon fas fa-hands"></i> 
         {{step.humanized}} {{formatSelector(step.args[0])}} = {{step.returnValue}}
     </div>
@@ -28,8 +28,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  color: hsl(0, 0%, 71%);
 }
 </style>
 

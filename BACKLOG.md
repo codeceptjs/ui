@@ -55,12 +55,14 @@
 - Steps: dontSee step
 - REST step: Add duration
 - Fix failed step not shown
+- Simple response view for get responses
+- Selector Finder: Restrict attribute names
+- click/amOnPage should have top margin
+- Shorten amOnPageUrl to pathname
 
 ## In Progress
 
-- Simple response view for get responses
-- click/amOnPage should have top margin
-- Shorten amOnPageUrl to pathname
+- Disable, dont hide screenshot button
 - Show NODE_ENV value
 - TestRun Empty State: Show sleected test name always
 - Fix: TODO Mvc Snapshots no CSS
@@ -71,11 +73,12 @@
 
 ## V 0.1
 
+- BUG iframe event throttling does not work
 - BUG fix scrolling to last step
 - break on error (how ?)
 - BUG last step in passed tests seems to be duplicated
 - Support data-driven tests properly (keep snapshots for all test runs)
-- click: Take before AND after screenshot
+- click: Take before AND after screenshot, but use the afterscreenshot for the next step (if its a no snapshot step)
 - Show Metasteps in test run protocol
 - BUG: Scroll to bottom does not work for multiple tests
 - Refactor test model (persist and show last test result, support multiple tests)

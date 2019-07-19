@@ -149,7 +149,7 @@ export default {
 }
 
 .StepWrapper {
-  padding-left: .5em;
+  padding: .2em 0 .2em .5em;
 }
 
 .Step-icon {

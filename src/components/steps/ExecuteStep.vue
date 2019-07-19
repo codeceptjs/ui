@@ -1,5 +1,5 @@
 <template>
-    <div class="ExecuteStep">
+    <div class="ExecuteStep has-text-grey">
         <i class="Step-icon far fa-play-circle"></i> 
         {{step.humanized}}
 
@@ -19,7 +19,6 @@ export default {
   font-size: 0.8em;
   margin-left: 1em;
   padding: 2px 5px;
-  color: hsl(0, 0%, 71%);
 }
 </style>
 

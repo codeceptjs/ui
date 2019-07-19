@@ -92,6 +92,8 @@ io.on('connection', socket => {
   // eslint-disable-next-line no-console
   debug(`Listening for websocket connections on port ${PORT}`);
 
+  // eslint-disable-next-line no-console
+  console.log(`Open http://localhost:${PORT+1} in your web browser!`);
   // open(`http://localhost:${PORT+1}`);
 
   io.listen(PORT);

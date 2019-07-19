@@ -1,5 +1,5 @@
 <template>
-    <div class="PressStep">
+    <div class="PressStep has-text-grey">
         <i class="Step-icon fas fa-keyboard"></i>&nbsp;<span>{{step.args[0]}}</span>
     </div>
 </template>
@@ -19,7 +19,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: hsl(0, 0%, 71%);
 }
 </style>
 

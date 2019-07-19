@@ -1,5 +1,5 @@
 <template>
-    <div class="CookieStep">
+    <div class="CookieStep has-text-grey">
         <i class="Step-icon fas fa-cookie"></i> 
         {{step.humanized}} {{formatCookie(step.args[0])}}
     </div>
@@ -25,7 +25,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: hsl(0, 0%, 71%);
 }
 
 </style>

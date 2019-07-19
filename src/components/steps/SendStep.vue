@@ -1,5 +1,5 @@
 <template>
-    <div class="SeeStep">
+    <div class="SendStep">
         <span class="Step-restMethod has-text-info">
           {{httpMethod}}
         </span>
@@ -35,7 +35,7 @@ export default {
 }
 </script>
 <style>
-.SeeStep {
+.SendStep {
   font-size: 0.8em;
   margin-left: 1em;
   padding: 2px 5px;

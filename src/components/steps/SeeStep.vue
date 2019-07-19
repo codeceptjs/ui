@@ -1,14 +1,14 @@
 <template>
     <div class="SeeStep">
       <span class="tag is-success">
-          assert
+          see
       </span>
 
       <span v-if="step.args == 1">
-        {{step.humanized}} <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
+        {{formatStepName(step.humanized)}} <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
       </span>
       <span v-else>
-        {{step.humanized}} <span class="SeeStep-text">"{{step.args[0]}}"</span>&nbsp;<span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
+        {{formatStepName(step.humanized)}} <span class="SeeStep-text">"{{step.args[0]}}"</span>&nbsp;<span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
       </span>
 
     </div>
@@ -21,6 +21,9 @@ export default {
     name: 'SeeStep',
     props: ['step'],
     methods: {
+      formatStepName(stepName) {
+        return stepName.replace('see', '');
+      },
       formatSelector(sel) {
           return getSelectorString(sel).label;
       }

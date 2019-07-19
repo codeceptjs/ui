@@ -1,14 +1,14 @@
 <template>
   <div class="Snapshot">
     
-    <div class="Snapshot-browser" v-if="selected.name !== 'comment' && selected.snapshot">
+    <div class="Snapshot-browser" v-if="!isCodeStep(selected) && selected.snapshot">
 
       <div class="Snapshot-actions" v-if="selected.snapshot">
         <div class="buttons has-addons">
-          <span class="button" v-if="selected.snapshot.hasScreenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
+          <span class="button is-small" :disabled="!selected.snapshot.hasScreenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
             <i class="far fa-image"></i>
           </span>
-          <span class="button" v-if="selected.snapshot.hasSource" v-bind:class="{ 'is-info is-selected': isShowSource }" v-on:click="showSource()">
+          <span class="button is-small" :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-info is-selected': isShowSource }" v-on:click="showSource()">
             <i class="far fa-file-code"></i>
           </span>
         </div>
@@ -20,7 +20,6 @@
       </div>
 
       <div class="Snapshot-data" v-if="selected.snapshot">
-        <!-- TODO get image from server -->
         <img v-if="isShowImage" 
           class="Snapshot-image"
           :src="toImageUrl(selected.snapshot)" 
@@ -36,9 +35,9 @@
 
     </div>
 
-    <div class="Snapshot-http" v-if="selected.name === 'comment'">
+    <div class="Snapshot-code" v-if="isSendPostOrPut(selected)">
       <pre>
-        <code>{{JSON.stringify(selected.args[0], null, 2)}}</code>
+        <code>{{JSON.stringify(selected.args[1], null, 2)}}</code>
       </pre>
     </div>
 
@@ -96,6 +95,14 @@ export default {
 
     getSelector(step) {
       return getSelectorString(step.args[0]).value;
+    },
+
+    isCodeStep(step) {
+      return step.name === 'comment' || step.name.startsWith('send');
+    },
+
+    isSendPostOrPut(step) {
+      return ['sendPostRequest', 'sendPutRequest'].includes(step.name);
     }
   },
   data: function () {
@@ -134,7 +141,7 @@ export default {
   max-width: 100%;
 }
 
-.Snapshot-http {
+.Snapshot-code {
   font-size: 0.8em;
 }
 </style>

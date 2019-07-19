@@ -6,7 +6,9 @@ exports.config = {
       url: 'http://localhost',
       waitForTimeout: 5000,
       show: false,
-    }
+    },
+
+    REST: {}
   },
   include: {},
   bootstrap: null,

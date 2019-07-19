@@ -5,7 +5,7 @@
       <div class="container">
         <h1 class="title">Welcome to codepress!</h1>
         <h2 class="subtitle">
-          Select one of the scenarios listed below to run it.
+          Interactive end-to-end testing for <a href="https://codecept.io/">CodeceptJS</a>. Select one of the scenarios listed below to run it.
         </h2>
 
         <ul>
@@ -16,7 +16,12 @@
 
               <ul>
                 <li class="TestFile-scenario" v-for="scenario in file.scenarios">
-                  <a class="TestFile-scenarioRunLink" :href="linkToScenario(scenario)">{{scenario.title}}</a>
+                  <a 
+                    class="TestFile-scenarioRunLink" 
+                    v-on:click="selectScenario(scenario)"
+                    :href="linkToScenario(scenario)">
+                    {{scenario.title}}
+                  </a>
                   <span class="tag is-light" v-for="tag in scenario.tags">{{tag}}</span>
                 </li>
               </ul>
@@ -54,6 +59,10 @@ export default {
             .catch(error => {
                 this.loading = false
             })
+      },
+
+      selectScenario(scenario) {
+        this.$store.commit('selectScenario', scenario);
       },
 
       linkToScenario(scenario) {

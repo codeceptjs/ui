@@ -5,12 +5,22 @@
     </div>
 
     <aside class="Sidebar">
-      <Test v-for="test in tests"
-        v-bind:key="test.title"
-        v-bind:test="test"
-        v-bind:selectedStep="selectedStep"
-        v-on:select-step="onSelectStep"
-      />
+      <div v-if="tests.length > 0">
+        <Test v-for="test in tests"
+          v-bind:key="test.title"
+          v-bind:test="test"
+          v-bind:selectedStep="selectedStep"
+          v-on:select-step="onSelectStep"
+        />
+      </div>
+      <div v-else>
+        <div class="menu">
+           <p class="menu-label">
+             {{selectedScenario}}
+          </p>
+          <div class="has-text-grey-light has-text-centered">This scenario has not been run yet.</div>
+        </div>
+      </div>
     </aside>
 
     <div class="Content">
@@ -29,7 +39,7 @@ import Snapshot from './Snapshot';
 
 const scrollToLastStep = () => {
   setTimeout(() => {
-    const element = document.querySelector('.Test-spacer');
+    const element = document.querySelector('.Test-spacer:last-child');
     if (element) {
       element.scrollIntoView({
         behavior: 'smooth',
@@ -76,9 +86,14 @@ export default {
     }
   },
   created: function () {
-    this.$store.commit('clearTests');
+    if (!this.hasScenarioRun(this.$route.params.scenario)) {
+      this.clearScenarioRuns();
+    }
   },
   computed: {
+    selectedScenario() {
+      return this.$route.params.scenario;
+    },
     tests() {
       return this.$store.state.tests;
     },
@@ -100,6 +115,15 @@ export default {
 
       this.$store.commit('clearTests');
       this.$store.commit('setRunning', true);
+    },
+
+    hasScenarioRun(scenario) {
+       const scenarios = this.$store.state.tests;
+       return scenarios.find(s => s.title === scenario)
+    },
+
+    clearScenarioRuns() {
+      this.$store.commit('clearTests');
     }
   }
 }

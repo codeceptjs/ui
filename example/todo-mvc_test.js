@@ -3,27 +3,55 @@ Feature('Tood MVC')
 Before(async (I) => {
   I.amOnPage('http://todomvc.com/examples/angularjs/#/')
   I.refreshPage()
+
+  I.say('Given I already have some todos')
+  const todoItems = [
+    {title: 'Create a cypress like runner for CodeceptJS', completed: false},
+    {title: 'Make it even better than cypress', completed: false},
+  ]
+
+  I.executeScript((todoItems) => {
+    localStorage.setItem('todos-angularjs', JSON.stringify(todoItems));
+  }, todoItems)    
+
+  // Just to to some rest request
+  I.sendPostRequest('https://reqres.in/api/users', {
+    name: 'John Shaft',
+    job: 'Investigator',
+  });
+
   I.waitForVisible('.new-todo')
 })
 
-Scenario('Create multiple todo items @step-01', async (I) => {
-  I.say('Given I have an empty todo list')
-
-  I.say('When I focus the input field')
+Scenario('Create multiple todo items @smoke', async (I) => {
+  I.say('When I focus the todo field')
   I.click('.new-todo')
 
-  I.say('Then I can create multiple todos "foo", "bar" and "baz"')
-  I.fillField('.new-todo', 'foo')
+  I.say('Then I can add additional todos')
+  I.fillField({ css: '.new-todo'}, 'Optimize Puppeteer support')
   I.pressKey('Enter')
 
-  I.fillField('.new-todo', 'bar')
+  I.fillField({ css: '.new-todo'}, 'Add a web REPL')
   I.pressKey('Enter')
 
-  I.fillField('.new-todo', 'baz')
+  I.fillField(locate('.new-todo').as('TODO Input'), 'Support Appium')
+  I.pressKey('Enter')
+
+  I.fillField('.new-todo', 'Become REALLY productive writing E2E Tests with codepress and CodeceptJS')
   I.pressKey('Enter')
 
   I.say('And I see them in the list')
-  I.seeNumberOfVisibleElements('.todo-list li', 3)
+  I.seeNumberOfVisibleElements('.todo-list li', 6)
+  I.see('Create a cypress like runner', 'li:nth-child(1) label')
+  I.dontSee('Nightmare', '.main')
+
+  I.say('I complete a todo')
+  I.click('li:nth-child(1) .toggle')
+  I.seeElement('li:nth-child(1).completed')
+
+  I.say('I mark all as completed')
+  I.click('.main > label')
+  I.seeNumberOfVisibleElements('.todo-list li.completed', 6)
 
   I.saveScreenshot('create-multiple-todo-items.png')
 })

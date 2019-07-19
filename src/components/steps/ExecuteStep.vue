@@ -3,7 +3,7 @@
         <i class="Step-icon far fa-play-circle"></i> 
         {{step.humanized}}
 
-        {{step.args[0]}}
+        {{step.humanizedArgs}}
     </div>
 </template>
 
@@ -19,6 +19,10 @@ export default {
   font-size: 0.8em;
   margin-left: 1em;
   padding: 2px 5px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
 

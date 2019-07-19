@@ -59,17 +59,17 @@
 - Selector Finder: Restrict attribute names
 - click/amOnPage should have top margin
 - Shorten amOnPageUrl to pathname
+- Fix: TODO Mvc Snapshots no CSS
+- Fix: pressKey Step
+- Fix: Check see step, does not look right
+- Disable, dont hide screenshot button
+- Fix no screenshot in failed assertion
+- executeScript: script missing
+- TestRun Empty State: Show sleected test name always
 
 ## In Progress
 
-- Disable, dont hide screenshot button
 - Show NODE_ENV value
-- TestRun Empty State: Show sleected test name always
-- Fix: TODO Mvc Snapshots no CSS
-- Show error when codecept command fails to start
-- executeScript: script missing
-- Fix: pressKey Step
-- Fix: Check see step, does not look right
 
 ## V 0.1
 
@@ -94,6 +94,8 @@
 - HTML Snapshot: Preserve input values
 - HTML Snapshot: Store scroll position, window size, cursor position
 - Also detect skipped scenarios
+- Bug: Still duplicate last step when error occurs (guess it depends on the type of error that occurs in the test. assertions are fine, but js errors (smth not defined) are not)
+- Show error when codecept command fails to start
 
 ## V 0.2
 

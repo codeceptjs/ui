@@ -14,6 +14,10 @@ const store = new Vuex.Store({
         selectedStep: undefined,
         tests: [],
 
+        scenarios: {
+          selectedScenario: undefined,
+        },
+
         cli: undefined,
     },
     mutations: {
@@ -96,6 +100,10 @@ const store = new Vuex.Store({
         if (!state.cli) return;
 
         state.cli.message = data.message;
+      },
+
+      selectScenario: (state, scenario) => {
+        state.scenarios.selectedScenario = scenario;
       }
     },
     plugins: [vuexLocal.plugin]

@@ -26,8 +26,9 @@ export default {
       const step = this.$props.step;
       let url = step.args[0];
       if (!url) return;
-      url = new URL(url);
+      if (!url.startsWith('http')) return url;
 
+      url = new URL(url);
       return url.pathname;
     },
   },

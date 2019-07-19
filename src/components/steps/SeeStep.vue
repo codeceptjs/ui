@@ -1,6 +1,6 @@
 <template>
     <div class="SeeStep">
-      <span class="tag is-success">
+      <span class="tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
           see
       </span>
 

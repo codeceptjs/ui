@@ -66,6 +66,7 @@
 - Fix no screenshot in failed assertion
 - executeScript: script missing
 - TestRun Empty State: Show sleected test name always
+- click: Take before AND after screenshot, but use the afterscreenshot for the next step (if its a no snapshot step)
 
 ## In Progress
 
@@ -78,7 +79,6 @@
 - break on error (how ?)
 - BUG last step in passed tests seems to be duplicated
 - Support data-driven tests properly (keep snapshots for all test runs)
-- click: Take before AND after screenshot, but use the afterscreenshot for the next step (if its a no snapshot step)
 - Show Metasteps in test run protocol
 - BUG: Scroll to bottom does not work for multiple tests
 - Refactor test model (persist and show last test result, support multiple tests)

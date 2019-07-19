@@ -13,7 +13,7 @@ async (I) => {
 
   I.say('I search for react jobs')
   I.fillField('body #search', 'react docker')
-  I.click('.btn.btn-m.primary.block') // Depending on the screen size there may be two such elements
+  I.clickLink('.btn.btn-m.primary.block') // Depending on the screen size there may be two such elements
 
   I.say('I see 4 vacancies')
   I.waitInUrl('/search')
@@ -28,7 +28,7 @@ async (I) => {
 
   I.say('I search for C# jobs')
   I.fillField('body #search', 'c#')
-  I.click('.btn.btn-m.primary.block')
+  I.clickLink('.btn.btn-m.primary.block')
 
   I.say('I see 6 vacancies')
   I.waitInUrl('/search')

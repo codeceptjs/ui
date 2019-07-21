@@ -5,6 +5,7 @@ exports.config = {
     Puppeteer: {
       url: 'http://localhost',
       waitForTimeout: 5000,
+      waitForAction: 0,
       show: false,
     },
 

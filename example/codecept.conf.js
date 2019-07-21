@@ -1,17 +1,24 @@
 exports.config = {
-  tests: './*_test.js',
+  tests: './todomvc-tests/**/*.test.js',
   output: './output',
   helpers: {
     Puppeteer: {
       url: 'http://localhost',
       waitForTimeout: 5000,
+      waitForNavigation: 'networkidle0',
       waitForAction: 0,
       show: false,
     },
 
-    REST: {}
+    REST: {},
+
+    CustomHelper: {
+      require: './todomvc-tests/helpers/custom.helper.js'
+    }
   },
-  include: {},
+  include: {
+    TodosPage: './todomvc-tests/pages/todos.page.js'
+  },
   bootstrap: null,
   mocha: {},
   name: 'example'

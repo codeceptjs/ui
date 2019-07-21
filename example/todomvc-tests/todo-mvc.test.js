@@ -1,4 +1,4 @@
-Feature('Tood MVC')
+Feature('codepress demo')
 
 Before(async (I) => {
   I.amOnPage('http://todomvc.com/examples/angularjs/#/')

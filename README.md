@@ -33,4 +33,6 @@ Finally codepress will start a webserver:
 Opening the specified url should show you a list of the features and scenarios in your project.
 Congratulations! You can now select one of the scenarios and watch it run in codepress.
 
+![scenarios view](./scenarios.gif)
+
 ## To be continued...

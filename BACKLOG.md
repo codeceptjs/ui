@@ -70,10 +70,11 @@
 
 ## In Progress
 
+
+## V 0.11
+
+- Use nice monospace font
 - Show NODE_ENV value
-
-## V 0.1
-
 - BUG iframe event throttling does not work
 - BUG fix scrolling to last step
 - break on error (how ?)
@@ -115,6 +116,7 @@
 
 ## Backlog
 
+- REST: Export/Import rest calls to postman
 - Error Handling: Show error when undeclared page objects in tests
 - Measure step duration
 - Show duration of REST requests

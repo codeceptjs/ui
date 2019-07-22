@@ -1,4 +1,4 @@
-## Done
+## v0.1.5
 
 - Use Buefiy
 - Fix error message
@@ -68,25 +68,40 @@
 - TestRun Empty State: Show sleected test name always
 - click: Take before AND after screenshot, but use the afterscreenshot for the next step (if its a no snapshot step)
 
+## Done
+
 ## In Progress
-
-
-## V 0.11
 
 - Use nice monospace font
 - Show NODE_ENV value
+- Show Metasteps in test run protocol
+- Always fire step.before to show currently executing step
+
+## V 0.2
+
+- 'Run all': Scenarios in a feature
+- Testrun View: Collapse scenarios
+- Testrun View: Stop button to terminate execution
+- Show before and after hooks
+- Nice favicon
+- Enhance README
+    * Known limitations
+    * Features
+    * Roadmap
+- PRB No snapshot shown when last step is a REST step
 - BUG iframe event throttling does not work
 - BUG fix scrolling to last step
-- break on error (how ?)
+- Testrun View: Extract tags and test data
+- Debugging: Automatically enter CLI on failing test
+- Debugging: Allow to set "breakpoints"
 - BUG last step in passed tests seems to be duplicated
 - Support data-driven tests properly (keep snapshots for all test runs)
-- Show Metasteps in test run protocol
 - BUG: Scroll to bottom does not work for multiple tests
 - Refactor test model (persist and show last test result, support multiple tests)
 - BUG: Should switch back to html snapshot if there is no screenshot (but screenshot previously selected)
 - Support multiple tests in test run view
 - Testrun Page: Show last result of testrun
-- Steps: Open source location per click
+- Steps: Open source code location per click
 - Selector Finder: would be nice to specify attributes which should be preferred to use for selector building (like data-test)
 - Html Snapshot: Rewrite image urls
 - Show snapshot when hovering over step
@@ -95,10 +110,10 @@
 - HTML Snapshot: Preserve input values
 - HTML Snapshot: Store scroll position, window size, cursor position
 - Also detect skipped scenarios
-- Bug: Still duplicate last step when error occurs (guess it depends on the type of error that occurs in the test. assertions are fine, but js errors (smth not defined) are not)
+- BUG: Still duplicate last step when error occurs (guess it depends on the type of error that occurs in the test. assertions are fine, but js errors (smth not defined) are not)
 - Show error when codecept command fails to start
 
-## V 0.2
+## V 0.3
 
 - Selector Playground: Show options when clicking on select field
 - REST Steps: Show request and response

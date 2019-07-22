@@ -1,6 +1,6 @@
 {
   "name": "codepress",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": {
     "codepress": "./bin/codepress.js"
   },

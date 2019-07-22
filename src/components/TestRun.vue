@@ -59,10 +59,15 @@ export default {
   },
   sockets: {
     connect: function () {},
+    'codeceptjs.started': function () {
+      this.$store.commit('setRunning', true);
+    },
+    'codeceptjs.exit': function () {
+      this.$store.commit('setRunning', false);
+    },
     'suite.before': function () {
       // TODO Check is this fired?
       this.$store.commit('clearTests');
-      this.$store.commit('setRunning', true);
     },
     'test.before': function (test) {
       this.$store.commit('addTest', test);
@@ -79,9 +84,10 @@ export default {
 
       scrollToLastStep();
     },
+    'metastep.changed': function (metastep) {
+      console.log(metastep);
+    },
     'finish': function () {
-      this.$store.commit('setRunning', false);
-
       scrollToLastStep();
     }
   },

@@ -11,6 +11,7 @@ export default {
     props: ['step'],
     methods: {
         formatCookie(cookieData) {
+            if (!cookieData) return '';
             return `${cookieData.name}=${cookieData.value}`;
         }
     }

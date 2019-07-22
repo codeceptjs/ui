@@ -1,10 +1,10 @@
 <template>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
-                <b>
-                    <span style="color: white;background-color: black;padding: 2px 5px;border-radius: 5px;">CODE</span>PRESS
-                </b>
+            <a class="navbar-item" href="#">
+                <img src="../assets/logo.png">
+
+                <b>code</b>press
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -22,11 +22,14 @@
                 </a>
 
                 <div class="navbar-item">
-                    <a class="button is-primary is-outlined is-small" v-on:click="run()">
+                    <button class="button is-primary is-outlined is-small" 
+                        v-on:click="run()"
+                        :disabled="!!loading"
+                    >
                         <i class="fas fa-play"></i>
                         &nbsp;
                         Run
-                    </a>
+                    </button>
                 </div>
 
 

@@ -36,3 +36,7 @@ Congratulations! You can now select one of the scenarios and watch it run in cod
 ![scenarios view](./scenarios.gif)
 
 ## To be continued...
+
+# Credits
+
+<a href="https://iconscout.com/icon/code-280" target="_blank">Code Icon</a> by <a href="https://iconscout.com/contributors/elegant-themes">Elegant Themes</a> on <a href="https://iconscout.com">Iconscout</a>

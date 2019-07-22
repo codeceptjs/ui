@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const debug = require('debug')('codepress');
+const debug = require('debug')('codepress:codepress');
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -30,6 +30,18 @@ io.on('connection', socket => {
     socket.broadcast.emit(evtName, data);
   }
   debug('socket connects');
+
+  socket.on('codeceptjs.started', (data) => {
+    emit('codeceptjs.started', data);
+  })
+  socket.on('codeceptjs.exit', (data) => {
+    emit('codeceptjs.exit', data);
+  })
+
+  socket.on('metastep.changed', (data) => {
+    debug('metastep', data);
+    emit('metastep.changed', data);
+  })
 
   socket.on('cli.start', (data) => {
     emit('cli.start', data);

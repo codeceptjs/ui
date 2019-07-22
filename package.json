@@ -4,7 +4,11 @@
   "bin": {
     "codepress": "./bin/codepress.js"
   },
-  "files": ["dist", "bin", "lib"],
+  "files": [
+    "dist",
+    "bin",
+    "lib"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

@@ -1,6 +1,7 @@
 Feature('Persist Todos')
 
 Before(async (I, TodosPage) => {
+    I.clearCookie()
     TodosPage.goto()
   
     TodosPage.enterTodos([

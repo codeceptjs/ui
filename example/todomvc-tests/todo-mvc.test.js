@@ -2,8 +2,6 @@ Feature('codepress demo')
 
 Before(async (I) => {
   I.amOnPage('http://todomvc.com/examples/angularjs/#/')
-  // I.amOnPage('http://localhost:8888')
-  I.refreshPage()
 
   I.say('Given I already have some todos')
   const todoItems = [
@@ -14,6 +12,8 @@ Before(async (I) => {
   I.executeScript((todoItems) => {
     localStorage.setItem('todos-angularjs', JSON.stringify(todoItems));
   }, todoItems)    
+
+  I.refreshPage()
 
   // Just to to some rest request
   I.sendPostRequest('https://reqres.in/api/users', {

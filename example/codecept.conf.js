@@ -21,5 +21,5 @@ exports.config = {
   },
   bootstrap: null,
   mocha: {},
-  name: 'example'
+  name: 'codepress demo tests'
 }

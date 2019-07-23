@@ -130,6 +130,7 @@ export default {
 
     clearScenarioRuns() {
       this.$store.commit('clearTests');
+      this.$store.commit('setRunning', false);
     }
   }
 }

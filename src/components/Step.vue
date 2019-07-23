@@ -66,6 +66,10 @@
         <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
       </div>
     </div>
+
+    <div class="Step-details" v-if="isSelected">
+      {{step.stack[3]}}
+    </div>
   </div>
 </template>
 
@@ -177,5 +181,12 @@ export default {
 .Step-argOther {
   margin-left: 0.5em;
   color:hsl(171, 100%, 41%)
+}
+
+.Step-details {
+  margin-left: 1em;
+  padding: 5px;
+  font-size: 0.85em;
+  font-family: monospace; 
 }
 </style>

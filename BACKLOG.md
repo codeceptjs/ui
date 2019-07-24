@@ -79,6 +79,10 @@
 
 ## V 0.2
 
+- Scenario View: Sort Features/Scenarios alphabetically
+- Scenario View: Use relative path
+- Scenario View: Run all scenarios in a feature
+- Scenario View: Show latest test run resultss
 - 'Run all': Scenarios in a feature
 - Testrun View: Collapse scenarios
 - Testrun View: Stop button to terminate execution

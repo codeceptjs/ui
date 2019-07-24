@@ -160,15 +160,15 @@ export default {
 }
 
 .Test-error {
-  font-family:  Consolas, Monaco, "Andale Mono", monospace;; 
-  font-size: 0.8em;
+  font-family: Inconsolata, monospace;
+  font-size:0.9rem;
   margin-top: .5em;
 }
 
 .Test-passed {
-  font-family: monospace; 
+  font-family: Inconsolata, monospace;
   margin-top: .5em;
-  font-size: 0.8em;
+  font-size:0.9rem;
   padding: .5em;
 }
 
@@ -178,7 +178,7 @@ export default {
 
 .InteractiveShell-error {
   margin-top: 1em;
-  font-size: 0.8em;
+  font-size:0.9rem;
 }
 
 .InteractiveShell-closeButton {

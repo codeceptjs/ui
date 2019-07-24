@@ -136,8 +136,8 @@ export default {
 <style scoped>
 .StepContainer {
   cursor: pointer;
-  font-size: 0.85em;
-  font-family: monospace; 
+  font-size: 0.9rem;
+  font-family:  Inconsolata, monospace; 
 }
 
 .StepContainer--selected {
@@ -186,7 +186,7 @@ export default {
 .Step-details {
   margin-left: 1em;
   padding: 5px;
-  font-size: 0.85em;
-  font-family: monospace; 
+  font-size: 0.9rem;
+  font-family:  Inconsolata, monospace;
 }
 </style>

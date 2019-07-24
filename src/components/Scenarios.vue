@@ -1,21 +1,36 @@
 <template>
   <div class="container is-fluid">
-    
+     <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <img src="../assets/logo.png">
+
+                <b>code</b>press
+            </a>
+
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            </a>
+        </div>
+    </nav>
+
     <section class="section">
       <div class="container">
-        <h1 class="title">Welcome to codepress!</h1>
+        <h1 class="title">{{project.name}}</h1>
         <h2 class="subtitle">
-          Interactive end-to-end testing for <a href="https://codecept.io/">CodeceptJS</a>. Select one of the scenarios listed below to run it.
+          Select one of the scenarios listed below to run it.
         </h2>
 
         <ul>
-          <li v-for="file in files">
+          <li v-for="feature in project.features">
             <div class="TestFile box">
-              <a class="TestFile-fileName" v-on:click="linkToOpen(file.file)">{{file.file}}</a>
-              <h4 class="subtitle">{{file.feature.title}}</h4>
+              <a class="TestFile-fileName" v-on:click="linkToOpen(feature.file)">{{feature.file}}</a>
+              <h4 class="subtitle">{{feature.feature.title}}</h4>
 
               <ul>
-                <li class="TestFile-scenario" v-for="scenario in file.scenarios">
+                <li class="TestFile-scenario" v-for="scenario in feature.scenarios">
                   <a 
                     class="TestFile-scenarioRunLink" 
                     v-on:click="selectScenario(scenario)"
@@ -36,13 +51,17 @@
 
 <script>
  import axios from 'axios';
+ import Header from './Header';
 
 export default {
   name: 'Scenarios',
+  components: {
+    Header,
+  },
   data() {
       return {
           loading: false,
-          files: []
+          project: {}
       }
   },
   created() {
@@ -54,7 +73,8 @@ export default {
           axios.get('/api/scenarios')
             .then(response => {
                 this.loading = false
-                this.files = response.data
+                this.project = response.data
+                console.log(this.project);
             })
             .catch(error => {
                 this.loading = false

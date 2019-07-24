@@ -33,7 +33,7 @@ const findShortSelector = (doc, el) => {
             root: doc,
             className: (name) => !name.startsWith('ng-') && !name.startsWith('css-'),
             tagName: (name) => !['div', 'span'].includes(name) && !name.startsWith('ng-'),
-             attr: (name) => ['title', 'href', 'src', 'name', 'data', 'placeholder'].includes(name),
+             attr: (name) => ['title', 'name', 'data-test', 'placeholder'].includes(name),
             seedMinLength: 1,
             optimizedMinLength: 2,
             threshold: 1000

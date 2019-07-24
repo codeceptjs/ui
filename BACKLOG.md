@@ -70,9 +70,11 @@
 
 ## Done
 
+- Use nice monospace font
+- Nice favicon
+
 ## In Progress
 
-- Use nice monospace font
 - Show NODE_ENV value
 - Show Metasteps in test run protocol
 - Always fire step.before to show currently executing step
@@ -87,7 +89,6 @@
 - Testrun View: Collapse scenarios
 - Testrun View: Stop button to terminate execution
 - Show before and after hooks
-- Nice favicon
 - Enhance README
     * Known limitations
     * Features

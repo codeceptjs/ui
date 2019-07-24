@@ -1,5 +1,5 @@
 exports.config = {
-  tests: './todomvc-tests/**/*.test.js',
+  tests: './todomvc-tests/**/*_test.js',
   output: './output',
   helpers: {
     Puppeteer: {

@@ -34,7 +34,6 @@ export default {
 
 <style>
 .ClickStep {
-  margin-top: .3em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

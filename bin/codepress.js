@@ -4,7 +4,6 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const io = require('socket.io')();
-const open = require('open');
 
 const {init} = require('../lib/commands/init');
 const api = require('../lib/api');
@@ -106,7 +105,6 @@ io.on('connection', socket => {
 
   // eslint-disable-next-line no-console
   console.log(`Open http://localhost:${PORT+1} in your web browser!`);
-  // open(`http://localhost:${PORT+1}`);
 
   io.listen(PORT);
   app.listen(PORT + 1);

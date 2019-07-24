@@ -78,8 +78,8 @@
 ## In Progress
 
 - Fix html snapshot
-- Show NODE_ENV value
 - Show Metasteps in test run protocol
+- Show NODE_ENV value
 - Always fire step.before to show currently executing step
 
 ## V 0.2

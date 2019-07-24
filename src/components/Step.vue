@@ -78,7 +78,7 @@
         Show
       </button>
       &nbsp;
-      <button v-if="step.stack.stackFrameInTest" 
+      <button v-if="hasTestStackFrame(step.stack)" 
         class="StepDetails-open button is-info is-small is-outlined" 
         href="#" 
         v-on:click="openFileFromStack(step.stack.stackFrameInTest)">
@@ -159,6 +159,10 @@ export default {
         const filePath = m[1];
         axios.get(`/api/tests/${encodeURIComponent(filePath)}/open`);
       }
+    },
+
+    hasTestStackFrame: function (stack) {
+      return stack.stackFrameInTest && stack.stackFrameInTest !== stack.stackFrameOfStep;
     }
   }
 }

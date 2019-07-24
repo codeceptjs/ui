@@ -74,10 +74,10 @@
 - Nice favicon
 - Testrun View: Show duration also for failed tests
 - Open step location in VS Code
+- Fix html snapshot
 
 ## In Progress
 
-- Fix html snapshot
 - Show Metasteps in test run protocol
 - Show NODE_ENV value
 - Always fire step.before to show currently executing step

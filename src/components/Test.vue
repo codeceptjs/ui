@@ -70,7 +70,9 @@
     </div>
 
     <div v-if="test.result === 'failed'" class="Test-error notification is-danger">
-      {{trim(test.error.message)}}
+      <p>
+        {{trim(test.error.message)}}
+      </p>
       <p>
         FAILED in {{test.duration}}s
       </p>

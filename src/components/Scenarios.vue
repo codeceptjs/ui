@@ -74,7 +74,6 @@ export default {
             .then(response => {
                 this.loading = false
                 this.project = response.data
-                console.log(this.project);
             })
             .catch(error => {
                 this.loading = false

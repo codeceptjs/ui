@@ -68,11 +68,22 @@
     </div>
 
     <div class="StepDetails" v-if="isSelected">
-      at {{getMethodFromStack(step.stack)}}
+      <i class="far fa-clock"></i> {{step.duration}}ms
+      at {{getMethodFromStack(step.stack.stackFrameOfStep)}}
       &nbsp;
-      <a class="StepDetails-open has-text-link" href="#" v-on:click="openFileFromStack(step.stack)">
+      <button v-if="step.stack.stackFrameOfStep" 
+        class="StepDetails-open button is-info is-small is-outlined" 
+        href="#" 
+        v-on:click="openFileFromStack(step.stack.stackFrameOfStep)">
         Show
-      </a>
+      </button>
+      &nbsp;
+      <button v-if="step.stack.stackFrameInTest" 
+        class="StepDetails-open button is-info is-small is-outlined" 
+        href="#" 
+        v-on:click="openFileFromStack(step.stack.stackFrameInTest)">
+        Show In Test
+      </button>
     </div>
   </div>
 </template>
@@ -136,15 +147,13 @@ export default {
       return `"${stringOrNumber}"`
     },
 
-    getMethodFromStack: function (stack) {
-      const stackFrame = stack[3];
+    getMethodFromStack: function (stackFrame) {
       const m = stackFrame.match(/at\s+([^\s]+)/)
       if (!m) return;
       return m[1];
     },
 
-    openFileFromStack: function (stack) {
-      const stackFrame = stack[3];
+    openFileFromStack: function (stackFrame) {
       const m = stackFrame.match(/\s+\(([^\)]+)/)
       if (m) {
         const filePath = m[1];
@@ -210,9 +219,8 @@ export default {
   padding: 5px;
   font-size: 0.8rem;
   font-family:  Inconsolata, monospace;
+  line-height: 2em;
 }
 
-.StepDetails-open {
-  display: inline-block;
-}
+
 </style>

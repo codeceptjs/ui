@@ -68,19 +68,26 @@
 - TestRun Empty State: Show sleected test name always
 - click: Take before AND after screenshot, but use the afterscreenshot for the next step (if its a no snapshot step)
 
-## Done
+## Done V 0.2
 
 - Use nice monospace font
 - Nice favicon
+- Testrun View: Show duration also for failed tests
+- Open step location in VS Code
 
 ## In Progress
 
+- Fix html snapshot
 - Show NODE_ENV value
 - Show Metasteps in test run protocol
 - Always fire step.before to show currently executing step
 
 ## V 0.2
 
+- Configuration: Editor file/line open command
+- BUG: Skipped scenarios not shown in scenario list
+- StepDetails: Show duration of step
+- Configuration: Jira/Issuetracking regex for tags
 - Scenario View: Sort Features/Scenarios alphabetically
 - Scenario View: Use relative path
 - Scenario View: Run all scenarios in a feature

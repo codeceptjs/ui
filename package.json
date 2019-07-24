@@ -20,8 +20,6 @@
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "lodash": "^4.17.14",
-    "open": "^6.4.0",
-    "open-editor": "^2.0.1",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0"
   },

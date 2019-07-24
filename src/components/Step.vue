@@ -67,14 +67,20 @@
       </div>
     </div>
 
-    <div class="Step-details" v-if="isSelected">
-      {{step.stack[3]}}
+    <div class="StepDetails" v-if="isSelected">
+      at {{getMethodFromStack(step.stack)}}
+      &nbsp;
+      <a class="StepDetails-open has-text-link" href="#" v-on:click="openFileFromStack(step.stack)">
+        Show
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 import {getSelectorString} from '../services/selector';
+
 import SendStep from './steps/SendStep';
 import SeeStep from './steps/SeeStep';
 import DontSeeStep from './steps/DontSeeStep';
@@ -128,6 +134,22 @@ export default {
     toStringOrNumber: function (stringOrNumber) {
       if (typeof stringOrNumber === 'number') return stringOrNumber;
       return `"${stringOrNumber}"`
+    },
+
+    getMethodFromStack: function (stack) {
+      const stackFrame = stack[3];
+      const m = stackFrame.match(/at\s+([^\s]+)/)
+      if (!m) return;
+      return m[1];
+    },
+
+    openFileFromStack: function (stack) {
+      const stackFrame = stack[3];
+      const m = stackFrame.match(/\s+\(([^\)]+)/)
+      if (m) {
+        const filePath = m[1];
+        axios.get(`/api/tests/${encodeURIComponent(filePath)}/open`);
+      }
     }
   }
 }
@@ -183,10 +205,14 @@ export default {
   color:hsl(171, 100%, 41%)
 }
 
-.Step-details {
+.StepDetails {
   margin-left: 1em;
   padding: 5px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-family:  Inconsolata, monospace;
+}
+
+.StepDetails-open {
+  display: inline-block;
 }
 </style>

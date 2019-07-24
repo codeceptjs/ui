@@ -69,10 +69,11 @@
 
     </div>
 
-    <div v-if="test.result === 'failed'" class="Test-error">
-      <b-message type="is-danger">
-        {{test.error.message}}
-      </b-message>
+    <div v-if="test.result === 'failed'" class="Test-error notification is-danger">
+      <pre>
+        <code>{{trim(test.error.message)}}</code>
+      </pre>
+      FAILED in {{test.duration}}s
     </div>
     <div v-if="test.result === 'passed'" class="Test-passed notification is-success">
         PASSED in {{test.duration}}s
@@ -121,14 +122,17 @@ export default {
   methods: {
     sendCommand(command) {
       this.$store.commit('clearCliError');
-      this.$socket.emit('cli.line', command)
+      this.$socket.emit('cli.line', command);
     },
     closeInteractiveShell() {
-      this.$socket.emit('cli.line', 'exit')
+      this.$socket.emit('cli.line', 'exit');
       this.$store.commit('stopCli');
     },
     nextStep() {
-      this.$socket.emit('cli.line', '')
+      this.$socket.emit('cli.line', '');
+    },
+    trim(str) {
+      return str.trim();
     }
   },
   computed: {

@@ -42,6 +42,21 @@ const store = new Vuex.Store({
         Vue.set(step, 'result', 'passed');
         currentTest.steps.push(step);
       },
+      addMetaStepToCurrentTest: (state, metastep) => {
+        const currentTest = state.tests[state.tests.length - 1];
+        if (!metastep) {
+          currentTest.steps.push({
+            type: 'meta',
+            result: 'passed',
+          });  
+        } else {
+          currentTest.steps.push({
+            type: 'meta',
+            result: 'passed',
+            ...metastep
+          });
+        }
+      },
       markAsFailedCurrentTest: (state, data) => {
         const currentTest = state.tests[state.tests.length - 1];
         const currentStep = currentTest.steps[currentTest.steps.length - 1];

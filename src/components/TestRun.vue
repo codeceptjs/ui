@@ -85,7 +85,7 @@ export default {
       scrollToLastStep();
     },
     'metastep.changed': function (metastep) {
-      console.log(metastep);
+      this.$store.commit('addMetaStepToCurrentTest', metastep);
     },
     'finish': function () {
       scrollToLastStep();

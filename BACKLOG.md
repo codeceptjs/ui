@@ -75,15 +75,20 @@
 - Testrun View: Show duration also for failed tests
 - Open step location in VS Code
 - Fix html snapshot
+- Show Metasteps in test run protocol
 
 ## In Progress
 
-- Show Metasteps in test run protocol
+- BUG: Where are Before/After metasteps?
+- Remove Context: from Context:Before
+- Metasteps: Indent ordinary steps
+- Remember last stackFrame in test
 - Show NODE_ENV value
 - Always fire step.before to show currently executing step
 
 ## V 0.2
 
+- BUG Still duplicate / in html snapshot urls https://www.check24-test.de//einsurance/pkw/vnt2/pkwResult.form;jsessionid=248F8BA8D04A23D1E2385053A7FC0873.ajp13-i01/
 - Configuration: Editor file/line open command
 - BUG: Skipped scenarios not shown in scenario list
 - StepDetails: Show duration of step

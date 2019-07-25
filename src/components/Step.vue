@@ -1,9 +1,18 @@
 <template>
   <div class="StepContainer" 
     v-bind:class="{ 'StepContainer--selected': isSelected, 'StepContainer--failed': step.result === 'failed', 'StepContainer--passed': step.result === 'passed' }"
-    v-on:click="$emit('select-step', step)">
+    v-on:click="handleSelectStep(step)">
     
-    <div class="StepWrapper" v-if="stepNameIncludes('send')">
+    <div class="StepWrapper" v-if="isMetaStep(step)">
+      <strong v-if="step.actor" class="StepMetaStep has-text-black">
+        {{step.actor}}{{step.name}}
+      </strong>
+      <strong v-else class="StepMetaStep has-text-black">
+        In Scenario
+      </strong>
+    </div>
+
+    <div class="StepWrapper" v-else-if="stepNameIncludes('send')">
       <SendStep v-bind:step="step" />
     </div>
 
@@ -127,6 +136,9 @@ export default {
     CommentStep,
   },
   methods: {
+    isMetaStep(step) {
+      return step.type === 'meta';
+    },
     stepNameStartsWith(methodName) {
       const step = this.$props.step;
       return step.name.startsWith(methodName);
@@ -154,7 +166,7 @@ export default {
     },
 
     openFileFromStack: function (stackFrame) {
-      const m = stackFrame.match(/\s+\(([^\)]+)/)
+      const m = stackFrame.match(/\s+\(([^)]+)/)
       if (m) {
         const filePath = m[1];
         axios.get(`/api/tests/${encodeURIComponent(filePath)}/open`);
@@ -163,6 +175,11 @@ export default {
 
     hasTestStackFrame: function (stack) {
       return stack.stackFrameInTest && stack.stackFrameInTest !== stack.stackFrameOfStep;
+    },
+
+    handleSelectStep: function (step) {
+      if (this.isMetaStep(step)) return;
+      this.$emit('select-step', step)
     }
   }
 }
@@ -191,9 +208,8 @@ export default {
   padding: .2em 0 .2em .5em;
 }
 
-.Step-icon {
-  display: inline-block;
-  width: 1em;
+.StepMetaStep {
+
 }
 
 .Step-name {
@@ -205,12 +221,6 @@ export default {
 .Step-argSelector {
   margin-left: 0.5em;
   color: hsl(204, 86%, 53%);
-}
-
-.Step-argUrl {
-  display: inline;
-  margin-left: 0.5em;
-  color:hsl(171, 100%, 41%)
 }
 
 .Step-argOther {

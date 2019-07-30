@@ -68,7 +68,7 @@
 - TestRun Empty State: Show sleected test name always
 - click: Take before AND after screenshot, but use the afterscreenshot for the next step (if its a no snapshot step)
 
-## Done V 0.2
+## Done V 0.1.6
 
 - Use nice monospace font
 - Nice favicon
@@ -76,26 +76,25 @@
 - Open step location in VS Code
 - Fix html snapshot
 - Show Metasteps in test run protocol
+- Configuration: Editor file/line open command
+- StepDetails: Show duration of step
 
 ## In Progress
 
-- Run codeceptjs in process
-    * scenario can only be run once (probably because opts.grep)
-    * Fire finish event
-    * leave codeceptjs/browser running
+
+## V 0.1.6
+
+- Remove Context: from Context:Before
+- Metasteps: Indent ordinary steps
+- Always fire step.before to show currently executing step
 
 ## V 0.2
 
-- BUG: Where are Before/After metasteps?
-- Remove Context: from Context:Before
-- Metasteps: Indent ordinary steps
+- File Open: Implement for other editors than VS Code
 - Remember last stackFrame in test
 - Show NODE_ENV value
-- Always fire step.before to show currently executing step
 - BUG Still duplicate / in html snapshot urls https://www.check24-test.de//einsurance/pkw/vnt2/pkwResult.form;jsessionid=248F8BA8D04A23D1E2385053A7FC0873.ajp13-i01/
-- Configuration: Editor file/line open command
 - BUG: Skipped scenarios not shown in scenario list
-- StepDetails: Show duration of step
 - Configuration: Jira/Issuetracking regex for tags
 - Scenario View: Sort Features/Scenarios alphabetically
 - Scenario View: Use relative path
@@ -104,7 +103,6 @@
 - 'Run all': Scenarios in a feature
 - Testrun View: Collapse scenarios
 - Testrun View: Stop button to terminate execution
-- Show before and after hooks
 - Enhance README
     * Known limitations
     * Features

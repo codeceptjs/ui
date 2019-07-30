@@ -84,6 +84,8 @@
 
 ## V 0.1.6
 
+- Html Snapshot: Rewrite urls in css, e. g. font awesome (...url(/versicherungsordner/management/674f50d287a8c48dc19ba404d20fe713.eot))
+- Html Snapshot: Rewrite all already absolute img urls (e. g. <img class="ActionTile-tracking" alt="tracking" src="https://www.check24-test.de/versicherungsordner/aktionen/kunden/5d401dc7464f7a00187c6516/whitespace.png?buster=1564483015264&amp;displaySource=Web2ndView">)
 - Remove Context: from Context:Before
 - Metasteps: Indent ordinary steps
 - Always fire step.before to show currently executing step

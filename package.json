@@ -26,22 +26,23 @@
     "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
+    "@medv/finder": "^1.1.1",
     "@vue/cli-plugin-babel": "^3.9.2",
     "@vue/cli-plugin-eslint": "^3.9.2",
     "@vue/cli-service": "^3.9.2",
+    "ansi-to-html": "^0.6.11",
     "babel-eslint": "^10.0.1",
+    "buefy": "^0.7.10",
+    "codeceptjs": "^2.2.0",
+    "copy-text-to-clipboard": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.6.10",
-    "buefy": "^0.7.10",
-    "copy-text-to-clipboard": "^2.1.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",
     "vue-socket.io": "^3.0.7",
+    "vue-template-compiler": "^2.6.10",
     "vuex": "^3.1.1",
-    "vuex-persist": "^2.0.1",
-    "ansi-to-html": "^0.6.11",
-    "@medv/finder": "^1.1.1"
+    "vuex-persist": "^2.0.1"
   },
   "eslintConfig": {
     "root": true,

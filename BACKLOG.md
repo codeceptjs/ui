@@ -79,13 +79,14 @@
 - Configuration: Editor file/line open command
 - StepDetails: Show duration of step
 - Html Snapshots: Improve link rewriting
+- Disable retries when running in web ui
+- Create switchTo step and scrollstep
 
 ## In Progress
 
 
 ## V 0.1.6
 
-- Disable retries when running in web ui
 - Remove Context: from Context:Before
 - Metasteps: Indent ordinary steps
 - Always fire step.before to show currently executing step

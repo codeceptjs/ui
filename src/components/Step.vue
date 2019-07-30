@@ -16,6 +16,14 @@
       <SendStep v-bind:step="step" />
     </div>
 
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('switchTo')">
+      <SwitchToStep v-bind:step="step" />
+    </div>
+
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('scroll')">
+      <ScrollStep v-bind:step="step" />
+    </div>
+
     <div class="StepWrapper" v-else-if="stepNameStartsWith('wait')">
       <WaitStep v-bind:step="step" />
     </div>
@@ -115,6 +123,8 @@ import FillFieldStep from './steps/FillFieldStep';
 import ExecuteStep from './steps/ExecuteStep';
 import GrabStep from './steps/GrabStep';
 import CommentStep from './steps/CommentStep';
+import SwitchToStep from './steps/SwitchToStep';
+import ScrollStep from './steps/ScrollStep';
 
 export default {
   name: 'Step',
@@ -134,6 +144,8 @@ export default {
     ExecuteStep,
     GrabStep,
     CommentStep,
+    SwitchToStep,
+    ScrollStep,
   },
   methods: {
     isMetaStep(step) {

@@ -14,11 +14,18 @@
         </div>
       </div>
 
-      <div class="Snapshot-pageUrl">
-        <a :href="selected.snapshot.pageUrl">{{selected.snapshot.pageTitle}}</a>
-        <input class="input is-rounded" type="text" :placeholder="selected.snapshot.pageUrl">
+      <div class="Snapshot-pageTitle">
+        <a :href="selected.snapshot.pageUrl">
+          <span class="Snapshot-size is-pulled-right">
+            <i class="fas fa-desktop"></i> {{selected.snapshot.viewportSize.width}}x{{selected.snapshot.viewportSize.height}}
+          </span>
+          {{selected.snapshot.pageTitle}}
+        </a>
       </div>
-
+      <div class="Snapshot-pageUrl has-text-grey has-background-grey-lighter">
+        {{selected.snapshot.pageUrl}}
+      </div>
+      
       <div class="Snapshot-data" v-if="selected.snapshot">
         <img v-if="isShowImage" 
           class="Snapshot-image"
@@ -29,6 +36,8 @@
         <snapshot-source 
           v-if="isShowSource"
           v-bind:snapshotId="selected.snapshot.id"
+          v-bind:snapshotScrollPosition="selected.snapshot.scrollPosition"
+          v-bind:viewportSize="selected.snapshot.viewportSize"
           v-bind:highlight="getSelector(selected)"
         />
       </div>
@@ -132,8 +141,14 @@ export default {
 .Snapshot-data {
 }
 
+.Snapshot-pageTitle {
+  margin-bottom: .5em;
+}
+
 .Snapshot-pageUrl {
   margin-bottom: .5em;
+  border-radius: 3px;
+  padding: 2px 1em;
 }
 
 .Snapshot-image {

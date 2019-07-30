@@ -81,9 +81,11 @@
 - Html Snapshots: Improve link rewriting
 - Disable retries when running in web ui
 - Create switchTo step and scrollstep
+- Store page width in snapshot
 
 ## In Progress
 
+- Indent all lowlevel steps
 
 ## V 0.1.6
 

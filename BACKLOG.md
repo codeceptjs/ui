@@ -86,6 +86,7 @@
 ## In Progress
 
 - Indent all lowlevel steps
+- REST: Put a link on all get requests
 
 ## V 0.1.6
 

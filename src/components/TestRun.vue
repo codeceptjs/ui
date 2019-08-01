@@ -91,6 +91,7 @@ export default {
 
     run() {
       const scenario = this.$route.params.scenario;
+      // axios.get(`/api/scenarios/${encodeURIComponent(scenario)}/run-ips`); // run in process
       axios.get(`/api/scenarios/${encodeURIComponent(scenario)}/run`);
 
       this.$store.commit('clearTests');

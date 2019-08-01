@@ -194,7 +194,7 @@ export default {
   padding-bottom: 75%;
   height: 0; 
   overflow: hidden; 
-  width: 100%;
+  max-width: 100%;
   height: auto;    
 }
 
@@ -212,7 +212,7 @@ export default {
     top: 0;
     left: 0;
     height: 90%;
-    width: 100%;
+    max-width: 100%;
     border: none;
 }
 </style>

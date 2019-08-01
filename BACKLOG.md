@@ -88,6 +88,8 @@
 - Indent all lowlevel steps
 - REST: Put a link on all get requests
 - Fix: click step has no duration
+- Make "I see" and "I dont" tags equal width
+- Link the Stacktrace instead of showing the "Show" button
 
 ## V 0.1.6
 

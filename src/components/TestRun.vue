@@ -58,44 +58,12 @@ export default {
     Snapshot
   },
   sockets: {
-    connect: function () {},
-    'codeceptjs.started': function () {
-      this.$store.commit('setRunning', true);
-    },
-    'codeceptjs.exit': function () {
-      this.$store.commit('setRunning', false);
-    },
-    'suite.before': function () {
-      // TODO Check is this fired?
-      this.$store.commit('clearTests');
-    },
-    'test.before': function (test) {
-      this.$store.commit('addTest', test);
-    },
-    'test.failed': function (error) {
-      this.$store.commit('markAsFailedCurrentTest', error);
-    },
-    'test.passed': function (data) {
-      this.$store.commit('markAsPassedCurrentTest', data);
-    },
-    'step.say': function (msg) {
-      console.log('SAY', msg);
-    },
     'step.before': function (step) {
-      this.$store.commit('setSelectedStep', step);
-      this.$store.commit('addStepToCurrentTest', step);
-
       scrollToLastStep();
-    },
-    'step.passed': function (step) {
-      console.log('STEP.PASSED', step);
-    },
-    'metastep.changed': function (metastep) {
-      this.$store.commit('addMetaStepToCurrentTest', metastep);
     },
     'finish': function () {
       scrollToLastStep();
-    }
+    }  
   },
   created: function () {
     if (!this.hasScenarioRun(this.$route.params.scenario)) {

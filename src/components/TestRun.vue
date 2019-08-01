@@ -58,7 +58,7 @@ export default {
     Snapshot
   },
   sockets: {
-    'step.before': function (step) {
+    'step.before': function () {
       scrollToLastStep();
     },
     'finish': function () {

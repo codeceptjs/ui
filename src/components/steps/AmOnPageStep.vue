@@ -19,6 +19,7 @@ export default {
 
 <style>
 .AmOnPageStep {
+  margin-left: .2em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

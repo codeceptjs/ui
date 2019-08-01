@@ -87,6 +87,7 @@
 
 - Indent all lowlevel steps
 - REST: Put a link on all get requests
+- Fix: click step has no duration
 
 ## V 0.1.6
 

@@ -74,7 +74,7 @@
     </div>
 
     <div v-else class="StepWrapper">
-      <div class="Step-name">
+      <div class="GenericStep">
         I {{step.humanized}}
         <span class="Step-argSelector">{{getSelector(step.args)}}</span>
         <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
@@ -228,7 +228,8 @@ export default {
 
 }
 
-.Step-name {
+.GenericStep {
+  margin-left: .2em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

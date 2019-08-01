@@ -1,6 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import VuexPersistence from 'vuex-persist'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import VuexPersistence from 'vuex-persist';
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage
@@ -20,6 +20,7 @@ const store = new Vuex.Store({
 
         cli: undefined,
     },
+
     mutations: {
       clearTests: (state) => {
         state.tests = [];
@@ -120,7 +121,44 @@ const store = new Vuex.Store({
         state.scenarios.selectedScenario = scenario;
       }
     },
+
+    actions: {
+      'SOCKET_codeceptjs.started': function (context) {
+        context.commit('setRunning', true);
+      },
+      'SOCKET_codeceptjs.exit': function (context) {
+        context.commit('setRunning', false);
+      },
+      'SOCKET_suite.before': function (context) {
+        // TODO Check is this fired?
+        context.commit('clearTests');
+      },
+      'SOCKET_test.before': function (context, test) {
+        context.commit('addTest', test);
+      },
+      'SOCKET_test.failed': function (context, error) {
+        context.commit('markAsFailedCurrentTest', error);
+      },
+      'SOCKET_test.passed': function (context, data) {
+        context.commit('markAsPassedCurrentTest', data);
+      },
+      'SOCKET_step.say': function (context, msg) {
+        console.log('SAY', msg);
+      },
+      'SOCKET_step.before': function (context, step) {
+        context.commit('setSelectedStep', step);
+        context.commit('addStepToCurrentTest', step);
+      },
+      'SOCKET_step.passed': function (context, step) {
+        console.log('STEP.PASSED', step);
+      },
+      'SOCKET_metastep.changed': function (context, metastep) {
+        context.commit('addMetaStepToCurrentTest', metastep);
+      }
+    },
+    
     plugins: [vuexLocal.plugin]
 });
+
 
 export default store;

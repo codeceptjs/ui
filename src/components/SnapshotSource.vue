@@ -1,7 +1,7 @@
 <template>
     <div class="SnapshotSource">
         <div class="SnapshotSource-mouseInterceptor"></div>
-        <iframe id="source" :src="buildSnapshotUrl(snapshotId)" frameborder="0"></iframe>
+        <iframe id="source" :src="buildSnapshotUrl(snapshotId)" :width="viewportSize.width" frameborder="0"></iframe>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ const throttled = (delay, fn) => {
 const getIframeDoc = iframeId => {
     const iframe = document.getElementById(iframeId);
     const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
-    return {iframe, doc};
+    return {iframe, doc, contentWindow: iframe.contentWindow};
 }
 
 const findShortSelector = (doc, el) => { 
@@ -49,7 +49,7 @@ const dehighlightAll = doc => {
         oldOutlines.forEach(ol => ol.remove())
     } catch (err) {
         // eslint-disable-next-line
-        console.warn(err);
+        // console.warn(err);
     }
 }
 
@@ -105,7 +105,7 @@ const findByCssOrXPath = (doc, sel) => {
         els = doc.querySelectorAll(sel)
     } catch (err) {
         // eslint-disable-next-line
-        console.warn(err);
+        // console.warn(err);
     }
 
     if (!els || els.length === 0) {
@@ -114,7 +114,7 @@ const findByCssOrXPath = (doc, sel) => {
             els = [res.singleNodeValue];
         } catch (err) {
             // eslint-disable-next-line
-            console.warn(err);
+            // console.warn(err);
         }
     }
 
@@ -130,7 +130,7 @@ const highlightInIframe = (doc, sel) => {
             els = [res.singleNodeValue];
         } catch (err) {
             // eslint-disable-next-line
-            console.warn(err);
+            // console.warn(err);
         }
     }
 
@@ -143,7 +143,7 @@ const highlightInIframe = (doc, sel) => {
 
 export default {
     name: 'SnapshotSource',
-    props: ['snapshotId', 'highlight'],
+    props: ['snapshotId', 'snapshotScrollPosition', 'viewportSize', 'highlight'],
     methods: {
         buildSnapshotUrl(snapshotId) {
             return `/api/snapshots/html/${snapshotId}`;
@@ -151,12 +151,15 @@ export default {
     },
 
     updated() {
-        const {iframe, doc} = getIframeDoc('source');
+        const {iframe, doc, contentWindow} = getIframeDoc('source');
         setTimeout(() => {
             const {doc} = getIframeDoc('source');
             highlightInIframe(doc, this.$props.highlight);
         }, 300);
         iframe.onload = () => {
+            if (contentWindow) {
+                contentWindow.scrollTo(this.$props.snapshotScrollPosition.x, this.$props.snapshotScrollPosition);
+            }
             highlightInIframe(doc, this.$props.highlight);
         }
 

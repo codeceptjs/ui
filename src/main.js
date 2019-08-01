@@ -10,17 +10,22 @@ import routes from './routes';
 Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(Buefy)
+
+const store = require('./store').default;
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: 'http://localhost:3000'
+    connection: 'http://localhost:3000',
+    vuex: {
+      store,
+      actionPrefix: "SOCKET_",
+      mutationPrefix: "SOCKET_"
+    }
 }))
 Vue.config.productionTip = false
 
 const router = new VueRouter({
   routes
 });
-
-const store = require('./store').default;
 
 new Vue({
   router,

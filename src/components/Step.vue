@@ -4,16 +4,21 @@
     v-on:click="handleSelectStep(step)">
     
     <div class="StepWrapper" v-if="isMetaStep(step)">
-      <strong v-if="step.actor" class="StepMetaStep has-text-black">
-        {{step.actor}}{{step.name}}
-      </strong>
-      <strong v-else class="StepMetaStep has-text-black">
-        In Scenario
+      <strong class="StepMetaStep has-text-black">
+        {{formatMetaStep(step)}}
       </strong>
     </div>
 
     <div class="StepWrapper" v-else-if="stepNameIncludes('send')">
       <SendStep v-bind:step="step" />
+    </div>
+
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('switchTo')">
+      <SwitchToStep v-bind:step="step" />
+    </div>
+
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('scroll')">
+      <ScrollStep v-bind:step="step" />
     </div>
 
     <div class="StepWrapper" v-else-if="stepNameStartsWith('wait')">
@@ -69,7 +74,7 @@
     </div>
 
     <div v-else class="StepWrapper">
-      <div class="Step-name">
+      <div class="GenericStep">
         I {{step.humanized}}
         <span class="Step-argSelector">{{getSelector(step.args)}}</span>
         <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
@@ -115,6 +120,8 @@ import FillFieldStep from './steps/FillFieldStep';
 import ExecuteStep from './steps/ExecuteStep';
 import GrabStep from './steps/GrabStep';
 import CommentStep from './steps/CommentStep';
+import SwitchToStep from './steps/SwitchToStep';
+import ScrollStep from './steps/ScrollStep';
 
 export default {
   name: 'Step',
@@ -134,10 +141,19 @@ export default {
     ExecuteStep,
     GrabStep,
     CommentStep,
+    SwitchToStep,
+    ScrollStep,
   },
   methods: {
     isMetaStep(step) {
       return step.type === 'meta';
+    },
+    formatMetaStep(step) {
+      if (step.actor) {
+        const actor = step.actor.replace('Context:', '');
+        return `${actor}${step.name}`;
+      }
+      return 'In Scenario';
     },
     stepNameStartsWith(methodName) {
       const step = this.$props.step;
@@ -212,7 +228,8 @@ export default {
 
 }
 
-.Step-name {
+.GenericStep {
+  margin-left: .2em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

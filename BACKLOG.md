@@ -78,9 +78,16 @@
 - Show Metasteps in test run protocol
 - Configuration: Editor file/line open command
 - StepDetails: Show duration of step
+- Html Snapshots: Improve link rewriting
+- Disable retries when running in web ui
+- Create switchTo step and scrollstep
+- Store page width in snapshot
 
 ## In Progress
 
+- Indent all lowlevel steps
+- REST: Put a link on all get requests
+- Fix: click step has no duration
 
 ## V 0.1.6
 

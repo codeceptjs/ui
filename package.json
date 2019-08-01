@@ -19,6 +19,7 @@
   "dependencies": {
     "ava": "^2.2.0",
     "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
     "core-js": "^2.6.5",
     "debug": "^4.1.1",
     "express": "^4.17.1",
@@ -38,6 +39,8 @@
     "copy-text-to-clipboard": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "sass": "^1.22.9",
+    "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7",
     "vue-socket.io": "^3.0.7",

@@ -4,11 +4,8 @@
     v-on:click="handleSelectStep(step)">
     
     <div class="StepWrapper" v-if="isMetaStep(step)">
-      <strong v-if="step.actor" class="StepMetaStep has-text-black">
-        {{step.actor}}{{step.name}}
-      </strong>
-      <strong v-else class="StepMetaStep has-text-black">
-        In Scenario
+      <strong class="StepMetaStep has-text-black">
+        {{formatMetaStep(step)}}
       </strong>
     </div>
 
@@ -150,6 +147,13 @@ export default {
   methods: {
     isMetaStep(step) {
       return step.type === 'meta';
+    },
+    formatMetaStep(step) {
+      if (step.actor) {
+        const actor = step.actor.replace('Context:', '');
+        return `${actor}${step.name}`;
+      }
+      return 'In Scenario';
     },
     stepNameStartsWith(methodName) {
       const step = this.$props.step;

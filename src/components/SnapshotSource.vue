@@ -49,7 +49,7 @@ const dehighlightAll = doc => {
         oldOutlines.forEach(ol => ol.remove())
     } catch (err) {
         // eslint-disable-next-line
-        console.warn(err);
+        // console.warn(err);
     }
 }
 
@@ -105,7 +105,7 @@ const findByCssOrXPath = (doc, sel) => {
         els = doc.querySelectorAll(sel)
     } catch (err) {
         // eslint-disable-next-line
-        console.warn(err);
+        // console.warn(err);
     }
 
     if (!els || els.length === 0) {
@@ -114,7 +114,7 @@ const findByCssOrXPath = (doc, sel) => {
             els = [res.singleNodeValue];
         } catch (err) {
             // eslint-disable-next-line
-            console.warn(err);
+            // console.warn(err);
         }
     }
 
@@ -130,7 +130,7 @@ const highlightInIframe = (doc, sel) => {
             els = [res.singleNodeValue];
         } catch (err) {
             // eslint-disable-next-line
-            console.warn(err);
+            // console.warn(err);
         }
     }
 

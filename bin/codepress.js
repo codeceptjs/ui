@@ -88,6 +88,10 @@ io.on('connection', socket => {
     emit('step.before', step);
   })
 
+  socket.on('step.say', (msg) => {
+    emit('step.say', msg);
+  })
+
   socket.on('finish', (data) => {
     emit('finish', data);
   })

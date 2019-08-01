@@ -78,6 +78,9 @@ export default {
     'test.passed': function (data) {
       this.$store.commit('markAsPassedCurrentTest', data);
     },
+    'step.say': function (msg) {
+      console.log('SAY', msg);
+    },
     'step.before': function (step) {
       this.$store.commit('setSelectedStep', step);
       this.$store.commit('addStepToCurrentTest', step);

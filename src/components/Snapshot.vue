@@ -44,7 +44,7 @@
 
     </div>
 
-    <div class="Snapshot-code">
+    <div class="Snapshot-code" v-if="selected.name.startsWith('send')">
       <h3 class="subtitle">
         <b>{{selected.name}}</b>
         <a :href="selected.args[0]" target="_blank">

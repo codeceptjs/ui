@@ -3,7 +3,7 @@
         <div class="navbar-brand">
             <a class="navbar-item" href="#">
                 <img src="../assets/logo.png">
-
+                &nbsp;
                 <b>code</b>press
             </a>
 

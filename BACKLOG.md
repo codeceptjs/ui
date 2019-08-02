@@ -82,12 +82,13 @@
 - Disable retries when running in web ui
 - Create switchTo step and scrollstep
 - Store page width in snapshot
+- REST: Put a link on all get requests
 
 ## In Progress
 
 - Indent all lowlevel steps
-- REST: Put a link on all get requests
 - Main: Provide relative path to test
+
 ## V 0.1.6
 
 - Fix: click step has no duration

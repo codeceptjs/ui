@@ -85,13 +85,13 @@
 - REST: Put a link on all get requests
 - REST: Put a link on all get requests
 - Make "I see" and "I dont" tags equal width
+- Indent all lowlevel steps
+- Main: Provide relative path to test
 
 ## In Progress
 
-- Indent all lowlevel steps
-- Fix: click step has no duration
+- Steps: Improve hover and selected state
 - Link the Stacktrace instead of showing the "Show" button
-- Main: Provide relative path to test
 
 ## V 0.1.6
 

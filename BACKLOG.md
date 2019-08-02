@@ -87,10 +87,12 @@
 
 - Indent all lowlevel steps
 - REST: Put a link on all get requests
-- Fix: click step has no duration
-
+- Main: Provide relative path to test
 ## V 0.1.6
 
+- Fix: click step has no duration
+- Testrun View: Quick way to open the test in editor
+- Testrun View: (?) Just show "toplevel" metasteps (i. e. metasteps which are called directly in test) in bold
 - Remove Context: from Context:Before
 - Metasteps: Indent ordinary steps
 - Always fire step.before to show currently executing step

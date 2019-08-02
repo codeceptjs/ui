@@ -1,6 +1,6 @@
 <template>
     <div class="SeeStep">
-      <span class="tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
+      <span class="SeeStep-tag tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
           see
       </span>
 
@@ -31,12 +31,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .SeeStep {
   margin-left: .2em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.SeeStep-tag {
+  width: 4em;
 }
 
 .SeeStep-selector {

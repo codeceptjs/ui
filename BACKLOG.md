@@ -82,17 +82,22 @@
 - Disable retries when running in web ui
 - Create switchTo step and scrollstep
 - Store page width in snapshot
+- REST: Put a link on all get requests
+- REST: Put a link on all get requests
+- Make "I see" and "I dont" tags equal width
 
 ## In Progress
 
 - Indent all lowlevel steps
-- REST: Put a link on all get requests
 - Fix: click step has no duration
-- Make "I see" and "I dont" tags equal width
 - Link the Stacktrace instead of showing the "Show" button
+- Main: Provide relative path to test
 
 ## V 0.1.6
 
+- Fix: click step has no duration
+- Testrun View: Quick way to open the test in editor
+- Testrun View: (?) Just show "toplevel" metasteps (i. e. metasteps which are called directly in test) in bold
 - Remove Context: from Context:Before
 - Metasteps: Indent ordinary steps
 - Always fire step.before to show currently executing step

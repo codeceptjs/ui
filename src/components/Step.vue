@@ -176,7 +176,7 @@ export default {
     },
 
     getMethodFromStack: function (stackFrame) {
-      if (!stackFrame) return '<unknown location>';
+      if (!stackFrame) return '<stackframe not available>'
       const m = stackFrame.match(/at\s+([^\s]+)/)
       if (!m) return;
       return m[1];

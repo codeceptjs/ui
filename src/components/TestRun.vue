@@ -9,7 +9,7 @@
         <Test v-for="test in tests"
           v-bind:key="test.title"
           v-bind:test="test"
-          v-bind:selectedStep="selectedStep"
+          v-bind:selectedStep="hoveredOrSelectedStep"
           v-on:select-step="onSelectStep"
         />
       </div>
@@ -24,8 +24,8 @@
     </aside>
 
     <div class="Content">
-      <Snapshot v-if="selectedStep"
-        v-bind:selected="selectedStep"
+      <Snapshot v-if="hoveredOrSelectedStep"
+        v-bind:selected="hoveredOrSelectedStep"
       />
     </div>
   </div>
@@ -77,8 +77,8 @@ export default {
     tests() {
       return this.$store.state.tests;
     },
-    selectedStep() {
-      return this.$store.state.selectedStep;
+    hoveredOrSelectedStep() {
+      return this.$store.state.hoveredStep || this.$store.state.selectedStep;
     },
     isRunning() {
       return this.$store.state.isRunning;

@@ -99,6 +99,11 @@
 
 ## V 0.1.6
 
+- SnapshotView: Fix element position for highlighting and click when page is scrolled
+- SnapshotView: Fix scroll position and scroll only in y direction
+- Scenario View: Group data driven scenarios
+- Scenario View: Group scenarios in same directory
+- Scenario View: Separate test file name and use as subtitle of feature headline
 - Fix: click step has no duration
 - Testrun View: Quick way to open the test in editor
 - Testrun View: (?) Just show "toplevel" metasteps (i. e. metasteps which are called directly in test) in bold

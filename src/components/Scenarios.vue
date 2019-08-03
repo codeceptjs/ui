@@ -1,10 +1,11 @@
 <template>
-  <div class="container is-fluid">
+  <div class="Scenarios">
      <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" href="#">
                 <img src="../assets/logo.png">
-
+                &nbsp;
                 <b>code</b>press
             </a>
 
@@ -14,19 +15,17 @@
             <span aria-hidden="true"></span>
             </a>
         </div>
+      </div>
     </nav>
 
     <section class="section">
       <div class="container">
         <h1 class="title">{{project.name}}</h1>
-        <h2 class="subtitle">
-          Select one of the scenarios listed below to run it.
-        </h2>
 
         <ul>
           <li v-for="feature in project.features">
             <div class="TestFile box">
-              <a class="TestFile-fileName" v-on:click="linkToOpen(feature.file)">{{feature.file}}</a>
+              <a class="TestFile-fileName has-text-grey-light" v-on:click="linkToOpen(feature.file)">{{feature.fileRelPath}}</a>
               <h4 class="subtitle">{{feature.feature.title}}</h4>
 
               <ul>
@@ -102,6 +101,5 @@ export default {
 
 .TestFile-fileName {
   font-size: 0.8em;
-  color: #ccc;
 }
 </style>

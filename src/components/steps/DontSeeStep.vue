@@ -1,6 +1,6 @@
 <template>
     <div class="DontSeeStep has-text-grey">
-      <span class="tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
+      <span class="DontSeeStep-tag tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
         dont
       </span>
 
@@ -46,6 +46,10 @@ export default {
 
 .DontSeeStep-text {
   color: hsl(171, 100%, 41%);
+}
+
+.DontSeeStep-tag {
+  width: 4em;
 }
 
 </style>

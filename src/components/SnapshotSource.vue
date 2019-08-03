@@ -23,6 +23,7 @@ const throttled = (delay, fn) => {
 
 const getIframeDoc = iframeId => {
     const iframe = document.getElementById(iframeId);
+    if (!iframe) return;
     const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
     return {iframe, doc, contentWindow: iframe.contentWindow};
 }

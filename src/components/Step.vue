@@ -81,7 +81,13 @@
       </div>
     </div>
 
-    <div class="StepDetails" v-if="isSelected">
+    <div class="StepDetails box" v-if="isSelected">
+      <div class="GenericStep">
+        I {{step.humanized}}
+        <span class="Step-argSelector">{{getSelector(step.args)}}</span>
+        <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
+      </div>
+
       <i class="far fa-clock"></i> {{step.duration}}ms
       at {{getMethodFromStack(step.stack.stackFrameOfStep)}}
       &nbsp;
@@ -176,7 +182,7 @@ export default {
     },
 
     getMethodFromStack: function (stackFrame) {
-      if (!stackFrame) return '<unknown location>';
+      if (!stackFrame) return '<stackframe not available>'
       const m = stackFrame.match(/at\s+([^\s]+)/)
       if (!m) return;
       return m[1];
@@ -204,14 +210,17 @@ export default {
 
 <style scoped>
 .StepContainer {
+  position: relative;
   cursor: pointer;
   font-size: 0.9rem;
   font-family:  Inconsolata, monospace; 
 }
 
+/*
 .StepContainer--selected {
   background-color: #ddd;
 }
+*/
 
 .StepContainer--passed {
   border-left: 4px solid hsl(141, 71%, 48%);
@@ -247,11 +256,18 @@ export default {
 }
 
 .StepDetails {
+  position: absolute;
+  top: 0;
+  left: 4em;
+  right: 0;
+  height: 5em;
   margin-left: 1em;
   padding: 5px;
   font-size: 0.8rem;
   font-family:  Inconsolata, monospace;
   line-height: 2em;
+  background-color: white;
+  z-index: 10;
 }
 
 

@@ -44,8 +44,14 @@
 
     </div>
 
-    <div class="Snapshot-code" v-if="isSendPostOrPut(selected)">
-      <pre>
+    <div class="Snapshot-code" v-if="selected.name.startsWith('send')">
+      <h3 class="subtitle">
+        <b>{{selected.name}}</b>
+        <a :href="selected.args[0]" target="_blank">
+          {{selected.args[0]}}
+        </a>
+      </h3>
+      <pre v-if="isSendPostOrPut(selected)">
         <code>{{JSON.stringify(selected.args[1], null, 2)}}</code>
       </pre>
     </div>

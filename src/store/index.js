@@ -12,6 +12,7 @@ const store = new Vuex.Store({
         show: 'source',
         lastSnapshot: undefined,
         selectedStep: undefined,
+        hoveredStep: undefined,
         tests: [],
 
         scenarios: {
@@ -83,8 +84,15 @@ const store = new Vuex.Store({
       },
       setSelectedStep: (state, selectedStep) => {
         if (!selectedStep) return;
-  
         state.selectedStep = selectedStep;
+      },
+      setHoveredStep: (state, hoveredStep) => {
+        if (!hoveredStep) return;
+        if (hoveredStep.type === 'meta') return;
+        state.hoveredStep = hoveredStep;
+      },
+      unsetHoveredStep: (state) => {
+        state.hoveredStep = undefined;
       },
       setRunning: (state, isRunning) => {
         state.isRunning = isRunning;

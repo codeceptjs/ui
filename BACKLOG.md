@@ -89,13 +89,23 @@
 ## In Progress
 
 - REST: Put a link on all get requests
-- Fix: click step has no duration
+- REST: Put a link on all get requests
 - Make "I see" and "I dont" tags equal width
+- Indent all lowlevel steps
+- Main: Provide relative path to test
+
+## In Progress
+
+- Steps: Improve hover and selected state
 - Link the Stacktrace instead of showing the "Show" button
 - screenshot step: Show image as default
 
 ## V 0.1.6
 
+- Fix: click step has no duration
+- Testrun View: Quick way to open the test in editor
+- Testrun View: (?) Just show "toplevel" metasteps (i. e. metasteps which are called directly in test) in bold
+- Metasteps: Indent ordinary steps
 - Always fire step.before to show currently executing step
 
 ## V 0.2

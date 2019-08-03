@@ -13,7 +13,12 @@
     </div>
 
     <ul class="menu-list">
-      <li v-for="step in test.steps" v-bind:key="step.title">
+      <li 
+        v-for="step in test.steps" 
+        v-bind:key="step.title"
+        @mouseover="setHoveredStep(step)"
+        @mouseleave="unsetHoveredStep(step)"
+      >
         <step
           v-bind:step="step"
           v-bind:isSelected="step === selectedStep"
@@ -22,6 +27,7 @@
       </li>
     </ul>
 
+    <!-- TODO Create separate component -->
     <div class="InteractiveShell box" v-if="isShowCli">
       <div class="InteractiveShell-actions is-clearfix">
         <i class="InteractiveShell-closeButton fa fa-times is-pulled-right" v-on:click.once="closeInteractiveShell()" />
@@ -100,7 +106,7 @@ export default {
       command: undefined,
     }
   },
-  sockets: {
+  sockets: { // TODO Move this to store
     'cli.start': function (data) {
       // eslint-disable-next-line no-console
       console.log('Start cli', data);
@@ -135,6 +141,12 @@ export default {
     },
     trim(str) {
       return str.trim();
+    },
+    setHoveredStep(step) {
+      this.$store.commit('setHoveredStep', step);
+    },
+    unsetHoveredStep(step) {
+      this.$store.commit('unsetHoveredStep', step);
     }
   },
   computed: {

@@ -85,14 +85,11 @@
 - Remove Context: from Context:Before
 - Metasteps: Indent ordinary steps
 - Indent all lowlevel steps
-
-## In Progress
-
-- REST: Put a link on all get requests
 - REST: Put a link on all get requests
 - Make "I see" and "I dont" tags equal width
-- Indent all lowlevel steps
 - Main: Provide relative path to test
+- Indent all lowlevel steps
+
 
 ## In Progress
 

@@ -20,9 +20,10 @@
         @mouseleave="unsetHoveredStep(step)"
       >
         <step
-          v-bind:step="step"
-          v-bind:isSelected="step === selectedStep"
-          v-on:select-step="$emit('select-step', step)"
+          :step="step"
+          :isHovered="step === hoveredStep"
+          :isSelected="step === selectedStep"
+          @select-step="$emit('select-step', step)"
         />
       </li>
     </ul>
@@ -166,6 +167,10 @@ export default {
       var convert = new Convert();
 
       return convert.toHtml(this.$store.state.cli.message);
+    },
+
+    hoveredStep() {
+      return this.$store.state.hoveredStep;
     }
   }
 }

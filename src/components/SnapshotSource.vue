@@ -20,7 +20,6 @@ import  {
   highlightElement,
   dehighlightAll,
   highlightInIframe,
-  findShortSelector,
 } from '../services/selector-finder';
 import copy from 'copy-text-to-clipboard';
 
@@ -36,12 +35,12 @@ const throttled = (delay, fn) => {
   }
 }
 
-const getIframeDoc = iframeId => {
-    const iframe = document.getElementById(iframeId);
-    if (!iframe) return;
-    const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
-    return {iframe, doc, contentWindow: iframe.contentWindow};
-}
+// const getIframeDoc = iframeId => {
+//     const iframe = document.getElementById(iframeId);
+//     if (!iframe) return;
+//     const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+//     return {iframe, doc, contentWindow: iframe.contentWindow};
+// }
 
 const handleIframeMouseMove = doc => throttled(200, e => {
     const el = doc.elementFromPoint(e.x, e.y);
@@ -54,7 +53,7 @@ const handleIframeMouseOut = (doc, highlight) => throttled(50, () => {
     highlightInIframe(doc, highlight); // highlight step locator again
 })
 
-const handleIframeClick = (doc, highlight) => throttled(10, (e) => {
+const handleIframeClick = (doc) => throttled(10, (e) => {
     const el = doc.elementFromPoint(e.x, e.y);
     const shortestSelector = highlightElement(el);
     copy(shortestSelector);
@@ -81,9 +80,8 @@ export default {
             return this.$refs.source.contentWindow && (this.$props.snapshotScrollPosition.x > 0 || this.$props.snapshotScrollPosition.y > 0)
         },
 
-        onIframeLoaded(e) {
+        onIframeLoaded() {
             this.loaded = true;
-
 
             if (this.mustScrollIframe()) {
                 this.$refs.source.contentWindow.scrollTo(this.$props.snapshotScrollPosition.x, this.$props.snapshotScrollPosition.y);

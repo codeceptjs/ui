@@ -1,7 +1,7 @@
 <template>
   <div class="StepContainer" 
-    v-bind:class="{ 'StepContainer--selected': isSelected, 'StepContainer--failed': step.result === 'failed', 'StepContainer--passed': step.result === 'passed' }"
-    v-on:click="handleSelectStep(step)">
+    :class="{ 'StepContainer--selected': isSelected, 'StepContainer--failed': step.result === 'failed', 'StepContainer--passed': step.result === 'passed' }"
+    @click="handleSelectStep(step)">
     
     <div class="StepWrapper" v-if="isMetaStep(step)">
       <strong class="StepMetaStep has-text-black">
@@ -81,6 +81,10 @@
       </div>
     </div>
 
+    <div v-if="isHovered">
+      Hover...
+    </div>
+
     <div class="StepDetails box" v-if="isSelected">
       <div class="GenericStep">
         I {{step.humanized}}
@@ -131,7 +135,7 @@ import ScrollStep from './steps/ScrollStep';
 
 export default {
   name: 'Step',
-  props: ['step', 'selectedStep', 'isSelected', 'error'],
+  props: ['step', 'selectedStep', 'isHovered', 'isSelected', 'error'],
   components: {
     SendStep,
     SeeStep,

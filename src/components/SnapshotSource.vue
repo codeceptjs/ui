@@ -100,12 +100,12 @@ export default {
 
 <style>
 .SnapshotSource {
-  position: relative; 
-  padding-bottom: 75%;
-  height: 0; 
-  overflow: hidden; 
-  max-width: 100%;
-  height: auto;    
+    position: relative; 
+    padding-bottom: 75%;
+    height: 0; 
+    overflow: hidden; 
+    max-width: 100%;
+    height: auto;    
 }
 
 #source {

@@ -36,15 +36,8 @@ const throttled = (delay, fn) => {
   }
 }
 
-const getIframeDoc = iframeId => {
-    const iframe = document.getElementById(iframeId);
-    if (!iframe) return;
-    const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
-    return {iframe, doc, contentWindow: iframe.contentWindow};
-}
-
-const handleIframeMouseMove = doc => throttled(200, e => {
-    const el = doc.elementFromPoint(e.x, e.y);
+const handleIframeMouseMove = (doc, window) => throttled(200, e => {
+    const el = doc.elementFromPoint(e.x, e.y + window.pageYOffset);
     dehighlightAll(doc);
     highlightElement(el);
 })
@@ -54,8 +47,8 @@ const handleIframeMouseOut = (doc, highlight) => throttled(50, () => {
     highlightInIframe(doc, highlight); // highlight step locator again
 })
 
-const handleIframeClick = (doc, highlight) => throttled(10, (e) => {
-    const el = doc.elementFromPoint(e.x, e.y);
+const handleIframeClick = (doc, window, highlight) => throttled(10, (e) => {
+    const el = doc.elementFromPoint(e.x, e.y + window.pageYOffset);
     const shortestSelector = highlightElement(el);
     copy(shortestSelector);
 })
@@ -77,6 +70,10 @@ export default {
             return this.$refs.contentDocument || (this.$refs.source.contentWindow && this.$refs.source.contentWindow.document);
         },
 
+        getIframeWindow() {
+            return this.$refs.source.contentWindow;
+        },
+
         mustScrollIframe() {
             return this.$refs.source.contentWindow && (this.$props.snapshotScrollPosition.x > 0 || this.$props.snapshotScrollPosition.y > 0)
         },
@@ -90,9 +87,9 @@ export default {
             }
             highlightInIframe(this.getIframeDoc(), this.$props.highlight);
 
-            this.getIframeDoc().addEventListener('mousemove', handleIframeMouseMove(this.getIframeDoc()))
+            this.getIframeDoc().addEventListener('mousemove', handleIframeMouseMove(this.getIframeDoc(), this.getIframeWindow()))
             this.getIframeDoc().addEventListener('mouseout', handleIframeMouseOut(this.getIframeDoc(), this.$props.highlight))
-            this.getIframeDoc().addEventListener('click', handleIframeClick(this.getIframeDoc(), this.$props.highlight))
+            this.getIframeDoc().addEventListener('click', handleIframeClick(this.getIframeDoc(), this.getIframeWindow(), this.$props.highlight))
         }
     },
 }

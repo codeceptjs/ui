@@ -15,7 +15,7 @@
       </div>
 
       <div class="Snapshot-pageTitle">
-        <a :href="selected.snapshot.pageUrl">
+        <a :href="selected.snapshot.pageUrl" target="_blank">
           <span class="Snapshot-size is-pulled-right">
             <i class="fas fa-desktop"></i> {{selected.snapshot.viewportSize.width}}x{{selected.snapshot.viewportSize.height}}
           </span>

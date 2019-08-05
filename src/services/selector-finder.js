@@ -86,7 +86,7 @@ export const highlightElement = el => {
   newOutline.style['border-radius'] = '2px';
   newOutline.style.border = `2px solid ${highlightColor}`
   newOutline.style['padding'] = '1px';
-  newOutline.style['z-index'] = '999999999';
+  newOutline.style['z-index'] = '9999999999';
   newOutline.style['pointer-events'] = 'none'; // be able to click through this element
   newOutline.style.opacity = 0.2;
   newOutline.style['background-color'] = highlightColor
@@ -107,7 +107,7 @@ export const highlightElement = el => {
   textContainer.style.top = rect.top + window.scrollY + 'px'
   textContainer.style.left = rect.left + window.scrollX + 'px'
   textContainer.style['pointer-events'] = 'none'; // be able to click through this element
-  textContainer.style['z-index'] = '999999999';
+  textContainer.style['z-index'] = '9999999999';
 
   doc.querySelector('body').appendChild(newOutline)
   doc.querySelector('body').appendChild(textContainer)

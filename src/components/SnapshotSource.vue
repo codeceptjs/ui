@@ -20,7 +20,6 @@ import  {
   highlightElement,
   dehighlightAll,
   highlightInIframe,
-  findShortSelector,
 } from '../services/selector-finder';
 import copy from 'copy-text-to-clipboard';
 
@@ -47,7 +46,7 @@ const handleIframeMouseOut = (doc, highlight) => throttled(50, () => {
     highlightInIframe(doc, highlight); // highlight step locator again
 })
 
-const handleIframeClick = (doc, window, highlight) => throttled(10, (e) => {
+const handleIframeClick = (doc, window) => throttled(10, (e) => {
     const el = doc.elementFromPoint(e.x, e.y + window.pageYOffset);
     const shortestSelector = highlightElement(el);
     copy(shortestSelector);
@@ -78,7 +77,7 @@ export default {
             return this.$refs.source.contentWindow && (this.$props.snapshotScrollPosition.x > 0 || this.$props.snapshotScrollPosition.y > 0)
         },
 
-        onIframeLoaded(e) {
+        onIframeLoaded() {
             this.loaded = true;
 
 

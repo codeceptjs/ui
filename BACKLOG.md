@@ -93,6 +93,8 @@
 
 ## In Progress
 
+- BUG: Testrun View: Test title contains feature title
+- BUG: See element does not show aliased locator name
 - Steps: Improve hover and selected state
 - Link the Stacktrace instead of showing the "Show" button
 - screenshot step: Show image as default

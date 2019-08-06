@@ -9,13 +9,12 @@
         <Test v-for="test in tests"
           v-bind:key="test.title"
           v-bind:test="test"
-          v-bind:selectedStep="hoveredOrSelectedStep"
           v-on:select-step="onSelectStep"
         />
       </div>
       <div v-else>
-        <div class="menu">
-           <p class="menu-label">
+        <div>
+           <p>
              {{selectedScenario}}
           </p>
           <div class="has-text-grey-light has-text-centered">This scenario has not been run yet.</div>

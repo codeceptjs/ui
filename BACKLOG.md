@@ -89,19 +89,20 @@
 - Make "I see" and "I dont" tags equal width
 - Main: Provide relative path to test
 - Indent all lowlevel steps
+- Steps: Improve hover and selected state
+- Link the Stacktrace instead of showing the "Show" button
 
 
 ## In Progress
 
-- BUG: Testrun View: Test title contains feature title
-- BUG: See element does not show aliased locator name
-- Steps: Improve hover and selected state
-- Link the Stacktrace instead of showing the "Show" button
-- screenshot step: Show image as default
+- BUG: Testrun View: Separate feature and scenario title
 
 ## V 0.1.6
 
+- BUG: See element does not (always) show aliased locator name
+- screenshot step: Show image as default
 . Step: fillField: Use columns to lay out field name and value
+- Test Stack: Remember the most recent test stackframe and use it in step if no test stackframe available
 - SnapshotView: Fix element position for highlighting and click when page is scrolled
 - SnapshotView: Fix scroll position and scroll only in y direction
 - Scenario View: Group data driven scenarios

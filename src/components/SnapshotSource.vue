@@ -80,7 +80,6 @@ export default {
         onIframeLoaded() {
             this.loaded = true;
 
-
             if (this.mustScrollIframe()) {
                 this.$refs.source.contentWindow.scrollTo(this.$props.snapshotScrollPosition.x, this.$props.snapshotScrollPosition.y);
             }

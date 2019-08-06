@@ -1,7 +1,7 @@
 <template>
-  <div class="Test menu">
+  <div class="Test">
 
-    <div class="columns menu-label">
+    <div class="columns">
       <div class="column is-1">
         <i v-if="test.result == 'passed'" class="fas fa-check has-text-success" />
         <i v-if="test.result == 'failed'" class="fas fa-times has-text-danger" />
@@ -20,9 +20,10 @@
         @mouseleave="unsetHoveredStep(step)"
       >
         <step
-          v-bind:step="step"
-          v-bind:isSelected="step === selectedStep"
-          v-on:select-step="$emit('select-step', step)"
+          :step="step"
+          :isHovered="step === hoveredStep"
+          :isSelected="step === selectedStep"
+          @select-step="$emit('select-step', step)"
         />
       </li>
     </ul>
@@ -166,6 +167,13 @@ export default {
       var convert = new Convert();
 
       return convert.toHtml(this.$store.state.cli.message);
+    },
+
+    hoveredStep() {
+      return this.$store.state.hoveredStep;
+    },
+    selectedStep() {
+      return this.$store.state.selectedStep;
     }
   }
 }

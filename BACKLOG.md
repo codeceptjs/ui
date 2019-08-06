@@ -99,6 +99,7 @@
 
 ## V 0.1.6
 
+- Test Stack: Remember the most recent test stackframe and use it in step if no test stackframe available
 - SnapshotView: Fix element position for highlighting and click when page is scrolled
 - SnapshotView: Fix scroll position and scroll only in y direction
 - Scenario View: Group data driven scenarios

@@ -35,7 +35,7 @@
     "@vue/cli-service": "^3.9.2",
     "ansi-to-html": "^0.6.11",
     "babel-eslint": "^10.0.1",
-    "buefy": "^0.7.10",
+    "buefy": "^0.8.2",
     "codeceptjs": "git+https://github.com/elukoyanov/CodeceptJS.git#update-mocha-6",
     "copy-text-to-clipboard": "^2.1.0",
     "eslint": "^5.16.0",

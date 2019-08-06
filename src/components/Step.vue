@@ -81,34 +81,31 @@
       </div>
     </div>
 
-    <div v-if="isHovered">
-      Hover...
-    </div>
-
-    <div class="StepDetails box" v-if="isSelected">
-      <div class="GenericStep">
-        I {{step.humanized}}
-        <span class="Step-argSelector">{{getSelector(step.args)}}</span>
-        <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
+    <div class="StepHoverContainer" v-if="isHovered">
+      <div class="StepHoverContainer-content is-pulled-right has-background-white">
+        <span class="has-text-grey-light">
+          <i class="far fa-clock"></i> {{step.at / 1000}}s
+        </span>
+        <span class="has-text-grey-light">
+          <i class="fas fa-stopwatch has-text-grey-light"></i> {{step.duration}}ms
+        </span>
+        
+        <button v-if="step.stack.stackFrameOfStep && step.stack.stackFrameOfStep !== step.stack.stackFrameInTest" 
+          class="button is-small is-info is-outlined"
+          @click="openFileFromStack(step.stack.stackFrameOfStep)"
+        >
+          at {{getMethodFromStack(step.stack.stackFrameOfStep)}}
+        </button>
+        &nbsp;
+        <button v-if="step.stack.stackFrameInTest" 
+          class="button is-small is-info is-outlined" 
+          href="#" 
+          v-on:click="openFileFromStack(step.stack.stackFrameInTest)">
+          In Test
+        </button>
       </div>
-
-      <i class="far fa-clock"></i> {{step.duration}}ms
-      at {{getMethodFromStack(step.stack.stackFrameOfStep)}}
-      &nbsp;
-      <button v-if="step.stack.stackFrameOfStep" 
-        class="StepDetails-open button is-info is-small is-outlined" 
-        href="#" 
-        v-on:click="openFileFromStack(step.stack.stackFrameOfStep)">
-        Show
-      </button>
-      &nbsp;
-      <button v-if="hasTestStackFrame(step.stack)" 
-        class="StepDetails-open button is-info is-small is-outlined" 
-        href="#" 
-        v-on:click="openFileFromStack(step.stack.stackFrameInTest)">
-        Show In Test
-      </button>
     </div>
+
   </div>
 </template>
 
@@ -200,10 +197,6 @@ export default {
       }
     },
 
-    hasTestStackFrame: function (stack) {
-      return stack.stackFrameInTest && stack.stackFrameInTest !== stack.stackFrameOfStep;
-    },
-
     handleSelectStep: function (step) {
       if (this.isMetaStep(step)) return;
       this.$emit('select-step', step)
@@ -212,7 +205,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .StepContainer {
   position: relative;
   cursor: pointer;
@@ -220,11 +213,22 @@ export default {
   font-family:  Inconsolata, monospace; 
 }
 
-/*
+.StepHoverContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  line-height: 1.5em;
+}
+
+.StepHoverContainer-content {
+  padding-left: 1em;
+}
+
 .StepContainer--selected {
   background-color: #ddd;
 }
-*/
 
 .StepContainer--passed {
   border-left: 4px solid hsl(141, 71%, 48%);
@@ -260,13 +264,7 @@ export default {
 }
 
 .StepDetails {
-  position: absolute;
-  top: 0;
-  left: 4em;
-  right: 0;
-  height: 5em;
-  margin-left: 1em;
-  padding: 5px;
+  width: 10em;
   font-size: 0.8rem;
   font-family:  Inconsolata, monospace;
   line-height: 2em;

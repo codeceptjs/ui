@@ -36,7 +36,7 @@ const throttled = (delay, fn) => {
 }
 
 const handleIframeMouseMove = (doc, window) => throttled(200, e => {
-    const el = doc.elementFromPoint(e.x, e.y + window.pageYOffset);
+    const el = doc.elementFromPoint(e.layerX, e.layerY);
     dehighlightAll(doc);
     highlightElement(el);
 })
@@ -109,7 +109,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    height: 90vh;
+    height: 95%;
     max-width: 100%;
     border: none;
 }

@@ -101,6 +101,7 @@
 
 ## V 0.1.6
 
+. Step: fillField: Use columns to lay out field name and value
 - SnapshotView: Fix element position for highlighting and click when page is scrolled
 - SnapshotView: Fix scroll position and scroll only in y direction
 - Scenario View: Group data driven scenarios

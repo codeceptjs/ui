@@ -7,6 +7,7 @@ const io = require('socket.io')();
 
 const {init} = require('../lib/commands/init');
 const api = require('../lib/api');
+
 const snapshotStore = require('../lib/model/snapshot-store');
 
 // Base port
@@ -20,6 +21,27 @@ const AppDir = path.join(__dirname, '..', 'dist');
 app.use(express.static(AppDir));
 app.use('/api', api);
 
+const proxyEvents = {
+  'codeceptjs:scenarios.updated': undefined, 
+  'codeceptjs:scenarios.parseerror': undefined,
+  'codeceptjs.started': () => snapshotStore.clear(), 
+  'codeceptjs.exit': undefined, 
+  'metastep.changed': undefined,
+  'cli.start': undefined, 
+  'cli.stop': undefined, 
+  'cli.error': undefined, 
+  'cli.output': undefined, 
+  'cli.line': undefined, 
+  'cli.close': undefined,
+  'suite.before': undefined,
+  'test.before': undefined,
+  'test.failed': (data) => snapshotStore.add(data.id, data),
+  'test.passed': (data) => snapshotStore.add(data.id, data), 
+  'step.before': (data) => snapshotStore.add(data.id, data),
+  'step.say': undefined, 
+  'step.passed': undefined,
+  'finish': undefined, 
+}
 /**
  * Websocket Events
  */
@@ -30,79 +52,17 @@ io.on('connection', socket => {
   }
   debug('socket connects');
 
-  socket.on('codeceptjs.started', (data) => {
-    emit('codeceptjs.started', data);
-  })
-  socket.on('codeceptjs.exit', (data) => {
-    emit('codeceptjs.exit', data);
-  })
-
-  socket.on('metastep.changed', (data) => {
-    debug('metastep', data);
-    emit('metastep.changed', data);
-  })
-
-  socket.on('cli.start', (data) => {
-    emit('cli.start', data);
-  })
-  socket.on('cli.stop', (data) => {
-    emit('cli.stop', data);
-  })
-  socket.on('cli.error', (data) => {
-    emit('cli.error', data);
-  })
-  socket.on('cli.output', (data) => {
-    emit('cli.output', data);
-  })
-  socket.on('cli.line', (data) => {
-    emit('cli.line', data);
-  })
-  socket.on('cli.close', (data) => {
-    emit('cli.close', data);
-  })
-
-  socket.on('suite.before', (data) => {
-    snapshotStore.clear();
-
-    emit('suite.before', data);
-  })
-
-  socket.on('test.before', (data) => {
-    snapshotStore.clear();
-
-    emit('test.before', data);
-  })
-
-  socket.on('test.failed', (data) => {
-    const dataWithoutSnapshot = snapshotStore.add(data.id, data);
-    emit('test.failed', dataWithoutSnapshot);
-  })
-
-  socket.on('test.passed', (data) => {
-    const dataWithoutSnapshot = snapshotStore.add(data.id, data);
-    emit('test.passed', dataWithoutSnapshot);
-  })
-
-  socket.on('step.before', (data) => {
-    const step = snapshotStore.add(data.id, data);
-    emit('step.before', step);
-  })
-
-  socket.on('step.say', (msg) => {
-    emit('step.say', msg);
-  })
-
-  socket.on('step.passed', (step) => {
-    emit('step.passed', step);
-  })
-
-  socket.on('finish', (data) => {
-    emit('finish', data);
-  })
-
-  socket.on('disconnect', () => {
-    debug('socket disconnects')
-   });
+  for (let eventName in proxyEvents) {
+    socket.on(eventName, (data) => {
+      const localEventName = eventName;
+      const fn = proxyEvents[localEventName];
+      let newData = data;
+      if (fn) {
+        newData = fn(data);
+      }
+      emit(localEventName, newData);
+    })
+  }  
 });
 
 (async function() {

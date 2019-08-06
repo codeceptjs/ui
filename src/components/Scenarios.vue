@@ -50,12 +50,10 @@
 
 <script>
  import axios from 'axios';
- import Header from './Header';
 
 export default {
   name: 'Scenarios',
   components: {
-    Header,
   },
   data() {
       return {
@@ -64,10 +62,20 @@ export default {
       }
   },
   created() {
-      this.getDataFromApi()
+      this.loadProject()
+  },
+  sockets: {
+    'codeceptjs:scenarios.updated': function (data) {
+      console.log('codeceptjs:scenarios.updated', data);
+      this.loadProject();
+    },
+
+    'codeceptjs:scenarios.parseerror': function (data) {
+      console.log('codeceptjs:scenarios.parseerror', data);
+    },
   },
   methods: {
-      getDataFromApi() {
+      loadProject() {
           this.loading = true
           axios.get('/api/scenarios')
             .then(response => {

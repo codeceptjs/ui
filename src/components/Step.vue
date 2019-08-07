@@ -220,10 +220,14 @@ export default {
   bottom: 0;
   right: 0;
   line-height: 1.5em;
+  z-index: 99999;
+
 }
 
 .StepHoverContainer-content {
-  padding-left: 1em;
+  padding: 3px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border-radius: 3px;
 }
 
 .StepContainer--selected {

@@ -11,7 +11,7 @@ export function getSelectorString(stepArg) {
             value = first.xpath || first.css;
             label = value;
         } else if (first.output) {
-            label = `"${first.output}"`;
+            label = `<${first.output}>`;
             value = first.value || first;
         } else {
             value = first.value || first;

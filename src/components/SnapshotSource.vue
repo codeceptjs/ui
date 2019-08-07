@@ -1,16 +1,17 @@
 <template>
     <div class="SnapshotSource">
-        <!-- <div class="SnapshotSource-mouseInterceptor"></div> -->
-        <iframe 
-            ref="source"
-            id="source" 
-            :src="buildSnapshotUrl(snapshotId)" 
-            :width="viewportSize.width" 
-            frameborder="0"
-            @load="onIframeLoaded"
-            v-show="loaded"
-        >
-        </iframe>
+        <div class="SnapshotSource-content has-background-grey-lighter">
+            <iframe 
+                ref="source"
+                id="source" 
+                :src="buildSnapshotUrl(snapshotId)" 
+                :width="viewportSize.width" 
+                frameborder="0"
+                @load="onIframeLoaded"
+                v-show="loaded"
+            >
+            </iframe>
+        </div>
     </div>
 </template>
 
@@ -36,9 +37,9 @@ const throttled = (delay, fn) => {
 }
 
 const handleIframeMouseMove = (doc, window) => throttled(200, e => {
-    const el = doc.elementFromPoint(e.layerX, e.layerY);
+    const el = doc.elementFromPoint(e.x,  e.y);
     dehighlightAll(doc);
-    highlightElement(el);
+    highlightElement(el, doc, window);
 })
 
 const handleIframeMouseOut = (doc, highlight) => throttled(50, () => {
@@ -47,8 +48,8 @@ const handleIframeMouseOut = (doc, highlight) => throttled(50, () => {
 })
 
 const handleIframeClick = (doc, window) => throttled(10, (e) => {
-    const el = doc.elementFromPoint(e.x, e.y + window.pageYOffset);
-    const shortestSelector = highlightElement(el);
+    const el = doc.elementFromPoint(e.x, e.y);
+    const shortestSelector = highlightElement(el, doc, window);
     copy(shortestSelector);
 })
 
@@ -83,7 +84,7 @@ export default {
             if (this.mustScrollIframe()) {
                 this.$refs.source.contentWindow.scrollTo(this.$props.snapshotScrollPosition.x, this.$props.snapshotScrollPosition.y);
             }
-            highlightInIframe(this.getIframeDoc(), this.$props.highlight);
+            highlightInIframe(this.getIframeDoc(), this.getIframeWindow(), this.$props.highlight);
 
             this.getIframeDoc().addEventListener('mousemove', handleIframeMouseMove(this.getIframeDoc(), this.getIframeWindow()))
             this.getIframeDoc().addEventListener('mouseout', handleIframeMouseOut(this.getIframeDoc(), this.$props.highlight))
@@ -94,7 +95,11 @@ export default {
 </script>
 
 <style>
+
 .SnapshotSource {
+}
+
+.SnapshotSource-content {
     position: relative; 
     padding-bottom: 75%;
     height: 0; 
@@ -106,11 +111,16 @@ export default {
 #source {
     cursor: pointer;
     position: absolute;
-    top: 0;
+    margin-left: auto;
+    margin-right: auto;
     left: 0;
-    height: 95%;
+    right: 0;
+    
+    height: 90%;
     max-width: 100%;
     border: none;
+
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 </style>
 

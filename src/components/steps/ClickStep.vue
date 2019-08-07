@@ -1,19 +1,22 @@
 <template>
-    <div class="ClickStep">
-        <div v-if="step.args.length === 1">
+    <div class="ClickStep columns is-gapless">
+        <div class="column is-3">
             I {{step.humanized}}
-            <span class="ClickStep-selector">
-                {{formatSelector(step.args[0])}}
-            </span>
         </div>
-        <div v-if="step.args.length === 2">
-            I {{step.humanized}}
-            <span class="ClickStep-text">
-                "{{step.args[0]}}"
-            </span>
-            <span class="ClickStep-selector">
-                {{formatSelector(step.args[1])}}
-            </span>
+        <div class="column is-9">
+            <div v-if="step.args.length === 1">
+                <span class="ClickStep-selector">
+                    {{formatSelector(step.args[0])}}
+                </span>
+            </div>
+            <div v-if="step.args.length === 2">
+                <span class="ClickStep-text">
+                    "{{step.args[0]}}"
+                </span>
+                <span class="ClickStep-selector">
+                    {{formatSelector(step.args[1])}}
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -35,9 +38,6 @@ export default {
 <style>
 .ClickStep {
   margin-left: .2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .ClickStep-selector {

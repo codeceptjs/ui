@@ -1,9 +1,13 @@
 <template>
-    <div class="FillFieldStep">
-        I {{step.humanized}}
-        <span class="FillFieldStep-selector">{{formatSelector(step.args[0])}}</span>
-        &nbsp;
-        <span class="FillFieldStep-text" v-if="step.args[1]">"{{step.args[1]}}"</span>
+    <div class="FillFieldStep columns is-gapless">
+        <div class="column is-3">
+            I {{step.humanized}}
+        </div>
+        <div class="column is-9">
+            <span class="FillFieldStep-selector">{{formatSelector(step.args[0])}}</span>
+            &nbsp;
+            <span class="FillFieldStep-text" v-if="step.args[1]">"{{step.args[1]}}"</span>
+        </div>
     </div>
 
 </template>
@@ -25,9 +29,6 @@ export default {
 <style>
 .FillFieldStep {
   margin-left: .2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .FillFieldStep-selector {

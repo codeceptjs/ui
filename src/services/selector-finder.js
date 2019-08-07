@@ -23,7 +23,7 @@ const findByCssOrXPath = (doc, sel) => {
   return els;
 }
 
-export const highlightInIframe = (doc, sel) => {
+export const highlightInIframe = (doc, win, sel) => {
   let els = findByCssOrXPath(doc, sel);
 
   if (!els || els.length === 0) {
@@ -38,7 +38,7 @@ export const highlightInIframe = (doc, sel) => {
 
   if (els) {
       els.forEach(el => {
-          highlightElement(el);
+          highlightElement(el, doc, win);
       })
   }
 }
@@ -69,11 +69,12 @@ export const dehighlightAll = doc => {
   }
 }
 
-export const highlightElement = el => {
+export const highlightElement = (el, doc, win) => {
   if (!el) return;
+  if (!doc) return;
+  if (!win) return;
 
-  const doc = el.ownerDocument;
-  const rect = el.getBoundingClientRect()
+  const rect = el.getBoundingClientRect();
 
   const shortestSelector = findShortSelector(doc, el);
 
@@ -82,35 +83,36 @@ export const highlightElement = el => {
   var newOutline = doc.createElement('div')
   newOutline.className = 'codepress-outline'
   newOutline.style.position = 'absolute'
-  newOutline.style['color'] = 'white';
-  newOutline.style['border-radius'] = '2px';
-  newOutline.style.border = `2px solid ${highlightColor}`
-  newOutline.style['padding'] = '1px';
   newOutline.style['z-index'] = '9999999999';
+  newOutline.style['color'] = 'white';
+//   newOutline.style['border-radius'] = '2px';
+//   newOutline.style.border = `2px solid ${highlightColor}`
+//   newOutline.style['padding'] = '1px';
   newOutline.style['pointer-events'] = 'none'; // be able to click through this element
   newOutline.style.opacity = 0.2;
   newOutline.style['background-color'] = highlightColor
 
-  newOutline.style.width = rect.width + 'px'
-  newOutline.style.height = rect.height + 'px'
-  newOutline.style.top = rect.top + window.scrollY + 'px'
-  newOutline.style.left = rect.left + window.scrollX + 'px'
+  newOutline.style.width = rect.width + 'px';
+  newOutline.style.height = rect.height + 'px';
+  newOutline.style.top = rect.top + win.pageYOffset + 'px';
+  newOutline.style.left = rect.left + win.pageXOffset + 'px';
 
   const textContainer = doc.createElement('div');
   textContainer.className = 'codepress-outline'
   textContainer.append(doc.createTextNode(shortestSelector));
   textContainer.style.position = 'absolute';
+  textContainer.style['z-index'] = '9999999999';
+  textContainer.style['pointer-events'] = 'none'; // be able to click through this element
   textContainer.style['font-size'] = '.8em';
   textContainer.style['background-color'] = highlightColor;
   textContainer.style.color = 'white';
   textContainer.style.padding = '2px';
-  textContainer.style.top = rect.top + window.scrollY + 'px'
-  textContainer.style.left = rect.left + window.scrollX + 'px'
-  textContainer.style['pointer-events'] = 'none'; // be able to click through this element
-  textContainer.style['z-index'] = '9999999999';
+  textContainer.style.top = rect.top + win.pageYOffset + 'px';
+  textContainer.style.left = rect.left + win.pageXOffset + 'px';
 
-  doc.querySelector('body').appendChild(newOutline)
-  doc.querySelector('body').appendChild(textContainer)
+  const docBody = doc.querySelector('body');
+  docBody.appendChild(newOutline)
+  docBody.appendChild(textContainer)
 
   return shortestSelector;
 }

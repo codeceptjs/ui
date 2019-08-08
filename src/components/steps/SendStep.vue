@@ -1,12 +1,16 @@
 <template>
-    <div class="SendStep">
+    <div class="SendStep columns is-gapless has-text-grey-light">
+      <div class="column is-3">
         <span class="Step-restMethod has-text-info">
           {{httpMethod}}
         </span>
-        <span class="Step-restDuration has-text-grey-light">{{step.duration}}</span>
-        <span class="Step-restUrl has-text-grey">
+        <span class="Step-restDuration">{{step.duration}}</span>
+      </div>
+      <div class="column is-9">
+        <span class="Step-restUrl">
           {{urlRearPart}}
         </span>
+      </div>
     </div>
 </template>
 
@@ -37,12 +41,8 @@ export default {
 </script>
 <style>
 .SendStep {
-  font-size: 0.8em;
-  margin-left: 1em;
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding-left: .5em;
+  font-size: .8rem;
 }
 
 .Step-restMethod {

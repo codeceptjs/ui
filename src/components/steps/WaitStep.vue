@@ -1,10 +1,15 @@
 <template>
-    <div class="WaitStep has-text-grey">
-      <div v-if="step.name='waitForVisible'">
-        <i class="Step-icon fas fa-hourglass"></i> {{step.humanized}} <span class="WaitStep-arg has-text-info">{{formatSelector(step.args[0])}}</span>
+    <div class="WaitStep has-text-grey-light columns is-gapless">
+      <div class="column is-3">
+        <i class="Step-icon fas fa-hourglass"></i> {{step.humanized}}
       </div>
-      <div v-else>
-        <i class="Step-icon fas fa-hourglass"></i> {{step.humanized}} <span class="WaitStep-arg has-text-info">{{step.args[0]}}</span>
+      <div class="column is-9">
+        <div v-if="step.name='waitForVisible'">
+          <span class="WaitStep-arg">{{formatSelector(step.args[0])}}</span>
+        </div>
+        <div v-else>
+          <span class="WaitStep-arg">{{step.args[0]}}</span>
+        </div>
       </div>
     </div>
 </template>
@@ -25,12 +30,7 @@ export default {
 
 <style>
 .WaitStep {
-  font-size: 0.8em;
-  margin-left: 1em;
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding-left: .5em;
 }
 
 .WaitStep-arg {

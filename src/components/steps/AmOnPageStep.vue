@@ -1,6 +1,13 @@
 <template>
-    <div class="AmOnPageStep">
-      I {{step.humanized}} <span class="AmOnPageStep-url">{{extractPathname(step.args[0])}}</span>
+    <div class="AmOnPageStep columns">
+      <div class="column is-3">
+        I {{step.humanized}}
+      </div>
+      <div class="column is-9">
+        <span class="AmOnPageStep-url">
+          {{extractPathname(step.args[0])}}
+        </span>
+      </div>
     </div>
 </template>
 
@@ -19,10 +26,6 @@ export default {
 
 <style>
 .AmOnPageStep {
-  margin-left: .2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .AmOnPageStep-url {

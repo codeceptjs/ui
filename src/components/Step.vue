@@ -74,10 +74,15 @@
     </div>
 
     <div v-else class="StepWrapper">
-      <div class="GenericStep">
-        I {{step.humanized}}
-        <span class="Step-argSelector">{{getSelector(step.args)}}</span>
-        <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
+      <div class="GenericStep columns">
+        <div class="column is-3">
+          I {{step.humanized}}
+        </div>
+        <div class="column is-9">
+          <span class="Step-argSelector">{{getSelector(step.args)}}</span>
+          &nbsp;
+          <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
+        </div>
       </div>
     </div>
 
@@ -251,19 +256,13 @@ export default {
 }
 
 .GenericStep {
-  margin-left: .2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .Step-argSelector {
-  margin-left: 0.5em;
   color: hsl(204, 86%, 53%);
 }
 
 .Step-argOther {
-  margin-left: 0.5em;
   color:hsl(171, 100%, 41%)
 }
 

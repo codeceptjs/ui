@@ -1,6 +1,12 @@
 <template>
-    <div class="SaveScreenshotStep has-text-grey-light">
-        <i class="Step-icon fas fa-image"></i>&nbsp;<span>{{step.args[0]}}</span>
+    <div class="SaveScreenshotStep has-text-grey-light columns">
+        <div class="column is-3">
+            <i class="Step-icon fas fa-image"></i>
+            screenshot
+        </div>
+        <div class="column is-9">
+            <span>{{step.args[0]}}</span>
+        </div>
     </div>
 </template>
 
@@ -13,7 +19,7 @@ export default {
 
 <style>
 .SaveScreenshotStep {
-    margin-left: .2em;
+  padding-left: .5em;
 }
 </style>
 

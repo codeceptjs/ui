@@ -1,6 +1,11 @@
 <template>
-    <div class="SwitchToStep has-text-grey">
-        <i class="Step-icon far fa-window-restore"></i> {{step.humanized}} <span class="SwitchToStep-arg has-text-info">{{step.args[0]}}</span>
+    <div class="SwitchToStep has-text-grey-light columns is-gapless">
+      <div class="column is-3">
+        <i class="Step-icon far fa-window-restore"></i> {{step.humanized}}
+      </div>
+      <div class="column is-9">
+        <span class="SwitchToStep-arg">{{step.args[0]}}</span>
+      </div>
     </div>
 </template>
 
@@ -20,12 +25,7 @@ export default {
 
 <style>
 .SwitchToStep {
-  font-size: 0.8em;
-  margin-left: 1em;
-  padding: 2px 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  padding-left: .5em;
 }
 
 .SwitchToStep-arg {

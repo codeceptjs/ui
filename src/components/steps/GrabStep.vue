@@ -1,7 +1,12 @@
 <template>
-    <div class="GrabStep has-text-grey">
-        <i class="Step-icon fas fa-hands"></i> 
-        {{step.humanized}} {{formatSelector(step.args[0])}} = {{step.returnValue}}
+    <div class="GrabStep has-text-grey-light columns">
+        <div class="column is-3">
+            I {{step.humanized}}
+        </div>
+        <div class="column is-9 ellipsize">
+             {{formatSelector(step.args[0])}} = {{step.returnValue}}
+
+        </div>
     </div>
 </template>
 
@@ -21,10 +26,12 @@ export default {
 
 <style>
 .GrabStep {
-  font-size: 0.8em;
-  margin-left: 1em;
-  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.ellipsize {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

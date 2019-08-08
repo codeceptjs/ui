@@ -1,5 +1,5 @@
 <template>
-    <div class="SaveScreenshotStep has-text-grey-light columns">
+    <div class="SaveScreenshotStep has-text-grey-light columns is-gapless">
         <div class="column is-3">
             <i class="Step-icon fas fa-image"></i>
             screenshot

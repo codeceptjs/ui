@@ -1,7 +1,7 @@
 <template>
     <div class="WaitStep has-text-grey-light columns is-gapless">
       <div class="column is-3">
-        <i class="Step-icon fas fa-hourglass"></i> {{step.humanized}}
+        <i class="Step-icon fas fa-hourglass"></i> {{formatStep(step.humanized)}}
       </div>
       <div class="column is-9">
         <div v-if="step.name='waitForVisible'">
@@ -22,7 +22,10 @@ export default {
     props: ['step'],
     methods: {
       formatSelector(sel) {
-          return getSelectorString(sel).label;
+        return getSelectorString(sel).label;
+      },
+      formatStep(stepName) {
+        return stepName.replace('wait ', '').replace('for ', '');
       }
     }
 }

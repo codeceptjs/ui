@@ -1,6 +1,11 @@
 <template>
-    <div class="RefreshPageStep has-text-grey">
-        <i class="Step-icon fas fa-sync"></i> {{step.humanized}}
+    <div class="RefreshPageStep has-text-grey-light columns is-gapless">
+        <div class="column is-3">
+            <i class="Step-icon fas fa-sync"></i>
+        </div>
+        <div class="column">
+            refresh
+        </div>
     </div>
 </template>
 
@@ -13,9 +18,7 @@ export default {
 
 <style>
 .RefreshPageStep {
-  font-size: 0.8em;
-  margin-left: 1em;
-  padding: 2px 5px;
+    padding-left: .5em;
 }
 </style>
 

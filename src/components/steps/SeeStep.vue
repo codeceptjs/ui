@@ -4,7 +4,6 @@
         <span class="SeeStep-tag tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
             see 
         </span>
-        {{formatStepName(step.humanized)}}
       </div>
       <div class="column is-9">
         <span v-if="step.args == 1">
@@ -25,7 +24,9 @@ export default {
     props: ['step'],
     methods: {
       formatStepName(stepName) {
-        return stepName.replace('see', '');
+        return stepName
+          .replace('see', '')
+          .replace('number of', '#');
       },
       formatSelector(sel) {
           return getSelectorString(sel).label;

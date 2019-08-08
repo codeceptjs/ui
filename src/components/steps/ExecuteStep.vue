@@ -1,9 +1,12 @@
 <template>
-    <div class="ExecuteStep has-text-grey">
-        <i class="Step-icon far fa-play-circle"></i> 
-        {{step.humanized}}
+    <div class="ExecuteStep has-text-grey-light columns is-gapless">
+        <div class="column is-3">
+            <i class="Step-icon far fa-play-circle"></i> 
+        </div>
+        <div class="column is-9 ellipsize">
+            {{step.humanizedArgs}}
+        </div>
 
-        {{step.humanizedArgs}}
     </div>
 </template>
 
@@ -16,10 +19,10 @@ export default {
 
 <style>
 .ExecuteStep {
-  font-size: 0.8em;
-  margin-left: 1em;
-  padding: 2px 5px;
+    padding-left: .5em;
+}
 
+.ellipsize {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

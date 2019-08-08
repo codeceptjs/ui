@@ -18,9 +18,20 @@
       </div>
     </nav>
 
-    <section class="section">
+    <section>
       <div class="container">
         <h1 class="title">{{project.name}}</h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <input class="input is-rounded" type="text" placeholder="Search" v-model="search" @change="loadProject()"/>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
 
         <ul>
           <li v-for="feature in project.features">
@@ -58,6 +69,7 @@ export default {
   data() {
       return {
           loading: false,
+          search: '',
           project: {}
       }
   },
@@ -77,7 +89,7 @@ export default {
   methods: {
       loadProject() {
           this.loading = true
-          axios.get('/api/scenarios')
+          axios.get(`/api/scenarios?q=${this.search}`)
             .then(response => {
                 this.loading = false
                 this.project = response.data

@@ -22,8 +22,8 @@
           {{selected.snapshot.pageTitle}}
         </a>
       </div>
-      <div class="Snapshot-pageUrl has-text-grey has-background-grey-lighter">
-        {{selected.snapshot.pageUrl}}
+      <div class="Snapshot-pageUrl">
+        <input class="input" type="text" placeholder="Disabled input" disabled :value="selected.snapshot.pageUrl">
       </div>
       
       <div class="Snapshot-data" v-if="selected.snapshot">

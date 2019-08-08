@@ -99,6 +99,7 @@
 
 ## V 0.1.6
 
+- Treat waitForText as assertion (and also make snapshot)
 - BUG: See element does not (always) show aliased locator name
 - screenshot step: Show image as default
 . Step: fillField: Use columns to lay out field name and value

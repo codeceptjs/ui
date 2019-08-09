@@ -1,7 +1,7 @@
-import Scenarios from './components/Scenarios.vue'
-import TestRun from './components/TestRun.vue'
+import Scenarios from './components/ScenariosPage.vue'
+import TestRun from './components/TestRunPage.vue'
 
 export default [
   { path: '/', component: Scenarios },
-  { path: '/testrun/:scenario', component: TestRun }
+  { path: '/testrun/:scenarioId', component: TestRun }
 ]

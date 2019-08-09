@@ -1,23 +1,21 @@
 <template>
   <div class="TestRun">
     <div class="Header">
-      <Header :loading="isRunning" v-on:run="run()" />
+      <Header :loading="isRunning" @run="runScenario()" />
     </div>
 
     <aside class="Sidebar">
-      <div v-if="tests.length > 0">
+      <div v-if="scenario && tests.length > 0">
         <Test v-for="test in tests"
-          v-bind:key="test.title"
-          v-bind:test="test"
-          v-on:select-step="onSelectStep"
+          :key="test.title"
+          :test="test"
+          :scenario="scenario"
+          @select-step="onSelectStep"
         />
       </div>
       <div v-else>
-        <div>
-           <p>
-             {{selectedScenario}}
-          </p>
-          <div class="has-text-grey-light has-text-centered">This scenario has not been run yet.</div>
+        <div v-if="scenario">
+          <ScenarioSource :source="scenario.body" />
         </div>
       </div>
     </aside>
@@ -35,6 +33,7 @@ import axios from 'axios';
 import Header from './Header';
 import Test from './Test';
 import Snapshot from './Snapshot';
+import ScenarioSource from './ScenarioSource';
 
 const scrollToLastStep = () => {
   setTimeout(() => {
@@ -54,7 +53,8 @@ export default {
   components: {
     Header,
     Test,
-    Snapshot
+    Snapshot,
+    ScenarioSource
   },
   sockets: {
     'step.before': function () {
@@ -64,15 +64,15 @@ export default {
       scrollToLastStep();
     }  
   },
-  created: function () {
-    if (!this.hasScenarioRun(this.$route.params.scenario)) {
-      this.clearScenarioRuns();
+  data: function () {
+    return {
+      scenario: undefined,
     }
   },
+  created: function () {
+    this.loadScenario();
+  },
   computed: {
-    selectedScenario() {
-      return this.$route.params.scenario;
-    },
     tests() {
       return this.$store.state.tests;
     },
@@ -84,27 +84,31 @@ export default {
     }
   },
   methods: {
-    onSelectStep(step) {
-      this.$store.commit('setSelectedStep', step);
+    loadScenario() {
+      axios.get(`/api/scenarios/${this.$route.params.scenarioId}`)
+        .then(response => {
+            this.loading = false
+            this.scenario = response.data
+        })
+        .catch(error => {
+            this.loading = false
+        })
     },
 
-    run() {
-      const scenario = this.$route.params.scenario;
+    runScenario() {
       // axios.get(`/api/scenarios/${encodeURIComponent(scenario)}/run-ips`); // run in process
-      axios.get(`/api/scenarios/${encodeURIComponent(scenario)}/run`);
+      axios.get(`/api/scenarios/${encodeURIComponent(this.scenario.title)}/run`);
 
       this.$store.commit('clearTests');
       this.$store.commit('setRunning', true);
     },
 
-    hasScenarioRun(scenario) {
-       const scenarios = this.$store.state.tests;
-       return scenarios.find(s => s.title === scenario)
+    onSelectStep(step) {
+      this.$store.commit('setSelectedStep', step);
     },
 
     clearScenarioRuns() {
       this.$store.commit('clearTests');
-      this.$store.commit('setRunning', false);
     }
   }
 }

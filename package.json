@@ -27,7 +27,8 @@
     "lodash": "^4.17.14",
     "puppeteer": "^1.19.0",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io-client": "^2.2.0",
+    "vue-highlightjs": "^1.3.3"
   },
   "devDependencies": {
     "@medv/finder": "^1.1.1",

@@ -1,109 +1,126 @@
 <template>
   <div class="Test">
 
-    <div class="columns">
-      <div class="column is-1">
+    <div class="TestRun-header columns is-gapless">
+      <div class="column is-narrow">
         <i v-if="test.result == 'passed'" class="fas fa-check has-text-success" />
         <i v-if="test.result == 'failed'" class="fas fa-times has-text-danger" />
         <i v-if="test.result == 'running'" class="fas fa-circle-notch fa-spin has-text-grey" />
       </div>
       <div class="column">
-        {{test.title}}
+        <h3 class="TestRun-title" v-if="scenario">{{scenario.title}}</h3>
+        <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
       </div>
     </div>
 
-    <ul class="menu-list">
-      <li 
-        v-for="step in test.steps" 
-        v-bind:key="step.title"
-        @mouseover="setHoveredStep(step)"
-        @mouseleave="unsetHoveredStep(step)"
-      >
-        <step
-          :step="step"
-          :isHovered="step === hoveredStep"
-          :isSelected="step === selectedStep"
-          @select-step="$emit('select-step', step)"
-        />
-      </li>
-    </ul>
+    <div class="tabs is-small">
+      <ul>
+        <li :class="{ 'is-active': activeTab == 'testrun' }" @click="activateTab('testrun')" ><a>Testrun</a></li>
+        <li :class="{ 'is-active': activeTab == 'source' }" @click="activateTab('source')"><a>Source</a></li>
+      </ul>
+    </div>
 
-    <!-- TODO Create separate component -->
-    <div class="InteractiveShell box" v-if="isShowCli">
-      <div class="InteractiveShell-actions is-clearfix">
-        <i class="InteractiveShell-closeButton fa fa-times is-pulled-right" v-on:click.once="closeInteractiveShell()" />
-        <i class="InteractiveShell-nextStepButton fas fa-step-forward is-pulled-right" v-on:click="nextStep()"></i>
-      </div>
+    <div v-if="activeTab == 'source'">
+      <ScenarioSource :source="scenario.body" />
+    </div>
 
-      <article class="InteractiveShell-error message is-danger" v-if="hasErrorCli">
-        <div class="message-header">
-          <p>Command failed</p>
-        </div>
-        <div class="message-body">
-          {{cliError}}
-        </div>
-      </article>
-
-      <ul class="InteractiveShell-commands">
-        <li v-on:click="execCommand('click')">
-          <a href="">
-            click
-          </a>
-        </li>
-        <li>
-          <a href="">
-            fillField
-          </a>
-        </li>
-        <li>
-          <a href="">
-            see
-          </a>
-        </li>
-        <li>
-          <a href="">
-            other ...
-          </a>
-
-          <input 
-            class="is-small input" 
-            type="text" 
-            placeholder="Enter CodeceptJS command" 
-            v-model="command"  
-            v-on:keyup.enter="sendCommand(command)" />
+    <div v-if="activeTab == 'testrun'" class="TestrunStepsContainer">
+      <ul class="TestRun-steps">
+        <li 
+          v-for="step in test.steps" 
+          v-bind:key="step.title"
+          @mouseover="setHoveredStep(step)"
+          @mouseleave="unsetHoveredStep(step)"
+        >
+          <step
+            :step="step"
+            :isHovered="step === hoveredStep"
+            :isSelected="step === selectedStep"
+            @select-step="$emit('select-step', step)"
+          />
         </li>
       </ul>
 
+      <!-- TODO Create separate component -->
+      <div class="InteractiveShell box" v-if="isShowCli">
+        <div class="InteractiveShell-actions is-clearfix">
+          <i class="InteractiveShell-closeButton fa fa-times is-pulled-right" v-on:click.once="closeInteractiveShell()" />
+          <i class="InteractiveShell-nextStepButton fas fa-step-forward is-pulled-right" v-on:click="nextStep()"></i>
+        </div>
+
+        <article class="InteractiveShell-error message is-danger" v-if="hasErrorCli">
+          <div class="message-header">
+            <p>Command failed</p>
+          </div>
+          <div class="message-body">
+            {{cliError}}
+          </div>
+        </article>
+
+        <ul class="InteractiveShell-commands">
+          <li v-on:click="execCommand('click')">
+            <a href="">
+              click
+            </a>
+          </li>
+          <li>
+            <a href="">
+              fillField
+            </a>
+          </li>
+          <li>
+            <a href="">
+              see
+            </a>
+          </li>
+          <li>
+            <a href="">
+              other ...
+            </a>
+
+            <input 
+              class="is-small input" 
+              type="text" 
+              placeholder="Enter CodeceptJS command" 
+              v-model="command"  
+              v-on:keyup.enter="sendCommand(command)" />
+          </li>
+        </ul>
+      </div>
+
+      <!-- TODO Create separate component -->
+      <div v-if="test.result === 'failed'" class="Test-error notification is-danger">
+        <p>
+          {{trim(test.error.message)}}
+        </p>
+        <p>
+          FAILED in {{test.duration}}s
+        </p>
+      </div>
+      <div v-if="test.result === 'passed'" class="Test-passed notification is-success">
+          PASSED in {{test.duration}}s
+      </div>
+
+      <div class="Test-spacer"></div>
     </div>
 
-    <div v-if="test.result === 'failed'" class="Test-error notification is-danger">
-      <p>
-        {{trim(test.error.message)}}
-      </p>
-      <p>
-        FAILED in {{test.duration}}s
-      </p>
-    </div>
-    <div v-if="test.result === 'passed'" class="Test-passed notification is-success">
-        PASSED in {{test.duration}}s
-    </div>
-
-    <div class="Test-spacer"></div>
   </div>
 </template>
 
 <script>
 import Step from './Step';
+import ScenarioSource from './ScenarioSource';
 import Convert from 'ansi-to-html';
 
 export default {
   name: 'Test',
-  props: ['test', 'selectedStep'],
+  props: ['test', 'scenario', 'selectedStep'],
   components: {
-    Step,
+    Step, ScenarioSource,
   },
   data: function () {
     return {
+      activeTab: 'testrun',
       command: undefined,
     }
   },
@@ -129,6 +146,10 @@ export default {
     },
   },
   methods: {
+    activateTab(tabname) {
+      this.activeTab = tabname;
+    },
+
     sendCommand(command) {
       this.$store.commit('clearCliError');
       this.$socket.emit('cli.line', command);
@@ -180,6 +201,19 @@ export default {
 </script>
 
 <style scoped>
+.TestRun-header {
+
+}
+
+.TestRun-title {
+  font-weight: bold;
+  padding-left: .2em;
+}
+
+.TestRun-steps {
+  line-height: 1em;
+}
+
 .Test-spacer {
   height: 2em;
   width: 100%;

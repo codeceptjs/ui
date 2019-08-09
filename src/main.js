@@ -4,12 +4,14 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import VueSocketIO from 'vue-socket.io';
 import Buefy from 'buefy';
-// import 'buefy/dist/buefy.css';
+import VueHighlightJS from 'vue-highlightjs'
+
 import routes from './routes';
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
 Vue.use(Buefy)
+Vue.use(VueHighlightJS)
 
 const store = require('./store').default;
 Vue.use(new VueSocketIO({

@@ -25,6 +25,7 @@ const store = new Vuex.Store({
 
     mutations: {
       clearTests: (state) => {
+        state.isRunning = false;
         state.tests = [];
         state.selectedStep = undefined;
         state.cli = undefined;

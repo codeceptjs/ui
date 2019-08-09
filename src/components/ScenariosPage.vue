@@ -34,20 +34,20 @@
       <div class="container">
 
         <ul>
-          <li v-for="feature in project.features">
+          <li v-bind:key="feature.feature.title" v-for="feature in project.features">
             <div class="TestFile box">
-              <a class="TestFile-fileName has-text-grey-light" v-on:click="linkToOpen(feature.file)">{{feature.fileRelPath}}</a>
+              <a class="TestFile-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileRelPath}}</a>
               <h4 class="subtitle">{{feature.feature.title}}</h4>
 
               <ul>
-                <li class="TestFile-scenario" v-for="scenario in feature.scenarios">
+                <li class="TestFile-scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
                   <a 
                     class="TestFile-scenarioRunLink" 
                     v-on:click="selectScenario(scenario)"
-                    :href="linkToScenario(scenario)">
+                    :href="linkToScenario(scenario.id)">
                     {{scenario.title}}
                   </a>
-                  <span class="tag is-light" v-for="tag in scenario.tags">{{tag}}</span>
+                  <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
                 </li>
               </ul>
             </div>
@@ -106,11 +106,11 @@ export default {
         this.$store.commit('selectScenario', scenario);
       },
 
-      linkToScenario(scenario) {
-        return `/#/testrun/${encodeURIComponent(scenario.orgTitle)}`;
+      linkToScenario(scenarioId) {
+        return `/#/testrun/${scenarioId}`;
       },
 
-      linkToOpen(file) {
+      openInEditor(file) {
         axios.get(`/api/tests/${encodeURIComponent(file)}/open`);
       }
   }

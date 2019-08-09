@@ -74,7 +74,9 @@ export default {
       }
   },
   created() {
-      this.loadProject()
+    const urlParams = new URLSearchParams(window.location.search);
+    this.search = urlParams.get('q') || '';
+    this.loadProject()
   },
   sockets: {
     'codeceptjs:scenarios.updated': function (data) {
@@ -88,6 +90,7 @@ export default {
   },
   methods: {
       loadProject() {
+          history.pushState({}, '', `/?q=${encodeURIComponent(this.search)}`);
           this.loading = true
           axios.get(`/api/scenarios?q=${this.search}`)
             .then(response => {

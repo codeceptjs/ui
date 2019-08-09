@@ -1,18 +1,21 @@
 <template>
-    <div class="DontSeeStep has-text-grey">
-      <span class="DontSeeStep-tag tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
-        dont
-      </span>
-
-      <span v-if="step.args.length == 1">
-        {{formatStepName(step.humanized)}} <span class="DontSeeStep-text">{{formatSelector(step.args[0])}}</span>
-      </span>
-      <span v-else>
-        {{formatStepName(step.humanized)}} 
-        <span class="DontSeeStep-text">"{{step.args[0]}}"</span>
-        &nbsp;
-        <span class="DontSeeStep-selector has-text-info">{{step.args[1]}}</span>
-      </span>
+    <div class="DontSeeStep has-text-grey columns is-gapless">
+      <div class="column is-3">
+        <span class="DontSeeStep-tag tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
+          dont
+        </span>
+      </div>
+      <div class="column is-9 ellipsize">
+        <span v-if="step.args.length == 1">
+          {{formatStepName(step.humanized)}} <span class="DontSeeStep-text">{{formatSelector(step.args[0])}}</span>
+        </span>
+        <span v-else>
+          {{formatStepName(step.humanized)}} 
+          <span class="DontSeeStep-text">"{{step.args[0]}}"</span>
+          &nbsp;
+          <span class="DontSeeStep-selector has-text-info">{{step.args[1]}}</span>
+        </span>
+      </div>
     </div>
 </template>
 
@@ -36,9 +39,6 @@ export default {
 <style>
 .DontSeeStep {
   margin-left: .2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .DontSeeStep-selector {
@@ -50,6 +50,12 @@ export default {
 
 .DontSeeStep-tag {
   width: 4em;
+}
+
+.ellipsize {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 </style>

@@ -95,7 +95,12 @@
 
 ## In Progress
 
+- List Scenarios: Refactor using repository
+- Get Scenario: Implmeent
+- List Scenarios: Add scenario directory to scenario
+- Scenario: Store search query in url
 - BUG: Testrun View: Separate feature and scenario title
+- Snapshot: Should replace/delete iframes in html snapshot
 
 ## V 0.1.6
 

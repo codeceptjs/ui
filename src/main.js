@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import VueSocketIO from 'vue-socket.io';
 import Buefy from 'buefy';
-import 'buefy/dist/buefy.css';
+// import 'buefy/dist/buefy.css';
 import routes from './routes';
 
 Vue.use(VueRouter)

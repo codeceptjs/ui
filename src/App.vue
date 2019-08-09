@@ -15,7 +15,7 @@ export default {
 #app {
   box-sizing: border-box;
   -moz-osx-font-smoothing: grayscale;
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+  font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

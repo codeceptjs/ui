@@ -74,7 +74,7 @@
     </div>
 
     <div v-else class="StepWrapper">
-      <div class="GenericStep columns">
+      <div class="GenericStep columns is-gapless">
         <div class="column is-3">
           I {{step.humanized}}
         </div>

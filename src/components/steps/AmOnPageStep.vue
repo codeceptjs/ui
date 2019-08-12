@@ -1,5 +1,5 @@
 <template>
-    <div class="AmOnPageStep columns">
+    <div class="AmOnPageStep columns is-gapless">
       <div class="column is-3">
         I {{step.humanized}}
       </div>

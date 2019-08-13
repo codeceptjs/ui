@@ -94,15 +94,16 @@
 - Scenario: Store search query in url
 - List Scenarios: Refactor using repository
 - Get Scenario: Implement
+- List Scenarios: Add scenario directory to scenario
 
 
 ## In Progress
 
-- List Scenarios: Add scenario directory to scenario
 - BUG: Testrun View: Separate feature and scenario title
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot
 - Group data driven tests into one scenario
+- List Scenarios: Group by directory
 
 ## V 0.1.6
 

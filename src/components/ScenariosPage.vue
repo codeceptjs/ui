@@ -36,7 +36,7 @@
         <ul>
           <li v-bind:key="feature.feature.title" v-for="feature in project.features">
             <div class="TestFile box">
-              <a class="TestFile-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileRelPath}}</a>
+              <a class="TestFile-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
               <h4 class="subtitle">{{feature.feature.title}}</h4>
 
               <ul>

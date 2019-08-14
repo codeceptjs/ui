@@ -95,11 +95,12 @@
 - List Scenarios: Refactor using repository
 - Get Scenario: Implement
 - List Scenarios: Add scenario directory to scenario
+- BUG: Testrun View: Separate feature and scenario title
+- Reload suites
 
 
 ## In Progress
 
-- BUG: Testrun View: Separate feature and scenario title
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot
 - Group data driven tests into one scenario
@@ -107,6 +108,9 @@
 
 ## V 0.1.6
 
+- Dont put selected steps on history stack
+- Search field: Select all when clicking into it
+- Search field: Add reset button
 - Refactor: Move cli code to store
 - Treat waitForText as assertion (and also make snapshot)
 - BUG: See element does not (always) show aliased locator name

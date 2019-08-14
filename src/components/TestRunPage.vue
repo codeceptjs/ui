@@ -96,9 +96,7 @@ export default {
     },
 
     runScenario() {
-      axios.get(`/api/scenarios/${encodeURIComponent(this.scenario.title)}/run-ips`); // run in process
-      // axios.get(`/api/scenarios/${encodeURIComponent(this.scenario.title)}/run`);
-
+      axios.get(`/api/scenarios/${encodeURIComponent(this.scenario.title)}/run`);
       this.$store.commit('clearTests');
       this.$store.commit('setRunning', true);
     },

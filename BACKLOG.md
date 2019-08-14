@@ -102,7 +102,7 @@
 ## In Progress
 
 - Helper: Add test stackframe always
-- Snapshot: Should replace/delete iframes in html snapshot
+- Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - ScenariosPage: Fix tags
 - Group data driven tests into one scenario
 - List Scenarios: Group by directory

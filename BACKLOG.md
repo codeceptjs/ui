@@ -103,11 +103,15 @@
 
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot
+- ScenariosPage: Fix tags
 - Group data driven tests into one scenario
 - List Scenarios: Group by directory
 
 ## V 0.1.6
 
+- Scenario Autorefresh: I have the feeling that changes to files are not always picked up
+- Scenario Autorefresh: Ignore node_modules folder
+- Scenario Autorefresh: Created/Deleted files are not picked up
 - Dont put selected steps on history stack
 - Search field: Select all when clicking into it
 - Search field: Add reset button

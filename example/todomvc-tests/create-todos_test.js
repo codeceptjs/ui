@@ -1,4 +1,4 @@
-Feature('Create Todos @step-06')
+Feature('@first Create Todos @step:06 @smoke @story:12345')
 
 Before(async (I, TodosPage) => {
     TodosPage.goto()

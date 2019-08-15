@@ -114,7 +114,7 @@ import Convert from 'ansi-to-html';
 
 export default {
   name: 'Test',
-  props: ['test', 'scenario', 'selectedStep'],
+  props: ['test', 'scenario'],
   components: {
     Step, ScenarioSource,
   },

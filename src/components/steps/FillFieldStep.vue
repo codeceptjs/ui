@@ -4,9 +4,8 @@
             I {{step.humanized}}
         </div>
         <div class="column is-9">
-            <span class="FillFieldStep-selector">{{formatSelector(step.args[0])}}</span>
-            &nbsp;
-            <span class="FillFieldStep-text" v-if="step.args[1]">"{{step.args[1]}}"</span>
+            <div class="FillFieldStep-selector">{{formatSelector(step.args[0])}}</div>
+            <div class="FillFieldStep-text" v-if="step.args[1]">"{{step.args[1]}}"</div>
         </div>
     </div>
 

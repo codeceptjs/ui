@@ -37,7 +37,12 @@
           <li v-bind:key="feature.feature.title" v-for="feature in project.features">
             <div class="TestFile box">
               <a class="TestFile-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
-              <h4 class="subtitle">{{feature.feature.title}}</h4>
+              <h3 class="subtitle">
+                <span>
+                {{feature.feature.title}}
+                </span>
+                <span class="tag is-light" :key="tag" v-for="tag in feature.feature.tags">{{tag}}</span>
+              </h3>
 
               <ul>
                 <li class="TestFile-scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">

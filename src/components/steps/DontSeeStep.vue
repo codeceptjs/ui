@@ -38,7 +38,6 @@ export default {
 
 <style>
 .DontSeeStep {
-  margin-left: .2em;
 }
 
 .DontSeeStep-selector {

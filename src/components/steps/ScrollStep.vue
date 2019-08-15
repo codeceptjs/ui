@@ -26,8 +26,6 @@ export default {
 
 <style>
 .ScrollStep {
-  margin-left: .2em;
-  
 }
 
 .ScrollStep-arg {

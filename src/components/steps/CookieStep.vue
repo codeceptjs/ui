@@ -24,7 +24,6 @@ export default {
 
 <style>
 .CookieStep {
-  padding-left: .5em;
 }
 
 </style>

@@ -28,7 +28,6 @@ export default {
 
 <style>
 .FillFieldStep {
-  margin-left: .2em;
 }
 
 .FillFieldStep-selector {

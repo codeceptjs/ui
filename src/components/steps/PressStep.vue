@@ -3,7 +3,7 @@
         <div class="column is-3">
         </div>
         <div class="column is-9">
-            <span class="tag is-light">{{step.args[0]}}</span>
+            <kbd class="PressStep-kbd has-background-grey-light">{{step.args[0]}}</kbd>
         </div>
     </div>
 </template>
@@ -17,7 +17,14 @@ export default {
 
 <style>
 .PressStep {
-    padding-left: .5em;
+}
+
+.PressStep-kbd {
+    padding: .2rem .4rem;
+    font-size: .6rem;
+    color: #fff;
+    background-color: #212529;
+    border-radius: .2rem;
 }
 </style>
 

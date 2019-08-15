@@ -2,7 +2,6 @@
     <div class="SaveScreenshotStep has-text-grey-light columns is-gapless">
         <div class="column is-3">
             <i class="Step-icon fas fa-image"></i>
-            screenshot
         </div>
         <div class="column is-9">
             <span>{{step.args[0]}}</span>
@@ -19,7 +18,6 @@ export default {
 
 <style>
 .SaveScreenshotStep {
-  padding-left: .5em;
 }
 </style>
 

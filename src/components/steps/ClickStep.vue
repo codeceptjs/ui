@@ -3,7 +3,7 @@
         <div class="column is-3">
             I {{step.humanized}}
         </div>
-        <div class="column is-9">
+        <div class="column is-9 ellipsize">
             <div v-if="step.args.length === 1">
                 <span class="ClickStep-selector">
                     {{formatSelector(step.args[0])}}
@@ -37,7 +37,6 @@ export default {
 
 <style>
 .ClickStep {
-  margin-left: .2em;
 }
 
 .ClickStep-selector {

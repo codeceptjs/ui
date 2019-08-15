@@ -4,7 +4,7 @@
     @click="handleSelectStep(step)">
     
     <div class="StepWrapper" v-if="isMetaStep(step)">
-      <strong class="StepMetaStep has-text-black">
+      <strong class="StepMetaStep has-text-dark">
         {{formatMetaStep(step)}}
       </strong>
     </div>
@@ -78,7 +78,7 @@
         <div class="column is-3">
           I {{step.humanized}}
         </div>
-        <div class="column is-9">
+        <div class="column is-9 ellipsize">
           <span class="Step-argSelector">{{getSelector(step.args)}}</span>
           &nbsp;
           <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
@@ -252,7 +252,8 @@ export default {
 }
 
 .StepMetaStep {
-
+   font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
+   font-size: .8rem;
 }
 
 .GenericStep {

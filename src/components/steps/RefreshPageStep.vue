@@ -4,7 +4,6 @@
             <i class="Step-icon fas fa-sync"></i>
         </div>
         <div class="column">
-            refresh
         </div>
     </div>
 </template>
@@ -18,7 +17,6 @@ export default {
 
 <style>
 .RefreshPageStep {
-    padding-left: .5em;
 }
 </style>
 

@@ -1,8 +1,9 @@
 <template>
     <div class="SeeStep columns is-gapless">
       <div class="column is-3">
-        <span class="SeeStep-tag tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
-            see 
+        <span class="SeeStep-tag has-text-success" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
+          <i class="fas fa-eye"/>
+          {{formatStepName(step.humanized)}} 
         </span>
       </div>
       <div class="column is-9">
@@ -26,7 +27,8 @@ export default {
       formatStepName(stepName) {
         return stepName
           .replace('see', '')
-          .replace('number of', '#');
+          .replace('number of', '#')
+          .replace('elements', '');
       },
       formatSelector(sel) {
           return getSelectorString(sel).label;
@@ -37,11 +39,9 @@ export default {
 
 <style lang="scss">
 .SeeStep {
-  margin-left: .2em;
 }
 
 .SeeStep-tag {
-  width: 4em;
 }
 
 .SeeStep-selector {

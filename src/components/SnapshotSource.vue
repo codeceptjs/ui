@@ -82,7 +82,8 @@ export default {
             this.loaded = true;
 
             if (this.mustScrollIframe()) {
-                this.$refs.source.contentWindow.scrollTo(this.$props.snapshotScrollPosition.x, this.$props.snapshotScrollPosition.y);
+                // Only page to vertical position
+                this.$refs.source.contentWindow.scrollTo(0, this.$props.snapshotScrollPosition.y);
             }
             highlightInIframe(this.getIframeDoc(), this.getIframeWindow(), this.$props.highlight);
 

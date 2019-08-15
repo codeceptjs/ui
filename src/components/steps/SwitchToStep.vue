@@ -25,7 +25,6 @@ export default {
 
 <style>
 .SwitchToStep {
-  padding-left: .5em;
 }
 
 .SwitchToStep-arg {

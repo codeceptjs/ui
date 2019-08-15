@@ -41,7 +41,6 @@ export default {
 </script>
 <style>
 .SendStep {
-  padding-left: .5em;
   font-size: .8rem;
 }
 

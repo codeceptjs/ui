@@ -19,14 +19,9 @@ export default {
 
 <style>
 .ExecuteStep {
-    padding-left: .5em;
 }
 
-.ellipsize {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+
 </style>
 
 

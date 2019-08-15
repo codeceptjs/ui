@@ -16,10 +16,6 @@ export default {
 
 <style>
 .CommentStep {
-  margin-left: .2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 </style>
 

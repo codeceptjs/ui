@@ -50,4 +50,14 @@ $link-focus-border: $primary;
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 
+// Global styles
+i {
+  width: 1em;
+}
+
+.ellipsize {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>

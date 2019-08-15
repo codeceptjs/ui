@@ -1,6 +1,6 @@
 <template>
-    <div class="GrabStep has-text-grey-light columns">
-        <div class="column is-3">
+    <div class="GrabStep columns">
+        <div class="column is-3 ellipsize">
             I {{step.humanized}}
         </div>
         <div class="column is-9 ellipsize">
@@ -26,9 +26,6 @@ export default {
 
 <style>
 .GrabStep {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .ellipsize {

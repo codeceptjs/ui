@@ -1,7 +1,7 @@
 <template>
     <div class="WaitStep has-text-grey-light columns is-gapless">
       <div class="column is-3">
-        <i class="Step-icon fas fa-hourglass"></i> {{formatStep(step.humanized)}}
+        <i class="Step-icon far fa-hourglass"></i> {{formatStep(step.humanized)}}
       </div>
       <div class="column is-9">
         <div v-if="step.name='waitForVisible'">
@@ -33,7 +33,6 @@ export default {
 
 <style>
 .WaitStep {
-  padding-left: .5em;
 }
 
 .WaitStep-arg {

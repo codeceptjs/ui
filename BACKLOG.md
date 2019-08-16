@@ -101,11 +101,11 @@
 - Implement step.comment
 - ScenariosPage: Fix tags
 - Scenario Autorefresh: Ignore node_modules folder
+- Remove duration from REST steps
 
 
 ## In Progress
 
-- Remove duration from REST steps
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - Group data driven tests into one scenario

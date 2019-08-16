@@ -4,7 +4,6 @@
         <span class="Step-restMethod has-text-info">
           {{httpMethod}}
         </span>
-        <span class="Step-restDuration">{{step.duration}}</span>
       </div>
       <div class="column is-9">
         <span class="Step-restUrl">
@@ -52,11 +51,6 @@ export default {
 }
 
 .Step-restUrl {
-}
-
-.Step-restDuration {
-  display: inline-block;
-  width: 3em;
 }
 
 </style>

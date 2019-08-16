@@ -38,7 +38,7 @@ const proxyEvents = {
   'test.failed': (data) => snapshotStore.add(data.id, data),
   'test.passed': (data) => snapshotStore.add(data.id, data), 
   'step.before': (data) => snapshotStore.add(data.id, data),
-  'step.say': undefined, 
+  'step.comment': undefined, 
   'step.passed': undefined,
   'finish': undefined, 
 }

@@ -4,9 +4,15 @@
     @click="handleSelectStep(step)">
     
     <div class="StepWrapper" v-if="isMetaStep(step)">
-      <strong class="StepMetaStep has-text-dark">
+      <strong class="StepMetaStep has-text-greyer">
         {{formatMetaStep(step)}}
       </strong>
+    </div>
+
+    <div class="StepWrapper" v-else-if="isCommentStep(step)">
+      <div class="StepCommentStep has-text-primary is-family-sans-serif">
+        <i class="far fa-comments"></i> {{step.args[0]}}
+      </div>
     </div>
 
     <div class="StepWrapper" v-else-if="stepNameIncludes('send')">
@@ -95,7 +101,7 @@
         <span class="has-text-grey-light">
           <i class="far fa-clock"></i> {{step.at / 1000}}s
         </span>
-        <span class="has-text-grey-light">
+        <span v-if="step.duration" class="has-text-grey-light">
           <i class="fas fa-stopwatch has-text-grey-light"></i> {{step.duration}}ms
         </span>
         
@@ -176,6 +182,10 @@ export default {
 
     isMetaStep(step) {
       return step.type === 'meta';
+    },
+
+    isCommentStep(step) {
+      return step.type === 'comment';
     },
 
     formatMetaStep(step) {
@@ -281,6 +291,13 @@ export default {
 .StepMetaStep {
    font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
    font-size: .8rem;
+}
+
+.StepCommentStep {
+  font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
+  padding-top: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .GenericStep {

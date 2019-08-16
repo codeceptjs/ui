@@ -48,18 +48,19 @@ const store = new Vuex.Store({
       },
       addMetaStepToCurrentTest: (state, metastep) => {
         const currentTest = state.tests[state.tests.length - 1];
-        if (!metastep) {
-          currentTest.steps.push({
-            type: 'meta',
-            result: 'passed',
-          });  
-        } else {
           currentTest.steps.push({
             type: 'meta',
             result: 'passed',
             ...metastep
           });
-        }
+      },
+      addCommentToCurrentTest: (state, comment) => {
+        const currentTest = state.tests[state.tests.length - 1];
+        currentTest.steps.push({
+          type: 'comment',
+          result: 'passed',
+          ...comment
+        })
       },
       markAsFailedCurrentTest: (state, data) => {
         const currentTest = state.tests[state.tests.length - 1];
@@ -140,7 +141,7 @@ const store = new Vuex.Store({
       'SOCKET_codeceptjs.exit': function (context) {
         context.commit('setRunning', false);
       },
-      'SOCKET_suite.before': function (context) {
+      'SOCKET_suite.before': function () {
       },
       'SOCKET_test.before': function (context, test) {
         context.commit('addTest', test);
@@ -151,15 +152,14 @@ const store = new Vuex.Store({
       'SOCKET_test.passed': function (context, data) {
         context.commit('markAsPassedCurrentTest', data);
       },
-      'SOCKET_step.say': function (context, msg) {
-        // console.log('SAY', msg);
+      'SOCKET_step.comment': function (context, comment) {
+        context.commit('addCommentToCurrentTest', comment);
       },
       'SOCKET_step.before': function (context, step) {
         context.commit('setSelectedStep', step);
         context.commit('addStepToCurrentTest', step);
       },
       'SOCKET_step.passed': function (context, step) {
-        // console.log('STEP.PASSED', step);
       },
       'SOCKET_metastep.changed': function (context, metastep) {
         context.commit('addMetaStepToCurrentTest', metastep);

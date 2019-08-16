@@ -74,13 +74,13 @@ export default {
   },
   computed: {
     tests() {
-      return this.$store.state.tests;
+      return this.$store.getters['testRuns/testRuns'];
     },
     hoveredOrSelectedStep() {
-      return this.$store.state.hoveredStep || this.$store.state.selectedStep;
+      return this.$store.getters['testRunPage/hoveredStep'] || this.$store.getters['testRunPage/selectedStep'];
     },
     isRunning() {
-      return this.$store.state.isRunning;
+      return this.$store.getters['testRuns/isRunning'];
     }
   },
   methods: {
@@ -97,16 +97,16 @@ export default {
 
     runScenario() {
       axios.get(`/api/scenarios/${encodeURIComponent(this.scenario.title)}/run`);
-      this.$store.commit('clearTests');
-      this.$store.commit('setRunning', true);
+      this.$store.commit('testRuns/clearTests');
+      this.$store.commit('testRuns/setRunning', true);
     },
 
     onSelectStep(step) {
-      this.$store.commit('setSelectedStep', step);
+      this.$store.commit('testRunPage/setSelectedStep', step);
     },
 
     clearScenarioRuns() {
-      this.$store.commit('clearTests');
+      this.$store.commit('testRuns/clearTests');
     }
   }
 }

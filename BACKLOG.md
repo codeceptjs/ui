@@ -106,6 +106,7 @@
 
 ## In Progress
 
+- step.passed: map return values
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - Group data driven tests into one scenario

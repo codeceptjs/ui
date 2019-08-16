@@ -1,19 +1,17 @@
 <template>
     <div class="DontSeeStep has-text-grey columns is-gapless">
       <div class="column is-3">
-        <span class="DontSeeStep-tag tag" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
-          dont
+        <span class="DontSeeStep-tag has-text-success" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
+          <i class="fas fa-eye-slash"></i>
         </span>
       </div>
       <div class="column is-9 ellipsize">
         <span v-if="step.args.length == 1">
-          {{formatStepName(step.humanized)}} <span class="DontSeeStep-text">{{formatSelector(step.args[0])}}</span>
+          <span class="DontSeeStep-text">{{formatSelector(step.args[0])}}</span>
         </span>
         <span v-else>
-          {{formatStepName(step.humanized)}} 
-          <span class="DontSeeStep-text">"{{step.args[0]}}"</span>
-          &nbsp;
-          <span class="DontSeeStep-selector has-text-info">{{step.args[1]}}</span>
+          <div class="DontSeeStep-text">"{{step.args[0]}}"</div>
+          <div class="DontSeeStep-selector has-text-info">{{step.args[1]}}</div>
         </span>
       </div>
     </div>
@@ -30,7 +28,10 @@ export default {
         return getSelectorString(sel).label;
       },
       formatStepName(stepName) {
-        return stepName.replace('dont', '');
+         return stepName
+          .replace('dont see', '')
+          .replace('number of', '#')
+          .replace('elements', '');
       }
     }
 }

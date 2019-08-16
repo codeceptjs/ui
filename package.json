@@ -19,16 +19,17 @@
   "dependencies": {
     "ava": "^2.2.0",
     "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "chokidar": "^3.0.2",
+    "codeceptjs": "^2.3.0",
     "core-js": "^2.6.5",
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "lodash": "^4.17.14",
     "puppeteer": "^1.19.0",
     "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0",
-    "codeceptjs": "^2.3.0"
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@medv/finder": "^1.1.1",

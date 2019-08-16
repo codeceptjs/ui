@@ -109,7 +109,7 @@ export default {
       },
 
       selectScenario(scenario) {
-        this.$store.commit('selectScenario', scenario);
+        this.$store.commit('scenarios/selectScenario', scenario);
       },
 
       linkToScenario(scenarioId) {

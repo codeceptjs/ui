@@ -101,11 +101,11 @@ export default {
     },
 
     showImage() {
-       this.$store.commit('setShowImage');
+       this.$store.commit('testRunPage/setShowImage');
     },
 
     showSource() {
-       this.$store.commit('setShowSource');
+       this.$store.commit('testRunPage/setShowSource');
     },
 
     getSelector(step) {
@@ -127,10 +127,10 @@ export default {
   },
   computed: {
     isShowImage() {
-      return this.$store.state.show === 'image';
+      return this.$store.getters['testRunPage/showImage'];
     },
     isShowSource() {
-      return this.$store.state.show === 'source';
+      return this.$store.getters['testRunPage/showSource'];
     }
   }
 }

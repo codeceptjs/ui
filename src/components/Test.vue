@@ -28,7 +28,7 @@
       <ul class="TestRun-steps">
         <li 
           v-for="step in test.steps" 
-          v-bind:key="step.title"
+          :key="step.title"
           @mouseover="setHoveredStep(step)"
           @mouseleave="unsetHoveredStep(step)"
         >
@@ -124,27 +124,6 @@ export default {
       command: undefined,
     }
   },
-  sockets: { // TODO Move this to store
-    'cli.start': function (data) {
-      // eslint-disable-next-line no-console
-      console.log('Start cli', data);
-      this.$store.commit('startCli', data);
-    },
-    'cli.stop': function (data) {
-      // eslint-disable-next-line no-console
-      console.log('Start cli', data);
-      this.$store.commit('stopCli', data);
-    },
-    'cli.output': function (data) {
-      // eslint-disable-next-line no-console
-      console.log('Output', data);
-    },
-    'cli.error': function (data) {
-      // eslint-disable-next-line no-console
-      console.log('Error', data);
-      this.$store.commit('setCliError', data);
-    },
-  },
   methods: {
     activateTab(tabname) {
       this.activeTab = tabname;
@@ -165,15 +144,15 @@ export default {
       return str.trim();
     },
     setHoveredStep(step) {
-      this.$store.commit('setHoveredStep', step);
+      this.$store.commit('testRunPage/setHoveredStep', step);
     },
     unsetHoveredStep(step) {
-      this.$store.commit('unsetHoveredStep', step);
+      this.$store.commit('testRunPage/unsetHoveredStep', step);
     }
   },
   computed: {
     isShowCli() {
-      return this.$store.state.cli !== undefined;
+      return this.$store.getters['cli/show'];
     },
 
     hasErrorCli() {
@@ -191,10 +170,10 @@ export default {
     },
 
     hoveredStep() {
-      return this.$store.state.hoveredStep;
+      return this.$store.getters['testRunPage/hoveredStep'];
     },
     selectedStep() {
-      return this.$store.state.selectedStep;
+      return this.$store.getters['testRunPage/selectedStep'];
     }
   }
 }

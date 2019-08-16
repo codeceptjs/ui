@@ -97,10 +97,12 @@
 - List Scenarios: Add scenario directory to scenario
 - BUG: Testrun View: Separate feature and scenario title
 - Reload suites
+- Find out if test is skipped
 
 
 ## In Progress
 
+- Implement step.comment
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - ScenariosPage: Fix tags

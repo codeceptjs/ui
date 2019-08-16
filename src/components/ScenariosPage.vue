@@ -39,20 +39,26 @@
               <a class="TestFile-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
               <h3 class="subtitle">
                 <span>
-                {{feature.feature.title}}
+                  {{feature.feature.title}}
                 </span>
                 <span class="tag is-light" :key="tag" v-for="tag in feature.feature.tags">{{tag}}</span>
               </h3>
 
               <ul>
                 <li class="TestFile-scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
-                  <a 
-                    class="TestFile-scenarioRunLink" 
-                    v-on:click="selectScenario(scenario)"
-                    :href="linkToScenario(scenario.id)">
+                  <div v-if="!scenario.pending">
+                    <a 
+                      class="TestFile-scenarioRunLink"
+                      @click="selectScenario(scenario)"
+                      :href="linkToScenario(scenario.id)">
+                      {{scenario.title}}
+                    </a>
+                    <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+                  </div>
+                  <div v-else class="has-text-info">
                     {{scenario.title}}
-                  </a>
-                  <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+                    <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+                  </div>
                 </li>
               </ul>
             </div>

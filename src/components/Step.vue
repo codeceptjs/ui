@@ -83,7 +83,7 @@
           I {{step.humanized}}
         </div>
         <div class="column is-9 ellipsize">
-          <span class="Step-argSelector">{{getSelector(step.args)}}</span>
+          <span class="Step-argSelector">{{getSelectorLabel(step.args)}}</span>
           &nbsp;
           <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
         </div>
@@ -103,18 +103,19 @@
           class="button is-small is-info is-outlined"
           @click="openFileFromStack(step.stack.stackFrameOfStep)"
         >
-          at {{getMethodFromStack(step.stack.stackFrameOfStep)}}
+          <i class="fas fa-link"></i> {{getMethodFromStack(step.stack.stackFrameOfStep)}}
         </button>
-        &nbsp;
         <button v-if="step.stack.stackFrameInTest" 
           class="button is-small is-info is-outlined" 
           href="#" 
           v-on:click="openFileFromStack(step.stack.stackFrameInTest)">
-          In Test
+          <i class="fas fa-link"></i> Scenario
+        </button>
+        <button v-if="isAction(step)" class="button is-small is-outlined has-text-grey" @click="copySelectorToClipboard(step)">
+          <i class="fas fa-copy"></i> Selector
         </button>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -140,6 +141,8 @@ import CommentStep from './steps/CommentStep';
 import SwitchToStep from './steps/SwitchToStep';
 import ScrollStep from './steps/ScrollStep';
 
+import copyToClipboard from 'copy-text-to-clipboard';
+
 export default {
   name: 'Step',
   props: ['step', 'selectedStep', 'isHovered', 'isSelected', 'error'],
@@ -163,9 +166,18 @@ export default {
     ScrollStep,
   },
   methods: {
+    isAction(step) {
+      return ['click', 'clickLink', 'fillField', 'selectOption'].includes(step.name);
+    },
+
+    copySelectorToClipboard(step) {
+      copyToClipboard(this.getSelectorValue(step.args));
+    },
+
     isMetaStep(step) {
       return step.type === 'meta';
     },
+
     formatMetaStep(step) {
       if (step.actor) {
         const actor = step.actor.replace('Context:', '');
@@ -183,9 +195,14 @@ export default {
       return step.name.includes(methodName);
     },
 
-    getSelector: function (stepArgs) {
+    getSelectorLabel: function (stepArgs) {
       const {label} = getSelectorString(stepArgs[0]);
       return label;
+    },
+
+    getSelectorValue: function (stepArgs) {
+      const {value} = getSelectorString(stepArgs[0]);
+      return value;
     },
 
     toStringOrNumber: function (stringOrNumber) {
@@ -239,6 +256,10 @@ export default {
   padding: 3px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   border-radius: 3px;
+}
+
+.StepHoverContainer-content > button {
+  margin-left: .2rem;
 }
 
 .StepContainer--selected {

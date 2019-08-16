@@ -7,11 +7,12 @@
         </span>
       </div>
       <div class="column is-9">
-        <span v-if="step.args == 1">
+        <span v-if="step.args.length === 1">
            <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
         </span>
         <span v-else>
-          <span class="SeeStep-text">"{{step.args[0]}}"</span>&nbsp;<span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
+          <div class="SeeStep-text">"{{step.args[0]}}"</div>
+          <div class="SeeStep-selector">{{formatSelector(step.args[1])}}</div>
         </span>
       </div>
     </div>
@@ -31,7 +32,8 @@ export default {
           .replace('elements', '');
       },
       formatSelector(sel) {
-          return getSelectorString(sel).label;
+        const selString = getSelectorString(sel);
+        return selString.label;
       }
     }
 }

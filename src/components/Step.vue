@@ -33,6 +33,10 @@
       <FillFieldStep v-bind:step="step" />
     </div>
 
+    <div class="StepWrapper" v-else-if="stepNameStartsWith('select')">
+      <SelectOptionStep v-bind:step="step" />
+    </div>
+
     <div class="StepWrapper" v-else-if="stepNameStartsWith('see')">
       <SeeStep v-bind:step="step" />
     </div>
@@ -129,6 +133,7 @@ import PressStep from './steps/PressStep';
 import RefreshPageStep from './steps/RefreshPageStep';
 import SaveScreenshotStep from './steps/SaveScreenshotStep';
 import FillFieldStep from './steps/FillFieldStep';
+import SelectOptionStep from './steps/SelectOptionStep';
 import ExecuteStep from './steps/ExecuteStep';
 import GrabStep from './steps/GrabStep';
 import CommentStep from './steps/CommentStep';
@@ -150,6 +155,7 @@ export default {
     RefreshPageStep,
     SaveScreenshotStep,
     FillFieldStep,
+    SelectOptionStep,
     ExecuteStep,
     GrabStep,
     CommentStep,

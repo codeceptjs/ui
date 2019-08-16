@@ -90,7 +90,7 @@ export default {
             this.loading = false
             this.scenario = response.data
         })
-        .catch(error => {
+        .catch(() => {
             this.loading = false
         })
     },

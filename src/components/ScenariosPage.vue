@@ -84,14 +84,9 @@ export default {
     this.loadProject()
   },
   sockets: {
-    'codeceptjs:scenarios.updated': function (data) {
-      console.log('codeceptjs:scenarios.updated', data);
+    'codeceptjs:scenarios.updated': function () {
       this.loadProject();
-    },
-
-    'codeceptjs:scenarios.parseerror': function (data) {
-      console.log('codeceptjs:scenarios.parseerror', data);
-    },
+    }
   },
   methods: {
       loadProject() {
@@ -102,7 +97,7 @@ export default {
                 this.loading = false
                 this.project = response.data
             })
-            .catch(error => {
+            .catch(() => {
                 this.loading = false
             })
       },

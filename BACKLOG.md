@@ -102,10 +102,14 @@
 - ScenariosPage: Fix tags
 - Scenario Autorefresh: Ignore node_modules folder
 - Remove duration from REST steps
+- store testrun
 
 
 ## In Progress
 
+- Store snapshots with testrun
+- Use scenario.id to run a scenario (not title)
+- Display date/time when scenario was last run
 - step.passed: map return values
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe

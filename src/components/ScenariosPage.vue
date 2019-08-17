@@ -113,7 +113,7 @@ export default {
       },
 
       linkToScenario(scenarioId) {
-        return `/#/testrun/${scenarioId}`;
+        return `/#/testrun/${encodeURIComponent(scenarioId)}`;
       },
 
       openInEditor(file) {

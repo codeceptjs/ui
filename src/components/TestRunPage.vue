@@ -69,8 +69,9 @@ export default {
       scenario: undefined,
     }
   },
-  created: function () {
-    this.loadScenario();
+  created: async function () {
+    await this.loadScenario();
+    await this.loadLastTestRun(this.scenario);
   },
   computed: {
     tests() {
@@ -84,8 +85,8 @@ export default {
     }
   },
   methods: {
-    loadScenario() {
-      axios.get(`/api/scenarios/${this.$route.params.scenarioId}`)
+    async loadScenario() {
+      return axios.get(`/api/scenarios/${encodeURIComponent(this.$route.params.scenarioId)}`)
         .then(response => {
             this.loading = false
             this.scenario = response.data
@@ -95,19 +96,19 @@ export default {
         })
     },
 
-    runScenario() {
-      axios.get(`/api/scenarios/${encodeURIComponent(this.scenario.title)}/run`);
-      this.$store.commit('testRuns/clearTests');
-      this.$store.commit('testRuns/setRunning', true);
+    async loadLastTestRun(scenario) {
+      return this.$store.dispatch('testRuns/loadTestRun', scenario.id);
     },
 
+    runScenario() {
+      // TODO Use scenario id to run it
+      this.$store.dispatch('testRuns/runScenario', this.scenario.title);
+    },
+
+    // TODO Do i still need this
     onSelectStep(step) {
       this.$store.commit('testRunPage/setSelectedStep', step);
     },
-
-    clearScenarioRuns() {
-      this.$store.commit('testRuns/clearTests');
-    }
   }
 }
 </script>

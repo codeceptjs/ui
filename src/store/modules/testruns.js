@@ -82,19 +82,32 @@ const testRuns = {
     }
   },
   actions: {
-    saveTestrun: async function (context, testRun) {
-      return axios.post('/api/testruns', testRun);
+    saveTestRun: async function (context, testRun) {
+      return axios.put(`/api/testruns/${testRun.id}`, testRun);
     },
 
-    'SOCKET_codeceptjs.started': function (context) {
-      context.commit('clearTests');
-      context.commit('setRunning', true);
+    loadTestRun: async ({ state }, id) => {
+      try {
+        const resp = await axios.get(`/api/testruns/${id}`);
+        state.tests = [resp.data];
+      } catch (err) {}
+    },
+
+    runScenario: async function ({ commit }, scenarioId) {
+      axios.get(`/api/scenarios/${encodeURIComponent(scenarioId)}/run`);
+      commit('clearTests');
+      commit('setRunning', true);
+    },
+
+    'SOCKET_codeceptjs.started': function ({ commit }) {
+      commit('clearTests');
+      commit('setRunning', true);
     },
     'SOCKET_codeceptjs.exit': function ({ commit, dispatch, state }) {
       commit('setRunning', false);
 
       const currentTest = state.tests[state.tests.length - 1];
-      dispatch('saveTestrun', currentTest);
+      dispatch('saveTestRun', currentTest);
     },
     'SOCKET_suite.before': function () {
     },

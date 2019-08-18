@@ -103,14 +103,14 @@
 - Scenario Autorefresh: Ignore node_modules folder
 - Remove duration from REST steps
 - store testrun
+- Store snapshots with testrun
 
 
 ## In Progress
 
-- Store snapshots with testrun
 - Use scenario.id to run a scenario (not title)
 - Display date/time when scenario was last run
-- step.passed: map return values
+- step.passed: map return values (e. g. axios response)
 - Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - Group data driven tests into one scenario
@@ -118,6 +118,7 @@
 
 ## V 0.1.6
 
+- HTML Snapshot: Last pressKey should trigger snapshot
 - Scenario Autorefresh: I have the feeling that changes to files are not always picked up
 - Scenario Autorefresh: Created/Deleted files are not picked up
 - Dont put selected steps on history stack

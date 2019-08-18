@@ -88,7 +88,7 @@ const testRuns = {
 
     loadTestRun: async ({ state }, id) => {
       try {
-        const resp = await axios.get(`/api/testruns/${id}`);
+        const resp = await axios.get(`/api/testruns/${encodeURIComponent(id)}`);
         state.tests = [resp.data];
       } catch (err) {}
     },

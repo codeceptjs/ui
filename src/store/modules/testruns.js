@@ -83,7 +83,7 @@ const testRuns = {
   },
   actions: {
     saveTestRun: async function (context, testRun) {
-      return axios.put(`/api/testruns/${testRun.id}`, testRun);
+      return axios.put(`/api/testruns/${encodeURIComponent(testRun.id)}`, testRun);
     },
 
     loadTestRun: async ({ state }, id) => {
@@ -103,16 +103,17 @@ const testRuns = {
       commit('clearTests');
       commit('setRunning', true);
     },
-    'SOCKET_codeceptjs.exit': function ({ commit, dispatch, state }) {
+    'SOCKET_codeceptjs.exit': function ({ commit }) {
       commit('setRunning', false);
-
-      const currentTest = state.tests[state.tests.length - 1];
-      dispatch('saveTestRun', currentTest);
     },
     'SOCKET_suite.before': function () {
     },
     'SOCKET_test.before': function (context, test) {
       context.commit('addTest', test);
+    },
+    'SOCKET_test.after': function ({ dispatch, state }) {
+      const currentTest = state.tests[state.tests.length - 1];
+      dispatch('saveTestRun', currentTest);
     },
     'SOCKET_test.failed': function (context, error) {
       context.commit('markAsFailedCurrentTest', error);
@@ -126,7 +127,7 @@ const testRuns = {
     'SOCKET_step.before': function (context, step) {
       context.commit('addStepToCurrentTest', step);
     },
-    'SOCKET_step.passed': function (context, step) {
+    'SOCKET_step.passed': function () {
     },
     'SOCKET_metastep.changed': function (context, metastep) {
       context.commit('addMetaStepToCurrentTest', metastep);

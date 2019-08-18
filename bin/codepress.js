@@ -35,6 +35,7 @@ const proxyEvents = {
   'cli.close': undefined,
   'suite.before': undefined,
   'test.before': undefined,
+  'test.after': undefined,
   'test.failed': (data) => snapshotStore.add(data.id, data),
   'test.passed': (data) => snapshotStore.add(data.id, data), 
   'step.before': (data) => snapshotStore.add(data.id, data),

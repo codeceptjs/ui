@@ -34,33 +34,39 @@
       <div class="container">
 
         <ul>
-          <li v-bind:key="feature.feature.title" v-for="feature in project.features">
-            <div class="TestFile box">
-              <a class="TestFile-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
-              <h3 class="subtitle">
-                <span>
-                  {{feature.feature.title}}
-                </span>
-                <span class="tag is-light" :key="tag" v-for="tag in feature.feature.tags">{{tag}}</span>
-              </h3>
+          <li v-bind:key="capability" v-for="(features, capability) in project.features">
+            <div class="Capability">
+              <h2 class="title is-size-6 has-text-info">
+                {{capability}}
+              </h2>
 
-              <ul>
-                <li class="TestFile-scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
-                  <div v-if="!scenario.pending">
-                    <a 
-                      class="TestFile-scenarioRunLink"
-                      @click="selectScenario(scenario)"
-                      :href="linkToScenario(scenario.id)">
+              <div class="TestFile box" :key="feature.feature.title" v-for="feature in features">
+                <a class="TestFile-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
+                <h3 class="title is-size-6">
+                  <span>
+                    {{feature.feature.title}}
+                  </span>
+                  <span class="tag is-light" :key="tag" v-for="tag in feature.feature.tags">{{tag}}</span>
+                </h3>
+
+                <ul>
+                  <li class="TestFile-scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
+                    <div v-if="!scenario.pending">
+                      <a 
+                        class="TestFile-scenarioRunLink"
+                        @click="selectScenario(scenario)"
+                        :href="linkToScenario(scenario.id)">
+                        {{scenario.title}}
+                      </a>
+                      <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+                    </div>
+                    <div v-else class="has-text-info">
                       {{scenario.title}}
-                    </a>
-                    <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
-                  </div>
-                  <div v-else class="has-text-info">
-                    {{scenario.title}}
-                    <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
-                  </div>
-                </li>
-              </ul>
+                      <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </li>
         </ul>

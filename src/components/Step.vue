@@ -3,87 +3,87 @@
     :class="{ 'StepContainer--selected': isSelected, 'StepContainer--failed': step.result === 'failed', 'StepContainer--passed': step.result === 'passed' }"
     @click="handleSelectStep(step)">
     
-    <div class="StepWrapper" v-if="isMetaStep(step)">
+    <div class="StepWrapper StepWrapper--indent2" v-if="isMetaStep(step)">
       <strong class="StepMetaStep has-text-greyer">
         {{formatMetaStep(step)}}
       </strong>
     </div>
 
-    <div class="StepWrapper" v-else-if="isCommentStep(step)">
-      <div class="StepCommentStep has-text-primary is-family-sans-serif">
+    <div class="StepWrapper StepWrapper--indent1" v-else-if="isCommentStep(step)">
+      <div class="StepCommentStep has-text-info is-family-sans-serif">
         <i class="far fa-comments"></i> {{step.args[0]}}
       </div>
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameIncludes('send')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameIncludes('send')">
       <SendStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('switchTo')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('switchTo')">
       <SwitchToStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('scroll')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('scroll')">
       <ScrollStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('wait')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('wait')">
       <WaitStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('click')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('click')">
       <ClickStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('fillField')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('fillField')">
       <FillFieldStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('select')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('select')">
       <SelectOptionStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('see')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('see')">
       <SeeStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('dontSee')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('dontSee')">
       <DontSeeStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('amOnPage')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('amOnPage')">
       <AmOnPageStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameIncludes('Cookie')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameIncludes('Cookie')">
       <CookieStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('refresh')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('refresh')">
       <RefreshPageStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('press')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('press')">
       <PressStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('execute')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('execute')">
       <ExecuteStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('grab')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('grab')">
       <GrabStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('comment')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('comment')">
       <CommentStep v-bind:step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="stepNameStartsWith('saveScreenshot')">
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('saveScreenshot')">
       <SaveScreenshotStep v-bind:step="step" />
     </div>
 
-    <div v-else class="StepWrapper">
+    <div v-else class="StepWrapper StepWrapper--indent3">
       <div class="GenericStep columns is-gapless">
         <div class="column is-3">
           I {{step.humanized}}
@@ -251,6 +251,18 @@ export default {
   font-family:  Inconsolata, monospace; 
 }
 
+.StepContainer--selected {
+  background-color: #ddd;
+}
+
+.StepContainer--passed {
+  border-left: 4px solid hsl(141, 71%, 48%);
+}
+
+.StepContainer--failed {
+  border-left: 4px solid hsl(348, 100%, 61%);
+}
+
 .StepHoverContainer {
   position: absolute;
   top: 0;
@@ -272,25 +284,21 @@ export default {
   margin-left: .2rem;
 }
 
-.StepContainer--selected {
-  background-color: #ddd;
-}
-
-.StepContainer--passed {
-  border-left: 4px solid hsl(141, 71%, 48%);
-}
-
-.StepContainer--failed {
-  border-left: 4px solid hsl(348, 100%, 61%);
-}
-
 .StepWrapper {
-  padding: .2em 0 .2em .5em;
+  padding: .2em 0 .2em 0;
+}
+.StepWrapper--indent1 {
+  padding-left: .4em;
+}
+.StepWrapper--indent2 {
+  padding-left: .6em;
+}
+.StepWrapper--indent3 {
+  padding-left: .8em;
 }
 
 .StepMetaStep {
-   font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
-   font-size: .8rem;
+  font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
 }
 
 .StepCommentStep {

@@ -40,7 +40,6 @@ export default {
 </script>
 <style>
 .SendStep {
-  font-size: .8rem;
 }
 
 .Step-restMethod {

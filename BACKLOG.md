@@ -118,6 +118,7 @@
 
 ## V 0.1.6
 
+- BUG Code changes in page objects not picked up (assume page objects not reloaded)
 - step.passed: map return values (e. g. axios response)
 - HTML Snapshot: Last pressKey should trigger snapshot
 - Scenario Autorefresh: I have the feeling that changes to files are not always picked up

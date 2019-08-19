@@ -1,15 +1,22 @@
 <template>
   <div class="Test">
 
-    <div class="TestRun-header columns is-gapless">
-      <div class="column is-narrow">
-        <i v-if="test.result == 'passed'" class="fas fa-check has-text-success" />
-        <i v-if="test.result == 'failed'" class="fas fa-times has-text-danger" />
-        <i v-if="test.result == 'running'" class="fas fa-circle-notch fa-spin has-text-grey" />
+    <div class="TestRunHeader">
+      <div class="TestRunHeader-meta is-size-7 has-text-grey-light is-pulled-right">
+        <span v-if="test.startedAt">
+          {{humanize(test.startedAt)}}
+        </span>
       </div>
-      <div class="column">
-        <h3 class="TestRun-title" v-if="scenario">{{scenario.title}}</h3>
-        <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+      <div class="columns is-gapless">
+        <div class="column is-narrow">
+          <i v-if="test.result == 'passed'" class="fas fa-check has-text-success" />
+          <i v-if="test.result == 'failed'" class="fas fa-times has-text-danger" />
+          <i v-if="test.result == 'running'" class="fas fa-circle-notch fa-spin has-text-grey" />
+        </div>
+        <div class="column">
+          <h3 class="TestRun-title" v-if="scenario">{{scenario.title}}</h3>
+          <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+        </div>
       </div>
     </div>
 
@@ -108,6 +115,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import Step from './Step';
 import ScenarioSource from './ScenarioSource';
 import Convert from 'ansi-to-html';
@@ -125,6 +133,10 @@ export default {
     }
   },
   methods: {
+    humanize(ts) {
+      return moment.unix(ts / 1000).fromNow();
+    },
+
     activateTab(tabname) {
       this.activeTab = tabname;
     },
@@ -180,7 +192,7 @@ export default {
 </script>
 
 <style scoped>
-.TestRun-header {
+.TestRunHeader {
 
 }
 

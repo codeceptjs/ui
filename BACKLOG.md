@@ -104,20 +104,20 @@
 - Remove duration from REST steps
 - store testrun
 - Store snapshots with testrun
+- Helper: Add test stackframe always
 
 
 ## In Progress
 
-- Use scenario.id to run a scenario (not title)
 - Display date/time when scenario was last run
-- HTML Snapshot: Add input field values
-- Helper: Add test stackframe always
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - Group data driven tests into one scenario
 - List Scenarios: Group by directory
 
 ## V 0.1.6
 
+- HTML Snapshot: Add input field values
+- ??? Use scenario.id to run a scenario (not title)
 - BUG Code changes in page objects not picked up (assume page objects not reloaded)
 - step.passed: map return values (e. g. axios response)
 - HTML Snapshot: Last pressKey should trigger snapshot

@@ -42,6 +42,7 @@
     "copy-text-to-clipboard": "^2.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "moment": "^2.24.0",
     "sass": "^1.22.9",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",

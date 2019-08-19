@@ -1,7 +1,7 @@
 <template>
   <div class="TestRun">
     <div class="Header">
-      <Header :loading="isRunning" @run="runScenario()" />
+      <Header :loading="isRunning" @run="runScenario(scenario)" />
     </div>
 
     <aside class="Sidebar">
@@ -100,9 +100,9 @@ export default {
       return this.$store.dispatch('testRuns/loadTestRun', scenario.id);
     },
 
-    runScenario() {
+    runScenario(scenario) {
       // TODO Use scenario id to run it
-      this.$store.dispatch('testRuns/runScenario', this.scenario.title);
+      this.$store.dispatch('testRuns/runScenario', scenario.title);
     },
 
     // TODO Do i still need this

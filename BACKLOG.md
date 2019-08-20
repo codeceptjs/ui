@@ -105,17 +105,20 @@
 - store testrun
 - Store snapshots with testrun
 - Helper: Add test stackframe always
-
+- Display date/time when scenario was last run
+- List Scenarios: Group by directory
 
 ## In Progress
 
-- Display date/time when scenario was last run
+- Sort capabilities alphabetically
+- Sort features within capability alphabetically
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - Group data driven tests into one scenario
-- List Scenarios: Group by directory
 
 ## V 0.1.6
 
+- Scenario Page: Search for multiple search terms (using logical or)
+- Scenario Page: Search: Also take filenames into consideration
 - HTML Snapshot: Add input field values
 - ??? Use scenario.id to run a scenario (not title)
 - BUG Code changes in page objects not picked up (assume page objects not reloaded)

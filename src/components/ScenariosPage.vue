@@ -26,7 +26,19 @@
 
     <section class="section">
       <div class="container">
-        <input class="input is-rounded" type="text" placeholder="Search" v-model="search" @change="loadProject()"/>
+        <div class="field has-addons">
+          <p class="control">
+            <input class="input is-rounded" type="text" placeholder="Search" v-model="search" @change="loadProject()">
+          </p>
+          <p class="control">
+            <a class="button is-primary" v-if="isMatchType('all')" @click="selectMatchType('any')">
+              Match All
+            </a>
+            <a class="button is-primary" v-if="isMatchType('any')" @click="selectMatchType('all')">
+              Match Any
+            </a>
+          </p>
+        </div>
       </div>
     </section>
 
@@ -87,6 +99,7 @@ export default {
       return {
           loading: false,
           search: '',
+          matchType: 'all',
           project: {}
       }
   },
@@ -101,6 +114,14 @@ export default {
     }
   },
   methods: {
+      selectMatchType(t) {
+        this.matchType = t;
+      },
+
+      isMatchType(t) {
+        return this.matchType === t;
+      },
+
       loadProject() {
           history.pushState({}, '', `/?q=${encodeURIComponent(this.search)}`);
           this.loading = true

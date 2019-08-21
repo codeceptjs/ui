@@ -110,6 +110,8 @@
 
 ## In Progress
 
+- Fix: node12 issue? Can not find test stackframe anymore
+- Catch errors in mocha.loadFiles() and show in frontend
 - Sort capabilities alphabetically
 - Sort features within capability alphabetically
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe

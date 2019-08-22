@@ -113,7 +113,22 @@ export default {
   sockets: {
     'codeceptjs:scenarios.updated': function () {
       this.loadProject();
-    }
+
+      this.$buefy.toast.open({
+        message: 'Scenarios have been reloaded',
+        type: 'is-success'
+      })
+    },
+    'codeceptjs:scenarios.parseerror': function (err) {
+      const stackFrames = err.stack.split('\n');
+
+      this.$buefy.toast.open({
+        duration: 10000,
+        message: `"${err.message}"\n${stackFrames[0]} in ${stackFrames[1]}`,
+        position: 'is-top',
+        type: 'is-danger'
+      });
+    },
   },
   methods: {
       selectMatchType(t) {

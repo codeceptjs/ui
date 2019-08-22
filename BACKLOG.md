@@ -107,26 +107,29 @@
 - Helper: Add test stackframe always
 - Display date/time when scenario was last run
 - List Scenarios: Group by directory
+- Fix: node12 issue? Can not find test stackframe anymore
+- Sort capabilities alphabetically
+- Sort features within capability alphabetically
+- Scenario Page: Search for multiple search terms (using logical or)
+- Metasteps: Indent ordinary steps
+. Step: fillField: Use columns to lay out field name and value
+- Test Stack: Remember the most recent test stackframe and use it in step if no test stackframe available
 
 ## In Progress
 
-- Fix: node12 issue? Can not find test stackframe anymore
 - Catch errors in mocha.loadFiles() and show in frontend
-- Sort capabilities alphabetically
-- Sort features within capability alphabetically
 - Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - Group data driven tests into one scenario
 
 ## V 0.1.6
 
-- Scenario Page: Search for multiple search terms (using logical or)
-- Scenario Page: Search: Also take filenames into consideration
-- HTML Snapshot: Add input field values
-- ??? Use scenario.id to run a scenario (not title)
+- Scenario Page: Search: Also take filenames into account
+- HTML Snapshot: Add input field values (at least if current step is fillField/selectOption)
+- ??? Use scenario.id to run a scenario (not title) (take a look at run-workers)
 - BUG Code changes in page objects not picked up (assume page objects not reloaded)
 - step.passed: map return values (e. g. axios response)
 - HTML Snapshot: Last pressKey should trigger snapshot
-- Scenario Autorefresh: I have the feeling that changes to files are not always picked up
+- Scenario Autorefresh: Changes in files other than test (e. g. helpers, page objects) are not picked up
 - Scenario Autorefresh: Created/Deleted files are not picked up
 - Dont put selected steps on history stack
 - Search field: Select all when clicking into it
@@ -135,8 +138,6 @@
 - Treat waitForText as assertion (and also make snapshot)
 - BUG: See element does not (always) show aliased locator name
 - screenshot step: Show image as default
-. Step: fillField: Use columns to lay out field name and value
-- Test Stack: Remember the most recent test stackframe and use it in step if no test stackframe available
 - SnapshotView: Fix element position for highlighting and click when page is scrolled
 - SnapshotView: Fix scroll position and scroll only in y direction
 - Scenario View: Group data driven scenarios
@@ -145,8 +146,7 @@
 - Fix: click step has no duration
 - Testrun View: Quick way to open the test in editor
 - Testrun View: (?) Just show "toplevel" metasteps (i. e. metasteps which are called directly in test) in bold
-- Metasteps: Indent ordinary steps
-- Always fire step.before to show currently executing step
+- Testrun View: Show currently executing step
 
 ## V 0.2
 

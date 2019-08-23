@@ -114,16 +114,17 @@
 - Metasteps: Indent ordinary steps
 . Step: fillField: Use columns to lay out field name and value
 - Test Stack: Remember the most recent test stackframe and use it in step if no test stackframe available
+- Catch errors in mocha.loadFiles() and show in frontend
 
 ## In Progress
 
-- Catch errors in mocha.loadFiles() and show in frontend
-- Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - Group data driven tests into one scenario
 
 ## V 0.1.6
 
+- Scenarios: test.id should not change when tags are added or removed from scenario title (also whitespace, should also not be case dependent)
 - Scenario Page: Search: Also take filenames into account
+- HTML Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - HTML Snapshot: Add input field values (at least if current step is fillField/selectOption)
 - ??? Use scenario.id to run a scenario (not title) (take a look at run-workers)
 - BUG Code changes in page objects not picked up (assume page objects not reloaded)

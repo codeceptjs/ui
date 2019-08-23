@@ -12,6 +12,8 @@
           :scenario="scenario"
           @select-step="onSelectStep"
         />
+
+        <div class="LastTestMarker"></div>
       </div>
       <div v-else>
         <div v-if="scenario">
@@ -37,7 +39,7 @@ import ScenarioSource from './ScenarioSource';
 
 const scrollToLastStep = () => {
   setTimeout(() => {
-    const element = document.querySelector('.Test-spacer:last-child');
+    const element = document.querySelector('.LastTestMarker');
     if (element) {
       element.scrollIntoView({
         behavior: 'smooth',
@@ -66,6 +68,7 @@ export default {
   },
   data: function () {
     return {
+      loading: false,
       scenario: undefined,
     }
   },
@@ -82,22 +85,26 @@ export default {
     },
     isRunning() {
       return this.$store.getters['testRuns/isRunning'];
+    },
+    scenarioId() {
+      return this.$route.params.scenarioId;
     }
   },
   methods: {
     async loadScenario() {
-      return axios.get(`/api/scenarios/${encodeURIComponent(this.$route.params.scenarioId)}`)
-        .then(response => {
-            this.loading = false
-            this.scenario = response.data
-        })
-        .catch(() => {
-            this.loading = false
-        })
+      const loadingComponent = this.$buefy.loading.open({ container: null });
+
+      try {
+        const response = await axios.get(`/api/scenarios/${encodeURIComponent(this.scenarioId)}`);
+        this.scenario = response.data;
+      } finally {
+        this.loading = false
+        loadingComponent.close();
+      }
     },
 
     async loadLastTestRun(scenario) {
-      return this.$store.dispatch('testRuns/loadTestRun', scenario.id);
+      return this.$store.dispatch('testRuns/loadTestRun', this.scenarioId);
     },
 
     runScenario(scenario) {

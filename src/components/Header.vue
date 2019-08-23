@@ -4,7 +4,7 @@
             <a class="navbar-item" href="#">
                 <img src="../assets/logo.png">
                 &nbsp;
-                <b>code</b>press
+                codepress
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -38,7 +38,7 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                    <a class="button is-primary is-small" href="/#/">
+                    <a class="button is-primary is-small" @click="gotoScenarios()">
                         Scenarios
                     </a>
                     </div>
@@ -55,6 +55,10 @@ export default {
     methods: {
         run() {
             this.$emit('run');
+        },
+
+        gotoScenarios() {
+            this.$router.push('/');
         }
     }
 }

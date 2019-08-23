@@ -93,8 +93,11 @@ const testRuns = {
       } catch (err) {}
     },
 
-    runScenario: async function ({ commit }, scenarioId) {
-      axios.get(`/api/scenarios/${encodeURIComponent(scenarioId)}/run`);
+    runScenario: async function ({ commit }, { scenarioId, profileName }) {
+      if (!scenarioId) throw new Error('scenarioId is required');
+      if (!profileName) throw new Error('profileName is required');
+
+      axios.post(`/api/scenarios/${encodeURIComponent(scenarioId)}/run`, { profileName });
       commit('clearTests');
       commit('setRunning', true);
     },

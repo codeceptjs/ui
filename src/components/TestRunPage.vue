@@ -108,8 +108,10 @@ export default {
     },
 
     runScenario(scenario) {
+      const profileName = this.$store.getters['profiles/selectedProfileName'];
       // TODO Use scenario id to run it
-      this.$store.dispatch('testRuns/runScenario', scenario.title);
+      const scenarioId = scenario.title;
+      this.$store.dispatch('testRuns/runScenario', { scenarioId, profileName });
     },
 
     // TODO Do i still need this

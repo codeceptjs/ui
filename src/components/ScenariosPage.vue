@@ -9,10 +9,14 @@
                 <b>code</b>press
             </a>
 
+            <a href="#" class="navbar-item">
+              <profile-selection />
+            </a>
+
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
             </a>
         </div>
       </div>
@@ -68,7 +72,7 @@
                         <a 
                           class="Feature-scenarioRunLink"
                           @click="selectScenario(scenario)"
-                          :href="linkToScenario(scenario.id)">
+                        >
                           {{scenario.title}}
                         </a>
                         <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
@@ -91,11 +95,13 @@
 </template>
 
 <script>
- import axios from 'axios';
+import axios from 'axios';
+import ProfileSelection from './ProfileSelection';
 
 export default {
   name: 'Scenarios',
   components: {
+    ProfileSelection
   },
   data() {
       return {
@@ -146,10 +152,7 @@ export default {
 
       selectScenario(scenario) {
         this.$store.commit('scenarios/selectScenario', scenario);
-      },
-
-      linkToScenario(scenarioId) {
-        return `/#/testrun/${encodeURIComponent(scenarioId)}`;
+        this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
       },
 
       openInEditor(file) {

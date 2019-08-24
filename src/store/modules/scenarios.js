@@ -1,4 +1,6 @@
-import { ToastProgrammatic as Toast } from 'buefy'
+import axios from 'axios';
+import { ToastProgrammatic as Toast } from 'buefy';
+import Vue from 'vue';
 
 const scenarios = {
   namespaced: true,
@@ -6,9 +8,17 @@ const scenarios = {
     parseError: undefined,
     search: '',
     selectedScenario: undefined,
+    scenarios: {},
   },
   getters: {
-    search: (state) => state.search
+    search: (state) => state.search,
+
+    testStatus: state => scenarioId => {
+      if (!state.scenarios[scenarioId]) {
+        Vue.set(state.scenarios, scenarioId, 'not run');
+      }
+      return state.scenarios[scenarioId];
+    }
   },
   mutations: {
     setParseError: (state, err) => {
@@ -19,9 +29,22 @@ const scenarios = {
     },
     selectScenario: (state, scenario) => {
       state.selectedScenario = scenario;
-    }
+    },
+
+    setRunning: (state, value) => {
+      state.isRunning = value;
+    },
+    setTestStatus: (state, { scenarioId, status }) => {
+      state.scenarios[scenarioId] = status;
+    },
   },
   actions: {
+    runFeature: async function ({ commit }, { featureTitle }) {
+      if (!featureTitle) throw new Error('featureTitle is required');
+
+      axios.post(`/api/scenarios/${encodeURIComponent(featureTitle)}/run`, {});
+    },
+
     'SOCKET_codeceptjs:scenarios.updated': function () {
       Toast.open({
         message: 'Scenarios have been reloaded',
@@ -41,6 +64,21 @@ const scenarios = {
       });
     },
 
+    'SOCKET_codeceptjs.started': function ({ commit }) {
+      commit('setRunning', true);
+    },
+    'SOCKET_codeceptjs.exit': function ({ commit }) {
+      commit('setRunning', false);
+    },
+    'SOCKET_test.before': function ({ commit }, test) {
+      commit('setTestStatus', { scenarioId: test.id, status: 'running' });
+    },
+    'SOCKET_test.failed': function ({ commit }, step) {
+      commit('setTestStatus', { scenarioId: step.testId, status: 'failed' });
+    },
+    'SOCKET_test.passed': function ({ commit }, step) {
+      commit('setTestStatus', { scenarioId: step.testId, status: 'passed' });
+    },
   }
 }
 

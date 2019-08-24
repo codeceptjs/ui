@@ -6,6 +6,12 @@
         {{feature.feature.title}}
       </span>
       <span class="tag is-light" :key="tag" v-for="tag in feature.feature.tags">{{tag}}</span>
+
+      <div class="FeatureActions is-pulled-right">
+        <div class="button is-small" @click="runFeature(feature.feature.title)">
+          <i class="far fa-play-circle"></i> Run
+        </div>
+      </div>
     </h3>
 
     <ul>
@@ -15,6 +21,13 @@
             class="Feature-scenarioRunLink"
             @click="selectScenario(scenario)"
           >
+            <span class="Scenario-status">
+              <i v-if="testStatus(scenario.id) === 'not run'" class="far fa-circle has-text-grey-light"></i>
+              <i v-if="testStatus(scenario.id) === 'failed'" class="fas fa-circle has-text-danger"></i>
+              <i v-if="testStatus(scenario.id) === 'passed'" class="fas fa-circle has-text-success"></i>
+              <i  v-if="testStatus(scenario.id) === 'running'" class="fas fa-circle-notch has-text-grey"></i>
+            </span>
+
             {{scenario.title}}
           </a>
           <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
@@ -39,6 +52,11 @@ export default {
 
     }
   },
+  computed: {
+    testStatus() {
+      return scenarioId => this.$store.getters['scenarios/testStatus'](scenarioId);
+    }
+  },
   methods: {
     openInEditor(file) {
       axios.get(`/api/tests/${encodeURIComponent(file)}/open`);
@@ -47,6 +65,10 @@ export default {
     selectScenario(scenario) {
       this.$store.commit('scenarios/selectScenario', scenario);
       this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
+    },
+
+    runFeature(featureTitle) {
+       this.$store.dispatch('scenarios/runFeature', { featureTitle });
     },
   }
 }

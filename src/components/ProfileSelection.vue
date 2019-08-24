@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ProfileSelection" v-if="hasProfilesConfigured()">
         <b-dropdown is-small hoverable aria-role="list">
             <button class="button is-small" :style="selectedProfileColor" slot="trigger">
                 <span>{{selectedProfileName}}</span>
@@ -53,6 +53,10 @@ export default {
 
         selectProfileName(profileName) {
             this.$store.commit('profiles/selectProfileName', profileName);
+        },
+
+        hasProfilesConfigured() {
+            return this.profileNames.length > 0;
         }
     }
 }

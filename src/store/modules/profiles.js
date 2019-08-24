@@ -6,7 +6,7 @@ const profiles = {
     getters: {
         selectedProfileName: (state) => {
             if (!state.selectedProfileName) {
-                return 'None';
+                return undefined;
             }
             return state.selectedProfileName;
         }

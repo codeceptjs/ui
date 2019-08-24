@@ -57,33 +57,7 @@
               </h2>
 
               <div class="Capability-content">
-                <div class="Feature box" :key="feature.feature.title" v-for="feature in features">
-                  <a class="Feature-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
-                  <h3 class="Feature-title title is-size-6">
-                    <span>
-                      {{feature.feature.title}}
-                    </span>
-                    <span class="tag is-light" :key="tag" v-for="tag in feature.feature.tags">{{tag}}</span>
-                  </h3>
-
-                  <ul>
-                    <li class="Feature-scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
-                      <div v-if="!scenario.pending">
-                        <a 
-                          class="Feature-scenarioRunLink"
-                          @click="selectScenario(scenario)"
-                        >
-                          {{scenario.title}}
-                        </a>
-                        <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
-                      </div>
-                      <div v-else class="has-text-info">
-                        {{scenario.title}}
-                        <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                <feature :feature="feature" :key="feature.feature.title" v-for="feature in features" />
               </div>
             </div>
           </li>
@@ -97,11 +71,12 @@
 <script>
 import axios from 'axios';
 import ProfileSelection from './ProfileSelection';
+import Feature from './Feature';
 
 export default {
   name: 'Scenarios',
   components: {
-    ProfileSelection
+    ProfileSelection, Feature
   },
   data() {
       return {
@@ -149,32 +124,11 @@ export default {
           loadingComponent.close();
         }
       },
-
-      selectScenario(scenario) {
-        this.$store.commit('scenarios/selectScenario', scenario);
-        this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
-      },
-
-      openInEditor(file) {
-        axios.get(`/api/tests/${encodeURIComponent(file)}/open`);
-      }
   }
 }
 </script>
 
 <style>
-.Feature {
-  margin-bottom: 0.5rem !important;
-}
-
-.Feature-fileName {
-  font-size: 0.8em;
-}
-
-.Feature-title {
-  margin-bottom: 1rem !important;
-}
-
 .SearchField input {
   width: 600px;
 }

@@ -25,7 +25,7 @@
               <i v-if="testStatus(scenario.id) === 'not run'" class="far fa-circle has-text-grey-light"></i>
               <i v-if="testStatus(scenario.id) === 'failed'" class="fas fa-circle has-text-danger"></i>
               <i v-if="testStatus(scenario.id) === 'passed'" class="fas fa-circle has-text-success"></i>
-              <i  v-if="testStatus(scenario.id) === 'running'" class="fas fa-circle-notch has-text-grey"></i>
+              <i  v-if="testStatus(scenario.id) === 'running'" class="fas fa-circle-notch fa-spin has-text-grey"></i>
             </span>
 
             {{scenario.title}}

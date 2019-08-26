@@ -1,11 +1,10 @@
 <template>
-    <div class="GrabStep columns">
+    <div class="GrabStep columns is-gapless">
         <div class="column is-3 ellipsize">
             I {{step.humanized}}
         </div>
         <div class="column is-9 ellipsize">
-             {{formatSelector(step.args[0])}} = {{step.returnValue}}
-
+            {{formatSelector(step.args[0])}} = {{step.returnValue}}
         </div>
     </div>
 </template>

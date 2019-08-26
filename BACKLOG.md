@@ -118,13 +118,18 @@
 
 ## In Progress
 
+- Steps: Increase indentation
+- Steps: Remove icons
+- Steps: Use a single line for parameters
+- ScenariosPage: Run a feature
+- ScenariosPage: Run a search result of scenarios
+
+## V 0.1.6
+
 - Simple profile configuration/selection
     * Route for profile read from .codepress/profile.conf.js
     * Show profiles in UI
     * Select profile and use in test run
-
-## V 0.1.6
-
 - Group data driven tests into one scenario
 - Scenarios: test.id should not change when tags are added or removed from scenario title (also whitespace, should also not be case dependent)
 - Scenario Page: Search: Also take filenames into account

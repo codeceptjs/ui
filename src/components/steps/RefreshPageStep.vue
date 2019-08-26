@@ -1,7 +1,7 @@
 <template>
     <div class="RefreshPageStep has-text-grey-light columns is-gapless">
         <div class="column is-3">
-            <i class="Step-icon fas fa-sync"></i>
+            I {{step.humanized}}
         </div>
         <div class="column">
         </div>

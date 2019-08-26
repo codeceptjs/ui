@@ -1,7 +1,7 @@
 <template>
     <div class="CookieStep has-text-grey-light columns is-gapless">
         <div class="column is-3">
-            <i class="Step-icon fas fa-cookie"></i> {{step.humanized}}
+            I {{step.humanized}}
         </div>
         <div class="column is-9">
             {{formatCookie(step.args[0])}}

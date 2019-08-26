@@ -1,7 +1,7 @@
 <template>
     <div class="ExecuteStep has-text-grey-light columns is-gapless">
         <div class="column is-3">
-            <i class="Step-icon far fa-play-circle"></i> 
+            I {{step.humanized}}
         </div>
         <div class="column is-9 ellipsize">
             {{step.humanizedArgs}}

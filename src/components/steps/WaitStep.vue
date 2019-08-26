@@ -1,14 +1,17 @@
 <template>
     <div class="WaitStep has-text-grey-light columns is-gapless">
       <div class="column is-3">
-        <i class="Step-icon far fa-hourglass"></i> {{formatStep(step.humanized)}}
+        I {{step.humanized}}
       </div>
       <div class="column is-9">
-        <div v-if="step.name='waitForVisible'">
+        <div v-if="step.name === 'waitForVisible'">
           <span class="WaitStep-arg">{{formatSelector(step.args[0])}}</span>
         </div>
+        <div v-else-if="step.name === 'waitInUrl'">
+          {{formatSelector(step.args[0])}}
+        </div>
         <div v-else>
-          <span class="WaitStep-arg">{{step.args[0]}}</span>
+          <span class="WaitStep-arg">{{step.args[0]}}</span> seconds
         </div>
       </div>
     </div>

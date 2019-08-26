@@ -2,8 +2,7 @@
     <div class="SeeStep columns is-gapless">
       <div class="column is-3">
         <span class="SeeStep-tag has-text-success" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
-          <i class="fas fa-eye"/>
-          {{formatStepName(step.humanized)}} 
+          I {{step.humanized}} 
         </span>
       </div>
       <div class="column is-9">
@@ -11,8 +10,8 @@
            <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
         </span>
         <span v-else>
-          <div class="SeeStep-text">"{{step.args[0]}}"</div>
-          <div class="SeeStep-selector">{{formatSelector(step.args[1])}}</div>
+          <span class="SeeStep-text">"{{step.args[0]}}"</span>
+          <span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
         </span>
       </div>
     </div>

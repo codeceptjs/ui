@@ -4,7 +4,7 @@
         I {{step.humanized}}
       </div>
       <div class="column is-9">
-        <span class="AmOnPageStep-url">
+        <span class="AmOnPageStep-url ellipsize">
           {{extractPathname(step.args[0])}}
         </span>
       </div>

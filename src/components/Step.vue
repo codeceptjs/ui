@@ -291,10 +291,10 @@ export default {
   padding-left: .4em;
 }
 .StepWrapper--indent2 {
-  padding-left: .6em;
+  padding-left: .8em;
 }
 .StepWrapper--indent3 {
-  padding-left: .8em;
+  padding-left: 1.2em;
 }
 
 .StepMetaStep {

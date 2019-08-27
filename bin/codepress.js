@@ -9,6 +9,7 @@ const {init} = require('../lib/commands/init');
 const api = require('../lib/api');
 
 const snapshotStore = require('../lib/model/snapshot-store');
+const scenarioStatusRepository = require('../lib/model/scenario-status-repository');
 
 // Base port
 const PORT = 3000;
@@ -36,8 +37,16 @@ const proxyEvents = {
   'suite.before': undefined,
   'test.before': undefined,
   'test.after': undefined,
-  'test.failed': (data) => snapshotStore.add(data.id, data),
-  'test.passed': (data) => snapshotStore.add(data.id, data), 
+  'test.failed': (failedStep) => {
+    scenarioStatusRepository.setStatus(failedStep.testId, 'failed');
+    const newStep = snapshotStore.add(failedStep.id, failedStep);
+    return newStep;
+  },
+  'test.passed': (passedStep) => {
+    scenarioStatusRepository.setStatus(passedStep.testId, 'passed');
+    const newPassedStep = snapshotStore.add(passedStep.id, passedStep);
+    return newPassedStep;
+  }, 
   'step.before': (data) => snapshotStore.add(data.id, data),
   'step.comment': undefined, 
   'step.passed': undefined,
@@ -59,7 +68,7 @@ io.on('connection', socket => {
       const fn = proxyEvents[localEventName];
       let newData = data;
       if (fn) {
-        newData = fn(data);
+        newData = fn(data) || data;
       }
       emit(localEventName, newData);
     })

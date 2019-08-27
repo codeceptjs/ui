@@ -1,9 +1,9 @@
 <template>
-    <div class="SwitchToStep has-text-grey-light columns is-gapless">
+    <div class="SwitchToStep has-text-grey columns is-gapless">
       <div class="column is-3">
-        <i class="Step-icon far fa-window-restore"></i> {{step.humanized}}
+        I {{step.humanized}}
       </div>
-      <div class="column is-9">
+      <div class="column is-9 ellipsize">
         <span class="SwitchToStep-arg">{{step.args[0]}}</span>
       </div>
     </div>

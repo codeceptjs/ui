@@ -37,9 +37,20 @@ const scenarios = {
     setTestStatus: (state, { scenarioId, status }) => {
       state.scenarios[scenarioId] = status;
     },
+    setInitialScenarioStatus: (state, initialStatus) => {
+      const scenarioIds = Object.keys(initialStatus);
+      scenarioIds.forEach(id => {
+        Vue.set(state.scenarios, id, initialStatus[id]);
+      })
+    }
   },
   actions: {
-    runFeature: async function ({ commit }, { featureTitle }) {
+    loadInitialScenarioStatus: async function ({ commit }) {
+      const response = await axios.get(`/api/scenario-status`);
+      commit('setInitialScenarioStatus', response.data);
+    },
+
+    runFeature: async function (context, { featureTitle }) {
       if (!featureTitle) throw new Error('featureTitle is required');
 
       axios.post(`/api/scenarios/${encodeURIComponent(featureTitle)}/run`, {});

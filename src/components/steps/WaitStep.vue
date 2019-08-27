@@ -3,9 +3,11 @@
       <div class="column is-3">
         I {{step.humanized}}
       </div>
-      <div class="column is-9">
-        <div v-if="step.name === 'waitForVisible'">
+      <div class="column is-9 ellipsize">
+        <div v-if="step.name === 'waitForVisible' || step.name === 'waitForEnabled'">
           <span class="WaitStep-arg">{{formatSelector(step.args[0])}}</span>
+        </div>
+        <div v-else-if="step.name === 'waitForNavigation'">
         </div>
         <div v-else-if="step.name === 'waitInUrl'">
           {{formatSelector(step.args[0])}}

@@ -115,13 +115,15 @@
 . Step: fillField: Use columns to lay out field name and value
 - Test Stack: Remember the most recent test stackframe and use it in step if no test stackframe available
 - Catch errors in mocha.loadFiles() and show in frontend
+- Steps: Increase indentation
+- ScenariosPage: Run a feature
+- Scenario state: Store last scenario state on server and persist on process.exit
+- Steps: Remove icons
+- Steps: Use a single line for parameters
+- Steps: Better formatting of I.see
 
 ## In Progress
 
-- Steps: Increase indentation
-- Steps: Remove icons
-- Steps: Use a single line for parameters
-- ScenariosPage: Run a feature
 - ScenariosPage: Run a search result of scenarios
 
 ## V 0.1.6

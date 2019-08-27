@@ -11,6 +11,7 @@
         </span>
         <span v-else>
           <span class="SeeStep-text">"{{step.args[0]}}"</span>
+          within
           <span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
         </span>
       </div>

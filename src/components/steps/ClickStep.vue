@@ -13,6 +13,7 @@
                 <span class="ClickStep-text">
                     "{{step.args[0]}}"
                 </span>
+                in
                 <span class="ClickStep-selector">
                     {{formatSelector(step.args[1])}}
                 </span>

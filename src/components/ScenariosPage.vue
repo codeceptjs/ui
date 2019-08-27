@@ -9,10 +9,6 @@
                 <b>code</b>press
             </a>
 
-            <a href="#" class="navbar-item">
-              <profile-selection />
-            </a>
-
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -70,13 +66,12 @@
 
 <script>
 import axios from 'axios';
-import ProfileSelection from './ProfileSelection';
 import Feature from './Feature';
 
 export default {
   name: 'Scenarios',
   components: {
-    ProfileSelection, Feature
+    Feature
   },
   data() {
       return {
@@ -89,7 +84,8 @@ export default {
   created() {
     const urlParams = new URLSearchParams(window.location.search);
     this.search = urlParams.get('q') || '';
-    this.loadProject()
+    this.loadProject();
+    this.loadScenarioStatus();
   },
   sockets: {
     'codeceptjs:scenarios.updated': function () {
@@ -108,6 +104,10 @@ export default {
 
       updateUrl() {
         history.pushState({}, '', `/?q=${encodeURIComponent(this.search)}&m=${this.matchType}`);
+      },
+
+      async loadScenarioStatus() {
+        this.$store.dispatch('scenarios/loadInitialScenarioStatus');
       },
 
       async loadProject() {

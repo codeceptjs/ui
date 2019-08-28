@@ -4,7 +4,7 @@
             I {{step.humanized}}
         </div>
         <div class="column is-9">
-            <span>{{step.args[0]}}</span>
+            to "{{step.args[0]}}"
         </div>
     </div>
 </template>

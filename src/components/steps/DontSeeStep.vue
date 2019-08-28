@@ -2,7 +2,10 @@
     <div class="DontSeeStep has-text-grey columns is-gapless">
       <div class="column is-3">
         <span class="DontSeeStep-tag has-text-success" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
-          <i class="fas fa-eye-slash"></i>
+           I
+           <strong class="has-text-success">
+           {{step.humanized}} 
+           </strong> 
         </span>
       </div>
       <div class="column is-9 ellipsize">
@@ -10,8 +13,8 @@
           <span class="DontSeeStep-text">{{formatSelector(step.args[0])}}</span>
         </span>
         <span v-else>
-          <div class="DontSeeStep-text">"{{step.args[0]}}"</div>
-          <div class="DontSeeStep-selector has-text-info">{{step.args[1]}}</div>
+          <span class="DontSeeStep-text">"{{step.args[0]}}"</span> within
+          <span class="DontSeeStep-selector has-text-info">{{step.args[1]}}</span>
         </span>
       </div>
     </div>

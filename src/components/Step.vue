@@ -4,8 +4,11 @@
     @click="handleSelectStep(step)">
     
     <div class="StepWrapper StepWrapper--indent2" v-if="isMetaStep(step)">
-      <strong class="StepMetaStep has-text-greyer">
-        {{formatMetaStep(step)}}
+      <strong class="StepMetaStep has-text-grey">
+        {{actorFromMetaStep(step)}}
+      </strong>
+      <strong class="StepMetaStep has-text-dark">
+        {{methodFromMetaStep(step)}}
       </strong>
     </div>
 
@@ -188,13 +191,20 @@ export default {
       return step.type === 'comment';
     },
 
-    formatMetaStep(step) {
+    actorFromMetaStep(step) {
       if (step.actor) {
         const actor = step.actor.replace('Context:', '');
-        return `${actor}${step.name}`;
+        return actor;
+      }
+      return '';
+    },
+    methodFromMetaStep(step) {
+      if (step.actor) {
+        return step.name;
       }
       return 'In Scenario';
     },
+
     stepNameStartsWith(methodName) {
       const step = this.$props.step;
       return step.name.startsWith(methodName);

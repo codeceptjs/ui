@@ -4,7 +4,7 @@
             I {{step.humanized}}
         </div>
         <div class="column is-9 ellipsize">
-            {{formatSelector(step.args[0])}} = {{step.returnValue}}
+            <span class="GrabStep-selector">{{formatSelector(step.args[0])}}</span> == "{{step.returnValue}}"
         </div>
     </div>
 </template>
@@ -27,10 +27,8 @@ export default {
 .GrabStep {
 }
 
-.ellipsize {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.GrabStep-selector {
+  color: hsl(204, 86%, 53%);
 }
 </style>
 

@@ -1,6 +1,7 @@
 <template>
     <div class="PressStep has-text-grey-light columns is-gapless">
         <div class="column is-3">
+            I {{step.humanized}}
         </div>
         <div class="column is-9">
             <kbd class="PressStep-kbd has-background-grey-light">{{step.args[0]}}</kbd>

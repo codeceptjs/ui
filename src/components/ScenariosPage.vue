@@ -28,7 +28,7 @@
       <div class="container">
         <div class="SearchField field has-addons">
           <p class="control">
-            <input class="input is-small" type="text" placeholder="Search" v-model="search" @change="loadProject()">
+            <input class="input is-small" @focus="$event.target.select()" type="text" placeholder="Search" v-model="search" @change="loadProject()">
           </p>
           <p class="control">
             <a class="button is-small is-primary is-outlined" v-if="isMatchType('all')" @click="selectMatchType('any')">
@@ -36,6 +36,9 @@
             </a>
             <a class="button is-small is-primary is-outlined" v-if="isMatchType('any')" @click="selectMatchType('all')">
               Match Any (OR)
+            </a>
+            <a class="button is-small has-text-grey" @click="clearSearch()">
+              <i class="far fa-times-circle"></i>
             </a>
           </p>
         </div>
@@ -93,6 +96,11 @@ export default {
     }
   },
   methods: {
+      clearSearch() {
+        this.search = '';
+        this.loadProject();
+      },
+
       selectMatchType(t) {
         this.matchType = t;
         this.loadProject();

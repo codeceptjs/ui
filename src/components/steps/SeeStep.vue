@@ -6,13 +6,22 @@
         </span>
       </div>
       <div class="column is-9">
-        <span v-if="step.args.length === 1">
-           <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
+        <span v-if="step.name === 'seeNumberOfVisibleElements'">
+          <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
+          is
+          <span class="SeeStep-text">{{step.args[1]}}</span>
         </span>
-        <span v-else>
+        <span v-if="step.name === 'see' && step.args.length === 1">
           <span class="SeeStep-text">"{{step.args[0]}}"</span>
-          within
-          <span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
+        </span>
+
+        <span v-else>
+          <span v-if="step.args.length === 1" class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
+          <span v-else>
+            <span class="SeeStep-text">"{{step.args[0]}}"</span>
+            within
+            <span class="SeeStep-selector">{{formatSelector(step.args[1])}}</span>
+          </span>
         </span>
       </div>
     </div>

@@ -121,10 +121,14 @@
 - Steps: Remove icons
 - Steps: Use a single line for parameters
 - Steps: Better formatting of I.see
+- Check if VSCode is in path
 
 ## In Progress
 
+- ScenariosPage: Show current value of NODE_ENV
 - ScenariosPage: Run a search result of scenarios
+- ScenariosPage: Reset search field
+- Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
 
 ## V 0.1.6
 

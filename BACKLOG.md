@@ -130,8 +130,10 @@
 - ScenariosPage: Reset search field
 - Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
 
-## V 0.1.6
+## V 0.1.7
 
+- Testrun View: Reload source when test source has changed
+- Testrun View: Show only steps belonging to the selected scenario
 - Simple profile configuration/selection
     * Route for profile read from .codepress/profile.conf.js
     * Show profiles in UI

@@ -1,9 +1,9 @@
 <template>
     <div class="DontSeeStep has-text-grey columns is-gapless">
       <div class="column is-3">
-        <span class="DontSeeStep-tag has-text-success" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
+        <span class="DontSeeStep-tag">
            I
-           <strong class="has-text-success">
+          <strong :class="{ 'has-text-success': step.result === 'passed', 'has-text-danger': step.result === 'failed' }">
            {{step.humanized}} 
            </strong> 
         </span>

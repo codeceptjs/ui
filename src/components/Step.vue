@@ -4,86 +4,79 @@
     @click="handleSelectStep(step)">
     
     <div class="StepWrapper StepWrapper--indent2" v-if="isMetaStep(step)">
-      <strong class="StepMetaStep has-text-grey">
-        {{actorFromMetaStep(step)}}
-      </strong>
-      <strong class="StepMetaStep has-text-dark">
-        {{methodFromMetaStep(step)}}
-      </strong>
+      <MetaStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent1" v-else-if="isCommentStep(step)">
-      <div class="StepCommentStep has-text-info is-family-sans-serif">
-        <i class="far fa-comments"></i> {{step.args[0]}}
-      </div>
+      <CommentStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameIncludes('send')">
-      <SendStep v-bind:step="step" />
+      <SendStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('switchTo')">
-      <SwitchToStep v-bind:step="step" />
+      <SwitchToStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('scroll')">
-      <ScrollStep v-bind:step="step" />
+      <ScrollStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('wait')">
-      <WaitStep v-bind:step="step" />
+      <WaitStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('click')">
-      <ClickStep v-bind:step="step" />
+      <ClickStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('fillField')">
-      <FillFieldStep v-bind:step="step" />
+      <FillFieldStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('select')">
-      <SelectOptionStep v-bind:step="step" />
+      <SelectOptionStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('see')">
-      <SeeStep v-bind:step="step" />
+      <SeeStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('dontSee')">
-      <DontSeeStep v-bind:step="step" />
+      <DontSeeStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('amOnPage')">
-      <AmOnPageStep v-bind:step="step" />
+      <AmOnPageStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameIncludes('Cookie')">
-      <CookieStep v-bind:step="step" />
+      <CookieStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('refresh')">
-      <RefreshPageStep v-bind:step="step" />
+      <RefreshPageStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('press')">
-      <PressStep v-bind:step="step" />
+      <PressStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('execute')">
-      <ExecuteStep v-bind:step="step" />
+      <ExecuteStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('grab')">
-      <GrabStep v-bind:step="step" />
+      <GrabStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('comment')">
-      <CommentStep v-bind:step="step" />
+      <CommentStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('saveScreenshot')">
-      <SaveScreenshotStep v-bind:step="step" />
+      <SaveScreenshotStep :step="step" />
     </div>
 
     <div v-else class="StepWrapper StepWrapper--indent3">
@@ -149,6 +142,7 @@ import GrabStep from './steps/GrabStep';
 import CommentStep from './steps/CommentStep';
 import SwitchToStep from './steps/SwitchToStep';
 import ScrollStep from './steps/ScrollStep';
+import MetaStep from './steps/MetaStep';
 
 import copyToClipboard from 'copy-text-to-clipboard';
 
@@ -173,6 +167,7 @@ export default {
     CommentStep,
     SwitchToStep,
     ScrollStep,
+    MetaStep
   },
   methods: {
     isAction(step) {
@@ -189,20 +184,6 @@ export default {
 
     isCommentStep(step) {
       return step.type === 'comment';
-    },
-
-    actorFromMetaStep(step) {
-      if (step.actor) {
-        const actor = step.actor.replace('Context:', '');
-        return actor;
-      }
-      return '';
-    },
-    methodFromMetaStep(step) {
-      if (step.actor) {
-        return step.name;
-      }
-      return 'In Scenario';
     },
 
     stepNameStartsWith(methodName) {
@@ -305,17 +286,6 @@ export default {
 }
 .StepWrapper--indent3 {
   padding-left: 1.2em;
-}
-
-.StepMetaStep {
-  font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
-}
-
-.StepCommentStep {
-  font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
-  padding-top: 1rem;
-  font-size: 1rem;
-  font-weight: bold;
 }
 
 .GenericStep {

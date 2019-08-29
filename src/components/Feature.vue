@@ -8,9 +8,9 @@
       <span class="tag is-light" :key="tag" v-for="tag in feature.feature.tags">{{tag}}</span>
 
       <div class="FeatureActions is-pulled-right">
-        <div class="button is-small" @click="runFeature(feature.feature.title)">
+        <a class="FeatureActions-runButton button is-small" @click="runFeature(feature.feature.title)">
           <i class="far fa-play-circle"></i> Run
-        </div>
+        </a>
       </div>
     </h3>
 
@@ -86,4 +86,14 @@ export default {
 .Feature-title {
   margin-bottom: 1rem !important;
 }
+
+.Feature .FeatureActions {
+  opacity: 0;
+}
+
+.Feature:hover .FeatureActions {
+ transition: all .25s ease-in-out;
+ opacity: 1;
+}
+
 </style>

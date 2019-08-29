@@ -1,8 +1,11 @@
 <template>
     <div class="SeeStep columns is-gapless">
       <div class="column is-3">
-        <span class="SeeStep-tag has-text-success" v-bind:class="{ 'is-success': step.result === 'passed', 'is-danger': step.result === 'failed' }">
-          I {{step.humanized}} 
+        <span class="SeeStep-tag">
+          I 
+          <strong :class="{ 'has-text-success': step.result === 'passed', 'has-text-danger': step.result === 'failed' }">
+            {{step.humanized}} 
+          </strong>
         </span>
       </div>
       <div class="column is-9">
@@ -11,7 +14,8 @@
           is
           <span class="SeeStep-text">{{step.args[1]}}</span>
         </span>
-        <span v-if="step.name === 'see' && step.args.length === 1">
+        
+        <span v-else-if="step.name === 'see' && step.args.length === 1">
           <span class="SeeStep-text">"{{step.args[0]}}"</span>
         </span>
 

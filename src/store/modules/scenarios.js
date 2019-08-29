@@ -4,12 +4,14 @@ import Vue from 'vue';
 
 const scenarios = {
   namespaced: true,
+
   state: {
     parseError: undefined,
-    search: '',
+    search: '',                   // current search query
     selectedScenario: undefined,
-    scenarios: {},
+    scenarios: {},                // keep scenario data
   },
+
   getters: {
     search: (state) => state.search,
 
@@ -20,6 +22,7 @@ const scenarios = {
       return state.scenarios[scenarioId];
     }
   },
+
   mutations: {
     setParseError: (state, err) => {
       state.parseError = err;
@@ -44,6 +47,7 @@ const scenarios = {
       })
     }
   },
+
   actions: {
     loadInitialScenarioStatus: async function ({ commit }) {
       const response = await axios.get(`/api/scenario-status`);
@@ -53,6 +57,8 @@ const scenarios = {
     runFeature: async function (context, { featureTitle }) {
       if (!featureTitle) throw new Error('featureTitle is required');
 
+      // Use this to run with workers
+      // axios.post(`/api/scenarios/${encodeURIComponent(featureTitle)}/run-parallel`, {});
       axios.post(`/api/scenarios/${encodeURIComponent(featureTitle)}/run`, {});
     },
 

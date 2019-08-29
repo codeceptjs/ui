@@ -10,8 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "codeceptjs": "^2.2.0",
-    "puppeteer": "^1.18.1",
-    "socket.io-client": "^2.2.0"
+    "codeceptjs": "^2.3.0",
+    "puppeteer": "^1.19.0"
   }
 }

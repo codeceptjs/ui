@@ -7,6 +7,13 @@
         <div v-if="step.name === 'waitForVisible' || step.name === 'waitForEnabled'">
           <span class="WaitStep-arg">{{formatSelector(step.args[0])}}</span>
         </div>
+        <div v-else-if="step.name === 'waitForText'">
+          <span class="WaitStep-arg">
+            "{{step.args[0]}}"
+          </span> 
+          within
+          <span v-if="step.args.length === 3" class="WaitStep-arg">{{formatSelector(step.args[2])}}</span>
+        </div>
         <div v-else-if="step.name === 'waitForNavigation'">
         </div>
         <div v-else-if="step.name === 'waitInUrl'">

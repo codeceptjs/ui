@@ -38,12 +38,20 @@ const proxyEvents = {
   'test.before': undefined,
   'test.after': undefined,
   'test.failed': (failedStep) => {
-    scenarioStatusRepository.setStatus(failedStep.testId, 'failed');
+    scenarioStatusRepository.setStatus(failedStep.testId, {
+      status: 'failed',
+      startedAt: failedStep.testStartedAt,
+      duration: failedStep.duration,
+    });
     const newStep = snapshotStore.add(failedStep.id, failedStep);
     return newStep;
   },
   'test.passed': (passedStep) => {
-    scenarioStatusRepository.setStatus(passedStep.testId, 'passed');
+    scenarioStatusRepository.setStatus(passedStep.testId, {
+      status: 'passed',
+      startedAt: passedStep.testStartedAt,
+      duration: passedStep.duration,
+    });
     const newPassedStep = snapshotStore.add(passedStep.id, passedStep);
     return newPassedStep;
   }, 

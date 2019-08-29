@@ -15,10 +15,10 @@
     </h3>
 
     <ul>
-      <li class="Feature-scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
+      <li class="Scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
         <div v-if="!scenario.pending">
           <a 
-            class="Feature-scenarioRunLink"
+            class="Scenario-detailLink"
             @click="selectScenario(scenario)"
           >
             <span class="Scenario-status">
@@ -27,10 +27,18 @@
               <i v-if="testStatus(scenario.id) === 'passed'" class="fas fa-circle has-text-success"></i>
               <i  v-if="testStatus(scenario.id) === 'running'" class="fas fa-circle-notch fa-spin has-text-grey"></i>
             </span>
-
-            {{scenario.title}}
+            
+            {{scenario.title}}            
           </a>
           <span class="tag is-light" :key="tag" v-for="tag in scenario.tags">{{tag}}</span>
+
+          <span class="Scenario-property Scenario-duration has-text-grey-light" v-if="testStatus(scenario.id) !== 'not run'">
+            {{testDuration(scenario.id)}}s
+          </span>
+          <span class="Scenario-property Scenario-startedAt has-text-grey-light" v-if="testStatus(scenario.id) !== 'not run'">
+            &middot;
+            {{humanize(testStartedAt(scenario.id))}}
+          </span>
         </div>
         <div v-else class="has-text-info">
           {{scenario.title}}
@@ -43,6 +51,7 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 
 export default {
   name: 'Feature',
@@ -54,10 +63,35 @@ export default {
   },
   computed: {
     testStatus() {
-      return scenarioId => this.$store.getters['scenarios/testStatus'](scenarioId);
+      return scenarioId => {
+        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
+        if (status) {
+          return status.status;
+        }
+      };
+    },
+    testDuration() {
+      return scenarioId => {
+        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
+        if (status) {
+          return status.duration;
+        }
+      };
+    },
+    testStartedAt() {
+      return scenarioId => {
+        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
+        if (status) {
+          return status.startedAt;
+        }
+      };
     }
   },
   methods: {
+    humanize(ts) {
+      return moment.unix(ts / 1000).fromNow();
+    },
+
     openInEditor(file) {
       axios.get(`/api/tests/${encodeURIComponent(file)}/open`);
     },
@@ -94,6 +128,15 @@ export default {
 .Feature:hover .FeatureActions {
  transition: all .25s ease-in-out;
  opacity: 1;
+}
+
+.Scenario .Scenario-property {
+  opacity: 0;
+}
+
+.Scenario:hover .Scenario-property {
+  transition: all .3s;
+  opacity: 1;
 }
 
 </style>

@@ -17,7 +17,11 @@ const scenarios = {
 
     testStatus: state => scenarioId => {
       if (!state.scenarios[scenarioId]) {
-        Vue.set(state.scenarios, scenarioId, 'not run');
+        Vue.set(state.scenarios, scenarioId, {
+          status: 'not run',
+          duration: undefined,
+          startedAt: undefined
+        });
       }
       return state.scenarios[scenarioId];
     }
@@ -88,13 +92,13 @@ const scenarios = {
       commit('setRunning', false);
     },
     'SOCKET_test.before': function ({ commit }, test) {
-      commit('setTestStatus', { scenarioId: test.id, status: 'running' });
+      commit('setTestStatus', { scenarioId: test.id, status: { status: 'running' } });
     },
     'SOCKET_test.failed': function ({ commit }, step) {
-      commit('setTestStatus', { scenarioId: step.testId, status: 'failed' });
+      commit('setTestStatus', { scenarioId: step.testId, status: { status: 'failed' } });
     },
     'SOCKET_test.passed': function ({ commit }, step) {
-      commit('setTestStatus', { scenarioId: step.testId, status: 'passed' });
+      commit('setTestStatus', { scenarioId: step.testId, status: { status: 'passed' } });
     },
   }
 }

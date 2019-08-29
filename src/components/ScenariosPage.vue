@@ -1,47 +1,38 @@
 <template>
-  <div class="Scenarios">
-     <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="ScenariosPage">
+     <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" href="#">
                 <img src="../assets/logo.png">
                 &nbsp;
-                <b>code</b>press
+                codepress
             </a>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-        </div>
-      </div>
-    </nav>
-
-    <section>
-      <div class="container">
-        <h1 class="title">{{project.name}}</h1>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="SearchField field has-addons">
+        <div class="SearchField navbar-item field has-addons">
           <p class="control">
             <input class="input is-small" @focus="$event.target.select()" type="text" placeholder="Search" v-model="search" @change="loadProject()">
           </p>
           <p class="control">
-            <a class="button is-small is-primary is-outlined" v-if="isMatchType('all')" @click="selectMatchType('any')">
-              Match All (AND)
-            </a>
-            <a class="button is-small is-primary is-outlined" v-if="isMatchType('any')" @click="selectMatchType('all')">
-              Match Any (OR)
-            </a>
-            <a class="button is-small has-text-grey" @click="clearSearch()">
+            <a class="button is-small is-light" @click="clearSearch()">
               <i class="far fa-times-circle"></i>
+            </a>
+            <a class="button is-small is-info" v-if="isMatchType('all')" @click="selectMatchType('any')">
+              Match All
+            </a>
+            <a class="button is-small is-info" v-if="isMatchType('any')" @click="selectMatchType('all')">
+              Match Any
             </a>
           </p>
         </div>
+
+        </div>
+      </div>
+    </nav>
+
+    <section class="Project">
+      <div class="container">
+        <h1 class="title">{{project.name}}</h1>
       </div>
     </section>
 
@@ -49,7 +40,7 @@
       <div class="container">
 
         <ul>
-          <li v-bind:key="capability" v-for="(features, capability) in project.features">
+          <li :key="capability" v-for="(features, capability) in project.features">
             <div class="Capability">
               <h2 class="Capability-headline is-size-6 has-text-grey">
                 <i class="far fa-folder-open"></i> {{capability}}
@@ -137,8 +128,12 @@ export default {
 </script>
 
 <style>
+.Project {
+  margin-top: 60px;
+}
+
 .SearchField input {
-  width: 600px;
+  width: 220px;
 }
 
 .Capability {

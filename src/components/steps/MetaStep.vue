@@ -20,7 +20,7 @@ export default {
     methods: {
         actorFromMetaStep(step) {
         if (step.actor) {
-            const actor = step.actor.replace('Context:', '');
+            const actor = step.actor === 'Context:' ? step.name : step.actor;
             return actor;
         }
         return 'In Scenario';
@@ -28,7 +28,8 @@ export default {
 
         methodFromMetaStep(step) {
         if (step.actor) {
-            return step.name;
+            const name = step.actor === 'Context:' ? '' : step.name;
+            return name;
         }
         return '';
         },

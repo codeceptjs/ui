@@ -124,16 +124,20 @@
 - Check if VSCode is in path
 - ScenariosPage: Reset search field
 
+## Done V 0.1.8
+
+- TestrunPage: Show result of REST api calls
+
+
 ## In Progress
 
 - ScenariosPage: Show current value of NODE_ENV
 - ScenariosPage: Run a search result of scenarios
-- Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
 
 ## V 0.1.7
 
+- Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
 - TestrunPage: Shows wrong cached results of scenario steps?
-- TestrunPage: Show result of REST api calls
 - ScenarioPage: Favorites feature/Pin scenarios/features
 - ScenariosPage: Remember last executed scenarios
 - ScenarioPage: Highlight last folder in path

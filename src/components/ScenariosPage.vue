@@ -137,6 +137,8 @@ export default {
 }
 
 .Capability {
+  margin-top: 1rem;
+  padding: .5rem;
 }
 
 .Capability-content {

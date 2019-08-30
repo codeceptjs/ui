@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import axios from 'axios';
 
+const getTestById = (tests, testId) => tests[tests.length - 1]; // TODO Use testid to find test
+
 const testRuns = {
   namespaced: true,
   state: { 
     isRunning: undefined,
     lastSnapshot: undefined,
-    tests: [],
+    // TODO Use testids and support multiple testruns in parallel
+    tests: [],                
   },
   mutations: { 
     clearTests: (state) => {
@@ -28,6 +31,12 @@ const testRuns = {
       }
       Vue.set(step, 'result', 'passed');
       currentTest.steps.push(step);
+    },
+    updateStep: (state, step) => {
+      const test = getTestById(state.tests, step.testid);
+      const currentStep = test.steps[test.steps.length - 1];
+
+      Vue.set(currentStep, 'returnValue', step.returnValue);
     },
     addMetaStepToCurrentTest: (state, metastep) => {
       const currentTest = state.tests[state.tests.length - 1];
@@ -129,7 +138,8 @@ const testRuns = {
     'SOCKET_step.before': function (context, step) {
       context.commit('addStepToCurrentTest', step);
     },
-    'SOCKET_step.passed': function () {
+    'SOCKET_step.passed': function ({commit}, step) {
+      commit('updateStep', step);
     },
     'SOCKET_metastep.changed': function (context, metastep) {
       context.commit('addMetaStepToCurrentTest', metastep);

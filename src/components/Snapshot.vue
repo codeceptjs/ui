@@ -44,24 +44,14 @@
 
     </div>
 
-    <div class="Snapshot-code" v-if="selected.name.startsWith('send')">
-      <h3 class="subtitle">
-        <b>{{selected.name}}</b>
-        <a :href="selected.args[0]" target="_blank">
-          {{selected.args[0]}}
-        </a>
-      </h3>
-      <pre v-if="isSendPostOrPut(selected)">
-        <code>{{JSON.stringify(selected.args[1], null, 2)}}</code>
-      </pre>
-    </div>
-
+    <SnapshotREST :step="selected" />
   </div>
 </template>
 
 <script>
 import {getSelectorString} from '../services/selector';
-import SnapshotSource from './SnapshotSource'
+import SnapshotSource from './SnapshotSource';
+import SnapshotREST from './SnapshotREST';
 
 // function arrayBufferToBase64(buffer) {
 //     let binary = '';
@@ -92,7 +82,8 @@ import SnapshotSource from './SnapshotSource'
 export default {
   name: 'Snapshot',
   components: {
-    SnapshotSource
+    SnapshotSource,
+    SnapshotREST,
   },
   props: ['selected'],
   methods: {
@@ -115,10 +106,6 @@ export default {
     isCodeStep(step) {
       return step.name === 'comment' || step.name.startsWith('send');
     },
-
-    isSendPostOrPut(step) {
-      return ['sendPostRequest', 'sendPutRequest'].includes(step.name);
-    }
   },
   data: function () {
     return {
@@ -160,9 +147,5 @@ export default {
 .Snapshot-image {
   min-width: 480px;
   max-width: 100%;
-}
-
-.Snapshot-code {
-  font-size: 0.8em;
 }
 </style>

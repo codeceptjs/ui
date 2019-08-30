@@ -19,12 +19,14 @@ Before(async (I) => {
   I.sendPostRequest('https://reqres.in/api/users', {
     name: 'John Shaft',
     job: 'Investigator',
-  });
+  })
+  I.sendGetRequest('https://reqres.in/api/users?page=2')
+  I.sendGetRequest('https://reqres.in/api/unknown/2')
 
   I.waitForVisible('.new-todo')
 })
 
-Scenario('Create multiple todo items @smoke', async (I) => {
+Scenario('Create some todo items @smoke', async (I) => {
   I.say('When I focus the todo field')
   I.click('.new-todo')
 

@@ -11,8 +11,8 @@
           <span class="WaitStep-arg">
             "{{step.args[0]}}"
           </span> 
-          within
-          <span v-if="step.args.length === 3" class="WaitStep-arg">{{formatSelector(step.args[2])}}</span>
+          
+          <span v-if="step.args.length === 3" class="WaitStep-arg">within {{formatSelector(step.args[2])}}</span>
         </div>
         <div v-else-if="step.name === 'waitForNavigation'">
         </div>

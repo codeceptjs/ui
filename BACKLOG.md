@@ -132,6 +132,16 @@
 
 ## V 0.1.7
 
+- TestrunPage: Shows wrong cached results of scenario steps?
+- TestrunPage: Show result of REST api calls
+- ScenarioPage: Favorites feature/Pin scenarios/features
+- ScenariosPage: Remember last executed scenarios
+- ScenarioPage: Highlight last folder in path
+- ScenarioPage: Use boxes for folders, but not for features
+- Bug: Search: Do not return all scenarios if just one scenario matches the search term. Just return the matching scenario.
+- Open In Editor: Use npm open-editor again
+- Open In Editor: Open all stackframes 
+- Open In Editor: Open all test files in a folder
 - Testrun View: Reload source when test source has changed
 - Testrun View: Show only steps belonging to the selected scenario
 - Simple profile configuration/selection

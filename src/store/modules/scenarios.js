@@ -18,7 +18,7 @@ const scenarios = {
     testStatus: state => scenarioId => {
       if (!state.scenarios[scenarioId]) {
         Vue.set(state.scenarios, scenarioId, {
-          status: 'not run',
+          status: undefined,
           duration: undefined,
           startedAt: undefined
         });

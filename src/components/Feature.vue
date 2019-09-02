@@ -21,21 +21,23 @@
             class="Scenario-detailLink"
             @click="selectScenario(scenario)"
           >
-            <span class="Scenario-status">
-              <i v-if="testStatus(scenario.id) === 'not run'" class="far fa-square has-text-grey-light"></i>
+            <span class="Scenario-status" v-if="existsTestStatus(scenario.id)">
               <i v-if="testStatus(scenario.id) === 'failed'" class="fas fa-square has-text-danger"></i>
               <i v-if="testStatus(scenario.id) === 'passed'" class="fas fa-square has-text-success"></i>
               <i  v-if="testStatus(scenario.id) === 'running'" class="fas fa-circle-notch fa-spin has-text-grey"></i>
+            </span>
+            <span v-else class="Scenario-status">
+              <i class="far fa-square has-text-grey-light"></i>
             </span>
             
             {{scenario.title}}            
           </a>
           <b-tag class="Tag" rounded :key="tag" v-for="tag in scenario.tags">{{tag}}</b-tag>
 
-          <span class="Scenario-property Scenario-duration has-text-grey-light" v-if="testStatus(scenario.id) !== 'not run'">
+          <span class="Scenario-property Scenario-duration has-text-grey-light" v-if="existsTestStatus(scenario.id)">
             {{testDuration(scenario.id)}}s
           </span>
-          <span class="Scenario-property Scenario-startedAt has-text-grey-light" v-if="testStatus(scenario.id) !== 'not run'">
+          <span class="Scenario-property Scenario-startedAt has-text-grey-light" v-if="existsTestStatus(scenario.id)">
             &middot;
             {{humanize(testStartedAt(scenario.id))}}
           </span>
@@ -62,6 +64,12 @@ export default {
     }
   },
   computed: {
+    existsTestStatus() {
+      return scenarioId => {
+        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
+        return status && typeof(status) === 'object' && status.status;
+      };
+    },
     testStatus() {
       return scenarioId => {
         const status = this.$store.getters['scenarios/testStatus'](scenarioId);

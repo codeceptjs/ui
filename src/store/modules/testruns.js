@@ -99,7 +99,9 @@ const testRuns = {
       try {
         const resp = await axios.get(`/api/testruns/${encodeURIComponent(id)}`);
         state.tests = [resp.data];
-      } catch (err) {}
+      } catch (err) {
+        state.tests = []; // reset if no cached testrun results available
+      }
     },
 
     runScenario: async function ({ commit }, { scenarioId, profileName }) {

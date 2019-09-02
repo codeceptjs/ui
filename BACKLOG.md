@@ -127,6 +127,7 @@
 ## Done V 0.1.8
 
 - TestrunPage: Show result of REST api calls
+- TestrunPage: Shows wrong cached results of scenario steps?
 
 
 ## In Progress
@@ -137,7 +138,6 @@
 ## V 0.1.7
 
 - Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
-- TestrunPage: Shows wrong cached results of scenario steps?
 - ScenarioPage: Favorites feature/Pin scenarios/features
 - ScenariosPage: Remember last executed scenarios
 - ScenarioPage: Highlight last folder in path

@@ -34,10 +34,10 @@
           </a>
           <b-tag class="Tag" rounded :key="tag" v-for="tag in scenario.tags">{{tag}}</b-tag>
 
-          <span class="Scenario-property Scenario-duration has-text-grey-light" v-if="existsTestStatus(scenario.id)">
+          <span class="Scenario-property Scenario-duration has-text-grey-light" v-if="testDuration(scenario.id)">
             {{testDuration(scenario.id)}}s
           </span>
-          <span class="Scenario-property Scenario-startedAt has-text-grey-light" v-if="existsTestStatus(scenario.id)">
+          <span class="Scenario-property Scenario-startedAt has-text-grey-light" v-if="testStartedAt(scenario.id)">
             &middot;
             {{humanize(testStartedAt(scenario.id))}}
           </span>

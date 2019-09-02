@@ -95,10 +95,20 @@ const scenarios = {
       commit('setTestStatus', { scenarioId: test.id, status: { status: 'running' } });
     },
     'SOCKET_test.failed': function ({ commit }, step) {
-      commit('setTestStatus', { scenarioId: step.testId, status: { status: 'failed' } });
+      commit('setTestStatus', { scenarioId: step.testId, status: { 
+          status: 'failed',
+          startedAt: step.testStartedAt,
+          duration: step.duration,
+        } 
+      });
     },
     'SOCKET_test.passed': function ({ commit }, step) {
-      commit('setTestStatus', { scenarioId: step.testId, status: { status: 'passed' } });
+      commit('setTestStatus', { scenarioId: step.testId, status: { 
+          status: 'passed',
+          startedAt: step.testStartedAt,
+          duration: step.duration,
+        } 
+      });
     },
   }
 }

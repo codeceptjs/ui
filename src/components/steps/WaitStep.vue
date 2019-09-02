@@ -4,7 +4,7 @@
         I {{step.humanized}}
       </div>
       <div class="column is-9 ellipsize">
-        <div v-if="step.name === 'waitForVisible' || step.name === 'waitForEnabled'">
+        <div v-if="step.name === 'waitForVisible' || step.name === 'waitForEnabled' || step.name === 'waitForInvisible'">
           <span class="WaitStep-arg">{{formatSelector(step.args[0])}}</span>
         </div>
         <div v-else-if="step.name === 'waitForText'">

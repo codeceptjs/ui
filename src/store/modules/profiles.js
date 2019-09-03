@@ -18,4 +18,4 @@ const profiles = {
     }
 }
 
-module.exports = profiles;
+export default profiles;

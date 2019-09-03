@@ -3,34 +3,39 @@
      <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item" href="#">
-                <img src="../assets/logo.png">
-                &nbsp;
-                codepress
-            </a>
+          <a class="navbar-item" href="#">
+            <img src="../assets/logo.png">
+            &nbsp;
+            codepress
+          </a>
 
-        <div class="SearchField navbar-item field has-addons">
-          <p class="control">
-            <input class="input is-small" @focus="$event.target.select()" type="text" placeholder="Search" v-model="search" @change="loadProject()">
-          </p>
-          <p class="control">
-            <a class="button is-small" @click="clearSearch()">
-              <i class="far fa-times-circle"></i>
-            </a>
-            <a class="button is-small is-info" v-if="isMatchType('all')" @click="selectMatchType('any')">
-              Match All
-            </a>
-            <a class="button is-small is-info" v-if="isMatchType('any')" @click="selectMatchType('all')">
-              Match Any
-            </a>
-          </p>
+          <div class="SearchField navbar-item field has-addons">
+            <p class="control">
+              <input class="input is-small" @focus="$event.target.select()" type="text" placeholder="Search" v-model="search" @change="loadProject()">
+            </p>
+            <p class="control">
+              <a class="button is-small" @click="clearSearch()">
+                <i class="far fa-times-circle"></i>
+              </a>
+              <a class="button is-small is-info" v-if="isMatchType('all')" @click="selectMatchType('any')">
+                Match All
+              </a>
+              <a class="button is-small is-info" v-if="isMatchType('any')" @click="selectMatchType('all')">
+                Match Any
+              </a>
+            </p>
+          </div>
         </div>
 
+        <div class="navbar-menu">
+            <div class="navbar-end">
+              <SettingsMenu />
+            </div>
         </div>
       </div>
     </nav>
 
-    <section class="Project">
+    <section class="Project" v-if="project.name">
       <div class="container">
         <h1 class="title">{{project.name}}</h1>
       </div>
@@ -62,11 +67,12 @@
 import axios from 'axios';
 import Feature from './Feature';
 import CapabilityFolder from './CapabilityFolder';
+import SettingsMenu from './SettingsMenu';
 
 export default {
   name: 'Scenarios',
   components: {
-    Feature, CapabilityFolder
+    Feature, CapabilityFolder, SettingsMenu
   },
   data() {
       return {

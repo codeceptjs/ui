@@ -128,10 +128,11 @@
 
 - TestrunPage: Show result of REST api calls
 - TestrunPage: Shows wrong cached results of scenario steps?
-
+- ScenarioPage: Use boxes for folders, but not for features
 
 ## In Progress
 
+- Bug: Sometimes Testrun Page shows html snapshot of previous testrun -> Reset selected step when entering Testrun Page
 - ScenariosPage: Show current value of NODE_ENV
 - ScenariosPage: Run a search result of scenarios
 
@@ -141,7 +142,6 @@
 - ScenarioPage: Favorites feature/Pin scenarios/features
 - ScenariosPage: Remember last executed scenarios
 - ScenarioPage: Highlight last folder in path
-- ScenarioPage: Use boxes for folders, but not for features
 - Bug: Search: Do not return all scenarios if just one scenario matches the search term. Just return the matching scenario.
 - Open In Editor: Use npm open-editor again
 - Open In Editor: Open all stackframes 
@@ -158,8 +158,6 @@
 - HTML Snapshot: Should replace/delete iframes in html snapshot to not accidentally include codepress in iframe
 - HTML Snapshot: Add input field values (at least if current step is fillField/selectOption)
 - ??? Use scenario.id to run a scenario (not title) (take a look at run-workers)
-- BUG Code changes in page objects not picked up (assume page objects not reloaded)
-- step.passed: map return values (e. g. axios response)
 - HTML Snapshot: Last pressKey should trigger snapshot
 - Scenario Autorefresh: Changes in files other than test (e. g. helpers, page objects) are not picked up
 - Scenario Autorefresh: Created/Deleted files are not picked up
@@ -174,7 +172,6 @@
 - SnapshotView: Fix scroll position and scroll only in y direction
 - Scenario View: Group data driven scenarios
 - Scenario View: Group scenarios in same directory
-- Scenario View: Separate test file name and use as subtitle of feature headline
 - Fix: click step has no duration
 - Testrun View: Quick way to open the test in editor
 - Testrun View: (?) Just show "toplevel" metasteps (i. e. metasteps which are called directly in test) in bold

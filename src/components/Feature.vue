@@ -16,7 +16,7 @@
 
     <ul>
       <li class="Scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
-        <div v-if="!scenario.pending">
+        <div>
           <a 
             class="Scenario-detailLink"
             @click="selectScenario(scenario)"
@@ -27,10 +27,12 @@
               <i  v-if="testStatus(scenario.id) === 'running'" class="fas fa-circle-notch fa-spin has-text-grey"></i>
             </span>
             <span v-else class="Scenario-status">
-              <i class="far fa-square has-text-grey-light"></i>
+              <i class="fas fa-square has-text-grey-lighter"></i>
             </span>
             
-            {{scenario.title}}            
+            <span :class="{ 'has-text-grey-light': scenario.pending }">
+              {{scenario.title}}            
+            </span>
           </a>
           <b-tag class="Tag" rounded :key="tag" v-for="tag in scenario.tags">{{tag}}</b-tag>
 
@@ -41,10 +43,6 @@
             &middot;
             {{humanize(testStartedAt(scenario.id))}}
           </span>
-        </div>
-        <div v-else class="has-text-info">
-          {{scenario.title}}
-          <b-tag class="Tag" rounded :key="tag" v-for="tag in scenario.tags">{{tag}}</b-tag>
         </div>
       </li>
     </ul>

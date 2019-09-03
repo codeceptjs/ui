@@ -1,6 +1,6 @@
 <template>
   <div class="ScenariosPage">
-     <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
+     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item" href="#">
@@ -14,7 +14,7 @@
             <input class="input is-small" @focus="$event.target.select()" type="text" placeholder="Search" v-model="search" @change="loadProject()">
           </p>
           <p class="control">
-            <a class="button is-small is-light" @click="clearSearch()">
+            <a class="button is-small" @click="clearSearch()">
               <i class="far fa-times-circle"></i>
             </a>
             <a class="button is-small is-info" v-if="isMatchType('all')" @click="selectMatchType('any')">
@@ -42,8 +42,8 @@
         <ul>
           <li :key="capability" v-for="(features, capability) in project.features">
             <div class="Capability">
-              <h2 class="Capability-headline is-size-6 has-text-grey">
-                <i class="far fa-folder-open"></i> {{capability}}
+              <h2 class="Capability-headline is-size-6">
+                <CapabilityFolder :folder="capability" />
               </h2>
 
               <div class="Capability-content">
@@ -61,11 +61,12 @@
 <script>
 import axios from 'axios';
 import Feature from './Feature';
+import CapabilityFolder from './CapabilityFolder';
 
 export default {
   name: 'Scenarios',
   components: {
-    Feature
+    Feature, CapabilityFolder
   },
   data() {
       return {
@@ -146,7 +147,6 @@ export default {
 }
 
 .Capability-headline {
-  font-weight: bold;
   margin-top: 1rem;
   margin-bottom: .2rem;
 }

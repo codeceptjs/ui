@@ -43,6 +43,10 @@
             &middot;
             {{humanize(testStartedAt(scenario.id))}}
           </span>
+          <span class="Scenario-property Scenario-startedAt has-text-danger" v-if="testErrorMessage(scenario.id)">
+            &middot;
+            {{testErrorMessage(scenario.id)}}
+          </span>
         </div>
       </li>
     </ul>
@@ -89,6 +93,14 @@ export default {
         const status = this.$store.getters['scenarios/testStatus'](scenarioId);
         if (status) {
           return status.startedAt;
+        }
+      };
+    },
+    testErrorMessage() {
+      return scenarioId => {
+        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
+        if (status && status.error) {
+          return status.error.message;
         }
       };
     }

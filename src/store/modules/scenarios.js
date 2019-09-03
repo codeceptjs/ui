@@ -99,6 +99,7 @@ const scenarios = {
           status: 'failed',
           startedAt: step.testStartedAt,
           duration: step.duration,
+          error: step.error
         } 
       });
     },

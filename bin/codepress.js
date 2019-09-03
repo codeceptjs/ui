@@ -42,6 +42,7 @@ const proxyEvents = {
       status: 'failed',
       startedAt: failedStep.testStartedAt,
       duration: failedStep.duration,
+      error: failedStep.error
     });
     const newStep = snapshotStore.add(failedStep.id, failedStep);
     return newStep;

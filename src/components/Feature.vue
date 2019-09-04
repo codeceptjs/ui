@@ -47,11 +47,6 @@ export default {
       axios.get(`/api/tests/${encodeURIComponent(file)}/open`);
     },
 
-    selectScenario(scenario) {
-      this.$store.commit('scenarios/selectScenario', scenario);
-      this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
-    },
-
     runFeature(featureTitle) {
        this.$store.dispatch('scenarios/runFeature', { featureTitle });
     },

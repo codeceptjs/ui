@@ -82,7 +82,13 @@ export default {
   methods: {
     humanize(ts) {
       return moment.unix(ts / 1000).fromNow();
+    },
+
+    selectScenario(scenario) {
+      this.$store.commit('scenarios/selectScenario', scenario);
+      this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
     }
+
   }
 }
 </script>

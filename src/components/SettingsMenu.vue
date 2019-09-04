@@ -21,7 +21,7 @@
                         </b-switch>
                     </section>
                     <footer class="modal-card-foot">
-                        <a class="is-small">Go to full settings ...</a>
+                        <a class="is-small" @click="gotoSettingsPage()">Go to full settings ...</a>
                     </footer>
                 </div>
             </form>
@@ -39,7 +39,6 @@ export default {
     },
     async created() {
         this.settings = await this.loadSettings();
-        console.log(this.settings);
     },
     updated() {
         this.storeSettings(this.settings);
@@ -50,6 +49,9 @@ export default {
         },
         async storeSettings(settings) {
             return this.$store.dispatch('settings/storeSettings', settings);
+        },
+        gotoSettingsPage() {
+            this.$router.push('settings');
         }
     }
 }

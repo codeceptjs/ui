@@ -19,9 +19,13 @@
                         <b-switch v-model="settings.headless">
                             Run Headless
                         </b-switch>
+                        <p></p>
+                        <b-switch v-model="settings.showDevtools">
+                            Show Devtools
+                        </b-switch>
                     </section>
                     <footer class="modal-card-foot">
-                        <a class="is-small" @click="gotoSettingsPage()">Go to full settings ...</a>
+                        <a class="is-small" @click="gotoSettingsPage()">Configure all settings ...</a>
                     </footer>
                 </div>
             </form>

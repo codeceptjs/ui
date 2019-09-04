@@ -17,10 +17,10 @@
               <a class="button is-small" @click="clearSearch()">
                 <i class="far fa-times-circle"></i>
               </a>
-              <a class="button is-small is-info" v-if="isMatchType('all')" @click="selectMatchType('any')">
+              <a class="button is-small is-primary" v-if="isMatchType('all')" @click="selectMatchType('any')">
                 Match All
               </a>
-              <a class="button is-small is-info" v-if="isMatchType('any')" @click="selectMatchType('all')">
+              <a class="button is-small is-primary" v-if="isMatchType('any')" @click="selectMatchType('all')">
                 Match Any
               </a>
             </p>

@@ -15,39 +15,8 @@
     </h3>
 
     <ul>
-      <li class="Scenario" v-bind:key="scenario.id" v-for="scenario in feature.scenarios">
-        <div>
-          <a 
-            class="Scenario-detailLink"
-            @click="selectScenario(scenario)"
-          >
-            <span class="Scenario-status" v-if="existsTestStatus(scenario.id)">
-              <i v-if="testStatus(scenario.id) === 'failed'" class="fas fa-square has-text-danger"></i>
-              <i v-if="testStatus(scenario.id) === 'passed'" class="fas fa-square has-text-success"></i>
-              <i  v-if="testStatus(scenario.id) === 'running'" class="fas fa-circle-notch fa-spin has-text-grey"></i>
-            </span>
-            <span v-else class="Scenario-status">
-              <i class="fas fa-square has-text-grey-lighter"></i>
-            </span>
-            
-            <span :class="{ 'has-text-grey-light': scenario.pending }">
-              {{scenario.title}}            
-            </span>
-          </a>
-          <b-tag class="Tag" rounded :key="tag" v-for="tag in scenario.tags">{{tag}}</b-tag>
-
-          <span class="Scenario-property Scenario-duration has-text-grey-light" v-if="testDuration(scenario.id)">
-            {{testDuration(scenario.id)}}s
-          </span>
-          <span class="Scenario-property Scenario-startedAt has-text-grey-light" v-if="testStartedAt(scenario.id)">
-            &middot;
-            {{humanize(testStartedAt(scenario.id))}}
-          </span>
-          <span class="Scenario-property Scenario-startedAt has-text-danger" v-if="testErrorMessage(scenario.id)">
-            &middot;
-            {{testErrorMessage(scenario.id)}}
-          </span>
-        </div>
+      <li :key="scenario.id" v-for="scenario in feature.scenarios">
+        <Scenario :scenario="scenario" />
       </li>
     </ul>
   </div>
@@ -57,52 +26,16 @@
 import axios from 'axios';
 import moment from 'moment';
 
+import Scenario from './Scenario';
+
 export default {
   name: 'Feature',
+  components: {
+    Scenario,
+  },
   props: ['feature'],
   data() {
     return {
-
-    }
-  },
-  computed: {
-    existsTestStatus() {
-      return scenarioId => {
-        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
-        return status && typeof(status) === 'object' && status.status;
-      };
-    },
-    testStatus() {
-      return scenarioId => {
-        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
-        if (status) {
-          return status.status;
-        }
-      };
-    },
-    testDuration() {
-      return scenarioId => {
-        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
-        if (status) {
-          return status.duration;
-        }
-      };
-    },
-    testStartedAt() {
-      return scenarioId => {
-        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
-        if (status) {
-          return status.startedAt;
-        }
-      };
-    },
-    testErrorMessage() {
-      return scenarioId => {
-        const status = this.$store.getters['scenarios/testStatus'](scenarioId);
-        if (status && status.error) {
-          return status.error.message;
-        }
-      };
     }
   },
   methods: {
@@ -136,7 +69,13 @@ export default {
 }
 
 .Feature-fileName {
+  opacity: 0;
   font-size: 0.8em;
+}
+
+.Feature:hover .Feature-fileName {
+  opacity: 1;
+  transition: all .25s;
 }
 
 .Feature-title {
@@ -151,14 +90,4 @@ export default {
  transition: all .25s ease-in-out;
  opacity: 1;
 }
-
-.Scenario .Scenario-property {
-  opacity: 0;
-}
-
-.Scenario:hover .Scenario-property {
-  transition: all .3s;
-  opacity: 1;
-}
-
 </style>

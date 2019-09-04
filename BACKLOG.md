@@ -132,12 +132,13 @@
 
 ## In Progress
 
-- Bug: Sometimes Testrun Page shows html snapshot of previous testrun -> Reset selected step when entering Testrun Page
-- ScenariosPage: Show current value of NODE_ENV
-- ScenariosPage: Run a search result of scenarios
+- BUG: Changes in scenario are no longer autoreloaded
+- Catch errors on save screenshot
+- Add settings route
 
-## V 0.1.7
+## V 0.1.8
 
+- Puppeteer: Improve tab handling: When a web page opens a new tab get html snapshots and screenshots from this tab
 - Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
 - ScenarioPage: Favorites feature/Pin scenarios/features
 - ScenariosPage: Remember last executed scenarios

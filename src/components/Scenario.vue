@@ -13,7 +13,7 @@
             <i class="fas fa-square has-text-grey-lighter"></i>
         </span>
         
-        <span :class="{ 'has-text-grey-light': scenario.pending }">
+        <span :class="{ 'has-text-grey-light': scenario.pending, 'is-faded': !scenario.matchesQuery }">
             {{scenario.title}}            
         </span>
         </a>
@@ -93,8 +93,9 @@ export default {
 }
 </script>
 <style>
-.Tag {
-  margin-left: .25rem !important;
+
+.is-faded {
+  opacity: .5;
 }
 
 .Scenario .Scenario-property {

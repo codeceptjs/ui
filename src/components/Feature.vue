@@ -56,7 +56,13 @@ export default {
 
 <style>
 .Tag {
+  opacity: 0;
   margin-left: .25rem !important;
+}
+
+.Feature:hover .Tag {
+  transition: all .3s;
+  opacity: 1;
 }
 
 .Feature {

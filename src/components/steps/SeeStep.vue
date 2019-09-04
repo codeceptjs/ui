@@ -14,7 +14,13 @@
           is
           <span class="SeeStep-text">{{step.args[1]}}</span>
         </span>
-        
+
+        <span v-else-if="step.name === 'seeInField'">
+          <span class="SeeStep-selector">{{formatSelector(step.args[0])}}</span>
+          value
+          <span class="SeeStep-text">"{{step.args[1]}}"</span>
+        </span>
+
         <span v-else-if="step.name === 'see' && step.args.length === 1">
           <span class="SeeStep-text">"{{step.args[0]}}"</span>
         </span>

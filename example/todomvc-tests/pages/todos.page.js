@@ -8,7 +8,7 @@ const I = actor();
 // const nthTodoItem = nth => `.todo-list li:nth-child(${nth})` // ({ xpath: `(//*[contains(@class,"todo-list")]/li)[${nth}]`})
 
 const nthTodoCheckbox = nth => locate('div > input').inside(`.todo-list li:nth-child(${nth})`) 
-const nthTTodoDeleteButton = nth => locate('div > button').inside(`.todo-list li:nth-child(${nth})`) 
+const nthTTodoDeleteButton = nth => locate('div > button').inside(`.todo-list li:nth-child(${nth})`).as(`${nth}nth delete button`) 
 const nthTodoEditField = nth => locate('form > input').inside(`.todo-list li:nth-child(${nth})`) 
 const nthTodoItem = nth => locate('.todo-list li').at(nth).as(`${nth} todo item`)
 

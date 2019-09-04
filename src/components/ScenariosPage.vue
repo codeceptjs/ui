@@ -78,7 +78,7 @@ export default {
       return {
           loading: false,
           search: '',
-          matchType: 'all',
+          matchType: 'any',
           project: {}
       }
   },

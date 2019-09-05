@@ -1,7 +1,8 @@
 <template>
   <div class="Feature">
     <a class="Feature-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
-    <h3 class="Feature-title title is-size-6">
+    <h3 class="Feature-title title is-size-6 has-text-grey-dark">
+      <i class="far fa-file has-text-grey"></i>
       <span>
         {{feature.feature.title}}
       </span>
@@ -66,7 +67,6 @@ export default {
 }
 
 .Feature {
-  margin-bottom: 0.5rem !important;
 }
 
 .Feature-fileName {

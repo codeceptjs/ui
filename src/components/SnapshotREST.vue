@@ -1,5 +1,4 @@
 <template>
-  
     <div class="SnapshotREST" v-if="step.name.startsWith('send')">
       <h3 class="subtitle">
         <b>{{step.name}}</b>
@@ -21,9 +20,7 @@
           <code>{{JSON.stringify(step.returnValue, null, 2)}}</code>
         </pre>
       </div>
-
     </div>
-
 </template>
 
 <script>

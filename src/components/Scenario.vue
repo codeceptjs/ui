@@ -98,6 +98,9 @@ export default {
   opacity: .5;
 }
 
+.Scenario {
+}
+
 .Scenario .Scenario-property {
   opacity: 0;
 }

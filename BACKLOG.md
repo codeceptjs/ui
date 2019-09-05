@@ -129,15 +129,17 @@
 - TestrunPage: Show result of REST api calls
 - TestrunPage: Shows wrong cached results of scenario steps?
 - ScenarioPage: Use boxes for folders, but not for features
+- Add settings route
 
 ## In Progress
 
-- BUG: Changes in scenario are no longer autoreloaded
-- Catch errors on save screenshot
-- Add settings route
+- Search: Create a searchTitle field doing some preprocessing (lowercase, remove dash/underscore) and use that for search
+- BUG: Changes in scenario are not always autoreloaded
+- Catch errors on save screenshot and on getting the html snapshot
 
 ## V 0.1.8
 
+- Search: Use tags as a separate search criterion and make them selectable via dropdown
 - Puppeteer: Improve tab handling: When a web page opens a new tab get html snapshots and screenshots from this tab
 - Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
 - ScenarioPage: Favorites feature/Pin scenarios/features

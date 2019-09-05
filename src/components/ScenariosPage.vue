@@ -144,7 +144,6 @@ export default {
 }
 
 .Capability {
-  margin-top: 1rem;
   padding: .5rem;
 }
 
@@ -153,7 +152,6 @@ export default {
 }
 
 .Capability-headline {
-  margin-top: 1rem;
-  margin-bottom: .2rem;
+  margin-top: .25rem;
 }
 </style>

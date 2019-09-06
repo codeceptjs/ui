@@ -142,7 +142,6 @@
 
 - Search: Use tags as a separate search criterion and make them selectable via dropdown
 - Puppeteer: Improve tab handling: When a web page opens a new tab get html snapshots and screenshots from this tab
-- Fix: Object.run()/Object.goto() etc. in stackframes -> Use current metastep
 - ScenarioPage: Favorites feature/Pin scenarios/features
 - ScenariosPage: Remember last executed scenarios
 - ScenarioPage: Highlight last folder in path

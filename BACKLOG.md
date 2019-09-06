@@ -133,7 +133,7 @@
 
 ## In Progress
 
-- Slide out for settings
+- Slide out menu for settings
 - Search: Create a searchTitle field doing some preprocessing (lowercase, remove dash/underscore) and use that for search
 - BUG: Changes in scenario are not always autoreloaded
 - Catch errors on save screenshot and on getting the html snapshot

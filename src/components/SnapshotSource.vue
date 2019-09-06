@@ -3,12 +3,14 @@
         <div class="SnapshotSource-content has-background-grey-lighter">
             <iframe 
                 ref="source"
-                id="source" 
-                :src="buildSnapshotUrl(snapshotId)" 
+                id="source"  
+                :src="buildSnapshotUrl(snapshotId)"
+                :key="'codepress-iframe-'+buildSnapshotUrl(snapshotId)"
                 :width="viewportSize.width" 
                 frameborder="0"
                 @load="onIframeLoaded"
                 v-show="loaded"
+                sandbox="allow-scripts allow-same-origin"
             >
             </iframe>
         </div>
@@ -80,7 +82,6 @@ export default {
 
         onIframeLoaded() {
             this.loaded = true;
-
             if (this.mustScrollIframe()) {
                 // Only page to vertical position
                 this.$refs.source.contentWindow.scrollTo(0, this.$props.snapshotScrollPosition.y);

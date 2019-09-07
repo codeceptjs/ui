@@ -23,6 +23,9 @@ app.use(express.static(AppDir));
 app.use('/api', api);
 
 const proxyEvents = {
+  'console.error': undefined,
+  'console.log': undefined,
+  'network.failed_request': undefined,
   'codeceptjs:scenarios.updated': undefined, 
   'codeceptjs:scenarios.parseerror': undefined,
   'codeceptjs.started': () => snapshotStore.clear(), 

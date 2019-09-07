@@ -9,7 +9,7 @@ const I = actor();
 
 const nthTodoCheckbox = nth => locate('div > input').inside(`.todo-list li:nth-child(${nth})`) 
 const nthTTodoDeleteButton = nth => locate('div > button').inside(`.todo-list li:nth-child(${nth})`).as(`${nth}nth delete button`) 
-const nthTodoEditField = nth => locate('form > input').inside(`.todo-list li:nth-child(${nth})`) 
+const nthTodoEditField = nth => locate('form > input').inside(`.todo-list li:nth-child(${nth})`).as(`${nth}nth todo input`) 
 const nthTodoItem = nth => locate('.todo-list li').at(nth).as(`${nth} todo item`)
 
 module.exports = {
@@ -17,6 +17,7 @@ module.exports = {
         I.amOnPage('http://todomvc.com/examples/angularjs/#/')
         I.refreshPage()
         I.executeScript(() => sessionStorage.clear())
+        I.executeScript(() => console.error('Boom!'))
         I.waitForVisible('.new-todo')    
     },
 

@@ -134,6 +134,9 @@ const testRuns = {
     'SOCKET_test.passed': function (context, data) {
       context.commit('markAsPassedCurrentTest', data);
     },
+    'SOCKET_console.log': function (context, logEntry) {
+      console.log(logEntry);
+    },
     'SOCKET_step.comment': function (context, comment) {
       context.commit('addCommentToCurrentTest', comment);
     },

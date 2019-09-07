@@ -131,12 +131,16 @@
 - ScenarioPage: Use boxes for folders, but not for features
 - Add settings route
 
+## Done V 0.1.9
+
+- Catch errors on save screenshot and on getting the html snapshot
+
 ## In Progress
 
 - Slide out menu for settings
 - Search: Create a searchTitle field doing some preprocessing (lowercase, remove dash/underscore) and use that for search
 - BUG: Changes in scenario are not always autoreloaded
-- Catch errors on save screenshot and on getting the html snapshot
+- BUG: Testrun View: Detect if scenario name has changed
 
 ## V 0.1.8
 

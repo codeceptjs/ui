@@ -3,7 +3,7 @@
      <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
-          <a class="navbar-item" href="#">
+          <a class="navbar-item" href="/">
             <img src="../assets/logo.png">
             &nbsp;
             codepress
@@ -44,7 +44,7 @@
     <section>
       <div class="container">
 
-        <ul>
+        <ul v-if="hasSearchResults()">
           <li :key="capability" v-for="(features, capability) in project.features">
             <div class="Capability">
               <h2 class="Capability-headline is-size-6">
@@ -57,6 +57,9 @@
             </div>
           </li>
         </ul>
+        <b-message v-else>
+          No features or scenario are matching your search
+        </b-message>
       </div>
     </section>
 
@@ -97,6 +100,10 @@ export default {
       clearSearch() {
         this.search = '';
         this.loadProject();
+      },
+
+      hasSearchResults() {
+        return this.project && this.project.features && Object.keys(this.project.features).length > 0;
       },
 
       selectMatchType(t) {

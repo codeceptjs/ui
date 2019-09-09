@@ -1,7 +1,7 @@
 <template>
     <div class="SendStep columns is-gapless has-text-grey-light">
       <div class="column is-3">
-        <span class="Step-restMethod has-text-info">
+        <span class="Step-restMethod has-text-dark is-italic">
           {{httpMethod}}
         </span>
       </div>

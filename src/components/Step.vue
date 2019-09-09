@@ -11,6 +11,10 @@
       <CommentStep :step="step" />
     </div>
 
+    <div class="StepWrapper StepWrapper--indent3" v-else-if="isConsoleLogStep(step)">
+      <ConsoleLogStep :step="step" />
+    </div>
+
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameIncludes('send')">
       <SendStep :step="step" />
     </div>
@@ -92,7 +96,7 @@
       </div>
     </div>
 
-    <div class="StepHoverContainer" v-if="isHovered">
+    <div class="StepHoverContainer" v-if="isHovered && isCodeceptStep(step)">
       <div class="StepHoverContainer-content is-pulled-right has-background-white">
         <span class="has-text-grey-light">
           <i class="far fa-clock"></i> {{step.at / 1000}}s
@@ -143,6 +147,7 @@ import CommentStep from './steps/CommentStep';
 import SwitchToStep from './steps/SwitchToStep';
 import ScrollStep from './steps/ScrollStep';
 import MetaStep from './steps/MetaStep';
+import ConsoleLogStep from './steps/ConsoleLogStep';
 
 import copyToClipboard from 'copy-text-to-clipboard';
 
@@ -167,7 +172,8 @@ export default {
     CommentStep,
     SwitchToStep,
     ScrollStep,
-    MetaStep
+    MetaStep,
+    ConsoleLogStep
   },
   methods: {
     isAction(step) {
@@ -178,12 +184,20 @@ export default {
       copyToClipboard(this.getSelectorValue(step.args));
     },
 
+    isCodeceptStep(step) {
+      return step.type === undefined;
+    },
+
     isMetaStep(step) {
       return step.type === 'meta';
     },
 
     isCommentStep(step) {
       return step.type === 'comment';
+    },
+
+    isConsoleLogStep(step) {
+      return step.type === 'console.log';
     },
 
     stepNameStartsWith(methodName) {

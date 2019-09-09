@@ -15,6 +15,9 @@ Before(async (I) => {
 
   I.refreshPage()
 
+  I.executeScript(() => console.log('Some info'))
+  I.executeScript(() => console.error('Some error'))
+
   // Just to to some rest request
   I.sendPostRequest('https://reqres.in/api/users', {
     name: 'John Shaft',

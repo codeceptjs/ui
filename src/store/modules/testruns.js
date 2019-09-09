@@ -32,12 +32,6 @@ const testRuns = {
       Vue.set(step, 'result', 'passed');
       currentTest.steps.push(step);
     },
-    updateStep: (state, step) => {
-      const test = getTestById(state.tests, step.testid);
-      const currentStep = test.steps[test.steps.length - 1];
-
-      Vue.set(currentStep, 'returnValue', step.returnValue);
-    },
     addMetaStepToCurrentTest: (state, metastep) => {
       const currentTest = state.tests[state.tests.length - 1];
         currentTest.steps.push({
@@ -53,6 +47,21 @@ const testRuns = {
         result: 'passed',
         ...comment
       })
+    },
+    addConsoleLogToCurrentTest: (state, logEntry) => {
+      const currentTest = state.tests[state.tests.length - 1];
+      currentTest.steps.push({
+        type: 'console.log',
+        result: 'passed',
+        name: 'console.log',
+        logEntry
+      })
+    },
+    updateStep: (state, step) => {
+      const test = getTestById(state.tests, step.testid);
+      const currentStep = test.steps[test.steps.length - 1];
+
+      Vue.set(currentStep, 'returnValue', step.returnValue);
     },
     markAsFailedCurrentTest: (state, data) => {
       const currentTest = state.tests[state.tests.length - 1];
@@ -121,27 +130,27 @@ const testRuns = {
     },
     'SOCKET_suite.before': function () {
     },
-    'SOCKET_test.before': function (context, test) {
-      context.commit('addTest', test);
+    'SOCKET_test.before': function ({ commit }, test) {
+      commit('addTest', test);
     },
     'SOCKET_test.after': function ({ dispatch, state }) {
       const currentTest = state.tests[state.tests.length - 1];
       dispatch('saveTestRun', currentTest);
     },
-    'SOCKET_test.failed': function (context, error) {
-      context.commit('markAsFailedCurrentTest', error);
+    'SOCKET_test.failed': function ({ commit }, error) {
+      commit('markAsFailedCurrentTest', error);
     },
-    'SOCKET_test.passed': function (context, data) {
-      context.commit('markAsPassedCurrentTest', data);
+    'SOCKET_test.passed': function ({ commit }, data) {
+      commit('markAsPassedCurrentTest', data);
     },
-    'SOCKET_console.log': function (context, logEntry) {
-      console.log(logEntry);
+    'SOCKET_console.log': function ({ commit }, logEntry) {
+      commit('addConsoleLogToCurrentTest', logEntry);
     },
-    'SOCKET_step.comment': function (context, comment) {
-      context.commit('addCommentToCurrentTest', comment);
+    'SOCKET_step.comment': function ({ commit }, comment) {
+      commit('addCommentToCurrentTest', comment);
     },
-    'SOCKET_step.before': function (context, step) {
-      context.commit('addStepToCurrentTest', step);
+    'SOCKET_step.before': function ({ commit }, step) {
+      commit('addStepToCurrentTest', step);
     },
     'SOCKET_step.passed': function ({commit}, step) {
       commit('updateStep', step);

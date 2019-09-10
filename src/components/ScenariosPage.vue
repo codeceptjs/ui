@@ -40,7 +40,11 @@
         <h1 class="title">{{project.name}}</h1>
       </div>
     </section>
-
+    <section>
+      <div class="container">
+        <Test-statistics :features="project.features" />
+      </div>
+    </section>
     <section>
       <div class="container">
 
@@ -71,11 +75,12 @@ import axios from 'axios';
 import Feature from './Feature';
 import CapabilityFolder from './CapabilityFolder';
 import SettingsMenu from './SettingsMenu';
+import TestStatistics from './TestStatistics';
 
 export default {
   name: 'Scenarios',
   components: {
-    Feature, CapabilityFolder, SettingsMenu
+    Feature, CapabilityFolder, SettingsMenu, TestStatistics
   },
   data() {
       return {

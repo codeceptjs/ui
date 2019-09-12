@@ -23,10 +23,8 @@
     "cheerio": "^1.0.0-rc.3",
     "chokidar": "^3.0.2",
     "codeceptjs": "^2.3.0",
-    "core-js": "^2.6.5",
     "debug": "^4.1.1",
     "express": "^4.17.1",
-    "lodash": "^4.17.14",
     "lodash.clonedeep": "^4.5.0",
     "puppeteer": "^1.19.0",
     "socket.io": "^2.2.0",
@@ -51,8 +49,7 @@
     "vue-router": "^3.0.7",
     "vue-socket.io": "^3.0.7",
     "vue-template-compiler": "^2.6.10",
-    "vuex": "^3.1.1",
-    "vuex-persist": "^2.0.1"
+    "vuex": "^3.1.1"
   },
   "eslintConfig": {
     "root": true,

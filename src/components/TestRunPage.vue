@@ -73,6 +73,7 @@ export default {
     }
   },
   created: async function () {
+    this.$store.commit('testRunPage/clearTests');
     await this.loadScenario();
     await this.loadLastTestRun(this.scenario);
   },

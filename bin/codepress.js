@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 const debug = require('debug')('codepress:codepress');
+
+// initialize CodeceptJS
+require('../lib/commands/init')();
 const path = require('path');
 const express = require('express');
 const app = express();
 const io = require('socket.io')();
-
-const {init} = require('../lib/commands/init');
 const api = require('../lib/api');
-
 const snapshotStore = require('../lib/model/snapshot-store');
 const scenarioStatusRepository = require('../lib/model/scenario-status-repository');
 
@@ -21,6 +21,7 @@ const AppDir = path.join(__dirname, '..', 'dist');
  */
 app.use(express.static(AppDir));
 app.use('/api', api);
+
 
 const proxyEvents = {
   'console.error': undefined,
@@ -88,7 +89,8 @@ io.on('connection', socket => {
 });
 
 (async function() {
-  await init();
+  
+
 
   // eslint-disable-next-line no-console
   debug(`Listening for websocket connections on port ${PORT}`);

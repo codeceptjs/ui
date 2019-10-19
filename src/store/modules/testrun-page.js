@@ -5,6 +5,7 @@ const testRunPage = {
     show: 'source',
     selectedStep: undefined,
     hoveredStep: undefined,
+    showSubsteps: true,
   },
   getters: {
     hoveredStep: state => {
@@ -18,12 +19,15 @@ const testRunPage = {
     },
     showSource: state => {
       return state.show === 'source';
-    }
+    },
+    showSubsteps: state => state.showSubsteps
   },
   mutations: {
     clearTests: (state) => {
       state.selectedStep = undefined;
     },
+
+    toggleSubsteps: (state) => state.showSubsteps = !state.showSubsteps,
 
     setSelectedStep: (state, selectedStep) => {
       if (!selectedStep) return;

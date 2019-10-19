@@ -24,7 +24,9 @@
       <ul>
         <li :class="{ 'is-active': activeTab == 'testrun' }" @click="activateTab('testrun')" ><a>Testrun</a></li>
         <li :class="{ 'is-active': activeTab == 'source' }" @click="activateTab('source')"><a>Source</a></li>
+
       </ul>
+      <div v-if="activeTab == 'testrun'" class="float-right" @click="toggleAll()"><a>Toggle substeps</a></div>
     </div>
 
     <div v-if="activeTab == 'source'">
@@ -38,9 +40,13 @@
           :key="step.title"
           @mouseover="setHoveredStep(step)"
           @mouseleave="unsetHoveredStep(step)"
+          @click="toggleSubsteps(step)"
+          :ref="step.section"
         >
           <step
+            :class="'ml-' + indentLevel(step)"
             :step="step"
+            :isOpened="step.opened"
             :isHovered="step === hoveredStep"
             :isSelected="step === selectedStep"
             @select-step="$emit('select-step', step)"
@@ -127,9 +133,10 @@ export default {
     Step, ScenarioSource,
   },
   data: function () {
+    this.test.steps.forEach(s => s.opened = this.$store.getters['testRunPage/showSubsteps']);
     return {
       activeTab: 'testrun',
-      command: undefined,
+      command: undefined, 
     }
   },
   methods: {
@@ -137,8 +144,20 @@ export default {
       return moment.unix(ts / 1000).fromNow();
     },
 
+    indentLevel(step) {
+      if (!step.section) return 0;
+      return step.section.split('_').length * 3;
+    },
+
     activateTab(tabname) {
       this.activeTab = tabname;
+    },
+
+    toggleAll() {
+      this.$store.commit('testRunPage/toggleSubsteps');
+      const isOpened = this.$store.getters['testRunPage/showSubsteps'];
+      this.test.steps.filter(s => s.type === 'meta').forEach(s => this.toggleSubsteps(s, isOpened));
+      this.$forceUpdate();  
     },
 
     sendCommand(command) {
@@ -155,6 +174,21 @@ export default {
     trim(str) {
       return str.trim();
     },
+    toggleSubsteps(step, isOpened) {
+      if (step.type !== 'meta') return true;
+      if (!step.opens) return true;
+      step.opened = !step.opened;
+
+      for (const section in this.$refs) {
+        const els = this.$refs[section];
+        if (section.startsWith(step.opens)) {
+          if (typeof isOpened === 'boolean') {
+            els.forEach(el => el.classList.toggle('hidden', isOpened))  
+          }
+          els.forEach(el => el.classList.toggle('hidden'));
+        }
+      }
+    },
     setHoveredStep(step) {
       this.$store.commit('testRunPage/setHoveredStep', step);
     },
@@ -163,6 +197,10 @@ export default {
     }
   },
   computed: {
+    openAllSubsteps() {
+      return this.$store.getters['testRunPage/showSubsteps']
+    },
+
     isShowCli() {
       return this.$store.getters['cli/show'];
     },

@@ -2,18 +2,51 @@
   <div class="StepContainer" 
     :class="{ 'StepContainer--selected': isSelected, 'StepContainer--failed': step.result === 'failed', 'StepContainer--passed': step.result === 'passed' }"
     @click="handleSelectStep(step)">
-    
-    <div class="StepWrapper StepWrapper--indent2" v-if="isMetaStep(step)">
-      <MetaStep :step="step" />
+    <div class="StepWrapper" v-if="isMetaStep(step)">
+      <MetaStep :step="step" :isOpened="isOpened" />
     </div>
 
-    <div class="StepWrapper StepWrapper--indent1" v-else-if="isCommentStep(step)">
-      <CommentStep :step="step" />
-    </div>
-
-    <div class="StepWrapper StepWrapper--indent3" v-else-if="isConsoleLogStep(step)">
+    <div class="StepWrapper" v-else-if="isConsoleLogStep(step)">
       <ConsoleLogStep :step="step" />
     </div>
+
+    <div class="StepWrapper" v-else-if="isCommentStep(step)">
+      <div class="step comment">
+          {{step.args[0]}}
+      </div>
+    </div>
+
+    <div class="StepWrapper"    v-else-if="true">
+      <GrabberStep :step="step" v-if="isGrabberStep(step)" />
+      <WaiterStep :step="step" v-else-if="isWaiterStep(step)" />
+      <AssertionStep :step="step" v-else-if="isAssertionStep(step)" />
+      <div class="step" :class="{ 
+        tech: isTechnicalStep(step) }"
+        v-else-if="true"
+        >
+        {{step.humanized}} 
+        <span v-for="arg of step.args" v-bind:key="arg" class="argument" >
+          {{ arg }} 
+        </span>
+      </div>
+    </div>
+<!-- 
+    <div class="StepWrapper StepWrapper--indent1" v-else-if="isWaiterStep(step)">
+      <WaitStep :step="step" />
+    </div>
+
+    <div class="StepWrapper StepWrapper--indent1" v-else-if="isGrabberStep(step)">
+      <GrabStep :step="step" />
+    </div>
+
+    <div class="StepWrapper StepWrapper--indent1" v-else-if="isAssertionStep(step)">
+      <AssertionStep :step="step" />
+    </div>
+
+    <div class="StepWrapper StepWrapper--indent1" v-else-if="isTechnicalStep(step)">
+      <TechnicalStep :step="step" />
+    </div> 
+    
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameIncludes('send')">
       <SendStep :step="step" />
@@ -25,10 +58,6 @@
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('scroll')">
       <ScrollStep :step="step" />
-    </div>
-
-    <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('wait')">
-      <WaitStep :step="step" />
     </div>
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('click')">
@@ -81,7 +110,7 @@
 
     <div class="StepWrapper StepWrapper--indent3" v-else-if="stepNameStartsWith('saveScreenshot')">
       <SaveScreenshotStep :step="step" />
-    </div>
+    </div>-
 
     <div v-else class="StepWrapper StepWrapper--indent3">
       <div class="GenericStep columns is-gapless">
@@ -94,7 +123,7 @@
           <span class="Step-argOther" v-if="step.args[1]">{{toStringOrNumber(step.args[1])}}</span>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <div class="StepHoverContainer" v-if="isHovered && isCodeceptStep(step)">
       <div class="StepHoverContainer-content is-pulled-right has-background-white">
@@ -129,6 +158,10 @@
 import axios from 'axios';
 import {getSelectorString} from '../services/selector';
 
+import AssertionStep from './steps/AssertionStep';
+import GrabberStep from './steps/GrabberStep';
+import WaiterStep from './steps/WaiterStep';
+import ActionStep from './steps/ActionStep';
 import SendStep from './steps/SendStep';
 import SeeStep from './steps/SeeStep';
 import DontSeeStep from './steps/DontSeeStep';
@@ -153,12 +186,16 @@ import copyToClipboard from 'copy-text-to-clipboard';
 
 export default {
   name: 'Step',
-  props: ['step', 'selectedStep', 'isHovered', 'isSelected', 'error'],
+  props: ['step', 'selectedStep', 'isHovered', 'isSelected', 'isOpened', 'error'],
   components: {
     SendStep,
+    ActionStep,
+    GrabberStep,
+    AssertionStep,
     SeeStep,
     DontSeeStep,
     WaitStep,
+    WaiterStep,
     ClickStep,
     AmOnPageStep,
     CookieStep,
@@ -176,6 +213,7 @@ export default {
     ConsoleLogStep
   },
   methods: {
+
     isAction(step) {
       return ['click', 'clickLink', 'fillField', 'selectOption'].includes(step.name);
     },
@@ -198,6 +236,33 @@ export default {
 
     isConsoleLogStep(step) {
       return step.type === 'console.log';
+    },
+
+    isActionStep(step) {
+      return true;
+    },
+
+    isAssertionStep(step) {
+      return step.name.startsWith('see') || step.name.startsWith('dontSee');
+    },
+
+    isWaiterStep(step) {
+      return step.name.startsWith('wait');
+    },
+
+    isGrabberStep(step) {
+      return step.name.startsWith('grab');
+    },
+
+
+    isTechnicalStep(step) {
+      return step.name.includes('Cookie') 
+        || step.name.startsWith('press')
+        || step.name.includes('Screenshot')
+        || step.name.startsWith('send')
+        || step.name.startsWith('execute')
+        || step.name.startsWith('scroll')
+        || step.name.startsWith('refresh');
     },
 
     stepNameStartsWith(methodName) {
@@ -248,12 +313,61 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+
+<style lang="scss">
+  .step {
+    color: #000;
+    @apply bg-white shadow p-1;
+
+    &.comment {
+      font-weight: bold;
+      @apply text-blue-700 bg-gray-100;
+    }
+    &.action {
+      @apply bg-white;
+    }
+    &.assert {
+      @apply bg-green-100;
+    }
+    &.tech {
+      @apply text-gray-500 bg-gray-100;
+    }
+    &.wait {
+      @apply text-gray-500 bg-orange-200;
+    }
+
+    .argument {
+      color: hsl(204, 86%, 53%);
+      display: inline-block;
+      vertical-align: bottom;
+      @apply text-blue-600 border-blue-400;
+      padding: 0;
+      white-space: nowrap;
+      overflow-x: auto;      
+      margin-right: 10px;
+
+      &:nth-of-type(2) {
+        @apply text-orange-600 border-orange-600;
+      }
+      &:nth-of-type(3) {
+        @apply border-green-600 text-green-600;
+      }      
+      &:nth-of-type(4) {
+        @apply border-red-400;
+      }            
+    }
+
+
+  }
+
+
+
 .StepContainer {
   position: relative;
   cursor: pointer;
   font-size: 0.9rem;
-  font-family:  Inconsolata, monospace; 
+  font-family:  Inconsolata, monospace;
+  overflow: hidden; 
 }
 
 .StepContainer--selected {
@@ -261,11 +375,11 @@ export default {
 }
 
 .StepContainer--passed {
-  border-left: 4px solid hsl(141, 71%, 48%);
+  border-right: 4px solid hsl(141, 71%, 48%);
 }
 
 .StepContainer--failed {
-  border-left: 4px solid hsl(348, 100%, 61%);
+  border-right: 4px solid hsl(348, 100%, 61%);
 }
 
 .StepHoverContainer {
@@ -292,15 +406,7 @@ export default {
 .StepWrapper {
   padding: .2em 0 .2em 0;
 }
-.StepWrapper--indent1 {
-  padding-left: .4em;
-}
-.StepWrapper--indent2 {
-  padding-left: .8em;
-}
-.StepWrapper--indent3 {
-  padding-left: 1.2em;
-}
+
 
 .GenericStep {
 }

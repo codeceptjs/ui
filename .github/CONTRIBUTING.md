@@ -4,7 +4,7 @@
 2. Run `npm install`
 3. Run `npm run frontend` to start frontend server
 4. Run `npm run backend` to start backend server with tests in `example/` dir
-5. Open in browser `http://localhost:3001`
+5. Open in browser `http://localhost:8080`
 
 ## Making Pull Requests
 

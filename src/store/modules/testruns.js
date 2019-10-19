@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 
-const getTestById = (tests, testId) => tests[tests.length - 1]; // TODO Use testid to find test
+const getTestById = (tests) => tests[tests.length - 1]; // TODO Use testid to find test
 
 const testRuns = {
   namespaced: true,

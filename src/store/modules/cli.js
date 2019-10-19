@@ -41,7 +41,7 @@ const cli = {
     'SOCKET_cli.stop': function ({ commit }, data) {
       commit('stopCli', data);
     },
-    'SOCKET_cli.output': function ({ commit }, data) {
+    'SOCKET_cli.output': function () {
     },
     'SOCKET_cli.error': function ({ commit }, data) {
       commit('setCliError', data);

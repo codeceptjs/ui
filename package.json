@@ -14,7 +14,7 @@
     "frontend": "vue-cli-service serve",
     "backend": "cd example && ../bin/codepress.js",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --fix",
     "test": "ava",
     "test:watch": "ava -w"
   },
@@ -60,6 +60,7 @@
     "moment": "^2.24.0",
     "sass": "^1.23.0",
     "sass-loader": "^7.1.0",
+    "tailwindcss": "^1.1.2",
     "vue": "^2.6.10",
     "vue-highlightjs": "^1.3.3",
     "vue-router": "^3.1.3",
@@ -80,11 +81,6 @@
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
     }
   },
   "browserslist": [

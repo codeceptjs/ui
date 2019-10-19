@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import '@/assets/tailwind.css'
 import App from './App.vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';

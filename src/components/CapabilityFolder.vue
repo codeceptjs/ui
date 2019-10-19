@@ -2,7 +2,7 @@
     <span class="CapabilityFolder has-text-grey">
         <i class="far fa-folder-open"></i>
         &nbsp;
-        <span v-for="p in splitPath(folder)">
+        <span v-for="p in splitPath(folder)" v-bind:key=p>
                 <span class="has-text-grey-lighter">/</span> {{p}}
         </span>
     </span>

@@ -104,7 +104,7 @@ export default {
       }
     },
 
-    async loadLastTestRun(scenario) {
+    async loadLastTestRun() {
       return this.$store.dispatch('testRuns/loadTestRun', this.scenarioId);
     },
 

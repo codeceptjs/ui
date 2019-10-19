@@ -1,13 +1,7 @@
 <template>
-    <div class="ConsoleLogStep columns is-gapless">
-        <div class="column is-3">
-            <b-tag rounded :class="{ 'is-danger': step.logEntry.type === 'error' }">
-                console {{step.logEntry.type}}
-            </b-tag>
-        </div>
-        <div class="column ellipsize">
+    <div class="ConsoleLogStep is-gapless" :class="{ error: step.logEntry.type === 'error' }">
+            <b>console.{{step.logEntry.type}}</b>
             {{step.logEntry.args}}
-        </div>
     </div>
 </template>
 
@@ -18,8 +12,14 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .ConsoleLogStep {
+
+    @apply bg-yellow-200;
+    &.error {
+        @apply bg-red-200;
+    } 
+
 }
 </style>
 

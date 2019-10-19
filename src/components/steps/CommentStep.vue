@@ -1,12 +1,7 @@
 <template>
-    <div class="CommentStep columns is-gapless has-text-info is-family-sans-serif">
-        <div class="column is-narrow">
-            <i class="CommentStep-icon far fa-comments"></i>
-        </div>
-        <div class="column">
-           {{step.args[0]}}
-        </div>
-    </div>
+  <div class="step CommentStep">
+      {{step.args[0]}}
+  </div>
 </template>
 
 <script>
@@ -15,20 +10,12 @@ export default {
     props: ['step']
 }
 </script>
-
 <style>
 .CommentStep {
   font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
-  padding-top: 1rem;
-  font-size: 1rem;
   font-weight: bold;
+  @apply text-blue-500 bg-gray-100;  
 }
-
-.CommentStep-icon {
-  display: inline-block;
-  width: 1.5rem;
-}
-
 </style>
 
 

@@ -2,14 +2,14 @@
 
 1. clone repository
 2. Run `npm install`
-3. Run `npm run serve` to start frontend server
-4. Open demo project `cd examples`
-5. Start a server with CodeceptJS `../bin/codepress.js`
+3. Run `npm run frontend` to start frontend server
+4. Run `npm run backend` to start backend server with tests in `example/` dir
+5. Open in browser `http://localhost:3001`
 
 ## Making Pull Requests
 
-Create your own branch (fork project)
-Create a branch for the feature you work on
-Create a pull request
-Wait for it to be approved...
+1. Create your own branch (fork project)
+2. Create a branch for the feature you work on
+3. Create a pull request
+4. Wait for it to be approved...
 

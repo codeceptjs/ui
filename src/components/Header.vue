@@ -2,9 +2,8 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-                <img src="../assets/logo.png" alt="codepress logo">
-                &nbsp;
-                codepress
+                <img src="../assets/logo.png" alt="codeceptui logo">
+                &nbsp;CodeceptUI
             </a>
 
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">

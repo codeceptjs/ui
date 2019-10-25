@@ -1,29 +1,26 @@
 <template>
-  <div class="step assert">
-
+  <span>
     <i class="far fa-eye" v-if="!isNegative(step.name)"></i>
     <i class="far fa-eye-slash" v-if="isNegative(step.name)"></i>
 
     {{formatStep(step.humanized)}} 
 
-    <span v-for="arg of step.args" v-bind:key="arg" class="argument">
-      {{ arg }} 
+    <span class="arguments">
+    <Argument v-for="arg of step.args" v-bind:key="arg.toString()" v-bind:arg="arg" ></Argument>      
     </span>
-  </div>
+  </span>
 </template>
 
 <script>
-import {getSelectorString} from '../../services/selector';
+import Argument from './Argument';
 
 export default {
     name: 'AssertionStep',
     props: ['step'],
+    components: { Argument },
     methods: {      
       isNegative(stepName) {
         return stepName.startsWith('dontSee')
-      },
-      formatSelector(sel) {
-        return getSelectorString(sel).label;
       },
       formatStep(stepName) {
         return stepName.replace(/^(see|dont see)/, '');

@@ -1,6 +1,6 @@
 <template>
     <div class="step">
-    <i class="fas fa-chevron-down" :class="{ 'is-opened': isOpened }"></i>
+    <i class="fas fa-chevron-down  arrow" :class="{ 'is-opened': step.expanded }"></i>
         <strong class="StepMetaStep has-text-grey">
             {{actorFromMetaStep(step)}}
         </strong> 
@@ -39,8 +39,11 @@ export default {
   font-family: -apple-system,BlinkMacSystemFont,Lato,Helvetica Neue,sans-serif;
 }
 .step i {  transition: 0.5s all; }
+.arrow {
+    @apply text-gray-500;
+}
 .is-opened {
-  transform: rotate(-90deg);
+    transform: rotate(-90deg);
 }
 </style>
 

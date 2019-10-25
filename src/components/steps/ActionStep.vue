@@ -1,28 +1,24 @@
 <template>
-  <div class="step">
+  <span>
     I {{step.humanized}} 
-    <span v-for="arg of step.args" v-bind:key="arg" class="argument">
-      {{ arg }}
-    </span>
-  </div>
+    <span class="arguments">
+    <Argument v-for="arg of step.args" v-bind:key="arg.toString()" v-bind:arg="arg" ></Argument>
+  </span>
+
+  </span>
 </template>
 
 <script>
+import Argument from './Argument';
+
 export default {
     name: 'ActionStep',
     props: ['step'],
-    methods: {
-      extractPathname(urlAsString) {
-        const url = new URL(urlAsString);
-        return url.pathname;
-      }
-    }
+    components: { Argument },
 }
 </script>
 
 <style>
-.AmOnPageStep {
-}
 
 
 </style>

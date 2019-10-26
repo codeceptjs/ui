@@ -1,22 +1,20 @@
 <template>
-  <div class="step wait">
+  <span>
     <i class="far fa-hourglass"></i>{{formatStep(step.humanized)}} 
-    <span v-for="arg of step.args" v-bind:key="arg" class="argument">
-      {{ arg }} 
+    <span class="arguments">
+      <Argument v-for="arg of step.args" v-bind:key="arg.toString()" v-bind:arg="arg" ></Argument>      
     </span>
-  </div>
+  </span>
 </template>
 
 <script>
-import {getSelectorString} from '../../services/selector';
+import Argument from './Argument';
 
 export default {
     name: 'WaiterStep',
     props: ['step'],
+    components: { Argument },
     methods: {      
-      formatSelector(sel) {
-        return getSelectorString(sel).label;
-      },
       formatStep(stepName) {
         return stepName.replace(/^wait /, '').replace(/^for /, '');
       }

@@ -2,6 +2,15 @@ import Vue from 'vue';
 import axios from 'axios';
 
 const getTestById = (tests) => tests[tests.length - 1]; // TODO Use testid to find test
+const getCurrentTest = state => state.tests[state.tests.length - 1];
+const addMetaStepToCurrentTest = (state, metaStep) => {
+  if (metaStep.metaStep) addMetaStepToCurrentTest(state, metaStep.metaStep);
+  getCurrentTest(state).steps.push({
+    type: 'meta',
+    result: 'passed',
+    ...metaStep
+  });
+};
 
 const testRuns = {
   namespaced: true,
@@ -32,29 +41,13 @@ const testRuns = {
       Vue.set(step, 'result', 'passed');
       currentTest.steps.push(step);
     },
-    addMetaStepToCurrentTest: (state, metastep) => {
-      const currentTest = state.tests[state.tests.length - 1];
-        currentTest.steps.push({
-          type: 'meta',
-          result: 'passed',
-          ...metastep
-        });
-    },
+    addMetaStepToCurrentTest,
     addCommentToCurrentTest: (state, comment) => {
       const currentTest = state.tests[state.tests.length - 1];
       currentTest.steps.push({
         type: 'comment',
         result: 'passed',
         ...comment
-      })
-    },
-    addConsoleLogToCurrentTest: (state, logEntry) => {
-      const currentTest = state.tests[state.tests.length - 1];
-      currentTest.steps.push({
-        type: 'console.log',
-        result: 'passed',
-        name: 'console.log',
-        logEntry
       })
     },
     updateStep: (state, step) => {
@@ -143,8 +136,9 @@ const testRuns = {
     'SOCKET_test.passed': function ({ commit }, data) {
       commit('markAsPassedCurrentTest', data);
     },
-    'SOCKET_console.log': function ({ commit }, logEntry) {
-      commit('addConsoleLogToCurrentTest', logEntry);
+    'SOCKET_console.log': function ({ commit }, logEntry) { // eslint-disable-line no-unused-vars
+      if (!logEntry.type) return;
+      console[logEntry.type]('Test >', logEntry.args); // eslint-disable-line no-console
     },
     'SOCKET_step.comment': function ({ commit }, comment) {
       commit('addCommentToCurrentTest', comment);

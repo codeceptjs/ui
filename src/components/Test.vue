@@ -26,7 +26,7 @@
         <li :class="{ 'is-active': activeTab == 'source' }" @click="activateTab('source')"><a>Source</a></li>
 
       </ul>
-      <div v-if="activeTab == 'testrun'" class="float-right" @click="toggleAll()"><a>Toggle substeps</a></div>
+      <div v-if="activeTab == 'testrun'" class="float-right" @click="toggleAll()"><a><i class="fas fa-sort"></i>{{ isOpened ? 'Collapse' : 'Expand' }}</a></div>
     </div>
 
     <div v-if="activeTab == 'source'">
@@ -38,8 +38,6 @@
         <li 
           v-for="step in test.steps" 
           :key="step.title"
-          @mouseover="setHoveredStep(step)"
-          @mouseleave="unsetHoveredStep(step)"
           @click="toggleSubsteps(step)"
           :ref="step.section"
         >
@@ -54,52 +52,7 @@
         </li>
       </ul>
 
-      <!-- TODO Create separate component -->
-      <div class="InteractiveShell box" v-if="isShowCli">
-        <div class="InteractiveShell-actions is-clearfix">
-          <i class="InteractiveShell-closeButton fa fa-times is-pulled-right" v-on:click.once="closeInteractiveShell()" />
-          <i class="InteractiveShell-nextStepButton fas fa-step-forward is-pulled-right" v-on:click="nextStep()"></i>
-        </div>
-
-        <article class="InteractiveShell-error message is-danger" v-if="hasErrorCli">
-          <div class="message-header">
-            <p>Command failed</p>
-          </div>
-          <div class="message-body">
-            {{cliError}}
-          </div>
-        </article>
-
-        <ul class="InteractiveShell-commands">
-          <li v-on:click="execCommand('click')">
-            <a href="">
-              click
-            </a>
-          </li>
-          <li>
-            <a href="">
-              fillField
-            </a>
-          </li>
-          <li>
-            <a href="">
-              see
-            </a>
-          </li>
-          <li>
-            <a href="">
-              other ...
-            </a>
-
-            <input 
-              class="is-small input" 
-              type="text" 
-              placeholder="Enter CodeceptJS command" 
-              v-model="command"  
-              v-on:keyup.enter="sendCommand(command)" />
-          </li>
-        </ul>
-      </div>
+      <Pause></Pause>
 
       <!-- TODO Create separate component -->
       <div v-if="test.result === 'failed'" class="Test-error notification is-danger">
@@ -122,21 +75,22 @@
 
 <script>
 import moment from 'moment';
+import Pause from './Pause';
 import Step from './Step';
 import ScenarioSource from './ScenarioSource';
-import Convert from 'ansi-to-html';
 
 export default {
   name: 'Test',
   props: ['test', 'scenario'],
   components: {
-    Step, ScenarioSource,
+    Step, ScenarioSource, Pause, 
   },
   data: function () {
     this.test.steps.forEach(s => s.opened = this.$store.getters['testRunPage/showSubsteps']);
     return {
       activeTab: 'testrun',
       command: undefined, 
+      isOpened: false,
     }
   },
   methods: {
@@ -146,7 +100,7 @@ export default {
 
     indentLevel(step) {
       if (!step.section) return 0;
-      return step.section.split('_').length * 3;
+      return Math.min(step.section.split('_').length * 2, 12);
     },
 
     activateTab(tabname) {
@@ -155,70 +109,43 @@ export default {
 
     toggleAll() {
       this.$store.commit('testRunPage/toggleSubsteps');
-      const isOpened = this.$store.getters['testRunPage/showSubsteps'];
-      this.test.steps.filter(s => s.type === 'meta').forEach(s => this.toggleSubsteps(s, isOpened));
+      this.isOpened = this.$store.getters['testRunPage/showSubsteps'];
+      this.test.steps.filter(s => s.type === 'meta').forEach(s => this.toggleSubsteps(s, this.isOpened));
       this.$forceUpdate();  
     },
 
-    sendCommand(command) {
-      this.$store.commit('clearCliError');
-      this.$socket.emit('cli.line', command);
-    },
-    closeInteractiveShell() {
-      this.$socket.emit('cli.line', 'exit');
-      this.$store.commit('stopCli');
-    },
-    nextStep() {
-      this.$socket.emit('cli.line', '');
-    },
     trim(str) {
       return str.trim();
     },
     toggleSubsteps(step, isOpened) {
-      if (step.type !== 'meta') return true;
+      if (step.type !== 'meta') {
+        step.expanded 
+          ? this.$store.commit('testRunPage/setHoveredStep', step) 
+          : this.$store.commit('testRunPage/unsetHoveredStep', step);
+        return true;
+      }
+
       if (!step.opens) return true;
-      step.opened = !step.opened;
+      this.$set(step, 'opened', !step.opened);
 
       for (const section in this.$refs) {
-        const els = this.$refs[section];
         if (section.startsWith(step.opens)) {
+          const els = this.$refs[section];          
           if (typeof isOpened === 'boolean') {
-            els.forEach(el => el.classList.toggle('hidden', isOpened))  
+            if (!step.opened) els.forEach(el => el.classList.add('hidden'));
+            if (step.opened) els.forEach(el => el.classList.remove('hidden'))
+            return;
           }
-          els.forEach(el => el.classList.toggle('hidden'));
+          if (!step.opened) els.forEach(el => el.classList.add('hidden'));
+          if (step.opened) els.forEach(el => el.classList.remove('hidden'))
         }
       }
     },
-    setHoveredStep(step) {
-      this.$store.commit('testRunPage/setHoveredStep', step);
-    },
-    unsetHoveredStep(step) {
-      this.$store.commit('testRunPage/unsetHoveredStep', step);
-    }
   },
   computed: {
     openAllSubsteps() {
       return this.$store.getters['testRunPage/showSubsteps']
     },
-
-    isShowCli() {
-      return this.$store.getters['cli/show'];
-    },
-
-    hasErrorCli() {
-      return this.$store.state.cli && this.$store.state.cli.message;
-    },
-
-    cliPrompt() {
-      return this.$store.state.cli.prompt;
-    },
-
-    cliError() {
-      var convert = new Convert();
-
-      return convert.toHtml(this.$store.state.cli.message);
-    },
-
     hoveredStep() {
       return this.$store.getters['testRunPage/hoveredStep'];
     },
@@ -261,22 +188,4 @@ export default {
   padding: .5em;
 }
 
-.InteractiveShell {
-  margin-top: 1em;
-}
-
-.InteractiveShell-error {
-  margin-top: 1em;
-  font-size:0.9rem;
-}
-
-.InteractiveShell-closeButton {
-  cursor: pointer;
-  margin-left: 1em;
-}
-
-.InteractiveShell-nextStepButton {
-  cursor: pointer;
-  margin-left: 1em;
-}
 </style>

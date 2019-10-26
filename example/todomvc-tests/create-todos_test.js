@@ -1,8 +1,12 @@
 Feature('@first Create Todos @step:06 @smoke @story:12345')
 
 Before(async (I, TodosPage) => {
-    TodosPage.goto()
+  TodosPage.goto()
 })
+
+Scenario('try pause', (I) => {
+  pause();
+});
 
 /**
  * Happy Path tests

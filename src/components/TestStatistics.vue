@@ -1,51 +1,31 @@
 <template>
   <nav class="level">
     <div class="level-item is-expanded">
+      <i class="far fa-check-circle mr-1" aria-hidden="true"></i>     
+      Successful
+      <b-tag rounded > {{successful}}</b-tag>
+    </div>
+    <div class="level-item is-expanded">
+        <i class="far fa-times-circle mr-1" aria-hidden="true"></i> 
+        Failed
+        <b-tag rounded> {{failed}}</b-tag>
+    </div>
+    <div class="level-item is-expanded">
       <div class="field">
-        <span class="icon is-small">
-          <i class="fas fa-forward" aria-hidden="true"></i>
-        </span>
-        <span>
+          <i class="fas fa-forward mr-1" aria-hidden="true"></i>
           Skipped
           <b-tag rounded>{{skipped}}</b-tag>
-        </span>
       </div>
     </div>
     <div class="level-item is-expanded">
-      <span class="icon is-small">
-        <i class="far fa-check-circle" aria-hidden="true"></i>
-      </span>
-      <span>
-        Successful
-        <b-tag rounded>{{successful}}</b-tag>
-      </span>
-    </div>
-    <div class="level-item is-expanded">
-      <span class="icon is-small">
-        <i class="far fa-times-circle" aria-hidden="true"></i>
-      </span>
-      <span>
-        Failed
-        <b-tag rounded>{{failed}}</b-tag>
-      </span>
-    </div>
-    <div class="level-item is-expanded">
-      <span class="icon is-small">
-        <i class="far fa-hourglass" aria-hidden="true"></i>
-      </span>
-      <span>
+        <i class="far fa-hourglass mr-1" aria-hidden="true"></i>
         Not Started
         <b-tag rounded>{{pending}}</b-tag>
-      </span>
     </div>
     <div class="level-item is-expanded">
-      <span class="icon is-small">
-        <i class="fas fa-list" aria-hidden="true"></i>
-      </span>
-      <span>
-        Features
-        <b-tag rounded>{{totalFeatures}}</b-tag>
-      </span>
+      <i class="fas fa-list mr-1" aria-hidden="true"></i>
+      Suites
+      <b-tag rounded>{{totalFeatures}}</b-tag>
     </div>
   </nav>
 </template>
@@ -110,8 +90,7 @@ export default {
 
 <style scoped>
 nav {
-  z-index: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  z-index: 100;
+  @apply bg-gray-100 fixed inset-x-0 bottom-0 p-1;
 }
 </style>

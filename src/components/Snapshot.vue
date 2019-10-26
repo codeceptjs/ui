@@ -3,28 +3,47 @@
     
     <div class="Snapshot-browser" v-if="!isCodeStep(selected) && selected.snapshot">
 
-      <div class="Snapshot-actions" v-if="selected.snapshot">
-        <div class="buttons has-addons">
-          <span class="button is-small" :disabled="!selected.snapshot.hasScreenshot" v-bind:class="{ 'is-info is-selected': isShowImage }" v-on:click="showImage()">
-            <i class="far fa-image"></i>
-          </span>
-          <span class="button is-small" :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-info is-selected': isShowSource }" v-on:click="showSource()">
-            <i class="far fa-file-code"></i>
-          </span>
+      <div class="columns Browser-header">
+        <div class="column">
+          <div class="Snapshot-actions" v-if="selected.snapshot">
+            <div class="field has-addons">
+              <p class="control">
+              <span class="button " :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-selected is-primary': isShowSource }" v-on:click="showSource()">
+                <i class="far fa-file-code"></i> Snapshot
+              </span>
+              </p>
+                <p class="control">
+              <span class="button" :disabled="!selected.snapshot.hasScreenshot" v-bind:class="{ 'is-selected is-primary': isShowImage }" v-on:click="showImage()">
+                <i class="far fa-image"></i> Screenshot 
+              </span>
+                </p>
+            </div>
+          </div>
+        </div>
+        <div class="column" v-if="selected.snapshot">
+            <button :disabled="!isShowSource" class="button ml-2" v-bind:class="{ 'is-info': enabledSelection }" @click="toggleSelect"><i class="fas fa-mouse-pointer"></i></button>
+        </div>
+
+        <div class="column is-half">
+          <div class="Snapshot-pageUrl">
+            <input class="input" type="text" placeholder="Disabled input" disabled :value="selected.snapshot.pageUrl">
+            <div class="text-center text-gray-800">
+
+            {{selected.snapshot.pageTitle}}
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+              <span class="Snapshot-size is-pulled-right">
+                <b-tag ><i class="fas fa-file-code"></i>{{ selected.snapshot.sourceContentType }}</b-tag>&nbsp;
+                <b-tag><i class="fas fa-desktop"></i> {{selected.snapshot.viewportSize.width}}x{{selected.snapshot.viewportSize.height}}</b-tag>&nbsp;
+                
+              </span>
         </div>
       </div>
 
-      <div class="Snapshot-pageTitle">
-        <a :href="selected.snapshot.pageUrl" target="_blank">
-          <span class="Snapshot-size is-pulled-right">
-            <i class="fas fa-desktop"></i> {{selected.snapshot.viewportSize.width}}x{{selected.snapshot.viewportSize.height}}
-          </span>
-          {{selected.snapshot.pageTitle}}
-        </a>
-      </div>
-      <div class="Snapshot-pageUrl">
-        <input class="input" type="text" placeholder="Disabled input" disabled :value="selected.snapshot.pageUrl">
-      </div>
+
       
       <div class="Snapshot-data" v-if="selected.snapshot">
         <img v-if="isShowImage" 
@@ -39,6 +58,7 @@
           v-bind:snapshotScrollPosition="selected.snapshot.scrollPosition"
           v-bind:viewportSize="selected.snapshot.viewportSize"
           v-bind:highlight="getSelector(selected)"
+          v-bind:enabledSelection="enabledSelection"
         />
       </div>
 
@@ -106,10 +126,14 @@ export default {
     isCodeStep(step) {
       return step.name === 'comment' || step.name.startsWith('send');
     },
+    toggleSelect() {
+      this.enabledSelection = !this.enabledSelection;
+    }    
   },
   data: function () {
     return {
       show: 'image',
+      enabledSelection: false,
     }
   },
   computed: {
@@ -119,11 +143,20 @@ export default {
     isShowSource() {
       return this.$store.getters['testRunPage/showSource'];
     }
-  }
+  },
+
 }
 </script>
 
 <style scoped>
+.Snapshot {
+  @apply bg-gray-100;
+}
+
+.Browser-header {
+  /* @apply bg-gray-300; */
+  background: #fafafa;
+}
 
 .Snapshot-actions {
   margin: 0 auto;

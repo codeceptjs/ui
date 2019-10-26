@@ -6,7 +6,7 @@
           <a class="navbar-item" href="/">
             <img src="../assets/logo.png" alt="codepress logo">
             &nbsp;
-            codepress
+            CodeceptUI
           </a>
 
           <div class="SearchField navbar-item field has-addons">

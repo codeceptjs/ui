@@ -17,11 +17,11 @@
               <a class="button is-small" @click="clearSearch()">
                 <i class="far fa-times-circle"></i>
               </a>
-              <a class="button is-small is-primary" v-if="isMatchType('all')" @click="selectMatchType('any')">
-                Match All
+              <a class="button is-small" v-if="isMatchType('all')" @click="selectMatchType('any')">
+                All
               </a>
-              <a class="button is-small is-primary" v-if="isMatchType('any')" @click="selectMatchType('all')">
-                Match Any
+              <a class="button is-small" v-if="isMatchType('any')" @click="selectMatchType('all')">
+                Any
               </a>
             </p>
           </div>
@@ -29,6 +29,8 @@
 
         <div class="navbar-menu">
             <div class="navbar-end">
+              <button class="button is-primary m-1" @click="gotoNewTest()">
+                Write a Test</button>
               <SettingsMenu />
             </div>
         </div>
@@ -48,7 +50,7 @@
     <section>
       <div class="container">
 
-        <ul v-if="hasSearchResults()">
+        <ul v-if="hasSearchResults()" class="mb-8">
           <li :key="capability" v-for="(features, capability) in project.features">
             <div class="Capability">
               <h2 class="Capability-headline is-size-6">
@@ -102,6 +104,9 @@ export default {
     }
   },
   methods: {
+      gotoNewTest() {
+        this.$router.push('/new-test');
+      },        
       clearSearch() {
         this.search = '';
         this.loadProject();

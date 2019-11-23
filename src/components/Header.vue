@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="/">
+            <a class="navbar-item" @click.stop="gotoScenarios()">
                 <img src="../assets/logo.png" alt="codeceptui logo">
                 &nbsp;CodeceptUI
             </a>
@@ -37,9 +37,6 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                    <a class="button is-primary is-small" @click="gotoScenarios()">
-                        Scenarios
-                    </a>
                     </div>
                 </div>
             </div>

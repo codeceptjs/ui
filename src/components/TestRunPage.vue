@@ -1,8 +1,6 @@
 <template>
   <div class="TestRun">
-    <div class="Header">
-      <Header :loading="isRunning" @run="runScenario(scenario)" />
-    </div>
+    <Header :loading="isRunning" @run="runScenario(scenario)" />
 
     <aside class="Sidebar">
       <div v-if="scenario && tests.length > 0">
@@ -26,7 +24,11 @@
       <Snapshot v-if="hoveredOrSelectedStep"
         v-bind:selected="hoveredOrSelectedStep"
       />
+      <div class="empty" v-else>
+        Once you <a href="#" @click="runScenario(scenario)">launch a test</a> you will see snapshots of all steps here.<br>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -110,9 +112,7 @@ export default {
 
     runScenario(scenario) {
       const profileName = this.$store.getters['profiles/selectedProfileName'];
-      // TODO Use scenario id to run it
-      const scenarioId = scenario.title;
-      this.$store.dispatch('testRuns/runScenario', { scenarioId, profileName });
+      this.$store.dispatch('testRuns/runScenario', { ...scenario, profileName });
     },
 
     // TODO Do i still need this
@@ -124,34 +124,5 @@ export default {
 </script>
 
 <style scoped>
-.Header {
-  height: 60px;
-  padding: 0 5px;
-  box-shadow: 0 2px 0 0 #f5f5f5;
-}
 
-.Sidebar {
-  position: absolute;
-  z-index: 10;
-  top: 61px;
-  left: 0;
-  bottom: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 5px 5px 5px 10px;
-  width: 33%;
-  background-color: #fafafa;
-}
-
-.Content {
-  position: absolute;
-  z-index: 10;
-  top: 61px;
-  left: 33%;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  padding: 10px;
-}
 </style>

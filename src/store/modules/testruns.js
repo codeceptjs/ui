@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import axios from 'axios';
 
-const getTestById = (tests) => tests[tests.length - 1]; // TODO Use testid to find test
+const getTestById = (tests, id) => tests.filter(t => t.id === id)[0]; // TODO Use testId to find test
 const getCurrentTest = state => state.tests[state.tests.length - 1];
 const addMetaStepToCurrentTest = (state, metaStep) => {
   if (metaStep.metaStep) addMetaStepToCurrentTest(state, metaStep.metaStep);
+  if (metaStep.actor === 'Test:') return false;
   getCurrentTest(state).steps.push({
     type: 'meta',
     result: 'passed',
@@ -17,8 +18,8 @@ const testRuns = {
   state: { 
     isRunning: undefined,
     lastSnapshot: undefined,
-    // TODO Use testids and support multiple testruns in parallel
-    tests: [],                
+    // TODO Use testIds and support multiple testruns in parallel
+    tests: [],
   },
   mutations: { 
     clearTests: (state) => {
@@ -31,8 +32,7 @@ const testRuns = {
       Vue.set(state, 'tests', [...state.tests, test])
     },
     addStepToCurrentTest: (state, step) => {
-      const currentTest = state.tests[state.tests.length - 1];
-
+      const currentTest = getTestById(state.tests, step.testId);
       if (step.snapshot) {
         state.lastSnapshot = step.snapshot;
       } else {
@@ -43,7 +43,7 @@ const testRuns = {
     },
     addMetaStepToCurrentTest,
     addCommentToCurrentTest: (state, comment) => {
-      const currentTest = state.tests[state.tests.length - 1];
+      const currentTest = getCurrentTest(state);
       currentTest.steps.push({
         type: 'comment',
         result: 'passed',
@@ -51,9 +51,8 @@ const testRuns = {
       })
     },
     updateStep: (state, step) => {
-      const test = getTestById(state.tests, step.testid);
+      const test = getTestById(state.tests, step.testId);
       const currentStep = test.steps[test.steps.length - 1];
-
       Vue.set(currentStep, 'returnValue', step.returnValue);
     },
     markAsFailedCurrentTest: (state, data) => {
@@ -90,6 +89,9 @@ const testRuns = {
     },
     isRunning: state => {
       return state.isRunning;
+    },
+    currentTest: state => {
+      return getCurrentTest(state);
     }
   },
   actions: {
@@ -106,10 +108,16 @@ const testRuns = {
       }
     },
 
-    runScenario: async function ({ commit }, { scenarioId, profileName }) {
-      if (!scenarioId) throw new Error('scenarioId is required');
+    runNewTest: async function ({ commit }, code) {
+      axios.post(`/api/run-new`, { code });
+      
+      commit('clearTests');
+      commit('setRunning', true);
+    },
 
-      axios.post(`/api/scenarios/${encodeURIComponent(scenarioId)}/run`, { profileName });
+    runScenario: async function ({ commit }, { id, profileName }) {
+      if (!id) throw new Error('id is required');
+      axios.post(`/api/scenarios/${encodeURIComponent(id)}/run`, { profileName });
       commit('clearTests');
       commit('setRunning', true);
     },
@@ -143,7 +151,7 @@ const testRuns = {
     'SOCKET_step.comment': function ({ commit }, comment) {
       commit('addCommentToCurrentTest', comment);
     },
-    'SOCKET_step.before': function ({ commit }, step) {
+    'SOCKET_step.before': function ({ commit }, step) {      
       commit('addStepToCurrentTest', step);
     },
     'SOCKET_step.passed': function ({commit}, step) {

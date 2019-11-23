@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="StepWrapper" v-else-if="!step.store || (step.store && !step.store.debugMode)">
+    <div class="StepWrapper" v-else>
         <div class="step" :class="{ 
           tech: isTechnicalStep(step),
           assert: isAssertionStep(step),
@@ -59,6 +59,7 @@ export default {
     WaiterStep,
     MetaStep,
   },
+
   methods: {
 
     isAction(step) {

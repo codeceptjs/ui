@@ -60,4 +60,49 @@ i {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+Header {
+  height: 60px;
+  padding: 0 5px;
+  box-shadow: 0 2px 0 0 #f5f5f5;
+}
+
+.Sidebar {
+  position: absolute;
+  z-index: 10;
+  top: 61px;
+  left: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 5px 5px 5px 10px;
+  width: 33%;  
+  background-color: #fafafa;
+  @media (max-width: 1024px) { 
+    width: 100%;
+    position: relative;
+   }
+}
+
+.Content {
+  position: absolute;
+  z-index: 10;
+  top: 61px;
+  left: 33%;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  @apply p-1 bg-gray-300;
+  display: none;
+  @media (min-width: 1024px) { 
+    display: block;
+   }
+}
+
+.empty {
+  @apply p-20 object-cover text-gray-600 text-center;
+}
+
+
 </style>

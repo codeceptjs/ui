@@ -52,24 +52,11 @@
         </li>
       </ul>
 
-      <Pause></Pause>
+      <Pause v-showNextStep></Pause>
 
-      <!-- TODO Create separate component -->
-      <div v-if="test.result === 'failed'" class="Test-error notification is-danger">
-        <p>
-          {{trim(test.error.message)}}
-        </p>
-        <p>
-          FAILED in {{test.duration}}s
-        </p>
-      </div>
-      <div v-if="test.result === 'passed'" class="Test-passed notification is-success">
-          PASSED in {{test.duration}}s
-      </div>
+      <TestResult :test="test"></TestResult>
 
-      <div class="Test-spacer"></div>
-    </div>
-
+  </div>
   </div>
 </template>
 
@@ -78,12 +65,13 @@ import moment from 'moment';
 import Pause from './Pause';
 import Step from './Step';
 import ScenarioSource from './ScenarioSource';
+import TestResult from "./TestResult";
 
 export default {
   name: 'Test',
   props: ['test', 'scenario'],
   components: {
-    Step, ScenarioSource, Pause, 
+    Step, ScenarioSource, Pause, TestResult,
   },
   data: function () {
     this.test.steps.forEach(s => s.opened = this.$store.getters['testRunPage/showSubsteps']);
@@ -114,9 +102,6 @@ export default {
       this.$forceUpdate();  
     },
 
-    trim(str) {
-      return str.trim();
-    },
     toggleSubsteps(step, isOpened) {
       if (step.type !== 'meta') {
         step.expanded 
@@ -127,6 +112,7 @@ export default {
 
       if (!step.opens) return true;
       this.$set(step, 'opened', !step.opened);
+      this.$set(step, 'expanded', !step.expanded);
 
       for (const section in this.$refs) {
         if (section.startsWith(step.opens)) {
@@ -168,24 +154,6 @@ export default {
 
 .TestRun-steps {
   line-height: 1em;
-}
-
-.Test-spacer {
-  height: 2em;
-  width: 100%;
-}
-
-.Test-error {
-  font-family: Inconsolata, monospace;
-  font-size:0.9rem;
-  margin-top: .5em;
-}
-
-.Test-passed {
-  font-family: Inconsolata, monospace;
-  margin-top: .5em;
-  font-size:0.9rem;
-  padding: .5em;
 }
 
 </style>

@@ -8,7 +8,7 @@
           <div class="Snapshot-actions" v-if="selected.snapshot">
             <div class="field has-addons">
               <p class="control">
-              <span class="button " :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-selected is-primary': isShowSource }" v-on:click="showSource()">
+              <span class="button " :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-selected is-primary is-outlined': isShowSource }" v-on:click="showSource()">
                 <i class="far fa-file-code"></i> Snapshot
               </span>
               </p>
@@ -53,7 +53,7 @@
         >
 
         <snapshot-source 
-          v-if="isShowSource"
+          v-if="isShowSource && selected.snapshot"
           v-bind:snapshotId="selected.snapshot.id"
           v-bind:snapshotScrollPosition="selected.snapshot.scrollPosition"
           v-bind:viewportSize="selected.snapshot.viewportSize"
@@ -155,7 +155,7 @@ export default {
 
 .Browser-header {
   /* @apply bg-gray-300; */
-  background: #fafafa;
+  @apply p-1;
 }
 
 .Snapshot-actions {

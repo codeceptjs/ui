@@ -18,12 +18,22 @@
           </b-autocomplete>
       </b-field>
 
+
+
+    <div v-if="successfulSteps.length" class="message  is-success">
+      <div class="message-header">
+        <p>Succesful Steps</p>
+      </div>
+      <pre v-highlightjs="stepsCode"><code class="javascript"></code></pre>
+      <div class="hint">You can copy successful steps into to your test</div>
+    </div>
+
     <div class="InteractiveShell-actions columns">
-      <div class="column">
+      <div class="column" v-if="showNextStep">
        <b-button v-on:click.once="nextStep()" type="is-primary" outlined>Next Step</b-button>
       </div>
       <div class="column text-right">
-       <b-button v-on:click.once="closeInteractiveShell()" type="is-primary">Continue</b-button>
+       <b-button v-on:click.once="closeInteractiveShell()" type="is-primary">Exit</b-button>
       </div>
     </div>
 
@@ -34,13 +44,6 @@
       <div class="message-body" v-html="cliError"></div>
     </article>
 
-    <div v-if="successfulSteps.length" class="message  is-success">
-      <div class="message-header">
-        <p>Succesful Steps</p>
-      </div>
-      <pre v-highlightjs="stepsCode"><code class="javascript"></code></pre>
-    </div>
-
   </div>
 </template>
 
@@ -49,6 +52,12 @@ import Convert from 'ansi-to-html';
 
 export default {
   name: 'Pause',
+  props: {
+    showNextStep: {
+      type: Boolean,
+      default: false,
+    }
+  },
   data: function() {
     return {
       command: '',
@@ -148,12 +157,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .commandInput {
     @apply font-mono;
     input {      
       @apply text-sm;
       font-family: monospace !important;
     }
+  }
+  .hint {
+    background: whitesmoke;
+    @apply text-sm text-gray-600 text-center p-1;
   }
 </style>

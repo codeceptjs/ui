@@ -1,26 +1,45 @@
 import axios from 'axios';
 
-const profiles = {
-    namespaced: true,
-    state: {
-        settings: {}
-    },
-    getters: {
-    },
-    mutations: {
-    },
-    actions: {
-        loadSettings: async function({ state }) {
-            const response = await axios.get('/api/settings');
-            state.settings = response.data;
-            return state.settings;
-        },
-        storeSettings: async function({ state }, settings) {
-            state.settings = settings;
-            await axios.put('/api/settings', settings);
-            return state.settings;
-        }
-    }
+if (!localStorage.codecept) {
+  localStorage.codecept = "{}";
 }
 
-export default profiles;
+const settings = {
+  namespaced: true,
+  state: JSON.parse(localStorage.codecept),
+  getters: {
+    windowSize: state => {
+      return state.windowSize || { width: null, height: null };
+    },
+    isHeadless: state => state.isHeadless,
+  },
+  mutations: {
+    setHeadless(state, isHeadless) {
+      state.isHeadless = isHeadless;
+    },
+    setWindowSize(state, { width, height }) {
+      state.windowSize = {
+        width, height
+      };
+    }
+  },
+  actions: {
+    setHeadless: async function({ commit, dispatch }, isHeadless) {
+      commit('setHeadless', isHeadless);
+      await dispatch('storeSettings');
+    },
+
+    setWindowSize: async function({ commit, dispatch }, size) {
+      commit('setWindowSize', size);
+      await dispatch('storeSettings');
+    },
+
+    storeSettings: async function ({ state }) {
+      localStorage.codecept = JSON.stringify(state);
+      await axios.put('/api/settings', state);
+      return state;
+    }
+  }
+}
+
+export default settings;

@@ -18,7 +18,12 @@
           </b-autocomplete>
       </b-field>
 
-
+    <article class="InteractiveShell-error message is-danger" v-if="hasErrorCli">
+      <div class="message-header">
+        <p>Command failed</p>
+      </div>
+      <div class="message-body" v-html="cliError"></div>
+    </article>
 
     <div v-if="successfulSteps.length" class="message  is-success">
       <div class="message-header">
@@ -36,13 +41,6 @@
        <b-button v-on:click.once="closeInteractiveShell()" type="is-primary">Exit</b-button>
       </div>
     </div>
-
-    <article class="InteractiveShell-error message is-danger" v-if="hasErrorCli">
-      <div class="message-header">
-        <p>Command failed</p>
-      </div>
-      <div class="message-body" v-html="cliError"></div>
-    </article>
 
   </div>
 </template>

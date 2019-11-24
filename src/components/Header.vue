@@ -36,8 +36,7 @@
 
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <div class="buttons">
-                    </div>
+                    <SettingsMenu />
                 </div>
             </div>
         </div>
@@ -45,9 +44,12 @@
 </template>
 
 <script>
+import SettingsMenu from './SettingsMenu';
+
 export default {
     name: 'Header',
     props: ['loading'],
+    components: { SettingsMenu },
     methods: {
         run() {
             this.$emit('run');

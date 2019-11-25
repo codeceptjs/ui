@@ -1,17 +1,25 @@
 import axios from 'axios';
 
+const defaults = {
+  editor: 'code --goto ',
+};
+
 if (!localStorage.codecept) {
-  localStorage.codecept = "{}";
+  localStorage.codecept = JSON.stringify(defaults);
 }
 
-const settings = {
+const settings = JSON.parse(localStorage.codecept);
+
+// initialize current settings on backend
+axios.put('/api/settings', settings);
+
+export default {
   namespaced: true,
-  state: JSON.parse(localStorage.codecept),
+  state: settings,
   getters: {
     windowSize: state => {
       return state.windowSize || { width: null, height: null };
     },
-    isHeadless: state => state.isHeadless,
   },
   mutations: {
     setHeadless(state, isHeadless) {
@@ -21,7 +29,14 @@ const settings = {
       state.windowSize = {
         width, height
       };
-    }
+    },
+    setEditor(state, editor) {
+      state.editor = editor;
+    },
+    setBrowser(state, browser) {
+      state.browser = browser;
+    },
+
   },
   actions: {
     setHeadless: async function({ commit, dispatch }, isHeadless) {
@@ -33,13 +48,18 @@ const settings = {
       commit('setWindowSize', size);
       await dispatch('storeSettings');
     },
-
+    setEditor: async function({ commit, dispatch}, editor) {
+      commit('setEditor', editor);
+      await dispatch('storeSettings');
+    },
+    setBrowser: async function({ commit, dispatch}, browser) {
+      commit('setBrowser', browser);
+      await dispatch('storeSettings');
+    },
     storeSettings: async function ({ state }) {
       localStorage.codecept = JSON.stringify(state);
       await axios.put('/api/settings', state);
       return state;
-    }
+    },
   }
 }
-
-export default settings;

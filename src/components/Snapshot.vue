@@ -6,23 +6,22 @@
       <div class="columns Browser-header">
         <div class="column">
           <div class="Snapshot-actions" v-if="selected.snapshot">
-            <div class="field has-addons">
+            <div class="field ml-2 has-addons">
               <p class="control">
-              <span class="button " :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-selected is-primary is-outlined': isShowSource }" v-on:click="showSource()">
+              <span class="button is-small" :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-selected is-info': isShowSource }" v-on:click="showSource()">
                 <i class="far fa-file-code"></i> Snapshot
               </span>
               </p>
                 <p class="control">
-              <span class="button" :disabled="!selected.snapshot.hasScreenshot" v-bind:class="{ 'is-selected is-primary': isShowImage }" v-on:click="showImage()">
+              <span class="button is-small" :disabled="!selected.snapshot.hasScreenshot" v-bind:class="{ 'is-selected is-info': isShowImage }" v-on:click="showImage()">
                 <i class="far fa-image"></i> Screenshot 
               </span>
                 </p>
             </div>
+            <button :disabled="!isShowSource" class="button ml-2 is-small" v-bind:class="{ 'is-info': enabledSelection }" @click="toggleSelect"><i class="fas fa-mouse-pointer"></i></button>
           </div>
         </div>
-        <div class="column" v-if="selected.snapshot">
-            <button :disabled="!isShowSource" class="button ml-2" v-bind:class="{ 'is-info': enabledSelection }" @click="toggleSelect"><i class="fas fa-mouse-pointer"></i></button>
-        </div>
+
 
         <div class="column is-half">
           <div class="Snapshot-pageUrl">
@@ -155,7 +154,7 @@ export default {
 
 .Browser-header {
   /* @apply bg-gray-300; */
-  @apply p-1;
+  @apply p-1 shadow-md;
 }
 
 .Snapshot-actions {

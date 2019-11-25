@@ -1,5 +1,5 @@
 <template>
-  <nav class="level">
+  <nav class="level is-hidden-touch">
     <div class="level-item is-expanded">
       <i class="far fa-check-circle mr-1" aria-hidden="true"></i>     
       Successful

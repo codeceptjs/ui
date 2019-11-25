@@ -26,14 +26,38 @@
             </p>
           </div>
         </div>
-
         <div class="navbar-menu">
+        <div class="navbar-start">
+
+                <a class="navbar-item">
+                    <i v-if="loading" class="fas fa-circle-notch fa-spin fixed-width"></i>
+                    <span v-else class="fixed-width"></span>
+                </a>
+
+            <div class="navbar-item">
+                <button class="button is-primary is-outlined is-small" 
+                    v-on:click="run()"
+                    :disabled="!!loading"
+                >
+                    <i class="fas fa-play"></i>
+                    &nbsp;
+                    Run
+                </button>
+            </div>
+
+
+
+        </div>
+
             <div class="navbar-end">
-              <button class="button is-primary m-1" @click="gotoNewTest()">
+          <div class="navbar-item">
+          <button class="button is-primary" @click="gotoNewTest()">
                 Write a Test</button>
+
+          </div>
+        </div>
               <SettingsMenu />
             </div>
-        </div>
       </div>
     </nav>
 

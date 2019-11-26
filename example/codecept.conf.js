@@ -4,10 +4,14 @@ exports.config = {
   helpers: {
     Puppeteer: {
       url: 'http://localhost',
+      browser: 'chrome',
       waitForTimeout: 5000,
       waitForNavigation: 'networkidle0',
       waitForAction: 0,
       show: true,
+      chrome: {
+        args: [ "--headless", "--disable-gpu", "--no-sandbox" ]
+      }
     },
 
     REST: {},

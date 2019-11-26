@@ -16,7 +16,18 @@
   </div>
 </template>
 
+<style>
+  iframe {
+    display: block;       /* iframes are inline by default */
+    background: #000;
+    border: none;         /* Reset default border */
+    height: 100vh;        /* Viewport-relative units */
+    width: 100vw;
+  }
+</style>
 <script>
+
+
 import {
   highlightElement,
   dehighlightAll,
@@ -108,11 +119,11 @@ export default {
       );
 
       this.getIframeDoc().addEventListener(
-        "mousemove", 
+        "mousemove",
         handleIframeMouseMove(this.$props, this.getIframeDoc(), this.getIframeWindow())
       );
       this.getIframeDoc().addEventListener(
-        "mouseout", 
+        "mouseout",
         handleIframeMouseOut(this.$props, this.getIframeDoc(), this.$props.highlight)
       );
       this.getIframeDoc().addEventListener(
@@ -129,9 +140,6 @@ export default {
 }
 
 .SnapshotSource-content {
-  position: relative;
-  padding-bottom: 75%;
-  height: 0;
   overflow: hidden;
   max-width: 100%;
   height: auto;
@@ -139,16 +147,11 @@ export default {
 
 #source {
   cursor: pointer;
-  position: absolute;
   margin-left: auto;
   margin-right: auto;
-  left: 0;
-  right: 0;
-
-  height: 90%;
+  padding-top: -3px;
   max-width: 100%;
   border: none;
-
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 </style>

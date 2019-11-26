@@ -15,13 +15,14 @@ const addMetaStepToCurrentTest = (state, metaStep) => {
 
 const testRuns = {
   namespaced: true,
-  state: { 
+  state: {
     isRunning: undefined,
     lastSnapshot: undefined,
     // TODO Use testIds and support multiple testruns in parallel
     tests: [],
+    log: [],
   },
-  mutations: { 
+  mutations: {
     clearTests: (state) => {
       state.isRunning = false;
       state.tests = [];
@@ -81,7 +82,9 @@ const testRuns = {
     setRunning: (state, isRunning) => {
       state.isRunning = isRunning;
     },
-
+    addedLog: (state, entityOfLog) => {
+      return state.log = state.log.concat(entityOfLog);
+    }
   },
   getters: {
     testRuns: state => {
@@ -92,6 +95,9 @@ const testRuns = {
     },
     currentTest: state => {
       return getCurrentTest(state);
+    },
+    errorTypeCounter: state => (type = 'log') => {
+      return state.log.filter(item => item.type === type).filter(Boolean).length || 0;
     }
   },
   actions: {
@@ -146,12 +152,19 @@ const testRuns = {
     },
     'SOCKET_console.log': function ({ commit }, logEntry) { // eslint-disable-line no-unused-vars
       if (!logEntry.type) return;
-      console[logEntry.type]('Test >', logEntry.args); // eslint-disable-line no-console
+      const { type, url, lineno: lineNumber, args: message } = logEntry;
+      commit('addedLog', {
+        type,
+        message,
+        lineNumber,
+        url
+      });
+      console[type]('Test >', message); // eslint-disable-line no-console
     },
     'SOCKET_step.comment': function ({ commit }, comment) {
       commit('addCommentToCurrentTest', comment);
     },
-    'SOCKET_step.before': function ({ commit }, step) {      
+    'SOCKET_step.before': function ({ commit }, step) {
       commit('addStepToCurrentTest', step);
     },
     'SOCKET_step.passed': function ({commit}, step) {

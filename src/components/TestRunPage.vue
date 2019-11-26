@@ -48,7 +48,7 @@ const scrollToLastStep = () => {
         block: 'end'
       });
     }
-  }, 100);     
+  }, 100);
 }
 
 export default {
@@ -58,7 +58,7 @@ export default {
     Header,
     Test,
     Snapshot,
-    ScenarioSource
+    ScenarioSource,
   },
   sockets: {
     'step.before': function () {
@@ -66,7 +66,7 @@ export default {
     },
     'finish': function () {
       scrollToLastStep();
-    }  
+    }
   },
   data: function () {
     return {

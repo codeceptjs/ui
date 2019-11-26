@@ -1,14 +1,22 @@
 <template>
     <div class="ScenarioSource">
         <pre v-highlightjs="source"><code class="javascript"></code></pre>
+        <b-button v-if="file" type="is-light is-small" expanded @click="editFile()"><i class="fas fa-edit"></i> Edit Test</b-button>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'ScenarioSource',
-  props: ['source'],
+  props: ['source', 'file'],
   components: {},
+  methods: {
+    editFile() {
+      axios.get(`/api/tests/${encodeURIComponent(this.file)}/open`);
+    }      
+  }
 }
 </script>
 

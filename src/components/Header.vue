@@ -1,41 +1,31 @@
 <template>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" @click.stop="gotoScenarios()">
+    <b-navbar>
+        <template slot="brand">
+            <b-navbar-item @click.stop="gotoScenarios()">
                 <img src="../assets/logo.png" alt="codeceptui logo">
                 &nbsp;CodeceptUI
-            </a>
+            </b-navbar-item>
+        </template>
 
-        </div>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item">
-                    <i v-if="loading" class="fas fa-circle-notch fa-spin fixed-width"></i>
-                    <span v-else class="fixed-width"></span>
-                </a>
-
-                <div class="navbar-item">
-                    <button class="button is-primary is-outlined is-small" 
-                        v-on:click="run()"
-                        :disabled="!!loading"
-                    >
-                        <i class="fas fa-play"></i>
-                        &nbsp;
-                        Run
-                    </button>
-                </div>
-
-
-            </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <SettingsMenu />
-                </div>
-            </div>
-        </div>
-    </nav>
+        <template slot="burger">
+            <b-navbar-item tag="div">
+                <button class="button is-primary is-outlined is-small" 
+                    v-on:click="run()"
+                    :disabled="!!loading"
+                >
+                    <i class="fas fa-play"></i>
+                    &nbsp;
+                    Run
+                </button>&nbsp;
+                <i v-if="loading" class="fas fa-circle-notch fa-spin fixed-width"></i>
+            </b-navbar-item>
+        </template>
+        <template slot="end">
+            <b-navbar-item tag="div">
+                <SettingsMenu />
+            </b-navbar-item>
+        </template>
+    </b-navbar>
 </template>
 
 <script>
@@ -61,6 +51,9 @@ export default {
 .fixed-width {
     display: inline-block;
     width: 1em;
+}
+.navbar {
+    min-height: auto;
 }
 </style>
 

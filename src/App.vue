@@ -82,6 +82,7 @@ Header {
   @media (max-width: 1024px) { 
     width: 100%;
     position: relative;
+    top: 0px;
    }
 }
 

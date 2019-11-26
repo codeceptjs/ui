@@ -9,15 +9,7 @@
 
         <template slot="burger">
             <b-navbar-item tag="div">
-                <button class="button is-primary is-outlined is-small" 
-                    v-on:click="run()"
-                    :disabled="!!loading"
-                >
-                    <i class="fas fa-play"></i>
-                    &nbsp;
-                    Run
-                </button>&nbsp;
-                <i v-if="loading" class="fas fa-circle-notch fa-spin fixed-width"></i>
+                <RunButton @run="run()"></RunButton>
             </b-navbar-item>
         </template>
         <template slot="end">
@@ -30,11 +22,12 @@
 
 <script>
 import SettingsMenu from './SettingsMenu';
+import RunButton from './RunButton';
 
 export default {
     name: 'Header',
     props: ['loading'],
-    components: { SettingsMenu },
+    components: { SettingsMenu, RunButton },
     methods: {
         run() {
             this.$emit('run');

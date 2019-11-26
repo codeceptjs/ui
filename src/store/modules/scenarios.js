@@ -58,14 +58,6 @@ const scenarios = {
       commit('setInitialScenarioStatus', response.data);
     },
 
-    runFeature: async function (context, { featureTitle }) {
-      if (!featureTitle) throw new Error('featureTitle is required');
-
-      // Use this to run with workers
-      // axios.post(`/api/scenarios/${encodeURIComponent(featureTitle)}/run-parallel`, {});
-      axios.post(`/api/scenarios/${encodeURIComponent(featureTitle)}/run`, {});
-    },
-
     'SOCKET_codeceptjs:scenarios.updated': function () {
       Toast.open({
         message: 'Scenarios have been reloaded',
@@ -85,12 +77,6 @@ const scenarios = {
       });
     },
 
-    'SOCKET_codeceptjs.started': function ({ commit }) {
-      commit('setRunning', true);
-    },
-    'SOCKET_codeceptjs.exit': function ({ commit }) {
-      commit('setRunning', false);
-    },
     'SOCKET_test.before': function ({ commit }, test) {
       commit('setTestStatus', { scenarioId: test.id, status: { status: 'running' } });
     },

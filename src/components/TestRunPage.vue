@@ -15,7 +15,7 @@
       </div>
       <div v-else>
         <div v-if="scenario">
-          <ScenarioSource :source="scenario.body" />
+          <ScenarioSource :source="scenario.body" :file="scenario.file" />
         </div>
       </div>
     </aside>

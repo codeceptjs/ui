@@ -30,7 +30,7 @@
     </div>
 
     <div v-if="activeTab == 'source'">
-      <ScenarioSource :source="scenario.body" />
+      <ScenarioSource :source="scenario.body" :file="scenario.file" />
     </div>
 
     <div v-if="activeTab == 'testrun'" class="TestrunStepsContainer">

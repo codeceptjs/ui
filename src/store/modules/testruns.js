@@ -122,6 +122,25 @@ const testRuns = {
       commit('setRunning', true);
     },
 
+    runAll: async function ({ commit }) {
+      await axios.post(`/api/scenarios/run`, {});
+      commit('clearTests');
+      commit('setRunning', true);
+    },
+
+    stop: async function () {
+      await axios.post(`/api/scenarios/stop`, {});
+    },
+
+
+    runFeature: async function ({ commit }, { featureTitle }) {
+      if (!featureTitle) throw new Error('featureTitle is required');
+      featureTitle = featureTitle.trim();
+      await axios.post(`/api/scenarios/grep/${encodeURIComponent(featureTitle)}/run`, {});
+      commit('clearTests');
+      commit('setRunning', true);
+    },
+
     'SOCKET_codeceptjs.started': function ({ commit }) {
       commit('clearTests');
       commit('setRunning', true);

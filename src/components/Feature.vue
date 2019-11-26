@@ -49,7 +49,7 @@ export default {
     },
 
     runFeature(featureTitle) {
-       this.$store.dispatch('scenarios/runFeature', { featureTitle });
+       this.$store.dispatch('testRuns/runFeature', { featureTitle });
     },
   }
 }

@@ -5,7 +5,7 @@
           <b-autocomplete
               ref="commands"
               v-model="command"
-              placeholder="I."
+              placeholder="click, fillField, etc..."
               field="suggestion"
               class="commandInput"
               @select="selectAction"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
@@ -18,19 +18,16 @@
           </b-autocomplete>
       </b-field>
 
-    <article class="InteractiveShell-error message is-danger" v-if="hasErrorCli">
-      <div class="message-header">
-        <p>Command failed</p>
-      </div>
-      <div class="message-body" v-html="cliError"></div>
-    </article>
+    <b-message title="Command failed" type="is-danger" aria-close-label="Close message" v-if="hasErrorCli">
+      <div v-html="cliError"></div>
+    </b-message>    
 
     <div v-if="successfulSteps.length" class="message  is-success">
       <div class="message-header">
         <p>Succesful Steps</p>
       </div>
       <pre v-highlightjs="stepsCode"><code class="javascript"></code></pre>
-      <div class="hint">You can copy successful steps into to your test</div>
+      <div class="hint">You can <a @click="copy(stepsCode)">copy successful steps</a> and paste into to your test</div>
     </div>
 
     <div class="InteractiveShell-actions columns">
@@ -47,6 +44,7 @@
 
 <script>
 import Convert from 'ansi-to-html';
+import copyToClipboard from 'copy-text-to-clipboard';
 
 export default {
   name: 'Pause',
@@ -85,6 +83,7 @@ export default {
     },    
     stepsCode() {
       return this.$store.getters['cli/steps'].map(step => {
+        if (step.command) return step.command + ';';
         return `${step.actor}.${step.name}(${JSON.stringify(step.args).slice(1, -1)});`
       }).join(`\n`);
     },
@@ -106,6 +105,10 @@ export default {
     },
   },
   methods: {
+    copy(text) {
+      copyToClipboard(text);
+    },
+
     selectAction(action) {
       if (!action || typeof action !== 'object') return false;
       this.$refs['commands'].setSelected(action.action + '()');

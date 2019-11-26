@@ -39,9 +39,9 @@
             </b-autocomplete>
         </b-field>
 
-            <b-switch v-model="isHeadless">Force <b>Headless</b> Mode</b-switch>
+            <b-switch v-model="isSingleSession">Singleton Browser Session</b-switch>
             <p></p>
-            <b-switch v-model="isHeaded">Force <b>Window</b> Mode</b-switch>
+            <b-switch v-model="isHeadless">Force <b>Headless</b> Mode</b-switch>
             <p></p>
             <b-switch v-model="isHeaded">Force <b>Window</b> Mode</b-switch>
             <p></p>
@@ -62,7 +62,7 @@
             </b-field>
           </section>
           <footer class="modal-card-foot">
-            <a class="is-small" @click="gotoSettingsPage()">Configure all settings ...</a>
+            <a class="is-small" @click="gotoSettingsPage()">Show Config</a> &nbsp; {{config.file}}
           </footer>
         </div>
       </form>
@@ -77,9 +77,9 @@ export default {
   name: "SettingsMenu",
   data() {
     const { width, height } = this.$store.getters["settings/windowSize"];
-    const { isHeadless, editor, browser } = this.$store.state.settings;
-    const isHeaded = (isHeadless === false);
+    const { editor, browser, isHeadless } = this.$store.state.settings;
     return {
+      headlessMode: isHeadless,
       browsers: [
         'chrome',
         'firefox',
@@ -95,13 +95,39 @@ export default {
       height,
       browser,
       editor,
-      isHeadless,
-      isHeaded,
     };
   },
   async created() {
     const config = await axios.get('/api/config');
     this.config = config.data;
+  },
+  computed: {
+    isHeadless: {
+      get() {
+        return this.$store.state.settings.isHeadless === true;
+      },
+      set(isHeadless) {
+        this.headlessMode = isHeadless ? true : null;
+        this.setHeadlessSettings();
+      },
+    },
+    isHeaded:  {
+      get() {
+        return this.$store.state.settings.isHeadless === false;
+      },
+      set(isHeaded) {
+        this.headlessMode = isHeaded ? false : null;
+        this.setHeadlessSettings();
+      },
+    },
+    isSingleSession: {
+      get() {
+        return this.$store.state.settings.isSingleSession;
+      },
+      set(isSingleSession) {
+        this.$store.dispatch("settings/setSingleSession", isSingleSession);
+      }
+    }
   },
   watch: {
     width: function(width) {
@@ -122,25 +148,13 @@ export default {
       }
       this.$store.dispatch("settings/setWindowSize", { width: this.width, height: this.height });
     },
-    isHeaded: function(isHeaded) {
-      if (isHeaded) this.isHeadless = false;
-      this.setHeadlessSettings();
-    },    
-    isHeadless: function(isHeadless) {
-      if (isHeadless) this.isHeaded = false;
-      this.setHeadlessSettings();
-    },
     editor: function(editor) {
       this.$store.dispatch("settings/setEditor", editor);
-    }
+    },  
   },  
   methods: {
     setHeadlessSettings: function() {
-      let val;
-      if (this.isHeaded) val = false;
-      if (this.isHeadless) val = true;
-      if (!this.isHeaded && !this.isHeadless) val = null;
-      this.$store.dispatch("settings/setHeadless", val);
+      this.$store.dispatch("settings/setHeadless", this.headlessMode);
     },
     gotoSettingsPage() {
       this.$router.push("settings");

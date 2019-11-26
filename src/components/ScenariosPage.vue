@@ -30,18 +30,21 @@
         <div class="navbar-start">
 
                 <a class="navbar-item">
-                    <i v-if="loading" class="fas fa-circle-notch fa-spin fixed-width"></i>
+                    <i v-if="isRunning" class="fas fa-circle-notch fa-spin fixed-width"></i>
                     <span v-else class="fixed-width"></span>
                 </a>
 
             <div class="navbar-item">
                 <button class="button is-primary is-outlined is-small" 
-                    v-on:click="run()"
+                    @click="run()"
                     :disabled="!!loading"
                 >
                     <i class="fas fa-play"></i>
                     &nbsp;
                     Run
+                </button>
+                <button @click="stop()">
+                  Stop
                 </button>
             </div>
 
@@ -127,7 +130,18 @@ export default {
       this.loadProject();
     }
   },
+  computed: {
+    isRunning() {
+      return this.$store.getters['testRuns/isRunning'];
+    }
+  },
   methods: {
+      run() {
+        this.$store.dispatch('testRuns/runAll');
+      },
+      stop() {
+        this.$store.dispatch('testRuns/stop');
+      },      
       gotoNewTest() {
         this.$router.push('/new-test');
       },        

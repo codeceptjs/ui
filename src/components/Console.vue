@@ -19,28 +19,42 @@
                 <b-tabs v-model="activeTab" type="is-boxed" expanded>
                     <b-tab-item>
                         <template slot="header">
-                            <div>
-                                <span class="tab_header">Console</span>
-                                <i class="fas fa-terminal" />
+                            <div class="console-tab__content">
+                                <div>
+                                    <b-tooltip label="Error" position="is-right">
+                                        <i class="fas fa-bug" title="Error"/>
+                                        <b-tag rounded>{{counterConsoleLogError}}</b-tag>
+                                    </b-tooltip>
+
+                                </div>
+                                <div>
+                                    <b-tooltip label="Info"  position="is-right">
+                                        <i class="fas fa-info-circle" title="Info" />
+                                        <b-tag rounded>{{counterConsoleLogInfo}}</b-tag>
+                                    </b-tooltip>
+                                </div>
+                                <div>
+                                    <b-tooltip label="Console.log" position="is-right">
+                                        <i class="fas fa-box" title="AnyLog" />
+                                        <b-tag rounded>{{counterConsoleLog}}</b-tag>
+                                    </b-tooltip>
+                                </div>
+                                <div>
+                                    <b-tooltip label="Warn" position="is-right">
+                                        <i class="fas fa-exclamation-triangle" title="Warn" />
+                                        <b-tag rounded>{{counterConsoleLogWarn}}</b-tag>
+                                    </b-tooltip>
+                                </div>
                             </div>
                         </template>
                         <template slot="default">
-                            <div class="console-tab__content">
-                                <span><i class="fas fa-bug" title="Error"/></span>
-                                {{counterConsoleLogError}}
-                            </div>
-                            <div class="console-tab__content">
-                                <span><i class="fas fa-info-circle" title="Info" /></span>
-                                {{counterConsoleLogInfo}}
-                            </div>
-                            <div class="console-tab__content">
-                                <span><i class="fas fa-box" title="AnyLog" /></span>
-                                {{counterConsoleLog}}
-                            </div>
-                            <div class="console-tab__content">
-                                <span><i class="fas fa-exclamation-triangle" title="Warn" /></span>
-                                {{counterConsoleLogWarn}}
-                            </div>
+                            <!--         content                   -->
+                            <ul class="list_logs">
+                                <li v-for="itemLog in logList" v-bind:key="itemLog.id">
+                                    {{JSON.stringify(itemLog)}}
+                                </li>
+                            </ul>
+                            <!--         content                   /-->
                         </template>
                     </b-tab-item>
                     <b-tab-item>
@@ -77,6 +91,9 @@
         },
         counterConsoleLogWarn() {
           return this.$store.getters['testRuns/errorTypeCounter']('warn');
+        },
+        logList () {
+          return this.$store.getters['testRuns/logsList'];
         }
       }
 	}
@@ -106,11 +123,10 @@
   height: 200px;
  }
  .fas {
-  @apply .px-2 ;
+  @apply .px-2 .mx-3;
  }
  .console-tab__content{
   display: flex;
-  justify-content: space-between;
  }
  .fa-bug {
   @apply .text-red-600;
@@ -120,5 +136,8 @@
  }
  .fa-exclamation-triangle {
   @apply .text-orange-500;
+ }
+ .b-tabs .tab-content {
+  border-bottom: 1px solid;
  }
 </style>

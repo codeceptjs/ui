@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
+import uuid from 'uuid/v4';
 
 const getTestById = (tests, id) => tests.filter(t => t.id === id)[0]; // TODO Use testId to find test
 const getCurrentTest = state => state.tests[state.tests.length - 1];
@@ -98,7 +99,8 @@ const testRuns = {
     },
     errorTypeCounter: state => (type = 'log') => {
       return state.log.filter(item => item.type === type).filter(Boolean).length || 0;
-    }
+    },
+    logsList: state => state.log,
   },
   actions: {
     saveTestRun: async function (context, testRun) {
@@ -157,7 +159,8 @@ const testRuns = {
         type,
         message,
         lineNumber,
-        url
+        url,
+        id: uuid(),
       });
       console[type]('Test >', message); // eslint-disable-line no-console
     },

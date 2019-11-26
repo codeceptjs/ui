@@ -13,5 +13,8 @@
     "codeceptjs": "^2.3.6",
     "puppeteer": "^1.20.0",
     "testcafe": "^1.7.0"
+  },
+  "devDependencies": {
+    "uuid": "^3.3.3"
   }
 }

@@ -132,11 +132,9 @@ const testRuns = {
       await axios.post(`/api/scenarios/stop`, {});
     },
 
-
-    runFeature: async function ({ commit }, { featureTitle }) {
-      if (!featureTitle) throw new Error('featureTitle is required');
-      featureTitle = featureTitle.trim();
-      await axios.post(`/api/scenarios/grep/${encodeURIComponent(featureTitle)}/run`, {});
+    runGrep: async function ({ commit }, grep) {
+      grep = grep.trim();
+      await axios.post(`/api/scenarios/grep/${encodeURIComponent(grep)}/run`, {});
       commit('clearTests');
       commit('setRunning', true);
     },

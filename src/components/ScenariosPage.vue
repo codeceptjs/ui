@@ -60,7 +60,7 @@
     <section>
       <div class="container">
 
-        <ul v-if="hasSearchResults()" class="mb-8">
+        <ul v-if="hasSearchResults" class="mb-8">
           <li :key="capability" v-for="(features, capability) in project.features">
             <div class="Capability">
               <h2 class="Capability-headline is-size-6">
@@ -114,9 +114,17 @@ export default {
       this.loadProject();
     }
   },
+  computed: {
+    hasSearchResults() {
+      return this.project && this.project.features && Object.keys(this.project.features).length > 0;
+    },
+  },
   methods: {
       run() {
-        this.$store.dispatch('testRuns/runAll');
+        if (!this.search) {
+          return this.$store.dispatch('testRuns/runAll');
+        }
+        this.$store.dispatch('testRuns/runGrep', this.search);
       },
       gotoNewTest() {
         this.$router.push('/new-test');
@@ -124,10 +132,6 @@ export default {
       clearSearch() {
         this.search = '';
         this.loadProject();
-      },
-
-      hasSearchResults() {
-        return this.project && this.project.features && Object.keys(this.project.features).length > 0;
       },
 
       selectMatchType(t) {

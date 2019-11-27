@@ -35,10 +35,18 @@
       <Snapshot v-if="hoveredOrSelectedStep"
         v-bind:selected="hoveredOrSelectedStep"
       />
-      <div class="empty" v-else>
-        Once you <a href="#" @click="runScenario(scenario)">launch a test</a> you will see snapshots of all steps here.<br>
-        It is recommended to write test disabling headless mode
-        <br>to see the actual execution of a test.
+      <div class="empty text-left  text-xl leading-relaxed" v-else>
+        <h2 class="text-center font-bold mb-4">How to write a test</h2>
+        <ul class="list-decimal list-inside leading-loose text-left">
+          <li v-bind:class="{ 'line-through': isHeaded }"><a @click="enableWindowMode()">Force Window mode <i class="fas fa-window-maximize settings"></i></a> to see the execution in actual browser</li>
+          <li v-bind:class="{ 'line-through': isSingleSession }"><a @click="enableSingleSession()">Enable Singleton Browser Session</a> to reuse one window accross test runs</li>
+          <li  v-bind:class="{ 'line-through': isRunning }">Write the inital code and click <a @click="runScenario()">Launch Test</a></li>
+          <li>Resize the window to see both browsers (current and tested) on the screen</li>
+          <li>Use interactive pause in the sidebar to send commands to a browser</li>
+          <li>Copy successful commands into a test</li>
+          <li>Rerun the updated test & save it to IDE</li>
+          <li>Continue until the test is finished!</li>
+        </ul>
       </div>
     </div>
     </div>
@@ -67,6 +75,7 @@ export default {
     TestResult,
   },
   data: function () {
+
     return {
       loading: false,
       scenario: {
@@ -87,6 +96,13 @@ export default {
   },
 
   computed: {
+    isHeaded() {
+      return this.$store.state.settings.isHeadless === false;
+    },
+    isSingleSession() {
+      return this.$store.state.settings.isSingleSession;
+    },
+
     tests() {
       return this.$store.getters['testRuns/testRuns'];
     },
@@ -104,6 +120,13 @@ export default {
     }
   },
   methods: {
+    enableWindowMode() {
+      this.$store.dispatch("settings/setHeadless", false);
+    },
+
+    enableSingleSession() {
+      this.$store.dispatch("settings/setSingleSession", true);
+    },
 
     async loadLastTestRun() {
       return this.$store.dispatch('testRuns/loadTestRun', this.scenarioId);
@@ -122,5 +145,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .Sidebar pre {
+    margin: 0;
+  } 
+  .empty ul a {
+    @apply border-dashed border-b-2 border-gray-600;
+  }
 </style>

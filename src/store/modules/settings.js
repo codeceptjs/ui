@@ -25,6 +25,9 @@ export default {
     setHeadless(state, isHeadless) {
       state.isHeadless = isHeadless;
     },
+    setSingleSession(state, isSingleSession) {
+      state.isSingleSession = isSingleSession;
+    },    
     setWindowSize(state, { width, height }) {
       state.windowSize = {
         width, height
@@ -52,6 +55,10 @@ export default {
       commit('setEditor', editor);
       await dispatch('storeSettings');
     },
+    setSingleSession: async function({ commit, dispatch}, isSingleSession) {
+      commit('setSingleSession', isSingleSession);
+      await dispatch('storeSettings');
+    },    
     setBrowser: async function({ commit, dispatch}, browser) {
       commit('setBrowser', browser);
       await dispatch('storeSettings');

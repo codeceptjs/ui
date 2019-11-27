@@ -30,22 +30,8 @@
         <div class="navbar-start">
 
                 <a class="navbar-item">
-                    <i v-if="loading" class="fas fa-circle-notch fa-spin fixed-width"></i>
-                    <span v-else class="fixed-width"></span>
+                  <RunButton @run="run()"></RunButton>                  
                 </a>
-
-            <div class="navbar-item">
-                <button class="button is-primary is-outlined is-small" 
-                    v-on:click="run()"
-                    :disabled="!!loading"
-                >
-                    <i class="fas fa-play"></i>
-                    &nbsp;
-                    Run
-                </button>
-            </div>
-
-
 
         </div>
 
@@ -74,7 +60,7 @@
     <section>
       <div class="container">
 
-        <ul v-if="hasSearchResults()" class="mb-8">
+        <ul v-if="hasSearchResults" class="mb-8">
           <li :key="capability" v-for="(features, capability) in project.features">
             <div class="Capability">
               <h2 class="Capability-headline is-size-6">
@@ -102,11 +88,12 @@ import Feature from './Feature';
 import CapabilityFolder from './CapabilityFolder';
 import SettingsMenu from './SettingsMenu';
 import TestStatistics from './TestStatistics';
+import RunButton from './RunButton';
 
 export default {
   name: 'Scenarios',
   components: {
-    Feature, CapabilityFolder, SettingsMenu, TestStatistics
+    Feature, CapabilityFolder, SettingsMenu, TestStatistics, RunButton,
   },
   data() {
       return {
@@ -127,17 +114,24 @@ export default {
       this.loadProject();
     }
   },
+  computed: {
+    hasSearchResults() {
+      return this.project && this.project.features && Object.keys(this.project.features).length > 0;
+    },
+  },
   methods: {
+      run() {
+        if (!this.search) {
+          return this.$store.dispatch('testRuns/runAll');
+        }
+        this.$store.dispatch('testRuns/runGrep', this.search);
+      },
       gotoNewTest() {
         this.$router.push('/new-test');
       },        
       clearSearch() {
         this.search = '';
         this.loadProject();
-      },
-
-      hasSearchResults() {
-        return this.project && this.project.features && Object.keys(this.project.features).length > 0;
       },
 
       selectMatchType(t) {

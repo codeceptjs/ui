@@ -1,19 +1,13 @@
 <template>
-  <div>
-    <!-- TODO Create separate component -->
-  <div v-if="test.result === 'failed'" class="Test-error notification is-danger">
-    <p>
-      {{trim(test.error.message)}}
-    </p>
-    <p>
-      FAILED in {{test.duration}}s
-    </p>
-  </div>
-  <div v-if="test.result === 'passed'" class="Test-passed notification is-success">
-      PASSED in {{test.duration}}s
-  </div>
+  <div class="mb-2 mt-2">
 
-  <div class="Test-spacer"></div>
+    <b-message size="is-small" :title="'Test pailed in ' + test.duration + 's'" type="is-danger" aria-close-label="Close message" v-if="test.result === 'failed'">
+        {{trim(test.error.message)}}
+    </b-message>
+
+    <b-message size="is-small" :title="'Test passed in ' + test.duration + 's'" type="is-success" aria-close-label="Close message" v-if="test.result === 'passed'">
+    </b-message>
+
   </div>
 </template>
 

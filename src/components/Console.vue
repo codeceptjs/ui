@@ -15,6 +15,7 @@
                     role="button"
                     aria-controls="contentIdForA11y2">
                     <i class="fas fa-terminal" />
+                    <span> Current test name: "{{getCurrentTest.title}}" </span>
                 </div>
                 <b-tabs v-model="activeTab" type="is-boxed" expanded>
                     <b-tab-item>
@@ -55,7 +56,6 @@
                                         <i v-bind:class="formatIcon(itemLog.type)" />
                                         <span>Message: {{itemLog.message}}</span>
                                     </p>
-
                                 </li>
                             </ul>
                             <!--         content                   /-->
@@ -98,6 +98,10 @@
         },
         logList () {
           return this.$store.getters['testRuns/logsList'];
+        },
+        getCurrentTest () {
+            debugger
+          return this.$store.getters['testRuns/currentTest'];
         }
       },
       methods: {

@@ -8,14 +8,14 @@ import profiles from './modules/profiles';
 import settings from './modules/settings';
 
 const store = new Vuex.Store({
-    modules: {
-      testRuns,
-      testRunPage,
-      cli,
-      scenarios,
-      profiles,
-      settings
-    }
+  modules: {
+    testRuns,
+    testRunPage,
+    cli,
+    scenarios,
+    profiles,
+    settings
+  }
 });
 
 export default store;

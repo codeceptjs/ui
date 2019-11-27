@@ -1,8 +1,12 @@
 <template>
   <span>
-    <i class="far fa-hourglass"></i>{{formatStep(step.humanized)}} 
+    <i class="far fa-hourglass" />{{ formatStep(step.humanized) }}
     <span class="arguments">
-      <Argument v-for="arg of step.args" v-bind:key="arg.toString()" v-bind:arg="arg" ></Argument>      
+      <Argument
+        v-for="arg of step.args"
+        :key="arg.toString()"
+        :arg="arg"
+      />
     </span>
   </span>
 </template>
@@ -11,15 +15,20 @@
 import Argument from './Argument';
 
 export default {
-    name: 'WaiterStep',
-    props: ['step'],
-    components: { Argument },
-    methods: {      
-      formatStep(stepName) {
-        return stepName.replace(/^wait /, '').replace(/^for /, '');
-      }
+  name: 'WaiterStep',
+  props: {
+    step: {
+      type: Object,
+      required: true,
     }
-}
+  },
+  components: { Argument },
+  methods: {
+    formatStep(stepName) {
+      return stepName.replace(/^wait /, '').replace(/^for /, '');
+    }
+  }
+};
 </script>
 
 <style>

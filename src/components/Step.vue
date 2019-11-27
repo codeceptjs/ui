@@ -1,57 +1,112 @@
 <template>
-  <div class="StepContainer" 
+  <div
+    class="StepContainer"
     :class="{ 'StepContainer--selected': isSelected, 'StepContainer--failed': step.result === 'failed', 'StepContainer--passed': step.result === 'passed' }"
-    @click="handleSelectStep(step)">
-    <div class="StepWrapper" v-if="isMetaStep(step)">
+    @click="handleSelectStep(step)"
+  >
+    <div
+      class="StepWrapper"
+      v-if="isMetaStep(step)"
+    >
       <MetaStep :step="step" />
     </div>
 
-    <div class="StepWrapper" v-else-if="isCommentStep(step)">
+    <div
+      class="StepWrapper"
+      v-else-if="isCommentStep(step)"
+    >
       <div class="step comment">
-          {{step.args[0]}}
+        {{ step.args[0] }}
       </div>
     </div>
-
-    <div class="StepWrapper" v-else>
-        <div class="step" :class="{ 
+    <div
+      class="StepWrapper"
+      v-else
+    >
+      <div
+        class="step"
+        :class="{
           tech: isTechnicalStep(step),
           assert: isAssertionStep(step),
           wait: isWaiterStep(step),
           grab: isGrabberStep(step),
-          }"
-          >
-
-          <span class="open-in-editor" v-if="step.stack">
-            <a v-if="step.stack.stackFrameOfStep && step.stack.stackFrameOfStep !== step.stack.stackFrameInTest" @click="openFileFromStack(step.stack.stackFrameOfStep)"><i class="far fa-edit"></i></a>
-            <a v-else-if="step.stack.stackFrameInTest" @click="openFileFromStack(step.stack.stackFrameInTest)"><i class="far fa-edit"></i></a>
-          </span>
-          <span class="duration" v-if="step.duration"><b>{{step.duration}}</b>ms</span>
-
-
-        <GrabberStep :step="step" v-if="isGrabberStep(step)" />
-        <WaiterStep :step="step" v-else-if="isWaiterStep(step)" />
-        <AssertionStep :step="step" v-else-if="isAssertionStep(step)" />
-        <ActionStep :step="step" v-else-if="true"></ActionStep>
-
-        </div>
+        }"
+      >
+        <span
+          class="open-in-editor"
+          v-if="step.stack"
+        >
+          <a
+            v-if="step.stack.stackFrameOfStep && step.stack.stackFrameOfStep !== step.stack.stackFrameInTest"
+            @click="openFileFromStack(step.stack.stackFrameOfStep)"
+          ><i class="far fa-edit" /></a>
+          <a
+            v-else-if="step.stack.stackFrameInTest"
+            @click="openFileFromStack(step.stack.stackFrameInTest)"
+          ><i class="far fa-edit" /></a>
+        </span>
+        <span
+          class="duration"
+          v-if="step.duration"
+        ><b>{{ step.duration }}</b>ms</span>
+        <GrabberStep
+          :step="step"
+          v-if="isGrabberStep(step)"
+        />
+        <WaiterStep
+          :step="step"
+          v-else-if="isWaiterStep(step)"
+        />
+        <AssertionStep
+          :step="step"
+          v-else-if="isAssertionStep(step)"
+        />
+        <ActionStep
+          :step="step"
+          v-else-if="true"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import {getSelectorString} from '../services/selector';
-
 import ActionStep from './steps/ActionStep';
 import AssertionStep from './steps/AssertionStep';
 import GrabberStep from './steps/GrabberStep';
 import WaiterStep from './steps/WaiterStep';
 import MetaStep from './steps/MetaStep';
-
+import { getSelectorString } from '../services/selector';
 
 export default {
   name: 'Step',
-  props: ['step', 'selectedStep', 'isHovered', 'isSelected', 'isOpened', 'error'],
+  props: {
+    step: {
+      type: Object,
+      required: true,
+    },
+    selectedStep: {
+      type: Object,
+      required: true,
+    },
+    isHovered: {
+      type: Boolean,
+      required: true,
+    },
+    isSelected: {
+      type: Boolean,
+      required: true,
+    },
+    isOpened: {
+      type: Boolean,
+      required: true,
+    },
+    error: {
+      type: Object,
+      required: true,
+    }
+  },
   components: {
     GrabberStep,
     ActionStep,
@@ -96,7 +151,7 @@ export default {
 
 
     isTechnicalStep(step) {
-      return step.name.includes('Cookie') 
+      return step.name.includes('Cookie')
         || step.name.startsWith('press')
         || step.name.includes('Screenshot')
         || step.name.startsWith('send')
@@ -127,18 +182,18 @@ export default {
 
     toStringOrNumber: function (stringOrNumber) {
       if (typeof stringOrNumber === 'number') return stringOrNumber;
-      return `"${stringOrNumber}"`
+      return `"${stringOrNumber}"`;
     },
 
     getMethodFromStack: function (stackFrame) {
-      if (!stackFrame) return '<stackframe not available>'
-      const m = stackFrame.match(/at\s+([^\s]+)/)
+      if (!stackFrame) return '<stackframe not available>';
+      const m = stackFrame.match(/at\s+([^\s]+)/);
       if (!m) return;
       return m[1];
     },
 
     openFileFromStack: function (stackFrame) {
-      const m = stackFrame.match(/\s+\(([^)]+)/)
+      const m = stackFrame.match(/\s+\(([^)]+)/);
       if (m) {
         const filePath = m[1];
         axios.get(`/api/tests/${encodeURIComponent(filePath)}/open`);
@@ -147,10 +202,10 @@ export default {
 
     handleSelectStep: function (step) {
       if (this.isMetaStep(step)) return;
-      this.$emit('select-step', step)
+      this.$emit('select-step', step);
     }
   }
-}
+};
 </script>
 
 
@@ -181,7 +236,7 @@ export default {
     }
 
     .open-in-editor {
-      @apply text-xs float-right pl-1;    
+      @apply text-xs float-right pl-1;
       a {
         @apply text-gray-500;
         &:hover {
@@ -198,22 +253,22 @@ export default {
       padding: 0;
       margin-right: 10px;
       text-overflow: ellipsis;
-      white-space: nowrap;     
+      white-space: nowrap;
       overflow: hidden;
 
       &:hover {
         overflow: visible;
       }
-      
+
       &:nth-of-type(2) {
         @apply text-orange-600 border-orange-600;
       }
       &:nth-of-type(3) {
         @apply border-green-600 text-green-600;
-      }      
+      }
       &:nth-of-type(4) {
         @apply border-red-400;
-      }            
+      }
     }
 
 
@@ -226,7 +281,7 @@ export default {
   cursor: pointer;
   font-size: 0.9rem;
   font-family:  Inconsolata, monospace;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .StepContainer--selected {

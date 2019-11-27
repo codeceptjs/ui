@@ -27,9 +27,9 @@ const testRuns = {
       state.tests = [];
     },
     addTest: (state, test) => {
-      Vue.set(test, 'steps', [])
+      Vue.set(test, 'steps', []);
       Vue.set(test, 'result', 'running');
-      Vue.set(state, 'tests', [...state.tests, test])
+      Vue.set(state, 'tests', [...state.tests, test]);
     },
     addStepToCurrentTest: (state, step) => {
       const currentTest = getTestById(state.tests, step.testId);
@@ -48,7 +48,7 @@ const testRuns = {
         type: 'comment',
         result: 'passed',
         ...comment
-      })
+      });
     },
     updateStep: (state, step) => {
       const test = getTestById(state.tests, step.testId);
@@ -85,7 +85,7 @@ const testRuns = {
   },
   getters: {
     testRuns: state => {
-      return state.tests
+      return state.tests;
     },
     isRunning: state => {
       return state.isRunning;
@@ -109,7 +109,7 @@ const testRuns = {
     },
 
     runNewTest: async function ({ commit }, code) {
-      axios.post(`/api/run-new`, { code });
+      axios.post('/api/run-new', { code });
       
       commit('clearTests');
       commit('setRunning', true);
@@ -123,13 +123,13 @@ const testRuns = {
     },
 
     runAll: async function ({ commit }) {
-      await axios.post(`/api/scenarios/run`, {});
+      await axios.post('/api/scenarios/run', {});
       commit('clearTests');
       commit('setRunning', true);
     },
 
     stop: async function () {
-      await axios.post(`/api/scenarios/stop`, {});
+      await axios.post('/api/scenarios/stop', {});
     },
 
     runGrep: async function ({ commit }, grep) {
@@ -178,6 +178,6 @@ const testRuns = {
       context.commit('addMetaStepToCurrentTest', metastep);
     }
   }
-}
+};
 
 export default testRuns;

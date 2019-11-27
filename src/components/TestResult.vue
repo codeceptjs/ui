@@ -1,26 +1,39 @@
 <template>
   <div class="mb-2 mt-2">
-
-    <b-message size="is-small" :title="'Test pailed in ' + test.duration + 's'" type="is-danger" aria-close-label="Close message" v-if="test.result === 'failed'">
-        {{trim(test.error.message)}}
+    <b-message
+      size="is-small"
+      :title="'Test pailed in ' + test.duration + 's'"
+      type="is-danger"
+      aria-close-label="Close message"
+      v-if="test.result === 'failed'"
+    >
+      {{ trim(test.error.message) }}
     </b-message>
-
-    <b-message size="is-small" :title="'Test passed in ' + test.duration + 's'" type="is-success" aria-close-label="Close message" v-if="test.result === 'passed'">
-    </b-message>
-
+    <b-message
+      size="is-small"
+      :title="'Test passed in ' + test.duration + 's'"
+      type="is-success"
+      aria-close-label="Close message"
+      v-if="test.result === 'passed'"
+    />
   </div>
 </template>
 
 <script>
 export default {
   name: 'TestResult',
-  props: ['test'],
+  props: {
+    test: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   methods: {
     trim(str) {
       return str.trim();
-    },    
+    },
   }
-}
+};
 </script>
 
 <style scoped>

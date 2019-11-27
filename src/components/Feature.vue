@@ -1,22 +1,39 @@
 <template>
   <div class="Feature">
-    <a class="Feature-fileName has-text-grey-light" v-on:click="openInEditor(feature.file)">{{feature.fileBaseName}}</a>
+    <a
+      class="Feature-fileName has-text-grey-light"
+      @click="openInEditor(feature.file)"
+    >
+      {{ feature.fileBaseName }}
+    </a>
     <h3 class="Feature-title title is-size-6 has-text-grey-dark">
-      <i class="far fa-file has-text-grey"></i>
+      <i class="far fa-file has-text-grey" />
       <span>
-        {{feature.feature.title}}
+        {{ feature.feature.title }}
       </span>
-      <b-tag class="Tag" rounded :key="tag" v-for="tag in feature.feature.tags">{{tag}}</b-tag>
+      <b-tag
+        class="Tag"
+        rounded
+        :key="tag"
+        v-for="tag in feature.feature.tags"
+      >
+        {{ tag }}
+      </b-tag>
 
       <div class="FeatureActions is-pulled-right">
-        <a class="FeatureActions-runButton button is-small" @click="runFeature(feature.feature.title)">
-          <i class="far fa-play-circle"></i> Run
+        <a
+          class="FeatureActions-runButton button is-small"
+          @click="runFeature(feature.feature.title)"
+        >
+          <i class="far fa-play-circle" /> Run
         </a>
       </div>
     </h3>
-
     <ul>
-      <li :key="scenario.id" v-for="scenario in feature.scenarios">
+      <li
+        :key="scenario.id"
+        v-for="scenario in feature.scenarios"
+      >
         <Scenario :scenario="scenario" />
       </li>
     </ul>
@@ -34,10 +51,15 @@ export default {
   components: {
     Scenario,
   },
-  props: ['feature'],
+  props: {
+    feature: {
+      type: Object,
+      default: () => ({}),
+    }
+  },
   data() {
     return {
-    }
+    };
   },
   methods: {
     humanize(ts) {
@@ -49,10 +71,10 @@ export default {
     },
 
     runFeature(featureTitle) {
-       this.$store.dispatch('testRuns/runGrep', featureTitle);
+      this.$store.dispatch('testRuns/runGrep', featureTitle);
     },
   }
-}
+};
 </script>
 
 <style>

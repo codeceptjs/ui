@@ -1,61 +1,103 @@
 <template>
   <nav>
-    <transition name="slide-fade" mode="out-in">
-      <div class="stats level" v-if="!isRunning" key="stats">
+    <transition
+      name="slide-fade"
+      mode="out-in"
+    >
+      <div
+        class="stats level"
+        v-if="!isRunning"
+        key="stats"
+      >
         <div class="level-item text-green-600">
-          <i class="far fa-check-circle mr-1" aria-hidden="true"></i>     
+          <i
+            class="far fa-check-circle mr-1"
+            aria-hidden="true"
+          />
           <span class=" is-hidden-touch">Successful</span>
-          <span class="counter"> {{successful}}</span>
+          <span class="counter"> {{ successful }}</span>
         </div>
         <div class="level-item text-red-600">
-            <i class="far fa-times-circle mr-1" aria-hidden="true"></i> 
-            <span class=" is-hidden-touch">Failed</span>
-            <span class="counter"> {{failed}}</span>
+          <i
+            class="far fa-times-circle mr-1"
+            aria-hidden="true"
+          />
+          <span class=" is-hidden-touch">Failed</span>
+          <span class="counter"> {{ failed }}</span>
         </div>
         <div class="level-item">
           <div class="field">
-              <i class="fas fa-forward mr-1" aria-hidden="true"></i>
-              <span class=" is-hidden-touch">Skipped</span>
-              <span class="counter">{{skipped}}</span>
+            <i
+              class="fas fa-forward mr-1"
+              aria-hidden="true"
+            />
+            <span class=" is-hidden-touch">Skipped</span>
+            <span class="counter">{{ skipped }}</span>
           </div>
         </div>
         <div class="level-item">
-            <i class="far fa-hourglass mr-1" aria-hidden="true"></i>
-            <span class=" is-hidden-touch">Not Started</span>
-            <span class="counter">{{pending}}</span>
+          <i
+            class="far fa-hourglass mr-1"
+            aria-hidden="true"
+          />
+          <span class=" is-hidden-touch">Not Started</span>
+          <span class="counter">{{ pending }}</span>
         </div>
         <div class="level-item">
-          <i class="fas fa-list mr-1" aria-hidden="true"></i>
+          <i
+            class="fas fa-list mr-1"
+            aria-hidden="true"
+          />
           <span class=" is-hidden-touch">Suites</span>
-          <span class="counter">{{totalFeatures}}</span>
+          <span class="counter">{{ totalFeatures }}</span>
         </div>
       </div>
-      <div class="currentTest level " v-else key="test">
+      <div
+        class="currentTest level "
+        v-else
+        key="test"
+      >
         <div class="level-item is-hidden-touch">
-            Running...
-          </div>        
-          <div class="level-item" v-if="currentTest">
-            <a @click="openTest(currentTest)">
+          Running...
+        </div>
+        <div
+          class="level-item"
+          v-if="currentTest"
+        >
+          <a @click="openTest(currentTest)">
             <span class="suiteTitle is-hidden-touch">
-              {{currentTest.suite}} &rarr;
+              {{ currentTest.suite }} &rarr;
             </span>
-            <i class="fas fa-circle-notch fa-spin ml-2"></i>&nbsp;            
-            <span class="testTitle ml-1">{{currentTest.title}}</span>
-            </a>
-          </div>
-          <div class="level-item" v-if="currentTest">
-            <b-button @click="openTest(currentTest)" type="is-warning" v-if="isPaused" size="is-small">
-              <span class="preview">
-              <i class="fas fa-pause mr-2"></i>&nbsp;Paused. Waiting for input...
-              </span>
-            </b-button>
-
-            <b-button @click="openTest(currentTest)" type="is-info" v-else size="is-small" outlined>
-              <span class="preview">
-              <i class="fas fa-eye mr-2"></i>&nbsp;Live Preview
-              </span>
-            </b-button>
-          </div>
+            <i class="fas fa-circle-notch fa-spin ml-2" />&nbsp;
+            <span class="testTitle ml-1">{{ currentTest.title }}</span>
+          </a>
+        </div>
+        <div
+          class="level-item"
+          v-if="currentTest"
+        >
+          <b-button
+            @click="openTest(currentTest)"
+            type="is-warning"
+            v-if="isPaused"
+            size="is-small"
+          >
+            <span class="preview">
+              <i class="fas fa-pause mr-2" />&nbsp;Paused. Waiting for input...
+            </span>
+          </b-button>
+          <b-button
+            @click="openTest(currentTest)"
+            type="is-info"
+            v-else
+            size="is-small"
+            outlined
+          >
+            <span class="preview">
+              <i class="fas fa-eye mr-2" />&nbsp;Live Preview
+            </span>
+          </b-button>
+        </div>
       </div>
     </transition>
   </nav>
@@ -63,8 +105,13 @@
 
 <script>
 export default {
-  name: "TestStatistics",
-  props: ["features"],
+  name: 'TestStatistics',
+  props: {
+    features: {
+      type: Object,
+      required: true,
+    }
+  },
   data() {
     return {
       scenarios: this.scenarioIds
@@ -79,12 +126,12 @@ export default {
   computed: {
     isPaused() {
       return this.$store.getters['cli/show'];
-    },       
+    },
     isRunning: function() {
-      return this.$store.getters["testRuns/isRunning"];
+      return this.$store.getters['testRuns/isRunning'];
     },
     currentTest: function() {
-      return this.$store.getters["testRuns/currentTest"];
+      return this.$store.getters['testRuns/currentTest'];
     },
     totalFeatures: function() {
       let total = 0;
@@ -105,13 +152,13 @@ export default {
     },
     successful: function() {
       return this.scenarioIds
-        .map(id => this.$store.getters["scenarios/testStatus"](id))
-        .filter(scenario => scenario.status === "passed").length;
+        .map(id => this.$store.getters['scenarios/testStatus'](id))
+        .filter(scenario => scenario.status === 'passed').length;
     },
     failed: function() {
       return this.scenarioIds
-        .map(id => this.$store.getters["scenarios/testStatus"](id))
-        .filter(scenario => scenario.status === "failed").length;
+        .map(id => this.$store.getters['scenarios/testStatus'](id))
+        .filter(scenario => scenario.status === 'failed').length;
     },
     skipped: function() {
       let scenarios = [];
@@ -127,7 +174,7 @@ export default {
     },
     pending: function() {
       return this.scenarioIds
-        .map(id => this.$store.getters["scenarios/testStatus"](id))
+        .map(id => this.$store.getters['scenarios/testStatus'](id))
         .filter(scenario => scenario.status === undefined).length;
     }
   }
@@ -146,15 +193,15 @@ nav {
 
 .stats {
   .counter {
-    display: inline-block;    
+    display: inline-block;
     @apply font-bold text-gray-600 ml-4;
   }
 }
 
 .currentTest {
-  
+
   .testTitle {
-    display: inline-block;  
+    display: inline-block;
     @apply text-purple-800 font-bold;
   }
 

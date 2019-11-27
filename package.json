@@ -14,7 +14,7 @@
     "frontend": "vue-cli-service serve",
     "backend": "cd example && ../bin/codepress.js",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint --fix",
+    "lint": "vue-cli-service lint --fix && vue-cli-service lint lib/** --fix",
     "test": "ava",
     "test:watch": "ava -w"
   },
@@ -97,6 +97,11 @@
         "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
       }]
     },
+    "overrides": [
+      {
+        "files": ["src/**", "lib/**"]
+      }
+    ],
     "parserOptions": {
       "parser": "babel-eslint"
     }

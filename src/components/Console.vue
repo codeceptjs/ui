@@ -51,7 +51,11 @@
                             <!--         content                   -->
                             <ul class="list_logs">
                                 <li v-for="itemLog in logList" v-bind:key="itemLog.id">
-                                    {{JSON.stringify(itemLog)}}
+                                    <p>
+                                        <i v-bind:class="formatIcon(itemLog.type)" />
+                                        <span>Message: {{itemLog.message}}</span>
+                                    </p>
+
                                 </li>
                             </ul>
                             <!--         content                   /-->
@@ -95,7 +99,18 @@
         logList () {
           return this.$store.getters['testRuns/logsList'];
         }
-      }
+      },
+      methods: {
+        formatIcon: (type = 'log') => {
+            const iconTypesClass = {
+                error: 'fas fa-bug',
+                info: 'fas fa-info-circle',
+                log: 'fas fa-box',
+                warn: 'fas fa-exclamation-triangle'
+            };
+            return iconTypesClass[type];
+        },
+      },
 	}
 </script>
 
@@ -124,6 +139,7 @@
  }
  .fas {
   @apply .px-2 .mx-3;
+  margin-top: 3px;
  }
  .console-tab__content{
   display: flex;

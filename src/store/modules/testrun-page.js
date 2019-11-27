@@ -57,6 +57,6 @@ const testRunPage = {
       context.commit('setSelectedStep', step);
     },
   }
-}
+};
 
 export default testRunPage;

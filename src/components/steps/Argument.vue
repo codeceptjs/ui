@@ -1,5 +1,11 @@
 <template>
-  <b-tooltip v-bind:label="copyText" position="is-left" square size="is-small" type="is-dark">
+  <b-tooltip
+    :label="copyText"
+    position="is-left"
+    square
+    size="is-small"
+    type="is-dark"
+  >
     <span @click="copy(arg)">
       {{ locatorArg }}
     </span>
@@ -12,11 +18,16 @@ import copyToClipboard from 'copy-text-to-clipboard';
 
 export default {
   name: 'Argument',
-  props: ['arg'],
+  props: {
+    arg: {
+      type: Object,
+      required: true,
+    }
+  },
   data: function() {
     return {
       copyText: 'Copy'
-    }
+    };
   },
   computed: {
     locatorArg: function() {
@@ -27,27 +38,27 @@ export default {
   methods: {
     copy() {
       copyToClipboard(this.arg);
-      this.copyText = 'Copied!'
+      this.copyText = 'Copied!';
       setTimeout(() => this.copyText = 'Copy', 3000);
     },
   }
-}
+};
 
 function formatSelector(stepArg) {
-    if (typeof stepArg !== 'object') {
-        return stepArg;
-    }
-    
-    if (stepArg.output) {
-        return `<${stepArg.output}>`;
-    }
-    if (stepArg.css) {
-        return `css⇨${stepArg.css}`;
-    }
-    if (stepArg.xpath) {
-        return `xpath⇨${stepArg.xpath}`;
-    }    
-    return stepArg;    
+  if (typeof stepArg !== 'object') {
+    return stepArg;
+  }
+
+  if (stepArg.output) {
+    return `<${stepArg.output}>`;
+  }
+  if (stepArg.css) {
+    return `css⇨${stepArg.css}`;
+  }
+  if (stepArg.xpath) {
+    return `xpath⇨${stepArg.xpath}`;
+  }
+  return stepArg;
 }
 
 </script>

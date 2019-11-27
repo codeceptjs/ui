@@ -69,4 +69,4 @@ export default {
       return state;
     },
   }
-}
+};

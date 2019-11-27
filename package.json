@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@codeceptjs/configure": "^0.4.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "ava": "^2.4.0",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
@@ -79,9 +80,23 @@
     },
     "extends": [
       "plugin:vue/essential",
+      "plugin:vue/strongly-recommended",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "vue/script-indent": ["error", 2, {
+        "baseIndent": 0,
+        "switchCase": 2
+      }],
+      "quotes": ["error", "single"],
+      "semi": "error",
+      "sort-imports": ["error", {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

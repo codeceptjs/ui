@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@codeceptjs/configure": "^0.4.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
     "ava": "^2.4.0",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
@@ -51,6 +50,7 @@
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.12.1",
     "@vue/cli-service": "^3.12.1",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "ansi-to-html": "^0.6.13",
     "babel-eslint": "^10.0.3",
     "buefy": "^0.8.8",
@@ -84,22 +84,40 @@
       "eslint:recommended"
     ],
     "rules": {
-      "vue/script-indent": ["error", 2, {
-        "baseIndent": 0,
-        "switchCase": 2
-      }],
-      "quotes": ["error", "single"],
+      "vue/script-indent": [
+        "error",
+        2,
+        {
+          "baseIndent": 0,
+          "switchCase": 2
+        }
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
       "semi": "error",
-      "sort-imports": ["error", {
-        "ignoreCase": false,
-        "ignoreDeclarationSort": true,
-        "ignoreMemberSort": false,
-        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-      }]
+      "sort-imports": [
+        "error",
+        {
+          "ignoreCase": false,
+          "ignoreDeclarationSort": true,
+          "ignoreMemberSort": false,
+          "memberSyntaxSortOrder": [
+            "none",
+            "all",
+            "multiple",
+            "single"
+          ]
+        }
+      ]
     },
     "overrides": [
       {
-        "files": ["src/**", "lib/**"]
+        "files": [
+          "src/**",
+          "lib/**"
+        ]
       }
     ],
     "parserOptions": {

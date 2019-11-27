@@ -100,7 +100,6 @@
           return this.$store.getters['testRuns/logsList'];
         },
         getCurrentTest () {
-            debugger
           return this.$store.getters['testRuns/currentTest'];
         }
       },

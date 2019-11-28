@@ -61,6 +61,7 @@
           <span class="Snapshot-size is-pulled-right">
             <b-tag><i class="fas fa-file-code" />{{ selected.snapshot.sourceContentType }}</b-tag>&nbsp;
             <b-tag><i class="fas fa-desktop" /> {{ selected.snapshot.viewportSize.width }}x{{ selected.snapshot.viewportSize.height }}</b-tag>&nbsp;
+
           </span>
         </div>
       </div>
@@ -90,15 +91,17 @@
     </div>
 
     <SnapshotREST :step="selected" />
+    <Console />
   </div>
 </template>
 
 <script>
-import {getSelectorString} from '../services/selector';
+import { getSelectorString } from '../services/selector';
 import SnapshotSource from './SnapshotSource';
 import SnapshotREST from './SnapshotREST';
+import Console from './Console';
 
-// todo removed?
+// TODO maybe remove
 // function arrayBufferToBase64(buffer) {
 //     let binary = '';
 //     let bytes = new Uint8Array(buffer);
@@ -130,6 +133,7 @@ export default {
   components: {
     SnapshotSource,
     SnapshotREST,
+    Console,
   },
   props: {
     selected: {

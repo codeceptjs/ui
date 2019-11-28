@@ -14,7 +14,7 @@
     "frontend": "vue-cli-service serve",
     "backend": "cd example && ../bin/codepress.js",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint --fix",
+    "lint": "vue-cli-service lint --fix && vue-cli-service lint lib/** --fix",
     "test": "ava",
     "test:watch": "ava -w"
   },
@@ -50,6 +50,7 @@
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.12.1",
     "@vue/cli-service": "^3.12.1",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "ansi-to-html": "^0.6.13",
     "babel-eslint": "^10.0.3",
     "buefy": "^0.8.8",
@@ -80,9 +81,46 @@
     },
     "extends": [
       "plugin:vue/essential",
+      "plugin:vue/strongly-recommended",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "vue/script-indent": [
+        "error",
+        2,
+        {
+          "baseIndent": 0,
+          "switchCase": 2
+        }
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": "error",
+      "sort-imports": [
+        "error",
+        {
+          "ignoreCase": false,
+          "ignoreDeclarationSort": true,
+          "ignoreMemberSort": false,
+          "memberSyntaxSortOrder": [
+            "none",
+            "all",
+            "multiple",
+            "single"
+          ]
+        }
+      ]
+    },
+    "overrides": [
+      {
+        "files": [
+          "src/**",
+          "lib/**"
+        ]
+      }
+    ],
     "parserOptions": {
       "parser": "babel-eslint"
     }

@@ -11,18 +11,18 @@
         @load="onIframeLoaded"
         v-show="loaded"
         sandbox="allow-scripts allow-same-origin"
-      ></iframe>
+      />
     </div>
   </div>
 </template>
 
 <script>
 import {
-  highlightElement,
   dehighlightAll,
+  highlightElement,
   highlightInIframe
-} from "../services/selector-finder";
-import copy from "copy-text-to-clipboard";
+} from '../services/selector-finder';
+import copy from 'copy-text-to-clipboard';
 
 const throttled = (delay, fn) => {
   let lastCall = 0;
@@ -60,8 +60,29 @@ const handleIframeClick = (props, doc, window) =>
   });
 
 export default {
-  name: "SnapshotSource",
-  props: ["snapshotId", "snapshotScrollPosition", "viewportSize", "highlight", 'enabledSelection'],
+  name: 'SnapshotSource',
+  props: {
+    snapshotId: {
+      type: Number,
+      required: true,
+    },
+    snapshotScrollPosition: {
+      type: Number,
+      required: true,
+    },
+    viewportSize: {
+      type: Number,
+      required: true,
+    },
+    highlight: {
+      type: Boolean,
+      required: true,
+    },
+    enabledSelection: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data: function() {
     return {
       loaded: false
@@ -76,7 +97,7 @@ export default {
       return (
         this.$refs.contentDocument ||
         (this.$refs.source.contentWindow &&
-          this.$refs.source.contentWindow.document)
+        this.$refs.source.contentWindow.document)
       );
     },
 
@@ -88,7 +109,7 @@ export default {
       return (
         this.$refs.source.contentWindow &&
         (this.$props.snapshotScrollPosition.x > 0 ||
-          this.$props.snapshotScrollPosition.y > 0)
+        this.$props.snapshotScrollPosition.y > 0)
       );
     },
 
@@ -108,15 +129,15 @@ export default {
       );
 
       this.getIframeDoc().addEventListener(
-        "mousemove", 
+        'mousemove',
         handleIframeMouseMove(this.$props, this.getIframeDoc(), this.getIframeWindow())
       );
       this.getIframeDoc().addEventListener(
-        "mouseout", 
+        'mouseout',
         handleIframeMouseOut(this.$props, this.getIframeDoc(), this.$props.highlight)
       );
       this.getIframeDoc().addEventListener(
-        "click",
+        'click',
         handleIframeClick(this.$props, this.getIframeDoc(), this.getIframeWindow(), this.$props.highlight)
       );
     }

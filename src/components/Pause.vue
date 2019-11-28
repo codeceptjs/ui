@@ -1,44 +1,65 @@
 <template>
-  <div class="InteractiveShell box" v-if="isShowCli">
-
-      <b-field label="Interactive Pause">
-          <b-autocomplete
-              ref="commands"
-              v-model="command"
-              placeholder="click, fillField, etc..."
-              field="suggestion"
-              class="commandInput"
-              @select="selectAction"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-              :data="filteredActions"
-              v-on:keyup.native.enter="sendCommand(command)"
-              v-on:keydown.prevent.native.up="previousCommand()"
-              v-on:keydown.prevent.native.down="nextCommand()"
-              v-on:keydown.prevent.native.tab="completeCommand()"
-              >
-          </b-autocomplete>
-      </b-field>
-
-    <b-message title="Command failed" type="is-danger" aria-close-label="Close message" v-if="hasErrorCli">
-      <div v-html="cliError"></div>
-    </b-message>    
-
-    <div v-if="successfulSteps.length" class="message  is-success">
+  <div
+    class="InteractiveShell box"
+    v-if="isShowCli"
+  >
+    <b-field label="Interactive Pause">
+      <b-autocomplete
+        ref="commands"
+        v-model="command"
+        placeholder="click, fillField, etc..."
+        field="suggestion"
+        class="commandInput"
+        @select="selectAction"
+        :data="filteredActions"
+        @keyup.native.enter="sendCommand(command)"
+        @keydown.prevent.native.up="previousCommand()"
+        @keydown.prevent.native.down="nextCommand()"
+        @keydown.prevent.native.tab="completeCommand()"
+      />
+    </b-field>
+    <b-message
+      title="Command failed"
+      type="is-danger"
+      aria-close-label="Close message"
+      v-if="hasErrorCli"
+    >
+      <div v-html="cliError" />
+    </b-message>
+    <div
+      v-if="successfulSteps.length"
+      class="message  is-success"
+    >
       <div class="message-header">
         <p>Succesful Steps</p>
       </div>
-      <pre v-highlightjs="stepsCode"><code class="javascript"></code></pre>
-      <div class="hint">You can <a @click="copy(stepsCode)">copy successful steps</a> and paste into to your test</div>
+      <pre v-highlightjs="stepsCode"><code class="javascript" /></pre>
+      <div class="hint">
+        You can <a @click="copy(stepsCode)">copy successful steps</a> and paste into to your test
+      </div>
     </div>
-
     <div class="InteractiveShell-actions columns">
-      <div class="column" v-if="showNextStep">
-       <b-button v-on:click.once="nextStep()" type="is-primary" outlined>Next Step</b-button>
+      <div
+        class="column"
+        v-if="showNextStep"
+      >
+        <b-button
+          @click.once="nextStep()"
+          type="is-primary"
+          outlined
+        >
+          Next Step
+        </b-button>
       </div>
       <div class="column text-right">
-       <b-button v-on:click.once="closeInteractiveShell()" type="is-primary">Exit</b-button>
+        <b-button
+          @click.once="closeInteractiveShell()"
+          type="is-primary"
+        >
+          Exit
+        </b-button>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -76,16 +97,16 @@ export default {
       return Object.keys(actions)
         .filter(action => action.startsWith(this.command))
         .sort((a, b) => a.length - b.length)
-        .map(action => ({ action, suggestion: `${action}(${actions[action]})` }))
+        .map(action => ({ action, suggestion: `${action}(${actions[action]})` }));
     },
     successfulSteps() {
       return this.$store.getters['cli/steps'];
-    },    
+    },
     stepsCode() {
       return this.$store.getters['cli/steps'].map(step => {
         if (step.command) return step.command + ';';
-        return `${step.actor}.${step.name}(${JSON.stringify(step.args).slice(1, -1)});`
-      }).join(`\n`);
+        return `${step.actor}.${step.name}(${JSON.stringify(step.args).slice(1, -1)});`;
+      }).join('\n');
     },
     isShowCli() {
       return this.$store.getters['cli/show'];
@@ -118,7 +139,7 @@ export default {
         input.focus();
         input.setSelectionRange(pos, pos);
         input.focus();
-      }, 0)
+      }, 0);
       return false;
     },
     previousCommand() {
@@ -155,13 +176,13 @@ export default {
     },
 
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
   .commandInput {
     @apply font-mono;
-    input {      
+    input {
       @apply text-sm;
       font-family: monospace !important;
     }

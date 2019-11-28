@@ -1,51 +1,79 @@
 <template>
   <div class="Snapshot">
-
-    <div class="Snapshot-browser" v-if="!isCodeStep(selected) && selected.snapshot">
-
+    <div
+      class="Snapshot-browser"
+      v-if="!isCodeStep(selected) && selected.snapshot"
+    >
       <div class="columns Browser-header">
         <div class="column">
-          <div class="Snapshot-actions" v-if="selected.snapshot">
+          <div
+            class="Snapshot-actions"
+            v-if="selected.snapshot"
+          >
             <div class="field ml-2 has-addons">
               <p class="control">
-              <span class="button is-small" :disabled="!selected.snapshot.hasSource" v-bind:class="{'is-selected is-info': isShowSource }" v-on:click="showSource()">
-                <i class="far fa-file-code"></i> Snapshot
-              </span>
+                <span
+                  class="button is-small"
+                  :disabled="!selected.snapshot.hasSource"
+                  :class="{'is-selected is-info': isShowSource }"
+                  @click="showSource()"
+                >
+                  <i class="far fa-file-code" /> Snapshot
+                </span>
               </p>
-                <p class="control">
-              <span class="button is-small" :disabled="!selected.snapshot.hasScreenshot" v-bind:class="{ 'is-selected is-info': isShowImage }" v-on:click="showImage()">
-                <i class="far fa-image"></i> Screenshot
-              </span>
-                </p>
+              <p class="control">
+                <span
+                  class="button is-small"
+                  :disabled="!selected.snapshot.hasScreenshot"
+                  :class="{ 'is-selected is-info': isShowImage }"
+                  @click="showImage()"
+                >
+                  <i class="far fa-image" /> Screenshot
+                </span>
+              </p>
             </div>
-            <button :disabled="!isShowSource" class="button ml-2 is-small" v-bind:class="{ 'is-info': enabledSelection }" @click="toggleSelect"><i class="fas fa-mouse-pointer"></i></button>
+            <button
+              :disabled="!isShowSource"
+              class="button ml-2 is-small"
+              :class="{ 'is-info': enabledSelection }"
+              @click="toggleSelect"
+            >
+              <i class="fas fa-mouse-pointer" />
+            </button>
           </div>
         </div>
-
-
         <div class="column is-half">
           <div class="Snapshot-pageUrl">
-            <input class="input" type="text" placeholder="Disabled input" disabled :value="selected.snapshot.pageUrl">
+            <input
+              class="input"
+              type="text"
+              placeholder="Disabled input"
+              disabled
+              :value="selected.snapshot.pageUrl"
+            >
             <div class="text-center text-gray-800">
-
-            {{selected.snapshot.pageTitle}}
+              {{ selected.snapshot.pageTitle }}
             </div>
           </div>
         </div>
 
         <div class="column">
-              <span class="Snapshot-size is-pulled-right">
-                <b-tag ><i class="fas fa-file-code"></i>{{ selected.snapshot.sourceContentType }}</b-tag>&nbsp;
-                <b-tag><i class="fas fa-desktop"></i> {{selected.snapshot.viewportSize.width}}x{{selected.snapshot.viewportSize.height}}</b-tag>&nbsp;
+          <span class="Snapshot-size is-pulled-right">
+            <b-tag><i class="fas fa-file-code" />{{ selected.snapshot.sourceContentType }}</b-tag>&nbsp;
+            <b-tag><i class="fas fa-desktop" /> {{ selected.snapshot.viewportSize.width }}x{{ selected.snapshot.viewportSize.height }}</b-tag>&nbsp;
 
-              </span>
+          </span>
         </div>
       </div>
 
 
 
-      <div class="Snapshot-data" v-if="selected.snapshot">
-        <img v-if="isShowImage"
+      <div
+        class="Snapshot-data"
+        v-if="selected.snapshot"
+      >
+        <img
+          v-if="isShowImage"
           class="Snapshot-image"
           :src="toImageUrl(selected.snapshot)"
           :alt="selected.name"
@@ -53,14 +81,13 @@
 
         <snapshot-source
           v-if="isShowSource && selected.snapshot"
-          v-bind:snapshotId="selected.snapshot.id"
-          v-bind:snapshotScrollPosition="selected.snapshot.scrollPosition"
-          v-bind:viewportSize="selected.snapshot.viewportSize"
-          v-bind:highlight="getSelector(selected)"
-          v-bind:enabledSelection="enabledSelection"
+          :snapshot-id="selected.snapshot.id"
+          :snapshot-scroll-position="selected.snapshot.scrollPosition"
+          :viewport-size="selected.snapshot.viewportSize"
+          :highlight="getSelector(selected)"
+          :enabled-selection="enabledSelection"
         />
       </div>
-
     </div>
 
     <SnapshotREST :step="selected" />
@@ -108,18 +135,23 @@ export default {
     SnapshotREST,
     Console,
   },
-  props: ['selected'],
+  props: {
+    selected: {
+      type: Object,
+      required: true,
+    }
+  },
   methods: {
     toImageUrl(snapshot) {
       return `/api/snapshots/screenshot/${snapshot.id}`;
     },
 
     showImage() {
-       this.$store.commit('testRunPage/setShowImage');
+      this.$store.commit('testRunPage/setShowImage');
     },
 
     showSource() {
-       this.$store.commit('testRunPage/setShowSource');
+      this.$store.commit('testRunPage/setShowSource');
     },
 
     getSelector(step) {
@@ -137,7 +169,7 @@ export default {
     return {
       show: 'image',
       enabledSelection: false,
-    }
+    };
   },
   computed: {
     isShowImage() {
@@ -148,7 +180,7 @@ export default {
     }
   },
 
-}
+};
 </script>
 
 <style scoped>

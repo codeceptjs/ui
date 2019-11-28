@@ -48,13 +48,13 @@ const scenarios = {
       const scenarioIds = Object.keys(initialStatus);
       scenarioIds.forEach(id => {
         Vue.set(state.scenarios, id, initialStatus[id]);
-      })
+      });
     }
   },
 
   actions: {
     loadInitialScenarioStatus: async function ({ commit }) {
-      const response = await axios.get(`/api/scenario-status`);
+      const response = await axios.get('/api/scenario-status');
       commit('setInitialScenarioStatus', response.data);
     },
 
@@ -62,7 +62,7 @@ const scenarios = {
       Toast.open({
         message: 'Scenarios have been reloaded',
         type: 'is-success'
-      })
+      });
     },
     'SOCKET_codeceptjs:scenarios.parseerror': function ({ commit }, err) {
       commit('setParseError', err);
@@ -82,22 +82,22 @@ const scenarios = {
     },
     'SOCKET_test.failed': function ({ commit }, step) {
       commit('setTestStatus', { scenarioId: step.testId, status: { 
-          status: 'failed',
-          startedAt: step.testStartedAt,
-          duration: step.duration,
-          error: step.error
-        } 
+        status: 'failed',
+        startedAt: step.testStartedAt,
+        duration: step.duration,
+        error: step.error
+      } 
       });
     },
     'SOCKET_test.passed': function ({ commit }, step) {
       commit('setTestStatus', { scenarioId: step.testId, status: { 
-          status: 'passed',
-          startedAt: step.testStartedAt,
-          duration: step.duration,
-        } 
+        status: 'passed',
+        startedAt: step.testStartedAt,
+        duration: step.duration,
+      } 
       });
     },
   }
-}
+};
 
 export default scenarios;

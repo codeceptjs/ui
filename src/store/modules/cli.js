@@ -50,7 +50,7 @@ const cli = {
   actions: {
     loadActions: async ({ state }) => {
       try {
-        const resp = await axios.get(`/api/actions`);
+        const resp = await axios.get('/api/actions');
         state.actions = resp.data.actions;
       } catch (err) {
         state.actions = {};
@@ -71,6 +71,6 @@ const cli = {
       commit('addStep', step);
     },
   }
-}
+};
 
 export default cli;

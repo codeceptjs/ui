@@ -1,23 +1,28 @@
 <template>
   <b-navbar>
     <template slot="brand">
-      <b-navbar-item @click.stop="gotoScenarios()">
+      <b-navbar-item
+        tag="router-link"
+        :to="{ path: '/' }"
+      >
         <img
           src="../assets/logo.png"
-          alt="codeceptui logo"
+          alt="CodeceptUI"
         >
-        &nbsp;CodeceptUI
+        &nbsp; CodeceptUI
       </b-navbar-item>
     </template>
-    <template slot="burger">
-      <b-navbar-item tag="div">
+    <template slot="start">
+      <b-navbar-item>
         <RunButton @run="run()" />
       </b-navbar-item>
     </template>
+
     <template slot="end">
-      <b-navbar-item tag="div">
+      <b-navbar-item>
         <SettingsMenu />
       </b-navbar-item>
+      <bar-navbar-item />
     </template>
   </b-navbar>
 </template>
@@ -29,9 +34,9 @@ import RunButton from './RunButton';
 export default {
   name: 'Header',
   props: {
-    loading : {
+    loading: {
       type: Boolean,
-      default: false,
+      default: false
     }
   },
   components: { SettingsMenu, RunButton },
@@ -49,11 +54,11 @@ export default {
 
 <style>
 .fixed-width {
-    display: inline-block;
-    width: 1em;
+  display: inline-block;
+  width: 1em;
 }
 .navbar {
-    min-height: auto;
+  min-height: auto;
 }
 </style>
 

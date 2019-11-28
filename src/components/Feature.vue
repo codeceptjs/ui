@@ -1,48 +1,39 @@
 <template>
-  <b-collapse :open="false">
-    <button
-      class="button"
-      slot="trigger"
-      aria-controls="contentIdForA11y1"
-    >
-      Toggle
-    </button>
-    <div class="Feature">
-      <a
-        class="Feature-fileName has-text-grey-light"
-        @click="openInEditor(feature.file)"
-      >&nbsp;{{ feature.fileBaseName }}</a>
-      <h3 class="Feature-title title is-size-6 has-text-grey-dark">
-        <i class="far fa-file has-text-grey" />
-        <span>{{ feature.feature.title }}</span>
-        <b-tag
-          class="Tag"
-          rounded
-          :key="tag"
-          v-for="tag in feature.feature.tags"
-        >
-          {{ tag }}
-        </b-tag>
+  <div class="Feature">
+    <a
+      class="Feature-fileName has-text-grey-light"
+      @click="openInEditor(feature.file)"
+    >&nbsp;{{ feature.fileBaseName }}</a>
+    <h3 class="Feature-title title is-size-6 has-text-grey-dark">
+      <i class="far fa-file has-text-grey" />
+      <span>{{ feature.feature.title }}</span>
+      <b-tag
+        class="Tag"
+        rounded
+        :key="tag"
+        v-for="tag in feature.feature.tags"
+      >
+        {{ tag }}
+      </b-tag>
 
-        <div class="FeatureActions is-pulled-right">
-          <a
-            class="FeatureActions-runButton button is-small"
-            @click="runFeature(feature.feature.title)"
-          >
-            <i class="far fa-play-circle" /> Run
-          </a>
-        </div>
-      </h3>
-      <ul>
-        <li
-          :key="scenario.id"
-          v-for="scenario in feature.scenarios"
+      <div class="FeatureActions is-pulled-right">
+        <a
+          class="FeatureActions-runButton button is-small"
+          @click="runFeature(feature.feature.title)"
         >
-          <Scenario :scenario="scenario" />
-        </li>
-      </ul>
-    </div>
-  </b-collapse>
+          <i class="far fa-play-circle" /> Run
+        </a>
+      </div>
+    </h3>
+    <ul>
+      <li
+        :key="scenario.id"
+        v-for="scenario in feature.scenarios"
+      >
+        <Scenario :scenario="scenario" />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>

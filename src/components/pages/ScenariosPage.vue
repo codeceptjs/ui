@@ -93,11 +93,24 @@
               </h2>
 
               <div class="Capability-content">
-                <feature
-                  :feature="feature"
-                  :key="feature.feature.title"
-                  v-for="feature in features"
-                />
+                <b-collapse
+                  aria-id="contentIdForA11y2"
+                  class="panel"
+                  :open.sync="isOpen"
+                >
+                  <button
+                    class="button"
+                    slot="trigger"
+                    aria-controls="contentIdForA11y1"
+                  >
+                    Toggle
+                  </button>
+                  <feature
+                    :feature="feature"
+                    :key="feature.feature.title"
+                    v-for="feature in features"
+                  />
+                </b-collapse>
               </div>
             </div>
           </li>

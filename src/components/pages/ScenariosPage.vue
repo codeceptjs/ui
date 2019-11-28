@@ -1,79 +1,67 @@
 <template>
   <div class="ScenariosPage">
-    <nav
-      class="navbar is-fixed-top"
-      role="navigation"
-      aria-label="main navigation"
-    >
-      <div class="container">
-        <div class="navbar-brand">
-          <a
-            class="navbar-item"
-            href="/"
+    <b-navbar>
+      <template slot="brand">
+        <b-navbar-item
+          tag="router-link"
+          :to="{ path: '/' }"
+        >
+          <img
+            src="../../assets/logo.png"
+            alt="CodeceptUI"
           >
-            <img
-              src="../../assets/logo.png"
-              alt="codepress logo"
+          &nbsp; CodeceptUI
+        </b-navbar-item>
+      </template>
+      <template slot="start">
+        <b-navbar-item>
+          <p class="control">
+            <input
+              class="input is-small"
+              @focus="$event.target.select()"
+              type="text"
+              placeholder="Search"
+              v-model="search"
+              @change="loadProject()"
             >
-            &nbsp;
-            CodeceptUI
-          </a>
-          <div class="SearchField navbar-item field has-addons">
-            <p class="control">
-              <input
-                class="input is-small"
-                @focus="$event.target.select()"
-                type="text"
-                placeholder="Search"
-                v-model="search"
-                @change="loadProject()"
-              >
-            </p>
-            <p class="control">
-              <a
-                class="button is-small"
-                @click="clearSearch()"
-              >
-                <i class="far fa-times-circle" />
-              </a>
-              <a
-                class="button is-small"
-                v-if="isMatchType('all')"
-                @click="selectMatchType('any')"
-              >
-                All
-              </a>
-              <a
-                class="button is-small"
-                v-if="isMatchType('any')"
-                @click="selectMatchType('all')"
-              >
-                Any
-              </a>
-            </p>
-          </div>
-        </div>
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item">
-              <RunButton @run="run()" />
+          </p>
+          <p class="control">
+            <a
+              class="button is-small"
+              @click="clearSearch()"
+            >
+              <i class="far fa-times-circle" />
             </a>
-          </div>
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <button
-                class="button is-primary"
-                @click="gotoNewTest()"
-              >
-                Write a Test
-              </button>
-            </div>
-          </div>
-          <SettingsMenu />
-        </div>
-      </div>
-    </nav>
+            <a
+              class="button is-small"
+              v-if="isMatchType('all')"
+              @click="selectMatchType('any')"
+            >All</a>
+            <a
+              class="button is-small"
+              v-if="isMatchType('any')"
+              @click="selectMatchType('all')"
+            >Any</a>
+          </p>
+        </b-navbar-item>
+        <b-navbar-item>
+          <RunButton @run="run()" />
+        </b-navbar-item>
+      </template>
 
+      <template slot="end">
+        <b-navbar-item>
+          <button
+            class="button is-primary"
+            @click="gotoNewTest()"
+          >
+            Write a Test
+          </button>
+          <SettingsMenu />
+        </b-navbar-item>
+        <bar-navbar-item />
+      </template>
+    </b-navbar>
     <section
       class="Project"
       v-if="project.name"
@@ -121,7 +109,6 @@
     </section>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import Feature from '../Feature';
@@ -133,7 +120,11 @@ import RunButton from '../RunButton';
 export default {
   name: 'Scenarios',
   components: {
-    Feature, CapabilityFolder, SettingsMenu, TestStatistics, RunButton,
+    Feature,
+    CapabilityFolder,
+    SettingsMenu,
+    TestStatistics,
+    RunButton
   },
   data() {
     return {
@@ -150,14 +141,18 @@ export default {
     this.loadScenarioStatus();
   },
   sockets: {
-    'codeceptjs:scenarios.updated': function () {
+    'codeceptjs:scenarios.updated': function() {
       this.loadProject();
     }
   },
   computed: {
     hasSearchResults() {
-      return this.project && this.project.features && Object.keys(this.project.features).length > 0;
-    },
+      return (
+        this.project &&
+        this.project.features &&
+        Object.keys(this.project.features).length > 0
+      );
+    }
   },
   methods: {
     run() {
@@ -184,7 +179,11 @@ export default {
     },
 
     updateUrl() {
-      history.pushState({}, '', `/?q=${encodeURIComponent(this.search)}&m=${this.matchType}`);
+      history.pushState(
+        {},
+        '',
+        `/?q=${encodeURIComponent(this.search)}&m=${this.matchType}`
+      );
     },
 
     async loadScenarioStatus() {
@@ -198,13 +197,15 @@ export default {
       const loadingComponent = this.$buefy.loading.open({ container: null });
 
       try {
-        const response = await axios.get(`/api/scenarios?q=${this.search}&m=${this.matchType}`);
+        const response = await axios.get(
+          `/api/scenarios?q=${this.search}&m=${this.matchType}`
+        );
         this.project = response.data;
       } finally {
         this.loading = false;
         loadingComponent.close();
       }
-    },
+    }
   }
 };
 </script>
@@ -219,7 +220,7 @@ export default {
 }
 
 .Capability {
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .Capability-content {
@@ -227,6 +228,6 @@ export default {
 }
 
 .Capability-headline {
-  margin-top: .25rem;
+  margin-top: 0.25rem;
 }
 </style>

@@ -86,12 +86,13 @@
       "eslint:recommended"
     ],
     "rules": {
+      "indent": ["error", 2],
       "vue/script-indent": [
         "error",
         2,
         {
           "baseIndent": 0,
-          "switchCase": 2
+          "switchCase": 0
         }
       ],
       "quotes": [
@@ -116,10 +117,11 @@
     },
     "overrides": [
       {
-        "files": [
-          "src/**",
-          "lib/**"
-        ]
+        "files": ["*.vue"],
+        "rules": {
+          "indent": "off",
+          "vue/script-indent": ["error", 2]
+        }
       }
     ],
     "parserOptions": {

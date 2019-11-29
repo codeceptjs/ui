@@ -23,7 +23,7 @@
 
     <template slot="end">
       <b-navbar-item>
-        <SettingsMenu />
+        <SettingsMenu v-if="this.$route.path !== '/settings'" />
       </b-navbar-item>
       <bar-navbar-item />
     </template>

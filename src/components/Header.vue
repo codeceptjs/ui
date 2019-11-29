@@ -12,8 +12,11 @@
         &nbsp; CodeceptUI
       </b-navbar-item>
     </template>
-    <template slot="start">
-      <b-navbar-item>
+    <template slot="burger">
+      <b-navbar-item
+        tag="div"
+        v-if="this.$route.path !== '/settings'"
+      >
         <RunButton @run="run()" />
       </b-navbar-item>
     </template>

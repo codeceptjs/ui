@@ -5,34 +5,58 @@
       @click="openInEditor(feature.file)"
     >&nbsp;{{ feature.fileBaseName }}</a>
     <h3 class="Feature-title title is-size-6 has-text-grey-dark">
-      <i class="far fa-file has-text-grey" />
-      <span>{{ feature.feature.title }}</span>
-      <b-tag
-        class="Tag"
-        rounded
-        :key="tag"
-        v-for="tag in feature.feature.tags"
-      >
-        {{ tag }}
-      </b-tag>
-
-      <div class="FeatureActions is-pulled-right">
-        <a
-          class="FeatureActions-runButton button is-small"
-          @click="runFeature(feature.feature.title)"
+      <section>
+        <b-collapse
+          class="card"
+          aria-id="contentIdForA11y3"
+          open="false"
         >
-          <i class="far fa-play-circle" /> Run
-        </a>
-      </div>
+          <div
+            slot="trigger"
+            slot-scope="props"
+            class="card-header"
+            role="button"
+            aria-controls="contentIdForA11y3"
+          >
+            <p class="card-header-title">
+              <i class="far fa-file has-text-grey" />
+              {{ feature.feature.title }}
+              <b-tag
+                class="Tag"
+                rounded
+                :key="tag"
+                v-for="tag in feature.feature.tags"
+              >
+                {{ tag }}
+              </b-tag>
+            </p>
+            <div class="FeatureActions">
+              <a
+                class="FeatureActions-runButton button is-small"
+                @click="runFeature(feature.feature.title)"
+              >
+                <i class="far fa-play-circle" /> Run
+              </a>
+            </div>
+            <a class="card-header-icon">
+              <b-icon :icon="props.open ? 'menu-down' : 'menu-up'" />
+            </a>
+          </div>
+          <div class="card-content">
+            <div class="content">
+              <ul>
+                <li
+                  :key="scenario.id"
+                  v-for="scenario in feature.scenarios"
+                >
+                  <Scenario :scenario="scenario" />
+                </li>
+              </ul>
+            </div>
+          </div>
+        </b-collapse>
+      </section>
     </h3>
-    <ul>
-      <li
-        :key="scenario.id"
-        v-for="scenario in feature.scenarios"
-      >
-        <Scenario :scenario="scenario" />
-      </li>
-    </ul>
   </div>
 </template>
 

@@ -80,17 +80,18 @@
         >
 
         <snapshot-source
-          v-if="isShowSource && selected.snapshot"
-          :snapshot-id="selected.snapshot.id"
-          :snapshot-scroll-position="selected.snapshot.scrollPosition"
-          :viewport-size="selected.snapshot.viewportSize"
+          v-if="isShowSource && selected && selected.snapshot"
+          :snapshot="selected.snapshot"
           :highlight="getSelector(selected)"
           :enabled-selection="enabledSelection"
         />
       </div>
     </div>
 
-    <SnapshotREST :step="selected" />
+    <SnapshotREST
+      :step="selected"
+      v-if="isREST"
+    />
     <Console />
   </div>
 </template>
@@ -100,33 +101,6 @@ import { getSelectorString } from '../services/selector';
 import SnapshotSource from './SnapshotSource';
 import SnapshotREST from './SnapshotREST';
 import Console from './Console';
-
-// TODO maybe remove
-// function arrayBufferToBase64(buffer) {
-//     let binary = '';
-//     let bytes = new Uint8Array(buffer);
-//     let len = bytes.byteLength;
-//     for (let i = 0; i < len; i++) {
-//         binary += String.fromCharCode(bytes[i]);
-//     }
-//     return window.btoa(binary);
-// }
-
-// const getAndroidBoundedElements = (source, contentType) => {
-//   if (contentType !== 'xml') {
-//     return;
-//   }
-
-//   const oParser = new DOMParser();
-//   const oDOM = oParser.parseFromString(source, "application/xml");
-
-//   let els = [];
-//   const query = oDOM.evaluate('//*[@bounds]', oDOM, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-//   for (let i = 0, length = query.snapshotLength; i < length; ++i) {
-//     els.push(query.snapshotItem(i));
-//   }
-//   return els;
-// }
 
 export default {
   name: 'Snapshot',
@@ -159,6 +133,7 @@ export default {
     },
 
     isCodeStep(step) {
+      if (!step.name) return false;
       return step.name === 'comment' || step.name.startsWith('send');
     },
     toggleSelect() {
@@ -172,6 +147,9 @@ export default {
     };
   },
   computed: {
+    isREST() {
+      return this.selected.name && name.startsWith('send');
+    },
     isShowImage() {
       return this.$store.getters['testRunPage/showImage'];
     },

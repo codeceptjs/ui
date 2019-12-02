@@ -34,14 +34,16 @@ const testRuns = {
       Vue.set(state, 'tests', [...state.tests, test]);
     },
     addStepToCurrentTest: (state, step) => {
+      if (!step) return;
       const currentTest = getTestById(state.tests, step.testId);
-      if (step.snapshot) {
-        state.lastSnapshot = step.snapshot;
-      } else {
-        Vue.set(step, 'snapshot', state.lastSnapshot);
+      const currentStepIndex = currentTest.steps.findIndex(s => s.id === step.id);
+
+      if (currentStepIndex === -1) {
+        currentTest.steps.push(step);
+        return;
       }
-      Vue.set(step, 'result', 'passed');
-      currentTest.steps.push(step);
+      const newStep = Object.assign(currentTest.steps[currentStepIndex], step);
+      Vue.set(currentTest.steps, currentStepIndex, newStep);      
     },
     addMetaStepToCurrentTest,
     addCommentToCurrentTest: (state, comment) => {
@@ -52,26 +54,19 @@ const testRuns = {
         ...comment
       });
     },
-    updateStep: (state, step) => {
-      const test = getTestById(state.tests, step.testId);
-      const currentStep = test.steps[test.steps.length - 1];
-      Vue.set(currentStep, 'returnValue', step.returnValue);
-    },
     markAsFailedCurrentTest: (state, data) => {
-      const currentTest = state.tests[state.tests.length - 1];
-      const currentStep = currentTest.steps[currentTest.steps.length - 1];
-
+      let currentTest = getTestById(state.tests, data.testId);
+      if (!currentTest) {
+        currentTest = data;
+        state.tests.push(currentTest);
+      }
+      
       currentTest.result = 'failed';
       Vue.set(currentTest, 'error', data.error);
-      Vue.set(currentTest, 'duration', data.duration);
-
-      Vue.set(currentStep, 'result', 'failed');
-      if (data.snapshot) {
-        Vue.set(currentStep, 'snapshot', data.snapshot);
-      }
+      Vue.set(currentTest, 'duration', data.duration);  
     },
     markAsPassedCurrentTest: (state, data) => {
-      const currentTest = state.tests[state.tests.length - 1];
+      const currentTest = getTestById(state.tests, data.testId);
       const currentStep = currentTest.steps[currentTest.steps.length - 1];
 
       Vue.set(currentTest, 'duration', data.duration);
@@ -123,9 +118,9 @@ const testRuns = {
       commit('setRunning', true);
     },
 
-    runScenario: async function ({ commit }, { id, profileName }) {
-      if (!id) throw new Error('id is required');
-      axios.post(`/api/scenarios/${encodeURIComponent(id)}/run`, { profileName });
+    runScenario: async function ({ commit }, test) {
+      if (!test.id) throw new Error('id is required');
+      axios.post(`/api/scenarios/${encodeURIComponent(test.id)}/run`);
       commit('clearTests');
       commit('setRunning', true);
     },
@@ -187,8 +182,8 @@ const testRuns = {
     'SOCKET_step.before': function ({ commit }, step) {
       commit('addStepToCurrentTest', step);
     },
-    'SOCKET_step.passed': function ({commit}, step) {
-      commit('updateStep', step);
+    'SOCKET_step.after': function ({commit}, step) {
+      commit('addStepToCurrentTest', step);
     },
     'SOCKET_metastep.changed': function (context, metastep) {
       context.commit('addMetaStepToCurrentTest', metastep);

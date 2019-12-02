@@ -64,6 +64,7 @@
         :source="scenario.body"
         :file="scenario.file"
       />
+      <TestResult :test="test" />
     </div>
     <div
       v-if="activeTab == 'testrun'"
@@ -86,7 +87,7 @@
           />
         </li>
       </ul>
-      <Pause v-showNextStep />
+      <Pause show-next-step />
       <TestResult :test="test" />
     </div>
   </div>
@@ -115,10 +116,13 @@ export default {
     Step, ScenarioSource, Pause, TestResult,
   },
   data: function () {
-    this.test.steps.forEach(s => s.opened = this.$store.getters['testRunPage/showSubsteps']);
+    if (this.test.steps) {
+      this.test.steps.forEach(s => s.opened = this.$store.getters['testRunPage/showSubsteps']);
+    }
     return {
       activeTab: 'testrun',
       command: undefined,
+      showNextStep: false,
       isOpened: false,
     };
   },

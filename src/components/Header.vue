@@ -22,7 +22,7 @@
       <b-navbar-item>
         <SettingsMenu />
       </b-navbar-item>
-      <bar-navbar-item />
+      <b-navbar-item />
     </template>
   </b-navbar>
 </template>

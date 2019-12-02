@@ -19,11 +19,11 @@ export default {
   name: 'ScenarioSource',
   props: {
     source : {
-      type: Object,
+      type: String,
       required: true,
     },
     file: {
-      type: ArrayBuffer,
+      type: String,
       required: true,
     }
   },

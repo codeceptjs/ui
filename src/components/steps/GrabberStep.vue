@@ -8,7 +8,7 @@
     />
     <div>
       <i class="fas fa-hand-holding" />
-      <b> {{ step.returnValue }}</b>
+      <b> {{ step && step.returnValue }}</b>
     </div>
   </span>
 </template>

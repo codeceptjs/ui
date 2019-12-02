@@ -6,8 +6,10 @@
       v-for="p in splitPath(folder)"
       :key="p"
     >
-      <span class="has-text-grey-lighter">/</span> {{ p }}
+      <span class="has-text-grey-lighter">
+        /</span> {{ p }}
     </span>
+
   </span>
 </template>
 

@@ -1,10 +1,11 @@
 <template>
   <div class="Feature">
     <a
+      v-if="feature.file"
       class="Feature-fileName has-text-grey-light"
       @click="openInEditor(feature.file)"
     >
-      {{ feature.fileBaseName }}
+      <i class="fas fa-edit" /> {{ feature.fileBaseName }}
     </a>
     <h3 class="Feature-title title is-size-6 has-text-grey-dark">
       <i class="far fa-file has-text-grey" />
@@ -25,7 +26,7 @@
           class="FeatureActions-runButton button is-small"
           @click="runFeature(feature.feature.title)"
         >
-          <i class="far fa-play-circle" /> Run
+          <i class="far fa-play-circle" /> &nbsp;Run
         </a>
       </div>
     </h3>
@@ -79,12 +80,13 @@ export default {
 
 <style>
 .Tag {
-  opacity: 0;
+  opacity: 0.3;
+  transition: all 1s;
   margin-left: .25rem !important;
 }
 
 .Feature:hover .Tag {
-  transition: all .3s;
+  /* transition: all 1s; */
   opacity: 1;
 }
 

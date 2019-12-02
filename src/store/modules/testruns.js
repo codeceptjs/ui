@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import axios from 'axios';
-import uuid from 'uuid/v4';
 
 const getTestById = (tests, id) => tests.filter(t => t.id === id)[0]; // TODO Use testId to find test
 const getCurrentTest = state => state.tests[state.tests.length - 1];
@@ -21,7 +20,6 @@ const testRuns = {
     lastSnapshot: undefined,
     // TODO Use testIds and support multiple testruns in parallel
     tests: [],
-    log: [],
   },
   mutations: {
     clearTests: (state) => {
@@ -78,9 +76,6 @@ const testRuns = {
     setRunning: (state, isRunning) => {
       state.isRunning = isRunning;
     },
-    addedLog: (state, entityOfLog) => {
-      return state.log = state.log.concat(entityOfLog);
-    }
   },
   getters: {
     testRuns: state => {
@@ -91,11 +86,7 @@ const testRuns = {
     },
     currentTest: state => {
       return getCurrentTest(state);
-    },
-    errorTypeCounter: state => (type = 'log') => {
-      return state.log.filter(item => item.type === type).filter(Boolean).length || 0;
-    },
-    logsList: state => state.log,
+    }
   },
   actions: {
     saveTestRun: async function (context, testRun) {
@@ -163,18 +154,6 @@ const testRuns = {
     },
     'SOCKET_test.passed': function ({ commit }, data) {
       commit('markAsPassedCurrentTest', data);
-    },
-    'SOCKET_console.log': function ({ commit }, logEntry) { // eslint-disable-line no-unused-vars
-      if (!logEntry.type) return;
-      const { type, url, lineno: lineNumber, args: message } = logEntry;
-      commit('addedLog', {
-        type,
-        message,
-        lineNumber,
-        url,
-        id: uuid(),
-      });
-      console[type]('Test >', message); // eslint-disable-line no-console
     },
     'SOCKET_step.comment': function ({ commit }, comment) {
       commit('addCommentToCurrentTest', comment);

@@ -24,14 +24,13 @@
         <div class="column">
           <h3
             class="TestRun-title"
-            v-if="scenario"
           >
-            {{ scenario.title }}
+            {{ test.title }}
           </h3>
           <span
             class="tag is-light"
             :key="tag"
-            v-for="tag in scenario.tags"
+            v-for="tag in test.tags"
           >{{ tag }}</span>
         </div>
       </div>

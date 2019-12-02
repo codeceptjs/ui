@@ -92,7 +92,7 @@ export default {
       return scenarioId => {
         const status = this.$store.getters['scenarios/testStatus'](scenarioId);
         if (status) {
-          return status.duration;
+          return status.duration / 1000;
         }
       };
     },

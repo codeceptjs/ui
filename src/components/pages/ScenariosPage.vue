@@ -212,7 +212,7 @@ export default {
 
 <style>
 .Project {
-  margin-top: 60px;
+  @apply mt-5 ml-2;
 }
 
 .SearchField input {

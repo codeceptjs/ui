@@ -54,10 +54,15 @@
           class="fas fa-circle-notch fa-spin pending-icon"
           v-if="isPending"
         />
+
         <span
           class="duration"
           v-if="step.duration"
         ><b>{{ step.duration }}</b>ms</span>
+        <i
+          class="fas fa-info-circle console"
+          v-if="step.logs.length"
+        />
         <GrabberStep
           :step="step"
           v-if="isGrabberStep"
@@ -246,6 +251,10 @@ export default {
 
     .duration {
       @apply text-xs text-gray-500 float-right;
+    }
+
+    .console {
+      @apply text-sm text-orange-500 float-right mr-1;
     }
 
     .pending-icon {

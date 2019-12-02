@@ -92,7 +92,7 @@
       :step="selected"
       v-if="isREST"
     />
-    <Console />
+    <Console :step="selected" />
   </div>
 </template>
 

@@ -1,48 +1,27 @@
 <template>
   <section>
-    <b-icon
-      icon="home"
-      size="is-large"
-      type="is-info"
-    />
     <b-collapse
       aria-id="contentIdForA11y2"
-      class="panel"
       :open.sync="isOpen"
     >
       <div
+        v-if="step.logs && step.logs.length"
         slot="trigger"
         class="panel-heading"
         role="button"
         aria-controls="contentIdForA11y2"
       >
-        <i class="fas fa-terminal" />
-        <span> Current test name: "{{ getCurrentTest.title }}" </span>
         <div>
           <b-tooltip
-            label="Error"
+            label="Console"
             position="is-right"
           >
-            <i
-              class="fas fa-bug"
-              title="Error"
-            />
-            <b-tag rounded>
-              {{ counterConsoleLogError }}
-            </b-tag>
-          </b-tooltip>
-        </div>
-        <div>
-          <b-tooltip
-            label="Info"
-            position="is-right"
-          >
-            <i
-              class="fas fa-info-circle"
-              title="Info"
-            />
-            <b-tag rounded>
-              {{ counterConsoleLogInfo }}
+            <b-tag>
+              <i
+                class="fas fa-info-circle "
+                title="Console Logs"
+              />
+              &nbsp;<b>{{ step.logs.length }}</b>
             </b-tag>
           </b-tooltip>
         </div>
@@ -53,33 +32,24 @@
         expanded
       >
         <b-tab-item>
-          <template slot="header">
-            <div class="console-tab__content">
-              <p>Errors</p>
-            </div>
-          </template>
           <template slot="default">
             <!--         content                   -->
-            <ul class="list_logs">
+            <ul class="log">
               <li
-                v-for="itemLog in logList"
+                :class="itemLog.type"
+                v-for="itemLog in step.logs"
                 :key="itemLog.id"
               >
-                <p>
-                  <i :class="formatIcon(itemLog.type)" />
-                  <span>Message: {{ itemLog.message }}</span>
-                </p>
+                <i :class="formatIcon(itemLog.type)" />
+
+                <span>{{ itemLog.message }}</span>
+                @
+                {{ itemLog.url }}
+
+                <span class="float-right">{{ duration(itemLog) }}</span>
               </li>
             </ul>
             <!--         content                   /-->
-          </template>
-        </b-tab-item>
-        <b-tab-item>
-          <template slot="header">
-            <div>
-              <span class="tab_header">Cookies</span>
-              <i class="fas fa-cookie-bite" />
-            </div>
           </template>
         </b-tab-item>
       </b-tabs>
@@ -90,6 +60,12 @@
 <script>
 export default {
   name: 'Console',
+  props: {
+    step: {
+      type: Object,
+      required: true,
+    }
+  },
   data() {
     return {
       activeTab: 0,
@@ -97,26 +73,15 @@ export default {
     };
   },
   computed : {
-    counterConsoleLogError () {
-      return this.$store.getters['testRuns/errorTypeCounter']('error') ;
-    },
-    counterConsoleLogInfo () {
-      return this.$store.getters['testRuns/errorTypeCounter']('info');
-    },
-    counterConsoleLog () {
-      return this.$store.getters['testRuns/errorTypeCounter']('log');
-    },
-    counterConsoleLogWarn() {
-      return this.$store.getters['testRuns/errorTypeCounter']('warn');
-    },
-    logList () {
-      return this.$store.getters['testRuns/logsList'];
-    },
     getCurrentTest () {
       return this.$store.getters['testRuns/currentTest'];
-    }
+    },
   },
   methods: {
+    duration(log) {
+      if (!log.time || !this.step.startedAt) return '';
+      return (log.time - this.step.startedAt) + 'ms';
+    },
     formatIcon: (type = 'log') => {
       const iconTypesClass = {
         error: 'fas fa-bug',
@@ -135,27 +100,43 @@ export default {
     @apply bottom-0 fixed;
     width: 66%;
   }
-  .collapse-content {
-    background-color: #dbdbdb;
+  .collapse .collapse-content {
+    background: #fff;
+    .b-tabs {
+      background: #fff;
+    }
   }
   .panel-heading {
-    background-color: #dbdbdb;
+    border: none;
+    background: transparent;
   }
-  .pannel {
-    width: 66%;
+
+  .log li {    
+    @apply border-b border-gray-200 border-solid text-sm;
+    i {
+      @apply mr-5;
+    }
+    &.error {
+      @apply text-red-500;
+    }
   }
-  .collapse {
-    background-color: #fafafa;
-  }
+
   .tab_header {
     padding-left: 5px;
   }
   .b-tabs {
     height: 200px;
   }
+  .tabs {
+    .is-active {
+      background: #fff;
+    }
+    li {
+      @apply bg-gray-200;
+
+    }
+  }
   .fas {
-    @apply .px-2 .mx-3;
-    margin-top: 3px;
   }
   .console-tab__content{
     display: flex;
@@ -164,7 +145,7 @@ export default {
     @apply .text-red-600;
   }
   .fa-info-circle {
-    @apply .text-teal-300;
+    @apply .text-orange-500;
   }
   .fa-exclamation-triangle {
     @apply .text-orange-500;

@@ -9,6 +9,17 @@
       role="button"
     >
       <b-tooltip
+        label="Editor is not set!"
+        position="is-left"
+        square
+        type="is-dark"
+      >
+        <i
+          class="fa-md fas fa-edit text-red-500 mr-2  fa-inverse"
+          v-if="!editor"
+        />
+      </b-tooltip>    
+      <b-tooltip
         label="Window Mode Enabled"
         position="is-left"
         square

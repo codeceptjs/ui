@@ -59,6 +59,7 @@
           </button>
           <SettingsMenu />
         </b-navbar-item>
+        <bar-navbar-item />
       </template>
     </b-navbar>
     <section

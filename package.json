@@ -2,7 +2,7 @@
   "name": "codepress",
   "version": "0.1.8",
   "bin": {
-    "codepress": "./bin/codepress.js"
+    "codepress": "./bin/codecept-ui.js"
   },
   "files": [
     "dist",
@@ -13,7 +13,7 @@
     "serve": "vue-cli-service serve",
     "backend": "./bin/codecept-ui.js -c node_modules/@codeceptjs/examples",
     "frontend": "vue-cli-service serve",
-    "examples": "cd node_modules/@codeceptjs/examples && ../../../bin/codepress.js",
+    "examples": "cd node_modules/@codeceptjs/examples && ../../../bin/codecept-ui.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --fix && vue-cli-service lint lib/** --fix",
     "test": "ava",

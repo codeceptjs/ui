@@ -53,7 +53,7 @@ const testRunPage = {
     }
   },
   actions: {
-    'SOCKET_step.before': function (context, step) {
+    'SOCKET_step.after': function (context, step) {
       context.commit('setSelectedStep', step);
     },
   }

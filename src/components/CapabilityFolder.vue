@@ -18,7 +18,7 @@ export default {
   name: 'CapabilityFolder',
   props: {
     folder: {
-      type: ArrayBuffer,
+      type: String,
       required: true,
     },
   },

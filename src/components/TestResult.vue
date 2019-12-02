@@ -2,12 +2,19 @@
   <div class="mb-2 mt-2">
     <b-message
       size="is-small"
-      :title="'Test pailed in ' + test.duration + 's'"
+      :title="'Test failed in ' + test.duration + 's'"
       type="is-danger"
       aria-close-label="Close message"
       v-if="test.result === 'failed'"
     >
-      {{ trim(test.error.message) }}
+      <span v-if="test.error.message">{{ trim(test.error.message) }}
+
+        <pre v-if="test.error.stack">
+{{ test.error.stack }}
+      </pre>
+
+      </span>
+      <span v-else>{{ trim(test.error.toString()) }}</span>
     </b-message>
     <b-message
       size="is-small"
@@ -25,7 +32,9 @@ export default {
   props: {
     test: {
       type: Object,
-      default: () => ({}),
+      default: () => ({
+        duration: 0,
+      }),
     },
   },
   methods: {
@@ -36,7 +45,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+article {
+  pre {
+    width: 100%;
+    overflow-x: scroll;
+  }
+}
+
 .Test-spacer {
   height: 2em;
   width: 100%;

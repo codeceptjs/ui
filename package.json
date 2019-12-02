@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
+    "backend": "./bin/codecept-ui.js -c node_modules/@codeceptjs/examples",
     "frontend": "vue-cli-service serve",
     "examples": "cd node_modules/@codeceptjs/examples && ../../../bin/codepress.js",
     "build": "vue-cli-service build",
@@ -86,7 +87,10 @@
       "eslint:recommended"
     ],
     "rules": {
-      "indent": ["error", 2],
+      "indent": [
+        "error",
+        2
+      ],
       "vue/script-indent": [
         "error",
         2,
@@ -117,10 +121,15 @@
     },
     "overrides": [
       {
-        "files": ["*.vue"],
+        "files": [
+          "*.vue"
+        ],
         "rules": {
           "indent": "off",
-          "vue/script-indent": ["error", 2]
+          "vue/script-indent": [
+            "error",
+            2
+          ]
         }
       }
     ],

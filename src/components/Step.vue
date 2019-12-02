@@ -1,19 +1,24 @@
 <template>
   <div
     class="StepContainer"
-    :class="{ 'StepContainer--selected': isSelected, 'StepContainer--failed': step.result === 'failed', 'StepContainer--passed': step.result === 'passed' }"
+    :class="{ 
+      'StepContainer--selected': isSelected, 
+      'StepContainer--failed': isFailed, 
+      'StepContainer--passed': isPassed,
+      'StepContainer--pending': isPending,
+    }"
     @click="handleSelectStep(step)"
   >
     <div
       class="StepWrapper"
-      v-if="isMetaStep(step)"
+      v-if="isMetaStep"
     >
       <MetaStep :step="step" />
     </div>
 
     <div
       class="StepWrapper"
-      v-else-if="isCommentStep(step)"
+      v-else-if="isCommentStep"
     >
       <div class="step comment">
         {{ step.args[0] }}
@@ -26,10 +31,10 @@
       <div
         class="step"
         :class="{
-          tech: isTechnicalStep(step),
-          assert: isAssertionStep(step),
-          wait: isWaiterStep(step),
-          grab: isGrabberStep(step),
+          tech: isTechnicalStep,
+          assert: isAssertionStep,
+          wait: isWaiterStep,
+          grab: isGrabberStep,
         }"
       >
         <span
@@ -45,21 +50,25 @@
             @click="openFileFromStack(step.stack.stackFrameInTest)"
           ><i class="far fa-edit" /></a>
         </span>
+        <i
+          class="fas fa-circle-notch fa-spin pending-icon"
+          v-if="isPending"
+        />
         <span
           class="duration"
           v-if="step.duration"
         ><b>{{ step.duration }}</b>ms</span>
         <GrabberStep
           :step="step"
-          v-if="isGrabberStep(step)"
+          v-if="isGrabberStep"
         />
         <WaiterStep
           :step="step"
-          v-else-if="isWaiterStep(step)"
+          v-else-if="isWaiterStep"
         />
         <AssertionStep
           :step="step"
-          v-else-if="isAssertionStep(step)"
+          v-else-if="isAssertionStep"
         />
         <ActionStep
           :step="step"
@@ -86,26 +95,18 @@ export default {
       type: Object,
       required: true,
     },
-    selectedStep: {
-      type: Object,
-      required: true,
-    },
     isHovered: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     isSelected: {
       type: Boolean,
-      required: true,
+      required: false,
     },
     isOpened: {
       type: Boolean,
-      required: true,
+      required: false,
     },
-    error: {
-      type: Object,
-      required: true,
-    }
   },
   components: {
     GrabberStep,
@@ -115,50 +116,59 @@ export default {
     MetaStep,
   },
 
+  computed: {
+    isAction() {
+      return ['click', 'clickLink', 'fillField', 'selectOption'].this.includes(this.step.name);
+    },
+
+    isCodeceptStep() {
+      return this.step.type === undefined;
+    },
+
+    isMetaStep() {
+      return this.step.type === 'meta';
+    },
+
+    isCommentStep() {
+      return this.step.type === 'comment';
+    },
+
+    isPending() {
+      return this.step.status === 'queued';
+    },
+    isPassed() {
+      return this.step.status === 'success';
+    },
+    isFailed() {
+      return this.step.status === 'failed';
+    },      
+
+    isAssertionStep() {
+      return this.step.name.startsWith('see') || this.step.name.startsWith('dontSee');
+    },
+
+    isWaiterStep() {
+      return this.step.name.startsWith('wait');
+    },
+
+    isGrabberStep() {
+      return this.step.name.startsWith('grab');
+    },
+
+
+    isTechnicalStep() {
+      return this.step.name.includes('Cookie')
+        || this.step.name.startsWith('press')
+        || this.step.name.includes('Screenshot')
+        || this.step.name.startsWith('send')
+        || this.step.name.startsWith('execute')
+        || this.step.name.startsWith('scroll')
+        || this.step.name.startsWith('refresh');
+    },
+  },
+
   methods: {
-
-    isAction(step) {
-      return ['click', 'clickLink', 'fillField', 'selectOption'].includes(step.name);
-    },
-
-    isCodeceptStep(step) {
-      return step.type === undefined;
-    },
-
-    isMetaStep(step) {
-      return step.type === 'meta';
-    },
-
-    isCommentStep(step) {
-      return step.type === 'comment';
-    },
-
-    isConsoleLogStep(step) {
-      return step.type === 'console.log';
-    },
-
-    isAssertionStep(step) {
-      return step.name.startsWith('see') || step.name.startsWith('dontSee');
-    },
-
-    isWaiterStep(step) {
-      return step.name.startsWith('wait');
-    },
-
-    isGrabberStep(step) {
-      return step.name.startsWith('grab');
-    },
-
-
-    isTechnicalStep(step) {
-      return step.name.includes('Cookie')
-        || step.name.startsWith('press')
-        || step.name.includes('Screenshot')
-        || step.name.startsWith('send')
-        || step.name.startsWith('execute')
-        || step.name.startsWith('scroll')
-        || step.name.startsWith('refresh');
-    },
+    
 
     stepNameStartsWith(methodName) {
       const step = this.$props.step;
@@ -201,7 +211,7 @@ export default {
     },
 
     handleSelectStep: function (step) {
-      if (this.isMetaStep(step)) return;
+      if (this.isMetaStep) return;
       this.$emit('select-step', step);
     }
   }
@@ -227,6 +237,9 @@ export default {
     &.tech {
       @apply text-gray-500 bg-gray-100;
     }
+    &.grab {
+      @apply bg-pink-100;
+    }
     &.wait {
       @apply text-gray-500 bg-orange-200;
     }
@@ -235,8 +248,12 @@ export default {
       @apply text-xs text-gray-500 float-right;
     }
 
+    .pending-icon {
+      @apply float-right ml-1 text-gray-500;
+    }
+
     .open-in-editor {
-      @apply text-xs float-right pl-1;
+      @apply text-xs float-right ml-1;
       a {
         @apply text-gray-500;
         &:hover {
@@ -289,11 +306,15 @@ export default {
 }
 
 .StepContainer--passed {
-  border-right: 4px solid hsl(141, 71%, 48%);
+  @apply border-solid border-green-500 border-r-4;
 }
 
 .StepContainer--failed {
-  border-right: 4px solid hsl(348, 100%, 61%);
+  @apply border-solid border-red-500 border-r-4;
+}
+
+.StepContainer--pending {
+  @apply border-solid border-yellow-500 border-r-4;
 }
 
 .step-details {

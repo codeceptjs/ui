@@ -5,7 +5,25 @@
       @run="runScenario(scenario)"
     />
     <aside class="Sidebar">
-      <div v-if="scenario && tests.length > 0">
+      <div v-if="scenario && scenario.pending">
+        <article class="message is-warning">
+          <div class="message-body">
+            <b-button
+              class="float-right button"
+              @click="editFile(scenario)"
+              v-if="scenario.file"
+            >
+              <i class="fas fa-edit" />
+              Edit
+            </b-button>
+            <h3 class="title is-6">
+              {{ scenario.fullTitle }}
+            </h3>
+            This scenario is marked as skipped
+          </div>
+        </article>
+      </div>
+      <div v-else-if="scenario && tests.length > 0">
         <Test
           v-for="test in tests"
           :key="test.title"
@@ -115,6 +133,7 @@ export default {
 
       try {
         const response = await axios.get(`/api/scenarios/${encodeURIComponent(this.scenarioId)}`);
+
         this.scenario = response.data;
       } finally {
         this.loading = false;
@@ -122,13 +141,16 @@ export default {
       }
     },
 
+    editFile(scenario) {
+      axios.get(`/api/tests/${encodeURIComponent(scenario.file)}/open`);
+    },
+
     async loadLastTestRun() {
       return this.$store.dispatch('testRuns/loadTestRun', this.scenarioId);
     },
 
     runScenario(scenario) {
-      const profileName = this.$store.getters['profiles/selectedProfileName'];
-      this.$store.dispatch('testRuns/runScenario', { ...scenario, profileName });
+      this.$store.dispatch('testRuns/runScenario', scenario);
     },
 
     // TODO Do i still need this

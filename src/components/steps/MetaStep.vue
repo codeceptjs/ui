@@ -23,7 +23,7 @@ export default {
     },
     isOpened : {
       type: Boolean,
-      required: true
+      required: false
     }
   },
   methods: {

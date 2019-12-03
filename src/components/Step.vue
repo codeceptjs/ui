@@ -254,7 +254,7 @@ export default {
     }
 
     .console {
-      @apply text-sm text-orange-500 float-right mr-1;
+      @apply text-sm text-orange-400 float-right mr-1;
     }
 
     .pending-icon {

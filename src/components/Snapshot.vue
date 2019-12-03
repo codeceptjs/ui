@@ -31,15 +31,15 @@
                   <i class="far fa-image" /> Screenshot
                 </span>
               </p>
+              <button
+                :disabled="!isShowSource"
+                class="button ml-2 is-small"
+                :class="{ 'is-info': enabledSelection }"
+                @click="toggleSelect"
+              >
+                <i class="fas fa-mouse-pointer" />
+              </button>
             </div>
-            <button
-              :disabled="!isShowSource"
-              class="button ml-2 is-small"
-              :class="{ 'is-info': enabledSelection }"
-              @click="toggleSelect"
-            >
-              <i class="fas fa-mouse-pointer" />
-            </button>
           </div>
         </div>
         <div class="column is-half">
@@ -51,7 +51,7 @@
               disabled
               :value="selected.snapshot.pageUrl"
             >
-            <div class="text-center text-gray-800">
+            <div class="text-center text-gray-800 text-xs">
               {{ selected.snapshot.pageTitle }}
             </div>
           </div>
@@ -181,11 +181,9 @@ export default {
 }
 
 .Snapshot-pageTitle {
-  margin-bottom: .5em;
 }
 
 .Snapshot-pageUrl {
-  margin-bottom: .5em;
   border-radius: 3px;
   padding: 2px 1em;
 }

@@ -23,8 +23,8 @@ const testRuns = {
   },
   mutations: {
     clearTests: (state) => {
-      state.isRunning = false;
-      state.tests = [];
+      Vue.set(state, 'isRunning', false);
+      Vue.set(state, 'tests', []);
     },
     addTest: (state, test) => {
       Vue.set(test, 'steps', []);

@@ -2,20 +2,21 @@
 
 An interactive, graphical test runner for CodeceptJS. 
 
-![codepress video](./codepress.gif)
+
+![codepress video](./codeceptui.gif)
 
 ## Quickstart
 
 Install CodeceptUI in a project where CodeceptJS is already used
 
 ```
-npm i @codecept-js/ui#master --save
+npm i @codecept-js/ui --save
 ```
 
 Execute it:
 
 ```
-npx codepress
+npx codecept-ui
 ```
 
 ## Development Mode
@@ -29,10 +30,10 @@ codepress uses the debug package to output debug information. This is useful to 
 
 ```
   # verbose: get all debug information
-  DEBUG=codepress:* npx codepress 
+  DEBUG=codepress:* npx codeceptui 
 
   # just get debug output of one module
-  DEBUG=codepress:codeceptjs-factory npx codepress
+  DEBUG=codepress:codeceptjs-factory npx codeceptui
 ```
 
 # Credits

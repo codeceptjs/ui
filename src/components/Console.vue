@@ -112,7 +112,7 @@ export default {
   }
 
   .log li {    
-    @apply border-b border-gray-200 border-solid text-sm;
+    @apply font-mono border-b border-gray-200 border-solid text-xs text-gray-700;
     i {
       @apply mr-5;
     }
@@ -126,6 +126,7 @@ export default {
   }
   .b-tabs {
     height: 200px;
+    overflow-y: scroll;
   }
   .tabs {
     .is-active {

@@ -34,9 +34,8 @@ const cli = {
       state.message = data.message;
     },
     addStep: (state, step) => {
-      if (!state.cli || !step.store) return;
-      if (step.result !== 'passed') return;
-      if (!step.store.debugMode) return;
+      if (!state.cli) return;
+      if (step.status !== 'success') return;
       state.steps.push(step);
     }
   },
@@ -67,7 +66,7 @@ const cli = {
     'SOCKET_cli.error': function ({ commit }, data) {
       commit('setCliError', data);
     },
-    'SOCKET_step.before': function ({commit}, step) {
+    'SOCKET_step.after': function ({commit}, step) {
       commit('addStep', step);
     },
   }

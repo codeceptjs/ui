@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vue';
 
 const defaults = {
   editor: 'code --goto ',
@@ -9,6 +10,9 @@ if (!localStorage.codecept) {
 }
 
 const settings = JSON.parse(localStorage.codecept);
+Object.keys(settings).forEach(k => {
+  if (!settings[k]) delete settings[k];
+});
 
 // initialize current settings on backend
 axios.put('/api/settings', settings);
@@ -23,21 +27,19 @@ export default {
   },
   mutations: {
     setHeadless(state, isHeadless) {
-      state.isHeadless = isHeadless;
+      Vue.set(state, 'isHeadless', isHeadless);
     },
     setSingleSession(state, isSingleSession) {
-      state.isSingleSession = isSingleSession;
+      Vue.set(state, 'isSingleSession', isSingleSession);
     },    
     setWindowSize(state, { width, height }) {
-      state.windowSize = {
-        width, height
-      };
+      Vue.set(state, 'windowSize', { width, height })``;
     },
     setEditor(state, editor) {
-      state.editor = editor;
+      if (editor) Vue.set(state, 'editor', editor);
     },
     setBrowser(state, browser) {
-      state.browser = browser;
+      if (browser) Vue.set(state, 'browser', browser);
     },
 
   },

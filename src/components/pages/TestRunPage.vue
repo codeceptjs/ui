@@ -4,65 +4,67 @@
       :loading="isRunning"
       @run="runScenario(scenario)"
     />
-    <aside class="Sidebar">
-      <div v-if="scenario && scenario.pending">
-        <article class="message is-warning">
-          <div class="message-body">
-            <b-button
-              class="float-right button"
-              @click="editFile(scenario)"
-              v-if="scenario.file"
-            >
-              <i class="fas fa-edit" />
-              Edit
-            </b-button>
-            <h3 class="title is-6">
-              {{ scenario.fullTitle }}
-            </h3>
-            This scenario is marked as skipped
-          </div>
-        </article>
-      </div>
-      <div v-else-if="scenario && tests.length > 0">
-        <Test
-          v-for="test in tests"
-          :key="test.title"
-          :test="test"
-          :scenario="scenario"
-          @select-step="onSelectStep"
-        />
-        <div class="LastTestMarker" />
-      </div>
-      <div v-else>
-        <div v-if="scenario">
-          <ScenarioSource
-            :source="scenario.body"
-            :file="scenario.file"
+    <section class="test-view">
+      <aside class="Sidebar">
+        <div v-if="scenario && scenario.pending">
+          <article class="message is-warning">
+            <div class="message-body">
+              <b-button
+                class="float-right button"
+                @click="editFile(scenario)"
+                v-if="scenario.file"
+              >
+                <i class="fas fa-edit" />
+                Edit
+              </b-button>
+              <h3 class="title is-6">
+                {{ scenario.fullTitle }}
+              </h3>
+              This scenario is marked as skipped
+            </div>
+          </article>
+        </div>
+        <div v-else-if="scenario && tests.length > 0">
+          <Test
+            v-for="test in tests"
+            :key="test.title"
+            :test="test"
+            :scenario="scenario"
+            @select-step="onSelectStep"
           />
+          <div class="LastTestMarker" />
+        </div>
+        <div v-else>
+          <div v-if="scenario">
+            <ScenarioSource
+              :source="scenario.body"
+              :file="scenario.file"
+            />
+          </div>
+        </div>
+      </aside>
+      <div class="Content">
+        <Snapshot
+          v-if="hoveredOrSelectedStep"
+          :selected="hoveredOrSelectedStep"
+        />
+        <div
+          class="empty"
+          v-else
+        >
+          <span>
+            Once you
+          </span>
+          <a
+            href="#"
+            @click="runScenario(scenario)"
+          >
+            launch a test
+          </a>
+          you will see snapshots of all steps here.<br>
         </div>
       </div>
-    </aside>
-    <div class="Content">
-      <Snapshot
-        v-if="hoveredOrSelectedStep"
-        :selected="hoveredOrSelectedStep"
-      />
-      <div
-        class="empty"
-        v-else
-      >
-        <span>
-          Once you
-        </span>
-        <a
-          href="#"
-          @click="runScenario(scenario)"
-        >
-          launch a test
-        </a>
-        you will see snapshots of all steps here.<br>
-      </div>
-    </div>
+    </section>
   </div>
 </template>
 

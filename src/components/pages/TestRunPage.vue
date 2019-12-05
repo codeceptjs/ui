@@ -35,10 +35,12 @@
       </div>
       <div v-else>
         <div v-if="scenario">
-          <ScenarioSource
-            :source="scenario.body"
-            :file="scenario.file"
-          />
+          <Test
+            :key="scenario.title"
+            :test="scenario"
+            :scenario="scenario"
+            @select-step="onSelectStep"
+          />          
         </div>
       </div>
     </aside>
@@ -71,7 +73,6 @@ import axios from 'axios';
 import Header from '../Header';
 import Test from '../Test';
 import Snapshot from '../Snapshot';
-import ScenarioSource from '../ScenarioSource';
 
 const scrollToLastStep = () => {
   setTimeout(() => {
@@ -92,7 +93,6 @@ export default {
     Header,
     Test,
     Snapshot,
-    ScenarioSource
   },
   sockets: {
     'step.before': function () {

@@ -69,6 +69,12 @@
       v-if="activeTab == 'testrun'"
       class="TestrunStepsContainer"
     >
+      <div
+        class="empty"
+        v-if="scenario === test"
+      >
+        No testruns yet
+      </div>
       <ul class="TestRun-steps">
         <li
           v-for="step in test.steps"

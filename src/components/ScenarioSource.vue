@@ -17,15 +17,24 @@
       <div class="card">
         <div class="card-content">
           <div class="content">
-            <div>
-              <span>Error message: {{ errorMessage }}</span>
+            <div class="error">
+              <h1>Error</h1>
+              <h2><span class="error-message">{{ errorMessage }}</span></h2>
+            </div>
+            <div class="error">
+              <h2><span class="error-message">{{ errorMessageDescription }}</span> </h2>
             </div>
             <div>
-              <h1>Try example solutions</h1>
+              <h3>How to solve this, install simple editors:</h3>
             </div>
             <ul>
               <li>
-                <div>Visual studio</div>
+                <div>
+                  <a
+                    href="https://code.visualstudio.com/Download"
+                    target="_blank"
+                  >Download Visual studio code</a>
+                </div>
                 <div>
                   <a
                     href="https://code.visualstudio.com/docs/setup/setup-overview"
@@ -38,7 +47,7 @@
               </li>
               <li>
                 <div>
-                  Webstorm
+                  <a href="https://www.jetbrains.com/webstorm/download/">Download Webstorm</a>
                 </div>
                 <div>
                   <ol>
@@ -51,11 +60,16 @@
                   </div>
                 </div>
               </li>
+              <li>
+                <div>
+                  <a href="https://www.sublimetext.com/"> Sublime text</a>
+                </div>
+              </li>
             </ul>
             <div>
-              <h2>
-                If you do not have an editor that is called through the console. Or you have a problem with calling him. Then we can offer you a live editor
-              </h2>
+              <p>
+                If you do not have an editor that is called through the console. Or you have a problem with calling him. Then we can offer you a live editor(next update)
+              </p>
             </div>
           </div>
         </div>
@@ -72,7 +86,8 @@ export default {
   data() {
     return {
       isOpened: false,
-      errorMessage: ''
+      errorMessage: '',
+      errorMessageDescription: ''
     };
   },
   props: {
@@ -92,14 +107,17 @@ export default {
         .get(`/api/tests/${encodeURIComponent(this.file)}/open`)
         .then(() => {
           this.state.errorMessage = '';
+          this.errorMessageDescription = '';
         })
         .catch((error) => {
           const { response: {
             data: {
-              message
+              message,
+              description
             }
           } } = error;
           this.errorMessage = message;
+          this.errorMessageDescription = description;
           this.openModal();
         });
     },
@@ -122,6 +140,11 @@ export default {
 
 .ScenarioSource code {
     overflow: hidden;
+}
+.error {
+}
+.error-message {
+  @apply text-red-600;
 }
 </style>
 

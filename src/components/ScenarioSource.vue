@@ -67,9 +67,9 @@
               </li>
             </ul>
             <div>
-              <h2>
-                If you do not have an editor that is called through the console. Or you have a problem with calling him. Then we can offer you a live editor
-              </h2>
+              <p>
+                If you do not have an editor that is called through the console. Or you have a problem with calling him. Then we can offer you a live editor(next update)
+              </p>
             </div>
           </div>
         </div>

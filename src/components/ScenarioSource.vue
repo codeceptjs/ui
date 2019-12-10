@@ -17,15 +17,21 @@
       <div class="card">
         <div class="card-content">
           <div class="content">
-            <div>
-              <span>Error message: {{ errorMessage }}</span>
+            <div class="error">
+              <span>Error message:</span> <span class="error-message">{{ errorMessage }}</span>
             </div>
             <div>
               <h1>Try example solutions</h1>
+              <h3>Install redactor</h3>
             </div>
             <ul>
               <li>
-                <div>Visual studio</div>
+                <div>
+                  <a
+                    href="https://code.visualstudio.com/Download"
+                    target="_blank"
+                  >Visual studio code</a>
+                </div>
                 <div>
                   <a
                     href="https://code.visualstudio.com/docs/setup/setup-overview"
@@ -38,7 +44,7 @@
               </li>
               <li>
                 <div>
-                  Webstorm
+                  <a href="https://www.jetbrains.com/webstorm/download/">Webstorm</a>
                 </div>
                 <div>
                   <ol>
@@ -49,6 +55,11 @@
                   <div>
                     <span>Command  <span style="color: white; background-color: black">wstorm</span></span>
                   </div>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <a href="https://www.sublimetext.com/"> Sublime text</a>
                 </div>
               </li>
             </ul>
@@ -122,6 +133,11 @@ export default {
 
 .ScenarioSource code {
     overflow: hidden;
+}
+.error {
+}
+.error-message {
+  @apply text-red-600 mx-24;
 }
 </style>
 

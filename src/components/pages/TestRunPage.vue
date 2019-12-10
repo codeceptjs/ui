@@ -164,5 +164,8 @@ export default {
 </script>
 
 <style scoped>
+  .test-view {
+    display: flex;
+  }
 
 </style>

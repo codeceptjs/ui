@@ -22,7 +22,7 @@
             </div>
             <div>
               <h1>Try example solutions</h1>
-              <h3>Install redactor</h3>
+              <h3>Install simple editors</h3>
             </div>
             <ul>
               <li>
@@ -30,7 +30,7 @@
                   <a
                     href="https://code.visualstudio.com/Download"
                     target="_blank"
-                  >Visual studio code</a>
+                  >Download Visual studio code</a>
                 </div>
                 <div>
                   <a
@@ -44,7 +44,7 @@
               </li>
               <li>
                 <div>
-                  <a href="https://www.jetbrains.com/webstorm/download/">Webstorm</a>
+                  <a href="https://www.jetbrains.com/webstorm/download/">Download Webstorm</a>
                 </div>
                 <div>
                   <ol>

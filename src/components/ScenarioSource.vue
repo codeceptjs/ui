@@ -18,14 +18,14 @@
         <div class="card-content">
           <div class="content">
             <div class="error">
-              <span>Error message:</span> <span class="error-message">{{ errorMessage }}</span>
+              <h1>Error</h1>
+              <h2><span class="error-message">{{ errorMessage }}</span></h2>
             </div>
             <div class="error">
-              <span>Description: <span class="error-message">{{ errorMessageDescription }}</span> </span>
+              <h2><span class="error-message">{{ errorMessageDescription }}</span> </h2>
             </div>
             <div>
-              <h1>Try example solutions</h1>
-              <h3>Install simple editors</h3>
+              <h3>How to solve this, install simple editors:</h3>
             </div>
             <ul>
               <li>
@@ -144,7 +144,7 @@ export default {
 .error {
 }
 .error-message {
-  @apply text-red-600 mx-24;
+  @apply text-red-600;
 }
 </style>
 

@@ -20,6 +20,9 @@
             <div class="error">
               <span>Error message:</span> <span class="error-message">{{ errorMessage }}</span>
             </div>
+            <div class="error">
+              <span>Description: <span class="error-message">{{ errorMessageDescription }}</span> </span>
+            </div>
             <div>
               <h1>Try example solutions</h1>
               <h3>Install simple editors</h3>
@@ -83,7 +86,8 @@ export default {
   data() {
     return {
       isOpened: false,
-      errorMessage: ''
+      errorMessage: '',
+      errorMessageDescription: ''
     };
   },
   props: {
@@ -103,14 +107,17 @@ export default {
         .get(`/api/tests/${encodeURIComponent(this.file)}/open`)
         .then(() => {
           this.state.errorMessage = '';
+          this.errorMessageDescription = '';
         })
         .catch((error) => {
           const { response: {
             data: {
-              message
+              message,
+              description
             }
           } } = error;
           this.errorMessage = message;
+          this.errorMessageDescription = description;
           this.openModal();
         });
     },

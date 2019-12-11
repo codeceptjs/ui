@@ -59,7 +59,6 @@
           </button>
           <SettingsMenu />
         </b-navbar-item>
-        <bar-navbar-item />
       </template>
     </b-navbar>
     <section
@@ -74,7 +73,10 @@
     </section>
     <section>
       <div class="container">
-        <Test-statistics :features="project.features" />
+        <Test-statistics
+          :features="project.features"
+          v-if="project.features"
+        />
       </div>
     </section>
     <section>

@@ -108,7 +108,7 @@ export default {
   name: 'TestStatistics',
   props: {
     features: {
-      type: Array,
+      type: Object,
       required: true,
     }
   },

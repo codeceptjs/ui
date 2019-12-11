@@ -20,7 +20,7 @@ export default {
   name: 'Argument',
   props: {
     arg: {
-      type: [Object, String, Boolean],
+      type: [Object, String, Boolean, Number],
       required: true,
     }
   },

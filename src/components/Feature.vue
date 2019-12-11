@@ -38,19 +38,23 @@
         <Scenario :scenario="scenario" />
       </li>
     </ul>
+    <EditorNotFound
+      :error="error"
+      :is-opened="!!error"
+    />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import moment from 'moment';
-
+import EditorNotFound from './EditorNotFound';
 import Scenario from './Scenario';
 
 export default {
   name: 'Feature',
   components: {
-    Scenario,
+    Scenario, EditorNotFound,
   },
   props: {
     feature: {
@@ -60,6 +64,7 @@ export default {
   },
   data() {
     return {
+      error: null,
     };
   },
   methods: {
@@ -68,7 +73,17 @@ export default {
     },
 
     openInEditor(file) {
-      axios.get(`/api/tests/${encodeURIComponent(file)}/open`);
+      axios
+        .get(`/api/tests/${encodeURIComponent(file)}/open`)
+        .then(() => {
+          this.error = null;
+        })
+        .catch((error) => {
+          this.error = error.response.data;
+        });
+    },
+    openModal() {
+      this.isOpened = !this.isOpened;
     },
 
     runFeature(featureTitle) {

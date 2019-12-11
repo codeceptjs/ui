@@ -81,6 +81,10 @@
         />
       </div>
     </div>
+    <EditorNotFound
+      :error="error"
+      :is-opened="!!error"
+    />
   </div>
 </template>
 
@@ -91,6 +95,7 @@ import AssertionStep from './steps/AssertionStep';
 import GrabberStep from './steps/GrabberStep';
 import WaiterStep from './steps/WaiterStep';
 import MetaStep from './steps/MetaStep';
+import EditorNotFound from './EditorNotFound';
 import { getSelectorString } from '../services/selector';
 
 export default {
@@ -119,6 +124,13 @@ export default {
     AssertionStep,
     WaiterStep,
     MetaStep,
+    EditorNotFound,
+  },
+
+  data() {
+    return {
+      error: null,
+    };
   },
 
   computed: {
@@ -209,10 +221,17 @@ export default {
 
     openFileFromStack: function (stackFrame) {
       const m = stackFrame.match(/\s+\(([^)]+)/);
-      if (m) {
-        const filePath = m[1];
-        axios.get(`/api/tests/${encodeURIComponent(filePath)}/open`);
-      }
+      if (!m) return;
+      const filePath = m[1];
+
+      axios
+        .get(`/api/tests/${encodeURIComponent(filePath)}/open`)
+        .then(() => {
+          this.error = null;
+        })
+        .catch((error) => {
+          this.error = error.response.data;
+        });
     },
 
     handleSelectStep: function (step) {

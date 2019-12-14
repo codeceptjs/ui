@@ -2,6 +2,8 @@
 
 - Provide a descriptive text that what you are trying to achieve with CodeceptUI.
 - Attach a screenshot should be more than welcome.
+- Provide a console output for frontend (open DevTools and copy or make a screenshot of last messages)
+- Provide output for backend (copy last mesage from terminal)
 
 #### What do you get instead?
 

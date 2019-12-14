@@ -69,15 +69,15 @@ Header {
 
 .Sidebar {
   z-index: 10;
-  top: 61px;
+  top: 3.25rem;
   left: 0;
   bottom: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 95vh;
   -webkit-overflow-scrolling: touch;
   padding: 5px 5px 5px 10px;
   width: 33%;
-  background-color: #fafafa;
   @media (max-width: 1024px) {
     width: 100%;
     position: relative;
@@ -86,9 +86,11 @@ Header {
 }
 
 .Content {
+  position: absolute;
   z-index: 1;
   right: 0;
   bottom: 0;
+  top: 3.25rem;
   overflow: hidden;
   width: 67%;
   height: 90vh;

@@ -33,7 +33,7 @@ export default {
       Vue.set(state, 'isSingleSession', isSingleSession);
     },    
     setWindowSize(state, { width, height }) {
-      Vue.set(state, 'windowSize', { width, height })``;
+      Vue.set(state, 'windowSize', { width, height });
     },
     setEditor(state, editor) {
       if (editor) Vue.set(state, 'editor', editor);

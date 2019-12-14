@@ -6,11 +6,7 @@
           tag="router-link"
           :to="{ path: '/' }"
         >
-          <img
-            src="../../assets/logo.png"
-            alt="CodeceptUI"
-          >
-          &nbsp; CodeceptUI
+          <Logo />
         </b-navbar-item>
       </template>
       <template slot="start">
@@ -118,10 +114,12 @@ import CapabilityFolder from '../CapabilityFolder';
 import SettingsMenu from '../SettingsMenu';
 import TestStatistics from '../TestStatistics';
 import RunButton from '../RunButton';
+import Logo from '../Logo';
 
 export default {
   name: 'Scenarios',
   components: {
+    Logo,
     Feature,
     CapabilityFolder,
     SettingsMenu,

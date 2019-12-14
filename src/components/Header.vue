@@ -1,16 +1,7 @@
 <template>
   <b-navbar>
     <template slot="brand">
-      <b-navbar-item
-        tag="router-link"
-        :to="{ path: '/' }"
-      >
-        <img
-          src="../assets/logo.png"
-          alt="CodeceptUI"
-        >
-        &nbsp; CodeceptUI
-      </b-navbar-item>
+      <Logo />
     </template>
     <template slot="burger">
       <b-navbar-item
@@ -33,6 +24,7 @@
 <script>
 import SettingsMenu from './SettingsMenu';
 import RunButton from './RunButton';
+import Logo from './Logo';
 
 export default {
   name: 'Header',
@@ -42,7 +34,7 @@ export default {
       default: false
     }
   },
-  components: { SettingsMenu, RunButton },
+  components: { SettingsMenu, RunButton, Logo },
   methods: {
     run() {
       this.$emit('run');

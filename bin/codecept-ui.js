@@ -13,7 +13,7 @@ const snapshotStore = require('../lib/model/snapshot-store');
 const scenarioStatusRepository = require('../lib/model/scenario-status-repository');
 
 // Base port
-const PORT = 3000;
+const PORT = Number(process.env.npm_package_config_port);
 
 // Serve frontend from dist
 const AppDir = path.join(__dirname, '..', 'dist');

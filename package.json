@@ -39,7 +39,6 @@
     "cheerio": "^1.0.0-rc.3",
     "chokidar": "^3.3.0",
     "commander": "^3.0.2",
-    "contributor-faces": "^1.0.3",
     "debug": "^4.1.1",
     "express": "^4.17.1",
     "lodash.clonedeep": "^4.5.0",
@@ -78,7 +77,8 @@
     "vue-socket.io": "^3.0.7",
     "vue-template-compiler": "^2.6.10",
     "vuex": "^3.1.2",
-    "webdriverio": "^5.16.8"
+    "webdriverio": "^5.16.8",
+    "contributor-faces": "^1.0.3"
   },
   "eslintConfig": {
     "root": true,

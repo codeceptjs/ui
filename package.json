@@ -19,9 +19,6 @@
     "test": "ava",
     "test:watch": "ava -w"
   },
-  "config": {
-    "port": 3000
-  },
   "lint-staged": {
     "*.{js,vue}": [
       "npm run lint",

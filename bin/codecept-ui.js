@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const debug = require('debug')('codepress:codepress');
+const { getPort } = require('../lib/config/env');
 
 // initialize CodeceptJS
 require('../lib/commands/init')();
@@ -13,7 +14,7 @@ const snapshotStore = require('../lib/model/snapshot-store');
 const scenarioStatusRepository = require('../lib/model/scenario-status-repository');
 
 // Base port
-const PORT = Number(process.env.npm_package_config_port);
+const PORT = getPort();
 
 // Serve frontend from dist
 const AppDir = path.join(__dirname, '..', 'dist');

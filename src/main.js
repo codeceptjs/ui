@@ -17,7 +17,7 @@ Vue.use(Buefy);
 Vue.use(VueHighlightJS);
 
 const store = require('./store').default;
-const PORT = process.env.npm_package_config_port;
+const PORT = process.env.port || 3000;
 Vue.use(new VueSocketIO({
   debug: true,
   connection: `http://localhost:${PORT}`,

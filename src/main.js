@@ -17,9 +17,10 @@ Vue.use(Buefy);
 Vue.use(VueHighlightJS);
 
 const store = require('./store').default;
+const PORT = process.env.port || 3000;
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: 'http://localhost:3000',
+  connection: `http://localhost:${PORT}`,
   vuex: {
     store,
     actionPrefix: 'SOCKET_',

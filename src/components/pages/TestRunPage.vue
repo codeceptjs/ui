@@ -165,7 +165,7 @@ export default {
 
 <style scoped>
   .test-view {
-    display: flex;
+
   }
 
 </style>

@@ -2,9 +2,10 @@
 
 1. clone repository
 2. Run `npm install`
-3. Run `npm run frontend` to start frontend server
-4. Run `npm run examples` to start backend server with tests in `example` package
-5. Open in browser `http://localhost:8080`
+3. Run `npm build`
+4. Run `npm run frontend` to start frontend server
+5. Run `npm run examples` to start backend server with tests in `example` package
+6. Open in browser `http://localhost:8080`
 
 ## Making Pull Requests
 

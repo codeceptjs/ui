@@ -19,6 +19,10 @@ Execute it:
 npx codecept-ui
 ```
 
+# ENV
+
+* port: Update default port of websocket (3000) and Codecept UI (defaultPort + 1)
+
 ## Development Mode
 
 See [CONTRIBUTING.md](https://github.com/codecept-js/ui/blob/master/.github/CONTRIBUTING.md)

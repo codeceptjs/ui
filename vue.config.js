@@ -1,10 +1,11 @@
-const { getUrl } = require('./lib/config/url');
+const { getPort } = require('./lib/config/env');
+const PORT = getPort() + 1;
 
 module.exports = {
   devServer: {
     proxy: {
       '^/api': {
-        target: getUrl(),
+        target: `http://localhost:${PORT}`,
       }
     }
   }

@@ -22,6 +22,9 @@ npx codecept-ui
 # ENV
 
 * port: Update default port of websocket (3000) and Codecept UI (defaultPort + 1)
+```
+cross-env port=3002 npx codecept-ui
+```
 
 ## Development Mode
 

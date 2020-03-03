@@ -47,8 +47,8 @@
   },
   "devDependencies": {
     "qrcode-terminal": "^0.12.0",
-    "codeceptjs": "^2.3.6",
-    "puppeteer": "^1.20.0",
+    "codeceptjs": "^2.5.0",
+    "puppeteer": "^2.1.1",
     "@codeceptjs/examples": "^1.0.0",
     "@medv/finder": "^1.1.1",
     "@vue/cli-plugin-babel": "^3.12.1",

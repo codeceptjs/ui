@@ -113,8 +113,13 @@ export default {
   },
   created: async function () {
     this.$store.dispatch('testRuns/clearTests');
+    if (localStorage.getItem('newTestCommand') !== null) {
+      this.code = localStorage.getItem('newTestCommand');  
+    }
   },
-
+  beforeDestroy: function() {
+    localStorage.setItem('newTestCommand', this.code);
+  },
   computed: {
     isHeaded() {
       return this.$store.state.settings.isHeadless === false;

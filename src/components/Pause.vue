@@ -3,6 +3,12 @@
     class="InteractiveShell box"
     v-if="isShowCli"
   >
+    <div
+      class="actionDoc"
+      v-if="commandDoc !== null"
+    >
+      {{ commandDoc }}
+    </div>
     <div class="interactiveBox">
       <ul
         class="columns interactiveOptions"
@@ -207,6 +213,7 @@ export default {
       params: {},
       history: [],
       cursor: 0,
+      commandDoc: null,
     };
   },
   created: async function() {
@@ -228,7 +235,7 @@ export default {
           let actionType = actionArray.filter(actionType => action.toLowerCase().startsWith(actionType));
           let actionTypeText = actionType[0] || '';
           return {
-            action, suggestion: `${action}(${actions[action]})`, actionType: actionTypeText
+            action, suggestion: `${action}(${actions[action].params})`, actionType: actionTypeText, actionDoc: actions[action].actionDoc
           };
         });
     },
@@ -267,6 +274,9 @@ export default {
       this.$refs['commands'].focus();
     },
     selectAction(action) {
+      if(action.actionDoc) {
+        this.commandDoc = action.actionDoc;
+      }
       if (!action || typeof action !== 'object') return false;
       this.$refs['commands'].setSelected(action.action + '()');
       setTimeout(() => {
@@ -316,6 +326,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .actionDoc {
+    background: rgba(0,0,0,0.02);
+    font-size:12px;
+    margin-bottom: 12px;
+    padding: 4px;
+  }
   .commandInput {
     @apply font-mono;
     input {

@@ -3,13 +3,15 @@
     class="InteractiveShell box"
     v-if="isShowCli"
   >
-    <div
-      class="actionDoc"
-      v-if="commandDoc !== null"
-    >
-      {{ commandDoc }}
-    </div>
     <div class="interactiveBox">
+      <div class="field show-doc">
+        <b-checkbox
+          v-model="showDoc"
+          size="is-small"
+        >
+          Show Documentation
+        </b-checkbox>
+      </div>
       <ul
         class="columns interactiveOptions"
         v-show="command.length===0"
@@ -192,10 +194,27 @@
         </b-button>
       </div>
     </div>
+    <div 
+      v-if="commandDoc !== null" 
+      v-show="showDoc"
+      class="action-doc"
+    >
+      <h4># {{ command.replace('()','') }} </h4>
+      <div class="action-def">
+        {{ commandDoc.actionDef }}
+      </div>
+      <prism-editor 
+        v-model="commandDoc.actionExample" 
+        language="js"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import 'prismjs';
+import 'prismjs/themes/prism.css';
+import PrismEditor from 'vue-prism-editor';
 import Convert from 'ansi-to-html';
 import copyToClipboard from 'copy-text-to-clipboard';
 
@@ -207,6 +226,9 @@ export default {
       default: false,
     }
   },
+  components: {
+    PrismEditor,
+  },
   data: function() {
     return {
       command: '',
@@ -214,6 +236,7 @@ export default {
       history: [],
       cursor: 0,
       commandDoc: null,
+      showDoc: true,
     };
   },
   created: async function() {
@@ -274,8 +297,10 @@ export default {
       this.$refs['commands'].focus();
     },
     selectAction(action) {
-      if(action.actionDoc) {
-        this.commandDoc = action.actionDoc;
+      if(action.actionDoc !== null && action.actionDoc !== undefined) {
+        let [actionDef, actionExample] = action.actionDoc.split('```js');
+        actionExample = actionExample.replace('```',' ');
+        this.commandDoc = {actionDef, actionExample};
       }
       if (!action || typeof action !== 'object') return false;
       this.$refs['commands'].setSelected(action.action + '()');
@@ -346,6 +371,10 @@ export default {
   .interactiveBox {
     position: relative;
     margin-bottom: 12px;
+    .show-doc {
+      position: absolute;
+      right: 0;
+    }
     .cmd {
       margin: -0.375rem -1rem;
       margin-right: -3rem;
@@ -396,6 +425,20 @@ export default {
       }
     }
   }
+  .action-doc {
+      border: 1px solid #feebc8;
+      background: #ffffff;
+      padding: 12px;
+      box-shadow: 0 0 4px 2px rgba(0,0,0,0.02);
+      h4 {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        color: #6f42c1;
+      }
+      .action-def {
+        margin-bottom: 12px;
+      }
+    }
 </style>
 <style lang="scss">
   .commandInput {

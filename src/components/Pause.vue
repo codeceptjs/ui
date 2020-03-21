@@ -197,7 +197,7 @@
     <div 
       v-if="commandDoc !== null" 
       v-show="showDoc"
-      class="action-doc"
+      class="action-documentation"
     >
       <h4># {{ command.replace('()','') }} </h4>
       <div class="action-def">
@@ -425,7 +425,7 @@ export default {
       }
     }
   }
-  .action-doc {
+  .action-documentation {
       border: 1px solid #feebc8;
       background: #ffffff;
       padding: 12px;

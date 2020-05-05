@@ -1,5 +1,5 @@
 <template>
-  <b-navbar>
+  <b-navbar @fixed-top="true">
     <template slot="brand">
       <Logo />
     </template>

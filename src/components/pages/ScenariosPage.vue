@@ -8,6 +8,21 @@
         >
           <Logo />
         </b-navbar-item>
+        <b-navbar-item>
+          <button 
+            class="hide-on-wide button"
+            @click="gotoNewTest()"
+          >
+            <i class="fas fa-edit mr-2" />
+            Write a Test
+          </button>
+        </b-navbar-item>        
+        <b-navbar-item>
+          <RunButton
+            @run="run()"
+            class="hide-on-wide"
+          />
+        </b-navbar-item>
       </template>
       <template slot="start">
         <b-navbar-item>
@@ -229,5 +244,11 @@ export default {
 
 .Capability-headline {
   margin-top: 0.25rem;
+}
+
+@media (min-width: 600px) { 
+  .hide-on-wide {
+    display: none;
+  }
 }
 </style>

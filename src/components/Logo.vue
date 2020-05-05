@@ -6,9 +6,10 @@
     <img
       src="../assets/logo.png"
       alt="CodeceptUI"
-    > CodeceptUI 
+    ><span class="hide-on-small">CodeceptUI</span> 
 
     <b-dropdown
+      class="hide-on-small"
       hoverable
       aria-role="list"
     >
@@ -62,3 +63,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  @media (max-width: 600px) { 
+    .hide-on-small {
+      display: none;
+    }
+  }
+</style>

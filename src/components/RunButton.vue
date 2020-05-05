@@ -1,24 +1,23 @@
 <template>
   <div>
     <button
-      class="button is-primary is-outlined is-small"
+      class="button is-primary px-8 py-2 is-outlined"
       @click="runOrStop()"
       @mouseover="isRunning && canStop(true)"
       @mouseout="isRunning && canStop(false)"
       :disabled="disabled"
     >
       <span v-if="!isRunning">
-        <i class="fas fa-play" />
-        &nbsp;
+        <i class="fas mr-2 fa-play " />
         Run
       </span>
       <span v-if="isRunning">
         <span v-if="canBeStopped">
-          <i class="fas fa-stop" />&nbsp;
+          <i class="fas mr-2 fa-stop" />
           Stop
         </span>
         <span v-else-if="isPaused">
-          <i class="fas fa-pause" />&nbsp;
+          <i class="fas mr-2 fa-pause" />
           Paused
         </span>
         <span v-else>
@@ -76,6 +75,6 @@ export default {
 </script>
 <style lang="scss" scoped>
   button {
-    @apply w-20;
+    @apply px-8;
   }
 </style>

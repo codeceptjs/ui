@@ -5,10 +5,13 @@
       @run="runScenario(scenario)"
     />
     <aside class="Sidebar">
-      <prism-editor
-        v-model="code"
-        language="js"
+      <MonacoEditor 
+        class="editor"
+        v-model="code" 
+        @editorDidMount="editorDidMount"
+        language="javascript" 
       />
+      
       <button
         v-if="!isRunning"
         @click="runScenario(scenario)"
@@ -73,9 +76,7 @@
 </template>
 
 <script>
-import 'prismjs';
-import 'prismjs/themes/prism.css';
-import PrismEditor from 'vue-prism-editor';
+import MonacoEditor from 'vue-monaco';
 import Header from '../Header';
 import Snapshot from '../Snapshot';
 import Pause from '../Pause';
@@ -90,7 +91,7 @@ export default {
     Header,
     Snapshot,
     Pause,
-    PrismEditor,
+    MonacoEditor,
     Step,
     TestResult,
   },
@@ -145,6 +146,14 @@ export default {
     }
   },
   methods: {
+    editorDidMount(editor) {
+      editor.updateOptions({
+        minimap: { enabled: false },
+        lineNumbers: false,
+        tabCompletion: 'onlySnippets',
+      });
+    },
+
     enableWindowMode() {
       this.$store.dispatch('settings/setHeadless', false);
     },
@@ -170,6 +179,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .editor {
+    width: 100%;
+    height: 200px;
+  }
   .Sidebar pre {
     margin: 0;
   }

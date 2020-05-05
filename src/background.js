@@ -1,7 +1,7 @@
 'use strict';
 
 import path from 'path';
-import { BrowserWindow, app, protocol } from 'electron';
+import { BrowserWindow, app, protocol, screen } from 'electron';
 import {
   createProtocol,
   /* installVueDevtools */
@@ -15,11 +15,19 @@ let win;
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: 'app', privileges: { secure: true, standard: true } }]);
 
+
 function createWindow () {
+  const { width: screenWidth, height: screenHeight } = screen.getPrimaryDisplay().size;
+
+  const width = Math.floor(screenWidth / 3.5) || 500;
   // Create the browser window.
   win = new BrowserWindow({
-    width: 1200, 
-    height: 600, 
+    width,
+    height: screenHeight, 
+    minWidth: 500,
+    x: screenWidth,
+    y: 0,
+    autoHideMenuBar: true,
     icon: path.join(__dirname, 'public/icon.png'), 
     webPreferences: {
       nodeIntegration: true

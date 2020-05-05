@@ -12,12 +12,35 @@
           Show Documentation
         </b-checkbox>
       </div>
-      <ul
-        class="columns interactiveOptions"
+      <b-field label="Interactive Pause">
+        <b-autocomplete
+          ref="commands"
+          v-model="command"
+          field="suggestion"
+          class="commandInput"
+          :open-on-focus="true"
+          :data="filteredActions"
+          @select="selectAction"
+          @keyup.native.enter="sendCommand(command)"
+          @keydown.prevent.native.up="previousCommand()"
+          @keydown.prevent.native.down="nextCommand()"
+          @keydown.prevent.native.tab="completeCommand()"
+        >
+          <template slot-scope="props">
+            <div 
+              :class="props.option.actionType" 
+              class="cmd"
+            >
+              {{ props.option.suggestion }}
+            </div> 
+          </template>
+        </b-autocomplete>
+      </b-field>
+      <ul        
+        class="interactiveOptions"
         v-show="command.length===0"
       >
-        <li
-          class="column"
+        <li          
           @click="selectedAction('see')"
         >
           <span>
@@ -36,8 +59,7 @@
           </span>
           <span class="actionType">See</span>
         </li>
-        <li
-          class="column"
+        <li          
           @click="selectedAction('click')"
         >
           <span>
@@ -56,9 +78,8 @@
           </span>
           <span class="actionType">Click</span>
         </li>
-        <li
-          class="column"
-          @click="selectedAction('fill')"
+        <li          
+          @click="selectedAction('fillField')"
         >
           <span>
             <svg
@@ -84,73 +105,7 @@
           </span>
           <span class="actionType">Fill</span>
         </li>
-        <li
-          class="column"
-          @click="selectedAction('wait')"
-        >
-          <span>
-            <svg
-              width="19"
-              height="19"
-              viewBox="0 0 19 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M9.5 17.4166C5.12762 17.4166 1.58333 13.8723 1.58333 9.49992C1.58333 5.12754 5.12762 1.58325 9.5 1.58325C13.8724 1.58325 17.4167 5.12754 17.4167 9.49992C17.4167 13.8723 13.8724 17.4166 9.5 17.4166ZM15.8333 9.49992C15.8333 7.82021 15.1661 6.20931 13.9783 5.02158C12.7906 3.83385 11.1797 3.16659 9.5 3.16659C7.82029 3.16659 6.20938 3.83385 5.02165 5.02158C3.83392 6.20931 3.16666 7.82021 3.16666 9.49992C3.16666 11.1796 3.83392 12.7905 5.02165 13.9783C6.20938 15.166 7.82029 15.8333 9.5 15.8333C11.1797 15.8333 12.7906 15.166 13.9783 13.9783C15.1661 12.7905 15.8333 11.1796 15.8333 9.49992ZM12.6667 8.70825C12.8766 8.70825 13.078 8.79166 13.2265 8.94013C13.3749 9.08859 13.4583 9.28996 13.4583 9.49992C13.4583 9.70988 13.3749 9.91125 13.2265 10.0597C13.078 10.2082 12.8766 10.2916 12.6667 10.2916H10.2917C9.42083 10.2916 8.70833 9.57909 8.70833 8.70825V5.54159C8.70833 5.33162 8.79174 5.13026 8.9402 4.98179C9.08867 4.83333 9.29003 4.74992 9.5 4.74992C9.70996 4.74992 9.91132 4.83333 10.0598 4.98179C10.2083 5.13026 10.2917 5.33162 10.2917 5.54159V8.70825H12.6667Z"
-                fill="#E26262"
-              />
-            </svg>
-          </span>
-          <span class="actionType">Wait</span>
-        </li>
-        <li
-          class="column"
-          @click="selectedAction('grab')"
-        >
-          <span>
-            <svg
-              width="19"
-              height="7"
-              viewBox="0 0 19 7"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M18.646 0.267188C18.2568 -0.0857637 17.6499 -0.0626734 17.2409 0.267188L14.1931 2.70486C13.8204 3.00503 13.3553 3.16667 12.8738 3.16667H8.97173C8.68147 3.16667 8.44398 2.92917 8.44398 2.63889C8.44398 2.34861 8.68147 2.11111 8.97173 2.11111H11.5544C12.0788 2.11111 12.567 1.75156 12.6528 1.23368C12.7616 0.573958 12.2537 0 11.6105 0H6.33298C5.44241 0 4.58152 0.30677 3.88885 0.867534L2.35508 2.11111H0.527749C0.237487 2.11111 0 2.34861 0 2.63889V5.80556C0 6.09583 0.237487 6.33333 0.527749 6.33333H12.2965C12.7748 6.33333 13.2399 6.1717 13.6159 5.87153L18.6031 1.88021C19.1045 1.48108 19.1441 0.715799 18.646 0.267188Z"
-                fill="#BD10E0"
-              />
-            </svg>
-          </span>
-          <span class="actionType">Grab</span>
-        </li>
       </ul>
-      <b-field label="Interactive Pause">
-        <b-autocomplete
-          ref="commands"
-          v-model="command"
-          field="suggestion"
-          class="commandInput"
-          :open-on-focus="true"
-          :data="filteredActions"
-          @select="selectAction"
-          @keyup.native.enter="sendCommand(command)"
-          @keydown.prevent.native.up="previousCommand()"
-          @keydown.prevent.native.down="nextCommand()"
-          @keydown.prevent.native.tab="completeCommand()"
-        >
-          <template slot-scope="props">
-            <div 
-              :class="props.option.actionType" 
-              class="cmd"
-            >
-              {{ props.option.suggestion }}
-            </div> 
-          </template>
-        </b-autocomplete>
-      </b-field>
     </div>
     <b-message
       title="Command failed"
@@ -162,15 +117,26 @@
     </b-message>
     <div
       v-if="successfulSteps.length"
-      class="message  is-success"
     >
-      <div class="message-header">
-        <p>Succesful Steps</p>
-      </div>
-      <pre v-highlightjs="stepsCode"><code class="javascript" /></pre>
-      <div class="hint">
-        You can <a @click="copy(stepsCode)">copy successful steps</a> and paste into to your test
-      </div>
+      <b-collapse
+        :open="false"
+        position="is-bottom"
+      >
+        <div class="message  is-success">
+          <div class="message-header">
+            <a
+              slot="trigger"
+            >
+              Succesful steps ({{ successfulSteps.length }})
+
+            </a>
+            <pre v-highlightjs="stepsCode"><code class="javascript" /></pre>
+            <div class="hint">
+              You can <a @click="copy(stepsCode)">copy successful steps</a> and paste into to your test
+            </div>
+          </div>
+        </div>
+      </b-collapse>
     </div>
     <div class="InteractiveShell-actions columns">
       <div
@@ -195,26 +161,20 @@
       </div>
     </div>
     <div 
-      v-if="commandDoc !== null" 
+      v-if="command && commandDoc !== null" 
       v-show="showDoc"
       class="action-documentation"
     >
-      <h4># {{ command.replace('()','') }} </h4>
+      <h4># {{ command.replace(/\(.*/,'') }} </h4>
       <div class="action-def">
         {{ commandDoc.actionDef }}
       </div>
-      <prism-editor 
-        v-model="commandDoc.actionExample" 
-        language="js"
-      />
+      <pre v-highlightjs="commandDoc.actionExample"><code class="javascript" /></pre>
     </div>
   </div>
 </template>
 
 <script>
-import 'prismjs';
-import 'prismjs/themes/prism.css';
-import PrismEditor from 'vue-prism-editor';
 import Convert from 'ansi-to-html';
 import copyToClipboard from 'copy-text-to-clipboard';
 
@@ -227,7 +187,6 @@ export default {
     }
   },
   components: {
-    PrismEditor,
   },
   data: function() {
     return {
@@ -248,6 +207,7 @@ export default {
     setTimeout(() => this.$refs['commands'] && this.$refs['commands'].focus(), 100);
   },
   computed: {
+
     filteredActions() {
       const actionArray = ['see','click','fill','wait','grab'];
       const actions = this.$store.getters['cli/actions'];
@@ -293,8 +253,10 @@ export default {
       copyToClipboard(text);
     },
     selectedAction(actionText) {
-      this.command=actionText;
-      this.$refs['commands'].focus();
+      const actions = this.$store.getters['cli/actions'];
+      const action = actions[actionText];
+      action.action = actionText;
+      this.selectAction(action);
     },
     selectAction(action) {
       if(action.actionDoc !== null && action.actionDoc !== undefined) {
@@ -303,10 +265,10 @@ export default {
         this.commandDoc = {actionDef, actionExample};
       }
       if (!action || typeof action !== 'object') return false;
-      this.$refs['commands'].setSelected(action.action + '()');
+      this.$refs['commands'].setSelected(action.action + '("")');
       setTimeout(() => {
         const input = this.$refs['commands'].$el.getElementsByTagName('input')[0];
-        const pos = action.action.length+1;
+        const pos = action.action.length+2;
         input.focus();
         input.setSelectionRange(pos, pos);
         input.focus();
@@ -370,7 +332,7 @@ export default {
   }
   .interactiveBox {
     position: relative;
-    margin-bottom: 12px;
+    @apply my-2;
     .show-doc {
       position: absolute;
       right: 0;
@@ -403,18 +365,18 @@ export default {
       border-bottom: rgba(189, 16, 224, 0.8);
     }
     .interactiveOptions {
-      position: absolute;
-      margin: 0;
-      top: 40px;
-      z-index: 20;
-      width: 100%;
-      .column {
+
+      // position: absolute;
+      // margin: 0;
+      // top: 40px;
+      // z-index: 20;
+      // width: 100%;
+      @apply flex;
+      li {
+        @apply flex-1;
         cursor: pointer;
         padding: 0;
         text-align: center;
-      }
-      .column + .column {
-        border-left: 1px solid #ccc;
       }
       span {
         display: inline-block;

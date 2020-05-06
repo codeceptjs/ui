@@ -13,7 +13,7 @@ Install CodeceptUI in a project where CodeceptJS is already used
 npm i @codeceptjs/ui --save
 ```
 
-Execute it:
+Execute it
 
 ```
 npx codecept-ui

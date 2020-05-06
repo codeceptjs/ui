@@ -10,8 +10,6 @@ const app = express();
 const io = require('socket.io')();
 const api = require('../lib/api');
 const  { events } = require('../lib/model/ws-events');
-const snapshotStore = require('../lib/model/snapshot-store');
-const scenarioStatusRepository = require('../lib/model/scenario-status-repository');
 
 // Base port
 const PORT = getPort();
@@ -42,17 +40,15 @@ io.on('connection', socket => {
   }
 });
 
-(async function() {
-  
 
+// eslint-disable-next-line no-console
+debug(`Listening for websocket connections on port ${PORT}`);
 
-  // eslint-disable-next-line no-console
-  debug(`Listening for websocket connections on port ${PORT}`);
+// eslint-disable-next-line no-console
+console.log('🌟 CodeceptUI started!');
 
-  // eslint-disable-next-line no-console
-  console.log(`Open http://localhost:${PORT+1} in your web browser!`);
+// eslint-disable-next-line no-console
+console.log(`👉 Open http://localhost:${PORT+1} see CodeceptUI a browser\n\n`);
 
-  io.listen(PORT);
-  app.listen(PORT + 1);
-})();
-
+io.listen(PORT);
+app.listen(PORT + 1);

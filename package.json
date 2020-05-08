@@ -1,6 +1,6 @@
 {
   "name": "@codeceptjs/ui",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -11,6 +11,7 @@
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
     "examples": "cd node_modules/@codeceptjs/examples && node ../../../bin/codecept-ui.js",
     "frontend": "vue-cli-service serve",
+    "deploy": "npm run build && npm publish",
     "test": "ava",
     "test:watch": "ava -w"
   },

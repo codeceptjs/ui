@@ -30,7 +30,8 @@ function createWindow () {
     autoHideMenuBar: true,
     icon: path.join(__dirname, 'public/icon.png'), 
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      nodeIntegrationInWorker: true,
     }, 
   });
 

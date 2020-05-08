@@ -3,7 +3,7 @@
 An interactive, graphical test runner for [CodeceptJS](https://codecept.io). 
 
 
-![codeceptui](./codecept-ui2.gif)
+![codeceptui](https://github.com/codecept-js/ui/raw/master/codecept-ui2.gif)
 
 * Runs as Electron app or as a web server
 * Headless & window mode supported

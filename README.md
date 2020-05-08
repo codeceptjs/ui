@@ -1,11 +1,24 @@
 # CodeceptUI
 
-An interactive, graphical test runner for CodeceptJS. 
+An interactive, graphical test runner for [CodeceptJS](https://codecept.io). 
 
 
-![codepress video](./codeceptui.gif)
+![codeceptui](./codecept-ui2.gif)
+
+* Runs as Electron app or as a web server
+* Headless & window mode supported
+* Test write mode
+* Interactive pause built-in
+* Snapshots & Time travel
+* Runs tests in CodeceptJS supported engines:
+  * Playwright
+  * Puppeteer
+  * webdriverio
+  * TestCafe
 
 ## Quickstart
+
+**Requires [CodeceptJS 3](https://codecept.io) to be installed**
 
 Install CodeceptUI in a project where CodeceptJS is already used
 
@@ -13,13 +26,45 @@ Install CodeceptUI in a project where CodeceptJS is already used
 npm i @codeceptjs/ui --save
 ```
 
-Execute it
+### Application Mode
+
+Run CodeceptUI in application mode (recommended for development, local debug):
+
+```
+npx codecept-ui --app
+```
+
+Uses `codecept.conf.js` config from the current directory. 
+
+If needed, provide a path to config file with `--config` option:
+
+```
+npx codecept run --config tests/codecept.conf.js
+```
+
+### WebServer Mode
+
+![](./codeceptui.gif)
+
+Run CodeceptUI as a web server (recommended for headless mode, remote debug):
 
 ```
 npx codecept-ui
 ```
 
-## Development Mode
+Open `http://localhost:3001` to see all tests and run them.
+
+
+Uses `codecept.conf.js` config from the current directory. 
+
+If needed, provide a path to config file with `--config` option:
+
+```
+npx codecept run --config tests/codecept.conf.js
+```
+
+
+## Development
 
 See [CONTRIBUTING.md](https://github.com/codecept-js/ui/blob/master/.github/CONTRIBUTING.md)
 

@@ -11,6 +11,17 @@
         v-if="this.$route.path !== '/settings'"
       >
         <RunButton @run="run()" />
+        <div class="hide-on-wide mx-2">
+          <p class="mb-4 my-4">
+            <b-tag
+              class="mr-1"
+              v-for="helper of config.helpers"
+              :key="helper"
+            >
+              {{ helper }}
+            </b-tag>
+          </p>          
+        </div>
       </b-navbar-item>
     </template>
 
@@ -24,6 +35,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import SettingsMenu from './SettingsMenu';
 import RunButton from './RunButton';
 import Logo from './Logo';
@@ -36,6 +48,17 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      config: {
+        helpers: []
+      },
+    };
+  },
+  async created() {
+    const config = await axios.get('/api/config');
+    this.config = config.data;
+  },  
   components: { SettingsMenu, RunButton, Logo },
   methods: {
     run() {

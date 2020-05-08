@@ -6,7 +6,7 @@
         id="source"
         :src="buildSnapshotUrl"
         :key="'codecept-iframe-'+snapshot.id"
-        :width="snapshot.viewportSize.width"
+        :width="snapshot.viewportSize ? snapshot.viewportSize.width : 600"
         frameborder="0"
         @load="onIframeLoaded"
         v-show="loaded"
@@ -101,7 +101,8 @@ export default {
     },
 
     mustScrollIframe() {
-      return (
+      if (!this.$props.snapshot.scrollPosition) return false;
+      return (        
         this.$refs.source.contentWindow &&
         (this.$props.snapshot.scrollPosition.x > 0 ||
         this.$props.snapshot.scrollPosition.y > 0)

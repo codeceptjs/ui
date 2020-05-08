@@ -6,7 +6,7 @@
     <img
       src="../assets/logo.png"
       alt="CodeceptUI"
-    ><span class="hide-on-small">CodeceptUI</span> 
+    ><span class="brand hide-on-small">CodeceptUI</span> 
 
     <b-dropdown
       class="hide-on-small"
@@ -65,9 +65,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @media (max-width: 600px) { 
-    .hide-on-small {
-      display: none;
-    }
+  .brand {
+    font-weight: bold;
+    @apply text-gray-600 text-xl ml-2 mr-4;
   }
 </style>

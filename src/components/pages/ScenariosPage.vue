@@ -1,32 +1,35 @@
 <template>
   <div class="ScenariosPage">
-    <b-navbar>
+    <b-navbar 
+      fixed-top
+      :mobile-burger="false"
+    >
       <template slot="brand">
         <b-navbar-item
           tag="router-link"
           :to="{ path: '/' }"
         >
           <Logo />
-        </b-navbar-item>
+        </b-navbar-item>      
         <b-navbar-item>
-          <button 
-            class="hide-on-wide button"
+          <RunButton @run="run()" />
+        </b-navbar-item>              
+
+        <b-navbar-item>
+          <a
+            class="navbar-item"
+            role="button"
             @click="gotoNewTest()"
           >
+    
             <i class="fas fa-edit mr-2" />
             Write a Test
-          </button>
-        </b-navbar-item>        
-        <b-navbar-item>
-          <RunButton
-            @run="run()"
-            class="hide-on-wide"
-          />
+          </a>
         </b-navbar-item>
       </template>
       <template slot="start">
-        <b-navbar-item>
-          <p class="control">
+        <b-navbar-item class="hide-on-small">
+          <p class="control ">
             <input
               class="input is-small"
               @focus="$event.target.select()"
@@ -55,19 +58,10 @@
             >Any</a>
           </p>
         </b-navbar-item>
-        <b-navbar-item>
-          <RunButton @run="run()" />
-        </b-navbar-item>
       </template>
 
       <template slot="end">
         <b-navbar-item>
-          <button
-            class="button is-primary"
-            @click="gotoNewTest()"
-          >
-            Write a Test
-          </button>
           <SettingsMenu />
         </b-navbar-item>
       </template>
@@ -246,9 +240,5 @@ export default {
   margin-top: 0.25rem;
 }
 
-@media (min-width: 600px) { 
-  .hide-on-wide {
-    display: none;
-  }
-}
+
 </style>

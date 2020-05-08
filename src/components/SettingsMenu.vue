@@ -62,7 +62,7 @@
         class="fa-lg fab fa-safari settings"
         v-if="browser === 'safari'"
       />
-      <i class="fas fa-cog" />
+      <i class="fas fa-cog mr-2" /> Settings
     </a>
     <b-dropdown-item
       aria-role="menu-item"

@@ -106,4 +106,17 @@ Header {
 }
 
 
+@media (min-width: 600px) { 
+  .hide-on-wide {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) { 
+  .hide-on-small {
+    display: none;
+  }
+}
+
+
 </style>

@@ -1,5 +1,7 @@
 <template>
-  <b-navbar @fixed-top="true">
+  <b-navbar 
+    fixed-top
+  >
     <template slot="brand">
       <Logo />
     </template>
@@ -54,6 +56,7 @@ export default {
 }
 .navbar {
   min-height: auto;
+  /* @apply shadow; */
 }
 </style>
 

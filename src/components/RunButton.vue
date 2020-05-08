@@ -1,32 +1,30 @@
 <template>
-  <div>
-    <button
-      class="button is-primary px-8 py-2 is-outlined"
-      @click="runOrStop()"
-      @mouseover="isRunning && canStop(true)"
-      @mouseout="isRunning && canStop(false)"
-      :disabled="disabled"
-    >
-      <span v-if="!isRunning">
-        <i class="fas mr-2 fa-play " />
-        Run
+  <button
+    class="button is-primary px-8 is-outlined"
+    @click="runOrStop()"
+    @mouseover="isRunning && canStop(true)"
+    @mouseout="isRunning && canStop(false)"
+    :disabled="disabled"
+  >
+    <span v-if="!isRunning">
+      <i class="fas mr-2 fa-play " />
+      Run
+    </span>
+    <span v-if="isRunning">
+      <span v-if="canBeStopped">
+        <i class="fas mr-2 fa-stop" />
+        Stop
       </span>
-      <span v-if="isRunning">
-        <span v-if="canBeStopped">
-          <i class="fas mr-2 fa-stop" />
-          Stop
-        </span>
-        <span v-else-if="isPaused">
-          <i class="fas mr-2 fa-pause" />
-          Paused
-        </span>
-        <span v-else>
-          <i class="fas fa-circle-notch fa-spin" />
-          Running
-        </span>
+      <span v-else-if="isPaused">
+        <i class="fas mr-2 fa-pause" />
+        Paused
       </span>
-    </button>
-  </div>
+      <span v-else>
+        <i class="fas fa-circle-notch fa-spin" />
+        Running
+      </span>
+    </span>
+  </button>
 </template>
 
 <script>

@@ -60,7 +60,7 @@
         <div class="column">
           <span class="Snapshot-size is-pulled-right">
             <b-tag><i class="fas fa-file-code" />{{ selected.snapshot.sourceContentType }}</b-tag>&nbsp;
-            <b-tag><i class="fas fa-desktop" /> {{ selected.snapshot.viewportSize.width }}x{{ selected.snapshot.viewportSize.height }}</b-tag>&nbsp;
+            <b-tag v-if="selected.snapshot.viewportSize"><i class="fas fa-desktop" /> {{ selected.snapshot.viewportSize.width }}x{{ selected.snapshot.viewportSize.height }}</b-tag>&nbsp;
 
           </span>
         </div>
@@ -80,12 +80,25 @@
         >
 
         <snapshot-source
-          v-if="isShowSource && selected && selected.snapshot"
+          v-if="isShowSource && selected && selected.snapshot && selected.snapshot.id"
           :snapshot="selected.snapshot"
           :highlight="getSelector(selected)"
           :enabled-selection="enabledSelection"
         />
+
+        <div
+          class="empty"
+          v-if="isShowSource && selected && !selected.snapshot && !selected.snapshot.id"
+        >
+          No snapshot for this step
+        </div>
       </div>
+      <div
+        class="empty"
+        v-else
+      >
+        No snapshot for this step
+      </div>      
     </div>
 
     <SnapshotREST

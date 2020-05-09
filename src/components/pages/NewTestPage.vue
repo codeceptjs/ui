@@ -106,7 +106,7 @@ export default {
         body: 'pause',
         steps: [],
       },
-      code: `async (I) => {
+      code: `async ({ I }) => {
   I.amOnPage('/');
 }`
 
@@ -180,6 +180,7 @@ export default {
 
 <style lang="scss" scoped>
   .editor {
+    margin-top: 100px;
     width: 100%;
     height: 200px;
   }

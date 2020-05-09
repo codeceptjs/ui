@@ -44,7 +44,7 @@ npx codecept run --config tests/codecept.conf.js
 
 ### WebServer Mode
 
-![](./codeceptui.gif)
+![](https://github.com/codecept-js/ui/raw/master/codeceptui.gif)
 
 Run CodeceptUI as a web server (recommended for headless mode, remote debug):
 

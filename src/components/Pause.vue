@@ -4,7 +4,7 @@
     v-if="isShowCli"
   >
     <div class="interactiveBox">
-      <div class="field show-doc">
+      <div class="field show-doc hide-on-small">
         <b-checkbox
           v-model="showDoc"
           size="is-small"
@@ -36,6 +36,14 @@
           </template>
         </b-autocomplete>
       </b-field>
+      <b-message
+        aria-close-label="Close message"
+        type="is-danger"
+        v-if="hasErrorCli"
+      >
+        <div v-html="cliError" />
+      </b-message>
+
       <ul        
         class="interactiveOptions"
         v-show="command.length===0"
@@ -107,14 +115,7 @@
         </li>
       </ul>
     </div>
-    <b-message
-      title="Command failed"
-      type="is-danger"
-      aria-close-label="Close message"
-      v-if="hasErrorCli"
-    >
-      <div v-html="cliError" />
-    </b-message>
+
     <div
       v-if="successfulSteps.length"
     >
@@ -215,6 +216,12 @@ export default {
         .filter(action => action.startsWith(this.command))
         .sort((a, b) => a.length - b.length)
         .map(action => {
+          if (!actions[action]) {
+            return {
+              action,
+              suggection: `${action}()`,
+            };
+          }
           let actionType = actionArray.filter(actionType => action.toLowerCase().startsWith(actionType));
           let actionTypeText = actionType[0] || '';
           return {
@@ -259,6 +266,7 @@ export default {
       this.selectAction(action);
     },
     selectAction(action) {
+      if (!action) return;
       if(action.actionDoc !== null && action.actionDoc !== undefined) {
         let [actionDef, actionExample] = action.actionDoc.split('```js');
         actionExample = actionExample.replace('```',' ');

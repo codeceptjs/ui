@@ -63,6 +63,17 @@ If needed, provide a path to config file with `--config` option:
 npx codecept run --config tests/codecept.conf.js
 ```
 
+#### Ports
+Default ws:// port is 2999. You can change the port by specifying it to **WS_PORT** environment variable during building Vue application:
+```
+WS_PORT=4444 npm run build
+```
+> If you change ws:// port, don't forget to set up it by **--wsPort** option at codecept-ui startup.
+
+Default http:// port is 3333. You can change the port by specifying it to **--port** option:
+```
+npx codecept-ui --app --port=3000
+```
 
 ## Development
 

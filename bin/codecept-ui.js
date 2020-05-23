@@ -11,8 +11,8 @@ const io = require('socket.io')();
 const api = require('../lib/api');
 const  { events } = require('../lib/model/ws-events');
 
-// Base port
-const PORT = getPort();
+const applicationPort = getPort('application');
+const webSocketsPort = getPort('ws');
 
 // Serve frontend from dist
 const AppDir = path.join(__dirname, '..', 'dist');
@@ -34,21 +34,19 @@ io.on('connection', socket => {
 
   for (const eventName of events) {
     socket.on(eventName, (data) => {
-      const localEventName = eventName;
-      emit(localEventName, data);
+      emit(eventName, data);
     });
   }
 });
-
-
-// eslint-disable-next-line no-console
-debug(`Listening for websocket connections on port ${PORT}`);
 
 // eslint-disable-next-line no-console
 console.log('🌟 CodeceptUI started!');
 
 // eslint-disable-next-line no-console
-console.log(`👉 Open http://localhost:${PORT+1} see CodeceptUI a browser\n\n`);
+console.log(`👉 Open http://localhost:${applicationPort} see CodeceptUI a browser\n\n`);
 
-io.listen(PORT);
-app.listen(PORT + 1);
+// eslint-disable-next-line no-console
+debug(`Listening for websocket connections on port ${webSocketsPort}`);
+
+io.listen(webSocketsPort);
+app.listen(applicationPort);

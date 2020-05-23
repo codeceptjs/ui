@@ -270,7 +270,7 @@ export default {
       if(action.actionDoc !== null && action.actionDoc !== undefined) {
         let [actionDef, actionExample] = action.actionDoc.split('```js');
         actionExample = actionExample.replace('```',' ');
-        this.commandDoc = {actionDef, actionExample};
+        this.commandDoc = { actionDef, actionExample };
       }
       if (!action || typeof action !== 'object') return false;
       this.$refs['commands'].setSelected(action.action + '("")');

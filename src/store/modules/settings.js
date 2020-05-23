@@ -53,15 +53,15 @@ export default {
       commit('setWindowSize', size);
       await dispatch('storeSettings');
     },
-    setEditor: async function({ commit, dispatch}, editor) {
+    setEditor: async function({ commit, dispatch }, editor) {
       commit('setEditor', editor);
       await dispatch('storeSettings');
     },
-    setSingleSession: async function({ commit, dispatch}, isSingleSession) {
+    setSingleSession: async function({ commit, dispatch }, isSingleSession) {
       commit('setSingleSession', isSingleSession);
       await dispatch('storeSettings');
     },    
-    setBrowser: async function({ commit, dispatch}, browser) {
+    setBrowser: async function({ commit, dispatch }, browser) {
       commit('setBrowser', browser);
       await dispatch('storeSettings');
     },

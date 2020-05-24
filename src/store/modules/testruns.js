@@ -161,7 +161,7 @@ const testRuns = {
     'SOCKET_step.before': function ({ commit }, step) {
       commit('addStepToCurrentTest', step);
     },
-    'SOCKET_step.after': function ({commit}, step) {
+    'SOCKET_step.after': function ({ commit }, step) {
       commit('addStepToCurrentTest', step);
     },
     'SOCKET_metastep.changed': function (context, metastep) {

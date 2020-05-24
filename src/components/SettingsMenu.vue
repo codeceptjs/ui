@@ -248,7 +248,7 @@ export default {
       this.$store.dispatch('settings/setHeadless', this.headlessMode);
     },
     gotoSettingsPage() {
-      this.$router.push({path: '/settings'});
+      this.$router.push({ path: '/settings' });
     }
   }
 };

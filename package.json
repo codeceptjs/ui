@@ -96,6 +96,10 @@
         "error",
         2
       ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
       "vue/script-indent": [
         "error",
         2,

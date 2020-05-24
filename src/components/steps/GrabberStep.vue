@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {getSelectorString} from '../../services/selector';
+import { getSelectorString } from '../../services/selector';
 import Argument from './Argument';
 
 export default {

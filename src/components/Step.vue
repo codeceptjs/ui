@@ -198,12 +198,12 @@ export default {
     },
 
     getSelectorLabel: function (stepArgs) {
-      const {label} = getSelectorString(stepArgs[0]);
+      const { label } = getSelectorString(stepArgs[0]);
       return label;
     },
 
     getSelectorValue: function (stepArgs) {
-      const {value} = getSelectorString(stepArgs[0]);
+      const { value } = getSelectorString(stepArgs[0]);
       return value;
     },
 

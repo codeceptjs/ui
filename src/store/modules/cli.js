@@ -66,7 +66,7 @@ const cli = {
     'SOCKET_cli.error': function ({ commit }, data) {
       commit('setCliError', data);
     },
-    'SOCKET_step.after': function ({commit}, step) {
+    'SOCKET_step.after': function ({ commit }, step) {
       commit('addStep', step);
     },
   }

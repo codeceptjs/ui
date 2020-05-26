@@ -64,16 +64,34 @@ npx codecept run --config tests/codecept.conf.js
 ```
 
 #### Ports
+
+CodeceptUI takes requries two ports HTTP and WebSockets. 
+
+* HTTP Port = 3333
+* WebSocket Port = 2999
+
+Default HTTP port is 3333. You can change the port by specifying it to **--port** option:
+
+```
+npx codecept-ui --app --port=3000
+```
+
+
+Changing WebSocket port requires to rebuild an application:
+
 Default ws:// port is 2999. You can change the port by specifying it to **WS_PORT** environment variable during building Vue application:
 ```
 WS_PORT=4444 npm run build
 ```
-> If you change ws:// port, don't forget to set up it by **--wsPort** option at codecept-ui startup.
 
-Default http:// port is 3333. You can change the port by specifying it to **--port** option:
+
+If you change ws:// port, don't forget to set up it by **--wsPort** option at codecept-ui startup.
+
 ```
-npx codecept-ui --app --port=3000
+npx codecept-ui --app --wsPort=4444
 ```
+
+
 
 ## Development
 

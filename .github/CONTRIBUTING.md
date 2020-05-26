@@ -2,9 +2,26 @@
 
 1. clone repository
 2. Run `npm install`
-3. Run `npm run frontend` to start frontend server
-4. Run `npm run examples` to start backend server with tests in `example` package
-5. Open in browser `http://localhost:8080`
+
+We need frontend and backend server to be started for this application.
+
+Frontend server compiles assets, while backend server communicates with CodeceptJS and processes HTTP and WebSocket requests. HTTP is used to send commands from client to CodeceptJS, and websockets are used to send notifications from CodeceptJS to application.
+
+Both servers must be executed for development:
+
+### Launch application in Electron mode:
+
+```
+npm run electron:serve
+npm run app
+```
+
+### Launch application in WebServer mode:
+
+```
+npm run frontend
+npm run backend
+```
 
 ## Making Pull Requests
 

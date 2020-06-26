@@ -52,7 +52,7 @@ Run CodeceptUI as a web server (recommended for headless mode, remote debug):
 npx codecept-ui
 ```
 
-Open `http://localhost:3001` to see all tests and run them.
+Open `http://localhost:3333` to see all tests and run them.
 
 
 Uses `codecept.conf.js` config from the current directory. 
@@ -65,7 +65,7 @@ npx codecept run --config tests/codecept.conf.js
 
 #### Ports
 
-CodeceptUI takes requries two ports HTTP and WebSockets. 
+CodeceptUI requires two ports HTTP and WebSocket. 
 
 * HTTP Port = 3333
 * WebSocket Port = 2999
@@ -77,20 +77,10 @@ npx codecept-ui --app --port=3000
 ```
 
 
-Changing WebSocket port requires to rebuild an application:
-
-Default ws:// port is 2999. You can change the port by specifying it to **WS_PORT** environment variable during building Vue application:
-```
-WS_PORT=4444 npm run build
-```
-
-
-If you change ws:// port, don't forget to set up it by **--wsPort** option at codecept-ui startup.
-
+Default WebSocket port is 2999. You can change the port by specifying it to **--wsPort** option:
 ```
 npx codecept-ui --app --wsPort=4444
 ```
-
 
 
 ## Development

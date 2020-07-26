@@ -35,10 +35,6 @@
           />
         </li>
       </ul>
-      <TestResult
-        :test="test"
-        v-if="test && isRunning"
-      />
       <Pause :next-step="false" />
       <div class="LastTestMarker" />
     </aside>
@@ -81,7 +77,6 @@ import Header from '../Header';
 import Snapshot from '../Snapshot';
 import Pause from '../Pause';
 import Step from '../Step';
-import TestResult from '../TestResult';
 
 export default {
   name: 'NewPage',
@@ -93,7 +88,6 @@ export default {
     Pause,
     MonacoEditor,
     Step,
-    TestResult,
   },
   data: function () {
 
@@ -180,7 +174,7 @@ export default {
 
 <style lang="scss" scoped>
   .editor {
-    margin-top: 100px;
+    @apply my-2 mt-16;
     width: 100%;
     height: 200px;
   }

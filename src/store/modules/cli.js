@@ -24,7 +24,6 @@ const cli = {
       state.prompt = undefined;
       state.commands = undefined;
       state.message = undefined;
-      state.steps = [];
     },
     clearCliError: (state) => {
       state.message = undefined;

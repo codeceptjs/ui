@@ -6,7 +6,7 @@
         id="source"
         :src="buildSnapshotUrl"
         :key="'codecept-iframe-'+snapshot.id"
-        :width="snapshot.viewportSize ? snapshot.viewportSize.width : 600"
+        :width="snapshot.width || 1000"
         frameborder="0"
         @load="onIframeLoaded"
         v-show="loaded"

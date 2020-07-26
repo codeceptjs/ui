@@ -14,7 +14,7 @@
               <p class="control">
                 <span
                   class="button is-small"
-                  :disabled="!selected.snapshot.hasSource"
+                  :disabled="!selected.snapshot.hasSnapshot"
                   :class="{'is-selected is-info': isShowSource }"
                   @click="showSource()"
                 >
@@ -60,7 +60,7 @@
         <div class="column">
           <span class="Snapshot-size is-pulled-right">
             <b-tag><i class="fas fa-file-code" />{{ selected.snapshot.sourceContentType }}</b-tag>&nbsp;
-            <b-tag v-if="selected.snapshot.viewportSize"><i class="fas fa-desktop" /> {{ selected.snapshot.viewportSize.width }}x{{ selected.snapshot.viewportSize.height }}</b-tag>&nbsp;
+            <b-tag v-if="selected.snapshot.height"><i class="fas fa-desktop" /> {{ selected.snapshot.width }}x{{ selected.snapshot.height }}</b-tag>&nbsp;
 
           </span>
         </div>
@@ -72,12 +72,21 @@
         class="Snapshot-data"
         v-if="selected.snapshot"
       >
-        <img
-          v-if="isShowImage"
-          class="Snapshot-image"
-          :src="toImageUrl(selected.snapshot)"
-          :alt="selected.name"
-        >
+        <div v-if="isShowImage">
+          <img
+            v-if="selected.snapshot.hasScreenshot"
+            class="Snapshot-image"
+            :src="toImageUrl(selected.snapshot)"
+            :alt="selected.name"
+          >
+
+          <div
+            class="empty"
+            v-if="!selected.snapshot.hasScreenshot"
+          >
+            No screenshot for this step
+          </div>
+        </div>
 
         <snapshot-source
           v-if="isShowSource && selected && selected.snapshot && selected.snapshot.id"
@@ -134,10 +143,12 @@ export default {
     },
 
     showImage() {
+      if (!this.selected.snapshot.hasScreenshot) return false;
       this.$store.commit('testRunPage/setShowImage');
     },
 
     showSource() {
+      if (!this.selected.snapshot.hasSnapshot) return false;
       this.$store.commit('testRunPage/setShowSource');
     },
 

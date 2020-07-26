@@ -19,11 +19,13 @@ Vue.use(VueHighlightJS);
 
 const store = require('./store').default;
 
+
 (async () => {
-  const response = await axios.get(`http://localhost:${location.port}/api/ports`);
+  const response = await axios.get(`http://${window.location.hostname}:${window.location.port}/api/ports`);
+  const data = await response.data;
   Vue.use(new VueSocketIO({
     debug: true,
-    connection: `http://localhost:${response.data.wsPort}`,
+    connection: `http://${window.location.hostname}:${data.wsPort}`,
     vuex: {
       store,
       actionPrefix: 'SOCKET_',

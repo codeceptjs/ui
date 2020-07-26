@@ -120,7 +120,7 @@ export default {
       return this.$store.getters['testRuns/testRuns'];
     },
     hoveredOrSelectedStep() {
-      return this.$store.getters['testRunPage/hoveredStep'] || this.$store.getters['testRunPage/selectedStep'];
+      return this.$store.getters['testRunPage/selectedStep'];
     },
     isRunning() {
       return this.$store.getters['testRuns/isRunning'];

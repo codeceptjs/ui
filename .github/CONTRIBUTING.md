@@ -23,6 +23,10 @@ npm run frontend
 npm run backend
 ```
 
+Open application at **http://127.0.0.1:8080**.
+
+> Pay attention that the port is **8080** and not 3333 in this case.
+
 ## Making Pull Requests
 
 1. Create your own branch (fork project)

@@ -2,7 +2,7 @@
   <div class="ScenariosPage">
     <b-navbar 
       fixed-top
-      :mobile-burger="false"
+      :mobile-burger="true"
     >
       <template slot="brand">
         <b-navbar-item
@@ -13,8 +13,12 @@
         </b-navbar-item>      
         <b-navbar-item>
           <RunButton @run="run()" />
-        </b-navbar-item>              
-
+        </b-navbar-item>           
+        <b-navbar-item class="is-hidden-desktop">
+          <SettingsMenu />
+        </b-navbar-item>   
+      </template>
+      <template slot="start">
         <b-navbar-item>
           <a
             class="navbar-item"
@@ -26,8 +30,6 @@
             Write a Test
           </a>
         </b-navbar-item>
-      </template>
-      <template slot="start">
         <b-navbar-item class="hide-on-small">
           <p class="control ">
             <input
@@ -61,7 +63,7 @@
       </template>
 
       <template slot="end">
-        <b-navbar-item>
+        <b-navbar-item class="is-hidden-touch">
           <SettingsMenu />
         </b-navbar-item>
       </template>

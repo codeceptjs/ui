@@ -62,7 +62,7 @@
         class="fa-lg fab fa-safari settings"
         v-if="browser === 'safari'"
       />
-      <i class="fas fa-cog mr-2" /> Settings
+      <i class="fas fa-cog mr-2" /> <span class="is-hidden-touch">Settings</span>
     </a>
     <b-dropdown-item
       aria-role="menu-item"

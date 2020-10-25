@@ -1,30 +1,34 @@
 <template>
-  <button
-    class="button is-primary px-8 is-outlined"
+  <b-button
+    class="is-primary is-outlined"
     @click="runOrStop()"
     @mouseover="isRunning && canStop(true)"
     @mouseout="isRunning && canStop(false)"
     :disabled="disabled"
   >
     <span v-if="!isRunning">
-      <i class="fas mr-2 fa-play " />
-      Run
+      <i class="fas mr-2 fa-play is-hidden-touch" />
+      <i class="fas fa-play is-hidden-desktop" />
+      <span class="ml-1 is-hidden-touch">Run</span>
     </span>
     <span v-if="isRunning">
       <span v-if="canBeStopped">
-        <i class="fas mr-2 fa-stop" />
-        Stop
+        <i class="fas mr-2 fa-stop is-hidden-touch" />
+        <i class="fas fa-stop is-hidden-desktop" />
+        <span class="ml-1 is-hidden-touch">Stop</span>
       </span>
       <span v-else-if="isPaused">
-        <i class="fas mr-2 fa-pause" />
-        Paused
+        <i class="fas mr-2 fa-pause is-hidden-touch" />
+        <i class="fas mr-2 fa-pause is-hidden-desktop" />
+        <span class="ml-1 is-hidden-touch">Paused</span>
       </span>
       <span v-else>
-        <i class="fas fa-circle-notch fa-spin" />
-        Running
+        <i class="fas fa-circle-notch fa-spin is-hidden-touch" />
+        <i class="fas fa-circle-notch fa-spin is-hidden-desktop" />
+        <span class="ml-1 is-hidden-touch">Running</span>
       </span>
     </span>
-  </button>
+  </b-button>
 </template>
 
 <script>

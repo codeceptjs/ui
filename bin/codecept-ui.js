@@ -60,7 +60,7 @@ codeceptjsFactory.create({}, options).then(() => {
   console.log('🌟 CodeceptUI started!');
 
   // eslint-disable-next-line no-console
-  console.log(`👉 Open http://localhost:${applicationPort} see CodeceptUI a browser\n\n`);
+  console.log(`👉 Open http://localhost:${applicationPort} to see CodeceptUI in a browser\n\n`);
 
   // eslint-disable-next-line no-console
   debug(`Listening for websocket connections on port ${webSocketsPort}`);

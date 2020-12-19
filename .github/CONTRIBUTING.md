@@ -2,6 +2,7 @@
 
 1. clone repository
 2. Run `npm install`
+3. Run `npm run build` (this is required for a fresh start) 
 
 We need frontend and backend server to be started for this application.
 

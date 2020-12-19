@@ -128,9 +128,9 @@ export default {
       activeTab: 'testrun',
       command: undefined,
       showNextStep: false,
-      isOpened: false,
     };
   },
+
   methods: {
     humanize(ts) {
       return moment.unix(ts / 1000).fromNow();
@@ -145,14 +145,13 @@ export default {
       this.activeTab = tabname;
     },
 
-    toggleAll() {
+    async toggleAll() {
       this.$store.commit('testRunPage/toggleSubsteps');
-      this.isOpened = this.$store.getters['testRunPage/showSubsteps'];
-      this.test.steps.filter(s => s.type === 'meta').forEach(s => this.toggleSubsteps(s, this.isOpened));
+      this.test.steps.filter(s => s.type === 'meta').forEach(s => this.toggleSubsteps(s, !this.isOpened));
       this.$forceUpdate();
     },
 
-    toggleSubsteps(step, isOpened) {
+    toggleSubsteps(step, force) {
       if (step.type !== 'meta') {
         step.expanded
           ? this.$store.commit('testRunPage/setHoveredStep', step)
@@ -161,20 +160,19 @@ export default {
       }
 
       if (!step.opens) return true;
-      this.$set(step, 'opened', !step.opened);
-      this.$set(step, 'expanded', !step.expanded);
 
-      for (const section in this.$refs) {
-        if (section.startsWith(step.opens)) {
-          const els = this.$refs[section];
-          if (typeof isOpened === 'boolean') {
-            if (!step.opened) els.forEach(el => el.classList.add('hidden'));
-            if (step.opened) els.forEach(el => el.classList.remove('hidden'));
-            return;
-          }
-          if (!step.opened) els.forEach(el => el.classList.add('hidden'));
-          if (step.opened) els.forEach(el => el.classList.remove('hidden'));
-        }
+      if(typeof force === 'boolean'){
+        this.$set(step, 'opened', force);
+        this.$set(step, 'expanded', force);
+        this.$refs[step.opens].forEach(el=>{
+          el.classList.toggle('hidden', force);
+        });
+      } else {
+        this.$set(step, 'opened', !step.opened);
+        this.$set(step, 'expanded', !step.expanded);
+        this.$refs[step.opens].forEach(el=>{
+          el.classList.toggle('hidden');
+        });
       }
     },
   },
@@ -187,7 +185,10 @@ export default {
     },
     selectedStep() {
       return this.$store.getters['testRunPage/selectedStep'];
-    }
+    },
+    isOpened() {
+      return this.$store.getters['testRunPage/showSubsteps'];
+    },
   }
 };
 </script>

@@ -152,7 +152,7 @@ export default {
       this.$forceUpdate();
     },
 
-    toggleSubsteps(step, isOpened) {
+    toggleSubsteps(step) {
       if (step.type !== 'meta') {
         step.expanded
           ? this.$store.commit('testRunPage/setHoveredStep', step)
@@ -164,18 +164,9 @@ export default {
       this.$set(step, 'opened', !step.opened);
       this.$set(step, 'expanded', !step.expanded);
 
-      for (const section in this.$refs) {
-        if (section.startsWith(step.opens)) {
-          const els = this.$refs[section];
-          if (typeof isOpened === 'boolean') {
-            if (!step.opened) els.forEach(el => el.classList.add('hidden'));
-            if (step.opened) els.forEach(el => el.classList.remove('hidden'));
-            return;
-          }
-          if (!step.opened) els.forEach(el => el.classList.add('hidden'));
-          if (step.opened) els.forEach(el => el.classList.remove('hidden'));
-        }
-      }
+      this.$refs[step.opens].forEach(el=>{
+        el.classList.toggle('hidden');
+      });
     },
   },
   computed: {

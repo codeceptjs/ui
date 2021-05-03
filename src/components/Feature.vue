@@ -21,7 +21,7 @@
         {{ tag }}
       </b-tag>
 
-      <div class="FeatureActions is-pulled-right">
+      <div class="FeatureActions">
         <a
           class="FeatureActions-runButton button is-small"
           @click="runFeature(feature.feature.title)"
@@ -120,6 +120,9 @@ export default {
 
 .Feature-title {
   margin-bottom: .5rem !important;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .Feature .FeatureActions {
@@ -129,5 +132,9 @@ export default {
 .Feature:hover .FeatureActions {
  transition: all .25s ease-in-out;
  opacity: 1;
+}
+
+.FeatureActions-runButton {
+  margin-left: 20px;
 }
 </style>

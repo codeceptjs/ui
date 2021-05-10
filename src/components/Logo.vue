@@ -6,7 +6,7 @@
     <img
       src="../assets/logo.png"
       alt="CodeceptUI"
-    ><span class="brand hide-on-small">CodeceptUI</span> 
+    ><span class="brand hide-on-small">CodeceptUI</span>
 
     <b-dropdown
       class="hide-on-small"
@@ -35,12 +35,12 @@
       <b-dropdown-item aria-role="listitem">
         <a
           target="_blank"
-          href="https://github.com/codecept-js/ui/issues"
+          href="https://github.com/codeceptjs/ui/issues"
         >GitHub issues  &raquo;</a>
       </b-dropdown-item>
       <b-dropdown-item aria-role="listitem">
         <a
-          href="https://github.com/codecept-js/ui"
+          href="https://github.com/codeceptjs/ui"
           target="_blank"
         >Contribute to CodeceptUI &raquo;</a>
       </b-dropdown-item>

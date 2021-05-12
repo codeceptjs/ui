@@ -3,7 +3,7 @@
 An interactive, graphical test runner for [CodeceptJS](https://codecept.io). 
 
 
-![codeceptui](https://github.com/codecept-js/ui/raw/master/codecept-ui2.gif)
+![codeceptui](https://github.com/codeceptjs/ui/raw/master/codecept-ui2.gif)
 
 * Runs as Electron app or as a web server
 * Headless & window mode supported
@@ -44,7 +44,7 @@ npx codecept run --config tests/codecept.conf.js
 
 ### WebServer Mode
 
-![](https://github.com/codecept-js/ui/raw/master/codeceptui.gif)
+![](https://github.com/codeceptjs/ui/raw/master/codeceptui.gif)
 
 Run CodeceptUI as a web server (recommended for headless mode, remote debug):
 
@@ -85,7 +85,7 @@ npx codecept-ui --app --wsPort=4444
 
 ## Development
 
-See [CONTRIBUTING.md](https://github.com/codecept-js/ui/blob/master/.github/CONTRIBUTING.md)
+See [CONTRIBUTING.md](https://github.com/codeceptjs/ui/blob/master/.github/CONTRIBUTING.md)
 
 
 ## Start CodeceptUI with debug output

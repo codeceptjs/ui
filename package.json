@@ -1,5 +1,5 @@
 {
-  "name": "mainline-codeceptjs-ui",
+  "name": "@codeceptjs/ui",
   "version": "0.4.4",
   "license": "MIT",
   "scripts": {
@@ -49,7 +49,7 @@
     "ava": "^2.4.0",
     "babel-eslint": "^10.1.0",
     "buefy": "^0.8.20",
-    "codeceptjs": "3.0.6",
+    "codeceptjs": "^3.0.6",
     "contributor-faces": "^1.0.3",
     "copy-text-to-clipboard": "^2.2.0",
     "electron-icon-builder": "^2.0.1",
@@ -77,6 +77,9 @@
     "vue-template-compiler": "^2.6.11",
     "vuex": "^3.4.0",
     "webdriverio": "^6.0.0"
+  },
+  "resolutions": {
+    "sumchecker": "3.0.1"
   },
   "peerDependencies": {
     "codeceptjs": "^3.0.0"

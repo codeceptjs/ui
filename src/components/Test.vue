@@ -207,4 +207,8 @@ export default {
   line-height: 1em;
 }
 
+.tabs {
+  margin-top: 15px;
+}
+
 </style>

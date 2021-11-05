@@ -114,6 +114,7 @@ Thanks all for the contributions!
 
 <a href="https://github.com/hubidu"><img src="https://avatars2.githubusercontent.com/u/13134082?v=4" title="hubidu" width="80" height="80"></a>
 <a href="https://github.com/DavertMik"><img src="https://avatars0.githubusercontent.com/u/220264?v=4" title="DavertMik" width="80" height="80"></a>
+<a href="https://github.com/Arhell"><img src="https://avatars.githubusercontent.com/u/26163841?v=4" title="Arhell" width="80" height="80"></a>
 <a href="https://github.com/PeterNgTr"><img src="https://avatars0.githubusercontent.com/u/7845001?v=4" title="PeterNgTr" width="80" height="80"></a>
 <a href="https://github.com/avinash360"><img src="https://avatars2.githubusercontent.com/u/11994986?v=4" title="avinash360" width="80" height="80"></a>
 <a href="https://github.com/kaflan"><img src="https://avatars3.githubusercontent.com/u/3959504?v=4" title="kaflan" width="80" height="80"></a>

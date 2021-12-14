@@ -25,12 +25,12 @@
   "dependencies": {
     "@codeceptjs/configure": "^0.7.0",
     "axios": "^0.24.0",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.19.1",
     "cheerio": "^1.0.0-rc.10",
     "chokidar": "^3.5.2",
     "commander": "^8.3.0",
     "core-js": "2.6.12",
-    "debug": "^4.3.2",
+    "debug": "^4.3.3",
     "electron": "^13.2.3",
     "express": "^4.17.1",
     "lodash.clonedeep": "^4.5.0",
@@ -58,11 +58,11 @@
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
     "moment": "^2.29.1",
-    "playwright": "^1.16",
+    "playwright": "^1.17",
     "prismjs": "^1.25.0",
     "puppeteer": "^10.4.0",
     "qrcode-terminal": "^0.12.0",
-    "sass": "^1.43.4",
+    "sass": "^1.45.0",
     "sass-loader": "^10.2.0",
     "tailwindcss": "^1.9.6",
     "testcafe": "^1.17.1",
@@ -76,13 +76,13 @@
     "vue-socket.io": "^3.0.10",
     "vue-template-compiler": "^2.6.14",
     "vuex": "^3.6.2",
-    "webdriverio": "^7.16.7"
+    "webdriverio": "^7.16.11"
   },
   "resolutions": {
     "sumchecker": "3.0.1"
   },
   "peerDependencies": {
-    "codeceptjs": "^3.2.1"
+    "codeceptjs": "^3.2.2"
   },
   "eslintConfig": {
     "root": true,

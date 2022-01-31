@@ -21,11 +21,11 @@ const store = require('./store').default;
 
 
 (async () => {
-  const response = await axios.get(`http://${window.location.hostname}:${window.location.port}/api/ports`);
+  const response = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/ports`);
   const data = await response.data;
   Vue.use(new VueSocketIO({
     debug: true,
-    connection: `http://${window.location.hostname}:${data.wsPort}`,
+    connection: `${window.location.protocol}//${window.location.hostname}:${data.wsPort}`,
     vuex: {
       store,
       actionPrefix: 'SOCKET_',

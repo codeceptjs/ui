@@ -3,7 +3,7 @@
 An interactive, graphical test runner for [CodeceptJS](https://codecept.io). 
 
 
-![codeceptui](https://github.com/codeceptjs/ui/raw/master/codecept-ui2.gif)
+![codeceptui](codecept-ui2.gif)
 
 * Runs as Electron app or as a web server
 * Headless & window mode supported
@@ -44,7 +44,7 @@ npx codecept run --config tests/codecept.conf.js
 
 ### WebServer Mode
 
-![](https://github.com/codeceptjs/ui/raw/master/codeceptui.gif)
+![webserver mode](codeceptui.gif)
 
 Run CodeceptUI as a web server (recommended for headless mode, remote debug):
 
@@ -85,19 +85,19 @@ npx codecept-ui --app --wsPort=4444
 
 ## Development
 
-See [CONTRIBUTING.md](https://github.com/codeceptjs/ui/blob/master/.github/CONTRIBUTING.md)
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md)
 
 
 ## Start CodeceptUI with debug output
 
-codepress uses the debug package to output debug information. This is useful to troubleshoot problems or just to see what codepress is doing. To turn on debug information do
+CodeceptUI uses the [debug](https://github.com/debug-js/debug) package to output debug information. This is useful to troubleshoot problems or just to see what CodeceptUI is doing. To turn on debug information do
 
 ```
   # verbose: get all debug information
-  DEBUG=codepress:* npx codecept-ui 
+  DEBUG=codeceptjs:* npx codecept-ui 
 
   # just get debug output of one module
-  DEBUG=codepress:codeceptjs-factory npx codecept-ui
+  DEBUG=codeceptjs:codeceptjs-factory npx codecept-ui
 ```
 
 # Credits
@@ -120,5 +120,6 @@ Thanks all for the contributions!
 <a href="https://github.com/kaflan"><img src="https://avatars3.githubusercontent.com/u/3959504?v=4" title="kaflan" width="80" height="80"></a>
 <a href="https://github.com/lukasf98"><img src="https://avatars2.githubusercontent.com/u/22434650?v=4" title="lukasf98" width="80" height="80"></a>
 <a href="https://github.com/geilix10"><img src="https://avatars3.githubusercontent.com/u/16301998?v=4" title="geilix10" width="80" height="80"></a>
+<a href="https://github.com/Teomik129"><img src="https://avatars3.githubusercontent.com/u/23395221?v=4" title="Teomik129" width="80" height="80"></a>
 
 [//]: contributor-faces

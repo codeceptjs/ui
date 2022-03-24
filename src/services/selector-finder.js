@@ -61,7 +61,7 @@ export const findShortSelector = (doc, el) => {
 
 export const dehighlightAll = doc => {
   try {
-    const oldOutlines = doc.querySelectorAll('.codepress-outline');
+    const oldOutlines = doc.querySelectorAll('.codeceptjs-outline');
     oldOutlines.forEach(ol => ol.remove());
   } catch (err) {
     // eslint-disable-next-line
@@ -81,7 +81,7 @@ export const highlightElement = (el, doc, win) => {
   const highlightColor = 'hsl(348, 100%, 61%)';
 
   var newOutline = doc.createElement('div');
-  newOutline.className = 'codepress-outline';
+  newOutline.className = 'codeceptjs-outline';
   newOutline.style.position = 'absolute';
   newOutline.style['z-index'] = '9999999999';
   newOutline.style['color'] = 'white';
@@ -98,7 +98,7 @@ export const highlightElement = (el, doc, win) => {
   newOutline.style.left = rect.left + win.pageXOffset + 'px';
 
   const textContainer = doc.createElement('div');
-  textContainer.className = 'codepress-outline';
+  textContainer.className = 'codeceptjs-outline';
   textContainer.append(doc.createTextNode(shortestSelector));
   textContainer.style.position = 'absolute';
   textContainer.style['z-index'] = '9999999999';

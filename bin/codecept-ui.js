@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const debug = require('debug')('codepress:codepress');
+const debug = require('debug')('codeceptjs:ui');
 
 // initialize CodeceptJS and return startup options
 const path = require('path');

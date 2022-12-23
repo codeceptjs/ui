@@ -21,7 +21,7 @@ if (!existsSync(AppDir)) {
 
 codeceptjsFactory.create({}, options).then(() => {
   debug('CodeceptJS initialized, starting application');
-  
+
   const api = require('../lib/api');
   const app = express();
 
@@ -71,8 +71,7 @@ codeceptjsFactory.create({}, options).then(() => {
     require('../lib/commands/electron');
   }
 
+}).catch((e) => {
+  console.error(e.message);
+  process.exit(1);
 });
-
-
-
-

@@ -36,6 +36,8 @@
       </div>
     </div>
     <div class="tabs is-small">
+      <br />
+      <br />
       <ul>
         <li
           :class="{ 'is-active': activeTab == 'testrun' }"
@@ -55,6 +57,8 @@
         class="float-right"
         @click="toggleAll()"
       >
+        <br />
+        <br />
         <a><i class="fas fa-sort" />{{ isOpened ? 'Collapse' : 'Expand' }}</a>
       </div>
     </div>

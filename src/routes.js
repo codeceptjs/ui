@@ -5,6 +5,7 @@ import TestRunPage from './components/pages/TestRunPage.vue';
 
 export default [
   { path: '/', component: ScenariosPage },
+  { path: '/page-objects', component: PageObjectsPage },
   { path: '/testrun/:scenarioId', component: TestRunPage },
   { path: '/new-test', component: NewTestPage },
   { path: '/settings', component: SettingsPage },

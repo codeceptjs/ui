@@ -10,11 +10,11 @@
       >
         <i
           v-if="testStatus(scenario.id) === 'failed'"
-          class="fas fa-square has-text-danger"
+          class="fa fa-times mr-1 text-red-600"
         />
         <i
           v-if="testStatus(scenario.id) === 'passed'"
-          class="fas fa-square has-text-success"
+          class="fa fa-check-square mr-1 text-green-600"
         />
         <i
           v-if="testStatus(scenario.id) === 'running'"
@@ -25,7 +25,7 @@
         v-else
         class="Scenario-status"
       >
-        <i class="fas fa-square has-text-grey-lighter" />
+        <i class="fa fa-square mr-1 text-gray-600" />
       </span>
       <span :class="{ 'has-text-grey-light': scenario.pending, 'is-faded': !scenario.matchesQuery }">
         {{ scenario.title }}

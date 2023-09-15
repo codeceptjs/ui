@@ -2,7 +2,7 @@
   <div>
     <b-message
       v-if="showSuccessfulSteps"
-      title="Succesuful Steps"
+      title="Successful Steps"
       aria-close-label="Close succesful steps"
     >
       <pre v-highlightjs="stepsCode"><code class="javascript" /></pre>

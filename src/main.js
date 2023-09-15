@@ -36,7 +36,7 @@ const store = require('./store').default;
 Vue.config.productionTip = false;
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   routes
 });
 

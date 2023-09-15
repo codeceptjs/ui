@@ -29,6 +29,14 @@
             <i class="fas fa-edit mr-2" />
             Write a Test
           </a>
+          <a
+            class="navbar-item"
+            role="button"
+            @click="gotoPageObjects"
+          >
+            <i class="fas fa-file mr-2" />
+            Page Objects
+          </a>
         </b-navbar-item>
         <b-navbar-item class="hide-on-small">
           <p class="control ">
@@ -174,6 +182,9 @@ export default {
     },
     gotoNewTest() {
       this.$router.push('/new-test');
+    },
+    gotoPageObjects() {
+      this.$router.push('/page-objects');
     },
     clearSearch() {
       this.search = '';

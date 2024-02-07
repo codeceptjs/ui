@@ -63,7 +63,9 @@
 </template>
 
 <script>
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 export default {
   name: 'Scenario',
@@ -115,7 +117,7 @@ export default {
   },
   methods: {
     humanize(ts) {
-      return moment.unix(ts / 1000).fromNow();
+      return dayjs(ts).fromNow();
     },
 
     selectScenario(scenario) {

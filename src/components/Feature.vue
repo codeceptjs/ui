@@ -47,9 +47,11 @@
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 import EditorNotFound from './EditorNotFound';
 import Scenario from './Scenario';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 export default {
   name: 'Feature',
@@ -69,7 +71,7 @@ export default {
   },
   methods: {
     humanize(ts) {
-      return moment.unix(ts / 1000).fromNow();
+      return dayjs(ts).fromNow();
     },
 
     openInEditor(file) {

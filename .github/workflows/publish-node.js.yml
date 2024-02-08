@@ -17,13 +17,13 @@ jobs:
         ref: ${{ github.event.release.target_commitish }}
     - uses: actions/setup-node@v3
       with:
-        node-version: 18
+        node-version: 20
         cache: 'npm'
     - run: git config --global user.name "GitHub CD bot"
     - run: git config --global user.email "github-cd-bot@example.com"
     - run: npm version ${{ github.event.release.tag_name }}
     - run: npm i
-    - run: unset NODE_OPTIONS && npm run build
+    - run: NODE_OPTIONS=--openssl-legacy-provider && npm run build
     - uses: JS-DevTools/npm-publish@v1
       with:
         token: ${{ secrets.NPM_TOKEN }}

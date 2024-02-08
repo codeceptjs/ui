@@ -18,7 +18,7 @@
           class="fa-md fas fa-edit text-red-500 mr-2  fa-inverse"
           v-if="!editor"
         />
-      </b-tooltip>    
+      </b-tooltip>
       <b-tooltip
         label="Window Mode Enabled"
         position="is-left"
@@ -153,7 +153,7 @@
             <a
               class="is-small"
               @click="gotoSettingsPage()"
-            >Show Config</a> &nbsp; {{ config.file }}
+            >Show CodeceptJS Config</a>
           </footer>
         </div>
       </form>

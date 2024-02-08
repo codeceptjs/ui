@@ -15,9 +15,7 @@
           <SettingsMenu />
         </b-navbar-item>
       </template>
-      <template slot="start">
-
-      </template>
+      <template slot="start" />
 
       <template slot="end">
         <b-navbar-item class="is-hidden-touch">
@@ -31,20 +29,27 @@
     >
       <aside class="Sidebar">
         <div>
-          <h1 class="title is-size-4 has-text-grey-dark">Page Objects</h1>
-          <br />
+          <h1 class="title is-size-4 has-text-grey-dark">
+            Page Objects
+          </h1>
+          <br>
         </div>
         <ul style="overflow-y: scroll;">
           <li v-for="(value,name) in pageObject">
-            <a class="Scenario-detailLink" @click="loadPageObjectSource(value.source)">{{ name }}
-            <i class="fas fa-angle-right"></i>
+            <a
+              class="Scenario-detailLink"
+              @click="loadPageObjectSource(value.source)"
+            >{{ name }}
+              <i class="fas fa-angle-right" />
             </a>
           </li>
         </ul>
-
       </aside>
-      <div class="Content" style="overflow-y: scroll;">
-        <pre v-highlightjs="pageObjectSource"><code class="javascript"/></pre>
+      <div
+        class="Content"
+        style="overflow-y: scroll;"
+      >
+        <pre v-highlightjs="pageObjectSource"><code class="javascript" /></pre>
       </div>
     </section>
   </div>

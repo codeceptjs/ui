@@ -5,13 +5,13 @@
       @run="runScenario(scenario)"
     />
     <aside class="Sidebar">
-      <MonacoEditor 
+      <MonacoEditor
         class="editor"
-        v-model="code" 
+        v-model="code"
         @editorDidMount="editorDidMount"
-        language="javascript" 
+        language="javascript"
       />
-      
+
       <button
         v-if="!isRunning"
         @click="runScenario(scenario)"
@@ -55,7 +55,7 @@
             <a @click="enableWindowMode()">Force Window mode <i class="fas fa-window-maximize settings" /></a> to see the execution in actual browser
           </li>
           <li :class="{ 'line-through': isSingleSession }">
-            <a @click="enableSingleSession()">Enable Singleton Browser Session</a> to reuse one window accross test runs
+            <a @click="enableSingleSession()">Enable Singleton Browser Session</a> to reuse one window across test runs
           </li>
           <li :class="{ 'line-through': isRunning }">
             Write the inital code and click <a @click="runScenario()">Launch Test</a>
@@ -109,7 +109,7 @@ export default {
   created: async function () {
     this.$store.dispatch('testRuns/clearTests');
     if (localStorage.getItem('newTestCommand') !== null) {
-      this.code = localStorage.getItem('newTestCommand');  
+      this.code = localStorage.getItem('newTestCommand');
     }
   },
   beforeDestroy: function() {

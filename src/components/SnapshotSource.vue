@@ -92,7 +92,7 @@ export default {
       return (
         this.$refs.contentDocument ||
         (this.$refs.source.contentWindow &&
-        this.$refs.source.contentWindow.document)
+          this.$refs.source.contentWindow.document)
       );
     },
 
@@ -105,7 +105,7 @@ export default {
       return (        
         this.$refs.source.contentWindow &&
         (this.$props.snapshot.scrollPosition.x > 0 ||
-        this.$props.snapshot.scrollPosition.y > 0)
+          this.$props.snapshot.scrollPosition.y > 0)
       );
     },
 

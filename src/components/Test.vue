@@ -103,11 +103,13 @@
 </template>
 
 <script>
-import moment from 'moment';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import Pause from './Pause';
 import Step from './Step';
 import ScenarioSource from './ScenarioSource';
 import TestResult from './TestResult';
+import dayjs from 'dayjs';
+dayjs.extend(relativeTime);
 
 export default {
   name: 'Test',
@@ -137,7 +139,7 @@ export default {
 
   methods: {
     humanize(ts) {
-      return moment.unix(ts / 1000).fromNow();
+      return dayjs(ts).fromNow();
     },
 
     indentLevel(step) {

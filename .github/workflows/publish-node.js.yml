@@ -25,6 +25,7 @@ jobs:
       - run: npx semantic-release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
       # push the version changes to GitHub
       - run: git push
         env:

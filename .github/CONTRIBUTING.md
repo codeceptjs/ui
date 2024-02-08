@@ -2,11 +2,24 @@
 
 1. clone repository
 2. Run `npm install`
-3. Run `npm run build` (this is required for a fresh start) 
+3. Run `npm run build` (this is required for a fresh start)
 
 We need frontend and backend server to be started for this application.
 
 Frontend server compiles assets, while backend server communicates with CodeceptJS and processes HTTP and WebSocket requests. HTTP is used to send commands from client to CodeceptJS, and websockets are used to send notifications from CodeceptJS to application.
+
+Note: if you error when building the app, just set this `NODE_OPTIONS=--openssl-legacy-provider` in your terminal
+
+```
+> @codeceptjs/ui@0.7.3 build
+> vue-cli-service build
+
+
+⠹  Building for production...Error: error:0308010C:digital envelope routines::unsupported
+    at new Hash (node:internal/crypto/hash:69:19)
+    at Object.createHash (node:crypto:133:10)
+```
+
 
 Both servers must be executed for development:
 

@@ -23,7 +23,7 @@ jobs:
     - run: git config --global user.email "github-cd-bot@example.com"
     - run: npm version ${{ github.event.release.tag_name }}
     - run: npm i
-    - run: npm run build
+    - run: unset NODE_OPTIONS && npm run build
     - uses: JS-DevTools/npm-publish@v1
       with:
         token: ${{ secrets.NPM_TOKEN }}

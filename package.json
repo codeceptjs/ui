@@ -3,14 +3,14 @@
   "version": "0.7.3",
   "license": "MIT",
   "scripts": {
-    "serve": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve --host localhost",
-    "build": "vue-cli-service build",
+    "serve": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
     "lint": "vue-cli-service lint --fix && vue-cli-service lint lib/** --fix",
     "app": "node bin/codecept-ui.js --app -c node_modules/@codeceptjs/examples",
     "backend": "node bin/codecept-ui.js -c node_modules/@codeceptjs/examples/codecept.conf.js",
     "electron:serve": "vue-cli-service electron:serve",
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
-    "frontend": "vue-cli-service serve",
+    "frontend": "npm run serve",
     "deploy": "npm run build && npm publish",
     "test": "ava",
     "test:watch": "ava -w"
@@ -30,9 +30,9 @@
     "chokidar": "3.5.3",
     "commander": "8.3.0",
     "core-js": "2.6.12",
-    "dayjs": "1.11.10",
     "debug": "4.3.4",
-    "electron": "15.5.5",
+    "electron": "28.2.2",
+    "dayjs": "1.11.10",
     "express": "4.18.2",
     "lodash.clonedeep": "4.5.0",
     "nanoid": "3.3.4",
@@ -50,7 +50,6 @@
     "ava": "3.15.0",
     "babel-eslint": "10.1.0",
     "buefy": "0.9.13",
-    "codeceptjs": "3.4.0",
     "contributor-faces": "1.1.0",
     "copy-text-to-clipboard": "3.0.1",
     "electron-icon-builder": "2.0.1",
@@ -82,7 +81,7 @@
     "sumchecker": "3.0.1"
   },
   "peerDependencies": {
-    "codeceptjs": "3.5.12"
+    "codeceptjs": "3.5.13-beta.3"
   },
   "eslintConfig": {
     "root": true,

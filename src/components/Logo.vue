@@ -24,11 +24,18 @@
         <b-tag type="is-warning">
           {{ version }}
         </b-tag>
+        <b-tag type="is-light">
+          CodeceptJS
+        </b-tag>
+        <b-tag type="is-warning">
+          {{ codeceptjsVersion }}
+        </b-tag>
       </b-taglist>
       <b-dropdown-item aria-role="listitem">
         <a
           href="https://codecept.io"
           target="_blank"
+          @click="openUrl('https://codecept.io')"
         >Open CodeceptJS &raquo;</a>
       </b-dropdown-item>
 
@@ -36,30 +43,40 @@
         <a
           target="_blank"
           href="https://github.com/codeceptjs/ui/issues"
+          @click="openUrl('https://github.com/codeceptjs/ui/issues')"
         >GitHub issues  &raquo;</a>
       </b-dropdown-item>
       <b-dropdown-item aria-role="listitem">
         <a
           href="https://github.com/codeceptjs/ui"
           target="_blank"
+          @click="openUrl('https://github.com/codeceptjs/ui')"
         >Contribute to CodeceptUI &raquo;</a>
       </b-dropdown-item>
       <b-dropdown-item aria-role="listitem">
-        <a href="https://bit.ly/chat-codeceptjs">Join chat &raquo;</a>
+        <a href="https://bit.ly/chat-codeceptjs" @click="openUrl('https://bit.ly/chat-codeceptjs')">Join chat &raquo;</a>
       </b-dropdown-item>
     </b-dropdown>
   </b-navbar-item>
 </template>
 
 <script>
-const version = require('../../package.json').version;
+const { version } = require('../../package.json');
+const { version: codeceptjsVersion } = require('codeceptjs/package.json');
 
 export default {
   data() {
     return {
       status: 'beta',
       version,
+      codeceptjsVersion,
     };
+  },
+
+  methods: {
+    openUrl(url) {
+      window.open(url);
+    }
   }
 };
 </script>

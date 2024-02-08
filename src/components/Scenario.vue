@@ -123,6 +123,7 @@ export default {
     selectScenario(scenario) {
       this.$store.commit('scenarios/selectScenario', scenario);
       this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
+      this.$router.go();
     }
 
   }

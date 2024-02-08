@@ -58,7 +58,7 @@
             <a @click="enableSingleSession()">Enable Singleton Browser Session</a> to reuse one window across test runs
           </li>
           <li :class="{ 'line-through': isRunning }">
-            Write the inital code and click <a @click="runScenario()">Launch Test</a>
+            Write the initial code and click <a @click="runScenario()">Launch Test</a>
           </li>
           <li>Resize the window to see both browsers (current and tested) on the screen</li>
           <li>Use interactive pause in the sidebar to send commands to a browser</li>

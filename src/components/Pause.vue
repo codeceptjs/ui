@@ -46,12 +46,12 @@
             @keydown.prevent.native.tab="completeCommand()"
           >
             <template slot-scope="props">
-              <div 
-                :class="props.option.actionType" 
+              <div
+                :class="props.option.actionType"
                 class="cmd"
               >
                 {{ props.option.suggestion }}
-              </div> 
+              </div>
             </template>
           </b-autocomplete>
         </b-field>
@@ -66,11 +66,11 @@
           <div v-html="cliError" />
         </b-message>
 
-        <ul        
+        <ul
           class="interactiveOptions"
           v-show="command.length===0"
         >
-          <li          
+          <li
             @click="selectedAction('see')"
           >
             <span>
@@ -89,7 +89,7 @@
             </span>
             <span class="actionType">See</span>
           </li>
-          <li          
+          <li
             @click="selectedAction('click')"
           >
             <span>
@@ -108,7 +108,7 @@
             </span>
             <span class="actionType">Click</span>
           </li>
-          <li          
+          <li
             @click="selectedAction('fillField')"
           >
             <span>
@@ -145,7 +145,7 @@
             type="is-secondary"
           >
             Successful Steps {{ successfulSteps.length }}
-          </b-button>        
+          </b-button>
         </div>
 
         <div
@@ -169,8 +169,8 @@
           </b-button>
         </div>
       </div>
-      <div 
-        v-if="command && commandDoc !== null" 
+      <div
+        v-if="command && commandDoc !== null"
         v-show="showDoc"
         class="action-documentation"
       >
@@ -230,7 +230,7 @@ export default {
           if (!actions[action]) {
             return {
               action,
-              suggection: `${action}()`,
+              suggestion: `${action}()`,
             };
           }
           let actionType = actionArray.filter(actionType => action.toLowerCase().startsWith(actionType));

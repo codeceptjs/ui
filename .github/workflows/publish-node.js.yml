@@ -27,7 +27,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # push the version changes to GitHub
-      - run: git push
+      - run: git add package.json && git commit -m'update version' && git push
         env:
           # The secret is passed automatically. Nothing to configure.
           github-token: ${{ secrets.GITHUB_TOKEN }}

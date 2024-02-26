@@ -7,7 +7,8 @@ export const config: CodeceptJS.MainConfig = {
       url: 'http://localhost:8080',
       show: false,
       timeout: 10000,
-      waitForNavigation: 'load'
+      waitForNavigation: 'load',
+      waitForAction: 10000
     }
   },
   include: {

@@ -5,7 +5,9 @@ export const config: CodeceptJS.MainConfig = {
     Playwright: {
       browser: 'chromium',
       url: 'http://localhost:8080',
-      show: false
+      show: false,
+      timeout: 10000,
+      waitForNavigation: 'load'
     }
   },
   include: {

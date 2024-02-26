@@ -1,5 +1,5 @@
 # This to verify lib version bump doesn't break anything
-name: Building app testing
+name: E2E Tests
 
 on:
   push:
@@ -22,8 +22,8 @@ jobs:
       - run: git config --global user.name "GitHub CD bot"
       - run: git config --global user.email "github-cd-bot@example.com"
       - name: Install deps
-        run: npm i
-      - name: Build docs
-        run: npm run build
+        run: npm i -g wait-for-localhost-cli && npm i
+      - name: Start app
+        run: npm run serve; wait-for-localhost 8080; cd test/e2e; npm run test
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

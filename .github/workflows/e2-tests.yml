@@ -24,6 +24,6 @@ jobs:
       - name: Install deps
         run: npm i -g wait-for-localhost-cli && npm i
       - name: Start app and run tests
-        run: npm run serve & wait-for-localhost 8080; cd test/e2e; npm i && npm run test
+        run: npm run serve & wait-for-localhost 8080; cd test/e2e; npm i && npx playwright install chromium && npm run test
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

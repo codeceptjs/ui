@@ -2,7 +2,7 @@ const { I } = inject();
 
 Feature('homepage');
 
-Before(() => {
+BeforeSuite(() => {
   I.amOnPage('');
 })
 

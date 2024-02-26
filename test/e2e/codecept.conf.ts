@@ -8,7 +8,7 @@ export const config: CodeceptJS.MainConfig = {
       show: false,
       timeout: 10000,
       waitForNavigation: 'load',
-      waitForAction: 10000
+      waitForTimeout: 10000
     }
   },
   include: {

@@ -1,0 +1,29 @@
+# This to verify lib version bump doesn't break anything
+name: E2E Tests
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      - run: git config --global user.name "GitHub CD bot"
+      - run: git config --global user.email "github-cd-bot@example.com"
+      - name: Install deps
+        run: npm i -g wait-for-localhost-cli && npm i
+      - name: Start app and run tests
+        run: npm run serve & wait-for-localhost 8080; cd test/e2e; npm i && npx playwright install chromium && npm run test
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

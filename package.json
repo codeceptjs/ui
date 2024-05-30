@@ -1,6 +1,6 @@
 {
   "name": "@codeceptjs/ui",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",

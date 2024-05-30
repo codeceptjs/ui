@@ -37,7 +37,7 @@
     "lodash.clonedeep": "^4.5.0",
     "nanoid": "^3.3.4",
     "socket.io": "^2.4.0",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@codeceptjs/examples": "1.2.3",

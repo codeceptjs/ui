@@ -55,7 +55,7 @@
     "copy-text-to-clipboard": "^3.0.1",
     "electron-icon-builder": "^2.0.1",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^7.20.0",
+    "eslint-plugin-vue": "^9.26.0",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6",
     "playwright": "^1.29",

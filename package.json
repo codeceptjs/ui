@@ -50,7 +50,7 @@
     "ava": "^3.15.0",
     "babel-eslint": "^10.1.0",
     "buefy": "^0.9.13",
-    "codeceptjs": "^3.6.2",
+    "codeceptjs": "^3.6.4",
     "contributor-faces": "^1.1.0",
     "copy-text-to-clipboard": "^3.0.1",
     "electron-icon-builder": "^2.0.1",
@@ -82,7 +82,7 @@
     "sumchecker": "3.0.1"
   },
   "peerDependencies": {
-    "codeceptjs": "^3.6.2"
+    "codeceptjs": "^3.6.4"
   },
   "eslintConfig": {
     "root": true,

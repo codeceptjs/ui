@@ -65,7 +65,7 @@
     "sass": "^1.57.1",
     "sass-loader": "^10.2.0",
     "tailwindcss": "^1.9.6",
-    "testcafe": "^1.20.1",
+    "testcafe": "^3.6.2",
     "uuid": "^8.3.2",
     "vue": "^2.6.14",
     "vue-cli-plugin-electron-builder": "~2.1.1",

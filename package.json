@@ -43,7 +43,7 @@
     "@codeceptjs/examples": "1.2.4",
     "@medv/finder": "^1.1.3",
     "@vue/cli-plugin-babel": "^3.12.1",
-    "@vue/cli-plugin-eslint": "^3.12.1",
+    "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-service": "^3.12.1",
     "@vue/eslint-config-prettier": "^6.0.0",
     "ansi-to-html": "^0.7.2",

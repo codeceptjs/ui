@@ -25,7 +25,7 @@
   "dependencies": {
     "@codeceptjs/configure": "^0.8.0",
     "axios": "^0.28.0",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.3",
     "cheerio": "^1.0.0-rc.12",
     "chokidar": "^3.5.3",
     "commander": "^8.3.0",

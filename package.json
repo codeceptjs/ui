@@ -45,7 +45,7 @@
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.12.1",
     "@vue/cli-service": "^3.12.1",
-    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-prettier": "^10.2.0",
     "ansi-to-html": "^0.7.2",
     "ava": "^3.15.0",
     "babel-eslint": "^10.1.0",

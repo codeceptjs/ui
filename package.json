@@ -57,7 +57,7 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.20.0",
     "husky": "^7.0.4",
-    "lint-staged": "^15.2.5",
+    "lint-staged": "^15.4.3",
     "playwright": "^1.50",
     "prismjs": "^1.29.0",
     "puppeteer": "^24.2.0",

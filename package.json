@@ -23,7 +23,7 @@
     "build"
   ],
   "dependencies": {
-    "@codeceptjs/configure": "^1.0.2",
+    "@codeceptjs/configure": "^1.0.3",
     "axios": "^0.28.0",
     "body-parser": "^1.20.3",
     "cheerio": "^1.0.0-rc.12",
@@ -33,7 +33,7 @@
     "dayjs": "^1.11.13",
     "debug": "^4.3.4",
     "electron": "^34.1.1",
-    "express": "^4.19.2",
+    "express": "^4.21.2",
     "lodash.clonedeep": "^4.5.0",
     "nanoid": "^3.3.4",
     "socket.io": "^2.4.0",
@@ -52,7 +52,7 @@
     "buefy": "^0.9.13",
     "codeceptjs": "^3.7.2",
     "contributor-faces": "^1.1.0",
-    "copy-text-to-clipboard": "^3.0.1",
+    "copy-text-to-clipboard": "^3.2.0",
     "electron-icon-builder": "^2.0.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.20.0",
@@ -82,7 +82,7 @@
     "sumchecker": "3.0.1"
   },
   "peerDependencies": {
-    "codeceptjs": "^3.7.2"
+    "codeceptjs": "^3.7.3"
   },
   "eslintConfig": {
     "root": true,

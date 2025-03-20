@@ -17,13 +17,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: git config --global user.name "GitHub CD bot"
       - run: git config --global user.email "github-cd-bot@example.com"
       - name: Install deps
-        run: npm i -g wait-for-localhost-cli && npm i -f
+        run: export NODE_OPTIONS=--openssl-legacy-provider && npm i -g wait-for-localhost-cli && npm i -f
       - name: Start app and run tests
-        run: npm run serve & wait-for-localhost 8080; cd test/e2e; npm i && npx playwright install chromium && npm run test
+        run: export NODE_OPTIONS=--openssl-legacy-provider && npm run serve & wait-for-localhost 8080; cd test/e2e; npm i && npx playwright install chromium && npm run test
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

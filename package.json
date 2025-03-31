@@ -33,7 +33,7 @@
     "dayjs": "^1.11.13",
     "debug": "^4.3.4",
     "electron": "^35.0.2",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "lodash.clonedeep": "^4.5.0",
     "nanoid": "^5.1.5",
     "socket.io": "^4.8.1",

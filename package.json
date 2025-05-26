@@ -28,7 +28,7 @@
     "body-parser": "^2.2.0",
     "cheerio": "^1.0.0-rc.12",
     "chokidar": "^4.0.3",
-    "commander": "^13.1.0",
+    "commander": "^14.0.0",
     "core-js": "2.6.12",
     "dayjs": "^1.11.13",
     "debug": "^4.3.4",

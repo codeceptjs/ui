@@ -47,7 +47,7 @@
     "@vue/cli-service": "^3.12.1",
     "@vue/eslint-config-prettier": "^6.0.0",
     "ansi-to-html": "^0.7.2",
-    "ava": "^6.2.0",
+    "ava": "^6.4.0",
     "babel-eslint": "^10.1.0",
     "buefy": "^0.9.13",
     "codeceptjs": "^3.7.3",

@@ -26,7 +26,7 @@
     "@codeceptjs/configure": "^1.0.3",
     "axios": "^1.10.0",
     "body-parser": "^2.2.0",
-    "cheerio": "^1.0.0-rc.12",
+    "cheerio": "^1.1.0",
     "chokidar": "^4.0.3",
     "commander": "^13.1.0",
     "core-js": "2.6.12",

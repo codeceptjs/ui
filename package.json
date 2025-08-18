@@ -49,7 +49,7 @@
     "ansi-to-html": "^0.7.2",
     "ava": "^6.2.0",
     "babel-eslint": "^10.1.0",
-    "buefy": "^0.9.13",
+    "buefy": "^3.0.1",
     "codeceptjs": "^3.7.3",
     "contributor-faces": "^1.1.0",
     "copy-text-to-clipboard": "^3.2.0",

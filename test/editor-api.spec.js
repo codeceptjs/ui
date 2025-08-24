@@ -33,12 +33,10 @@ const mockConfig = {
   tests: os.tmpdir()
 };
 
-// Mock the dependency
-require.cache[require.resolve('../lib/model/codeceptjs-factory')] = {
-  exports: {
-    getCodeceptjsConfig: () => mockConfig
-  }
-};
+// Mock the dependency - ensure the factory has the getCodeceptjsConfig method
+const codeceptjsFactory = require('../lib/model/codeceptjs-factory');
+const originalGetConfig = codeceptjsFactory.getCodeceptjsConfig;
+codeceptjsFactory.getCodeceptjsConfig = () => mockConfig;
 
 let testFilePath;
 
@@ -55,9 +53,26 @@ Scenario('test scenario', async ({ I }) => {
   fs.writeFileSync(testFilePath, testContent);
 });
 
+test.beforeEach(() => {
+  // Reset test file content before each test to ensure isolation
+  const testContent = `Feature('Editor API Tests');
+
+Scenario('test scenario', async ({ I }) => {
+  I.amOnPage('/test');
+  I.see('Test');
+});`;
+  
+  fs.writeFileSync(testFilePath, testContent);
+});
+
 test.after(() => {
   if (fs.existsSync(testFilePath)) {
     fs.unlinkSync(testFilePath);
+  }
+  
+  // Restore original method if it existed
+  if (originalGetConfig) {
+    codeceptjsFactory.getCodeceptjsConfig = originalGetConfig;
   }
 });
 
@@ -96,25 +111,43 @@ test('getScenarioSource - security check prevents directory traversal', async t 
 });
 
 test('updateScenario - updates scenario', async t => {
-  const newScenario = `Scenario('updated scenario', async ({ I }) => {
+  // Create a unique test file for this test to avoid conflicts
+  const uniqueTestFilePath = path.join(mockConfig.tests, `update-test-${Date.now()}.js`);
+  const testContent = `Feature('Update Test');
+
+Scenario('test scenario', async ({ I }) => {
+  I.amOnPage('/test');
+  I.see('Test');
+});`;
+  
+  fs.writeFileSync(uniqueTestFilePath, testContent);
+  
+  try {
+    const newScenario = `Scenario('updated scenario', async ({ I }) => {
   I.amOnPage('/updated');
   I.see('Updated');
 })`;
 
-  const req = mockRequest(
-    { file: 'test-editor.js', line: '3' },
-    { source: newScenario }
-  );
-  const res = mockResponse();
-  
-  await editorApi.updateScenario(req, res);
+    const req = mockRequest(
+      { file: path.basename(uniqueTestFilePath), line: '3' },
+      { source: newScenario }
+    );
+    const res = mockResponse();
     
-  t.is(res.data.success, true);
-  t.is(res.data.message, 'Scenario updated successfully');
-  
-  // Verify file was actually updated
-  const updatedContent = fs.readFileSync(testFilePath, 'utf8');
-  t.true(updatedContent.includes('updated scenario'));
+    await editorApi.updateScenario(req, res);
+      
+    t.is(res.data.success, true);
+    t.is(res.data.message, 'Scenario updated successfully');
+    
+    // Verify file was actually updated
+    const updatedContent = fs.readFileSync(uniqueTestFilePath, 'utf8');
+    t.true(updatedContent.includes('updated scenario'));
+  } finally {
+    // Cleanup
+    if (fs.existsSync(uniqueTestFilePath)) {
+      fs.unlinkSync(uniqueTestFilePath);
+    }
+  }
 });
 
 test('updateScenario - validates scenario structure', async t => {

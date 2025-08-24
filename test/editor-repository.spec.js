@@ -12,6 +12,20 @@ test.before(() => {
   testFile = path.join(testDir, 'test.js');
 });
 
+test.afterEach(() => {
+  // Clean up any backup files created during tests
+  if (fs.existsSync(testDir)) {
+    const files = fs.readdirSync(testDir);
+    files.filter(f => f.includes('.backup.')).forEach(f => {
+      try {
+        fs.unlinkSync(path.join(testDir, f));
+      } catch (err) {
+        // Ignore cleanup errors
+      }
+    });
+  }
+});
+
 test.after(() => {
   if (fs.existsSync(testDir)) {
     fs.rmSync(testDir, { recursive: true, force: true });
@@ -133,6 +147,14 @@ Scenario('test 2', async ({ I }) => {
 });
 
 test('updateFileContent - updates full file with backup', t => {
+  // Clean any existing backup files first
+  if (fs.existsSync(testDir)) {
+    const files = fs.readdirSync(testDir);
+    files.filter(f => f.includes('.backup.')).forEach(f => {
+      fs.unlinkSync(path.join(testDir, f));
+    });
+  }
+  
   const originalContent = `Feature('Original');
 Scenario('test', async ({ I }) => {});`;
 
@@ -160,6 +182,14 @@ Scenario('new test', async ({ I }) => {
 });
 
 test('cleanupBackups - keeps only 5 most recent backups', t => {
+  // Clean any existing backup files first
+  if (fs.existsSync(testDir)) {
+    const files = fs.readdirSync(testDir);
+    files.filter(f => f.includes('.backup.')).forEach(f => {
+      fs.unlinkSync(path.join(testDir, f));
+    });
+  }
+  
   const content = 'test content';
   fs.writeFileSync(testFile, content);
   
@@ -170,6 +200,10 @@ test('cleanupBackups - keeps only 5 most recent backups', t => {
     fs.writeFileSync(backupPath, `backup-${time}`);
   });
   
+  // Verify we have 7 backups before cleanup
+  const beforeCleanupFiles = fs.readdirSync(testDir).filter(f => f.includes('.backup.'));
+  t.is(beforeCleanupFiles.length, 7);
+  
   editorRepository.cleanupBackups(testFile);
   
   // Should have only 5 backups remaining
@@ -177,7 +211,7 @@ test('cleanupBackups - keeps only 5 most recent backups', t => {
   t.is(backupFiles.length, 5);
   
   // Should keep the 5 most recent (3000, 4000, 5000, 6000, 7000)
-  const remainingTimestamps = backupFiles.map(f => parseInt(f.split('.backup.')[1])).sort();
+  const remainingTimestamps = backupFiles.map(f => parseInt(f.split('.backup.')[1])).sort((a, b) => a - b);
   t.deepEqual(remainingTimestamps, [3000, 4000, 5000, 6000, 7000]);
 });
 

@@ -2,11 +2,19 @@
   <b-navbar-item
     tag="router-link"
     :to="{ path: '/' }"
+    class="logo-home-button"
+    title="Go to Home / Test Scenarios"
   >
-    <img
-      src="../assets/logo.png"
-      alt="CodeceptUI"
-    ><span class="brand hide-on-small">CodeceptUI</span>
+    <div class="logo-container">
+      <img
+        src="../assets/logo.png"
+        alt="CodeceptUI - Home"
+      >
+      <span class="brand hide-on-small">CodeceptUI</span>
+      <span class="home-hint hide-on-wide">
+        <i class="fas fa-home" />
+      </span>
+    </div>
 
     <b-dropdown
       class="hide-on-small"
@@ -85,8 +93,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .logo-home-button {
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+    }
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
   .brand {
     font-weight: bold;
     @apply text-gray-600 text-xl ml-2 mr-4;
+  }
+
+  .home-hint {
+    @apply text-gray-500 text-sm ml-1;
+    opacity: 0.7;
+  }
+
+  // Make it clear this is clickable on small screens
+  @media (max-width: 600px) {
+    .logo-home-button::after {
+      content: "Home";
+      @apply text-xs text-gray-500;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.8;
+    }
   }
 </style>

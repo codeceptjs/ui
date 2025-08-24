@@ -165,7 +165,29 @@ export default {
 
 <style scoped>
   .test-view {
-
+    display: flex;
+    flex-direction: row;
+    
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
   }
-
+  
+  .Content {
+    @media (max-width: 1024px) {
+      border-top: 2px solid #e5e5e5;
+      margin-top: 1rem;
+    }
+  }
+  
+  .empty {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    
+    @media (max-width: 1024px) {
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  }
 </style>

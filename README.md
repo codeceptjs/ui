@@ -2,8 +2,56 @@
 
 An interactive, graphical test runner for [CodeceptJS](https://codecept.io). 
 
-
 ![codeceptui](codecept-ui2.gif)
+
+![Main Interface](codecept-ui-main-interface.png)
+*Enhanced main interface with real-time file watching, runtime mode indicator, and comprehensive test management*
+
+## New Features & Enhancements ✨
+
+### 🔄 Real-time File Watching & Auto-refresh
+- **Automatic reload** when test scenarios, configuration, or any watched files change
+- **Visual indicators** showing file watching status and changes
+- **Smart notifications** for file modifications, additions, and deletions
+- **Comprehensive monitoring** of test files, config files, and page objects
+
+![File Watching](codecept-ui-main-interface.png)
+
+### 🎛️ Dynamic Runtime Mode Switching
+- **On-the-fly switching** between headless and windowed browser modes
+- **Visual mode indicators** in the main toolbar showing current execution mode
+- **Persistent settings** that remember your preferences across sessions
+- **Easy toggle controls** in the settings menu
+
+![Headless Mode](codecept-ui-headless-mode.png)
+*Headless mode indicator and settings*
+
+![Window Mode](codecept-ui-window-mode.png) 
+*Window mode indicator and settings*
+
+### ⚡ Performance Optimizations
+- **Debounced search** with real-time filtering for better responsiveness
+- **Smart rendering** that only displays matching test scenarios
+- **Optimized WebSocket communication** for faster status updates
+- **Efficient caching** to reduce unnecessary API calls
+
+### 🧪 Interactive Test Writing
+- **Monaco code editor** with syntax highlighting and IntelliSense
+- **Live test execution** with interactive pause capabilities
+- **Real-time browser control** for test development
+
+![Test Editor](codecept-ui-test-editor.png)
+*Interactive test writing with Monaco editor*
+
+### 📄 Page Objects Management
+- **Visual page object browser** for exploring your test architecture
+- **Source code viewer** with syntax highlighting
+- **Easy navigation** between different page objects
+
+![Page Objects](codecept-ui-page-objects.png)
+*Page objects browser and source viewer*
+
+## Core Features
 
 * Runs as Electron app or as a web server
 * Headless & window mode supported

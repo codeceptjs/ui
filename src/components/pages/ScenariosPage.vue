@@ -14,6 +14,9 @@
         <b-navbar-item>
           <RunButton @run="run()" />
         </b-navbar-item>           
+        <b-navbar-item>
+          <RuntimeModeIndicator />
+        </b-navbar-item>           
         <b-navbar-item class="is-hidden-desktop">
           <SettingsMenu />
         </b-navbar-item>   
@@ -46,7 +49,7 @@
               type="text"
               placeholder="Search"
               v-model="search"
-              @change="loadProject()"
+              @input="loadProject()"
             >
           </p>
           <p class="control">
@@ -133,6 +136,7 @@ import CapabilityFolder from '../CapabilityFolder';
 import SettingsMenu from '../SettingsMenu';
 import TestStatistics from '../TestStatistics';
 import RunButton from '../RunButton';
+import RuntimeModeIndicator from '../RuntimeModeIndicator';
 import Logo from '../Logo';
 
 export default {
@@ -143,14 +147,16 @@ export default {
     CapabilityFolder,
     SettingsMenu,
     TestStatistics,
-    RunButton
+    RunButton,
+    RuntimeModeIndicator
   },
   data() {
     return {
       loading: false,
       search: '',
       matchType: 'any',
-      project: {}
+      project: {},
+      loadProjectTimeout: null
     };
   },
   created() {
@@ -161,7 +167,15 @@ export default {
   },
   sockets: {
     'codeceptjs:scenarios.updated': function() {
-      this.loadProject();
+      this.loadProject(true);
+    },
+    'codeceptjs:config.updated': function() {
+      // Reload project when config changes as it might affect test discovery
+      this.loadProject(true);
+    },
+    'codeceptjs:file.changed': function() {
+      // Auto-reload project when any watched file changes
+      this.loadProject(true);
     }
   },
   computed: {
@@ -188,12 +202,12 @@ export default {
     },
     clearSearch() {
       this.search = '';
-      this.loadProject();
+      this.loadProject(true);
     },
 
     selectMatchType(t) {
       this.matchType = t;
-      this.loadProject();
+      this.loadProject(true);
     },
 
     isMatchType(t) {
@@ -212,7 +226,17 @@ export default {
       this.$store.dispatch('scenarios/loadInitialScenarioStatus');
     },
 
-    async loadProject() {
+    async loadProject(immediate = false) {
+      // Debounce the search to improve performance
+      if (this.loadProjectTimeout) {
+        clearTimeout(this.loadProjectTimeout);
+      }
+      
+      if (!immediate) {
+        this.loadProjectTimeout = setTimeout(() => this.loadProject(true), 300);
+        return;
+      }
+      
       this.updateUrl();
 
       this.loading = true;

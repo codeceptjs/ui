@@ -36,7 +36,10 @@
         v-for="scenario in visibleScenarios"
         v-show="scenario.matchesQuery"
       >
-        <Scenario :scenario="scenario" />
+        <Scenario 
+          :scenario="scenario" 
+          @test-selected="$emit('test-selected', $event)" 
+        />
       </li>
     </ul>
     <EditorNotFound

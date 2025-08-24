@@ -7,7 +7,19 @@ const { existsSync } = require('fs');
 const express = require('express');
 const options = require('../lib/commands/init')();
 const codeceptjsFactory = require('../lib/model/codeceptjs-factory');
-const io = require('socket.io')();
+const { getPort } = require('../lib/config/env');
+
+// Configure Socket.IO with CORS support for cross-origin requests
+const io = require('socket.io')({
+  cors: {
+    origin: process.env.CORS_ORIGIN || `http://localhost:${getPort('application')}`,
+    credentials: true,
+    methods: ["GET", "POST"],
+    transports: ['websocket', 'polling']
+  },
+  allowEIO3: true  // Support for older Socket.IO clients
+});
+
 const  { events } = require('../lib/model/ws-events');
 
 // Serve frontend from dist

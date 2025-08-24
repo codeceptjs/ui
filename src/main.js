@@ -21,11 +21,30 @@ const store = require('./store').default;
 
 
 (async () => {
-  const response = await axios.get(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/ports`);
-  const data = await response.data;
+  let wsConnection;
+  
+  // Support reverse proxy configurations by checking for base URL
+  const baseUrl = window.location.origin;
+  const isReverseProxy = window.location.pathname !== '/';
+  
+  if (isReverseProxy) {
+    // Use relative paths for reverse proxy setups
+    wsConnection = baseUrl.replace('http', 'ws');
+  } else {
+    // Standard configuration - fetch port info
+    try {
+      const response = await axios.get(`/api/ports`);
+      const data = await response.data;
+      wsConnection = `${window.location.protocol}//${window.location.hostname}:${data.wsPort}`;
+    } catch (err) {
+      // Fallback to same origin if port fetch fails
+      wsConnection = baseUrl.replace('http', 'ws');
+    }
+  }
+
   Vue.use(new VueSocketIO({
     debug: true,
-    connection: `${window.location.protocol}//${window.location.hostname}:${data.wsPort}`,
+    connection: wsConnection,
     vuex: {
       store,
       actionPrefix: 'SOCKET_',

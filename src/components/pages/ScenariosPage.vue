@@ -97,34 +97,65 @@
         />
       </div>
     </section>
-    <section>
-      <div class="container">
-        <ul
-          v-if="hasSearchResults"
-          class="mb-8"
-        >
-          <li
-            :key="capability"
-            v-for="(features, capability) in project.features"
-          >
-            <div class="Capability">
-              <h2 class="Capability-headline is-size-6">
-                <CapabilityFolder :folder="capability" />
-              </h2>
+    <section class="ide-layout">
+      <div class="ide-container" :class="{ 'with-preview': showPreview && selectedTest }">
+        <div class="test-list-panel">
+          <div class="container">
+            <ul
+              v-if="hasSearchResults"
+              class="mb-8"
+            >
+              <li
+                :key="capability"
+                v-for="(features, capability) in project.features"
+              >
+                <div class="Capability">
+                  <h2 class="Capability-headline is-size-6">
+                    <CapabilityFolder :folder="capability" />
+                  </h2>
 
-              <div class="Capability-content">
-                <feature
-                  :feature="feature"
-                  :key="feature.feature.title"
-                  v-for="feature in features"
-                />
-              </div>
+                  <div class="Capability-content">
+                    <feature
+                      :feature="feature"
+                      :key="feature.feature.title"
+                      v-for="feature in features"
+                      @test-selected="selectTest"
+                    />
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <b-message v-else>
+              No features or scenario are matching your search
+            </b-message>
+          </div>
+        </div>
+        
+        <!-- IDE-like preview panel -->
+        <div v-if="showPreview && selectedTest" class="test-preview-panel">
+          <div class="preview-header">
+            <h3 class="preview-title">{{ selectedTest.title }}</h3>
+            <button 
+              class="button is-small"
+              @click="togglePreview"
+              title="Close preview"
+            >
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="preview-content">
+            <div class="test-info">
+              <p><strong>File:</strong> {{ selectedTest.file }}</p>
+              <p><strong>Line:</strong> {{ selectedTest.line || 'N/A' }}</p>
             </div>
-          </li>
-        </ul>
-        <b-message v-else>
-          No features or scenario are matching your search
-        </b-message>
+            <div class="test-code" v-if="selectedTest.body">
+              <pre><code class="javascript">{{ selectedTest.body }}</code></pre>
+            </div>
+            <div v-else class="loading-placeholder">
+              Loading test code...
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -156,7 +187,9 @@ export default {
       search: '',
       matchType: 'any',
       project: {},
-      loadProjectTimeout: null
+      loadProjectTimeout: null,
+      showPreview: false,
+      selectedTest: null
     };
   },
   created() {
@@ -222,6 +255,35 @@ export default {
       );
     },
 
+    selectTest(test) {
+      if (window.innerWidth >= 1024) { // Only show preview on desktop
+        this.selectedTest = test;
+        this.showPreview = true;
+        this.loadTestCode(test);
+      }
+    },
+
+    togglePreview() {
+      this.showPreview = !this.showPreview;
+    },
+
+    async loadTestCode(test) {
+      if (test.body) return; // Already loaded
+      
+      try {
+        const response = await axios.post('/api/file', { 
+          path: test.file,
+          line: test.line 
+        });
+        
+        if (response.data && response.data.source) {
+          this.$set(this.selectedTest, 'body', response.data.source);
+        }
+      } catch (err) {
+        this.$set(this.selectedTest, 'body', 'Unable to load test code');
+      }
+    },
+
     async loadScenarioStatus() {
       this.$store.dispatch('scenarios/loadInitialScenarioStatus');
     },
@@ -255,6 +317,124 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.ide-layout {
+  margin-top: 20px;
+}
+
+.ide-container {
+  display: flex;
+  height: calc(100vh - 200px);
+  
+  &.with-preview {
+    .test-list-panel {
+      width: 60%;
+      border-right: 1px solid #e5e5e5;
+    }
+  }
+}
+
+.test-list-panel {
+  width: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.test-preview-panel {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  border-left: 1px solid #e5e5e5;
+  
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: white;
+    border-bottom: 1px solid #e5e5e5;
+    
+    .preview-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+      color: #363636;
+    }
+  }
+  
+  .preview-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    
+    .test-info {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 6px;
+      border: 1px solid #e5e5e5;
+      
+      p {
+        margin-bottom: 8px;
+        font-size: 14px;
+        
+        strong {
+          color: #6f42c1;
+          font-weight: 600;
+        }
+      }
+    }
+    
+    .test-code {
+      background: white;
+      border-radius: 6px;
+      border: 1px solid #e5e5e5;
+      overflow-x: auto;
+      
+      pre {
+        margin: 0;
+        padding: 20px;
+        background: transparent;
+        font-size: 13px;
+        line-height: 1.5;
+        
+        code {
+          background: transparent;
+          color: #333;
+          font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+        }
+      }
+    }
+    
+    .loading-placeholder {
+      padding: 40px;
+      text-align: center;
+      color: #7a7a7a;
+      font-style: italic;
+    }
+  }
+}
+
+// Hide preview on mobile/tablet
+@media (max-width: 1023px) {
+  .test-preview-panel {
+    display: none;
+  }
+  
+  .ide-container.with-preview .test-list-panel {
+    width: 100%;
+    border-right: none;
+  }
+}
+
+.hide-on-small {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+</style>
 
 <style>
 .Project {

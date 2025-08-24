@@ -10,65 +10,96 @@
         key="stats"
       >
         <div class="level-item text-green-600">
-          <i
-            class="far fa-check-circle mr-1"
-            aria-hidden="true"
-          />
-          <span class=" is-hidden-touch">Successful</span>
-          <span class="counter"> {{ successful }}</span>
+          <div class="stat-item">
+            <i
+              class="far fa-check-circle mr-1"
+              aria-hidden="true"
+            />
+            <span class="is-hidden-touch">Successful</span>
+            <span class="counter success-badge"> {{ successful }}</span>
+            <div
+              class="progress-bar"
+              v-if="totalTests > 0"
+            >
+              <div
+                class="progress-fill success"
+                :style="{ width: successPercentage + '%' }"
+              />
+            </div>
+          </div>
         </div>
         <div class="level-item text-red-600">
-          <i
-            class="far fa-times-circle mr-1"
-            aria-hidden="true"
-          />
-          <span class=" is-hidden-touch">Failed</span>
-          <span class="counter"> {{ failed }}</span>
+          <div class="stat-item">
+            <i
+              class="far fa-times-circle mr-1"
+              aria-hidden="true"
+            />
+            <span class="is-hidden-touch">Failed</span>
+            <span class="counter error-badge"> {{ failed }}</span>
+            <div
+              class="progress-bar"
+              v-if="totalTests > 0"
+            >
+              <div
+                class="progress-fill error"
+                :style="{ width: failedPercentage + '%' }"
+              />
+            </div>
+          </div>
         </div>
         <div class="level-item">
-          <div class="field">
+          <div class="stat-item">
             <i
               class="fas fa-forward mr-1"
               aria-hidden="true"
             />
-            <span class=" is-hidden-touch">Skipped</span>
-            <span class="counter">{{ skipped }}</span>
+            <span class="is-hidden-touch">Skipped</span>
+            <span class="counter skip-badge">{{ skipped }}</span>
           </div>
         </div>
         <div class="level-item">
-          <i
-            class="far fa-hourglass mr-1"
-            aria-hidden="true"
-          />
-          <span class=" is-hidden-touch">Not Started</span>
-          <span class="counter">{{ pending }}</span>
+          <div class="stat-item">
+            <i
+              class="far fa-hourglass mr-1"
+              aria-hidden="true"
+            />
+            <span class="is-hidden-touch">Pending</span>
+            <span class="counter pending-badge">{{ pending }}</span>
+          </div>
         </div>
         <div class="level-item">
-          <i
-            class="fas fa-list mr-1"
-            aria-hidden="true"
-          />
-          <span class=" is-hidden-touch">Suites</span>
-          <span class="counter">{{ totalFeatures }}</span>
+          <div class="stat-item">
+            <i
+              class="fas fa-list mr-1"
+              aria-hidden="true"
+            />
+            <span class="is-hidden-touch">Total</span>
+            <span class="counter total-badge">{{ totalTests }}</span>
+          </div>
         </div>
       </div>
       <div
-        class="currentTest level "
+        class="currentTest level"
         v-else
         key="test"
       >
         <div class="level-item is-hidden-touch">
-          Running...
+          <div class="running-indicator">
+            <i class="fas fa-circle-notch fa-spin mr-2" />
+            <span class="running-text">Running Tests...</span>
+          </div>
         </div>
         <div
-          class="level-item"
+          class="level-item test-info"
           v-if="currentTest"
         >
-          <a @click="openTest(currentTest)">
+          <a
+            @click="openTest(currentTest)"
+            class="current-test-link"
+          >
             <span class="suiteTitle is-hidden-touch">
               {{ currentTest.suite }} &rarr;
             </span>
-            <i class="fas fa-circle-notch fa-spin ml-2" />&nbsp;
             <span class="testTitle ml-1">{{ currentTest.title }}</span>
           </a>
         </div>
@@ -81,9 +112,10 @@
             type="is-warning"
             v-if="isPaused"
             size="is-small"
+            class="pulse-button"
           >
             <span class="preview">
-              <i class="fas fa-pause mr-2" />&nbsp;Paused. Waiting for input...
+              <i class="fas fa-pause mr-2" />Paused - Waiting for input
             </span>
           </b-button>
           <b-button
@@ -92,9 +124,10 @@
             v-else
             size="is-small"
             outlined
+            class="live-preview-btn"
           >
             <span class="preview">
-              <i class="fas fa-eye mr-2" />&nbsp;Live Preview
+              <i class="fas fa-eye mr-2" />Live Preview
             </span>
           </b-button>
         </div>
@@ -139,6 +172,15 @@ export default {
         total += this.features[test].length;
       }
       return total;
+    },
+    totalTests: function() {
+      return this.scenarioIds.length;
+    },
+    successPercentage: function() {
+      return this.totalTests > 0 ? (this.successful / this.totalTests) * 100 : 0;
+    },
+    failedPercentage: function() {
+      return this.totalTests > 0 ? (this.failed / this.totalTests) * 100 : 0;
     },
     scenarioIds: function() {
       let scenarios = [];
@@ -192,13 +234,87 @@ nav {
 }
 
 .stats {
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
   .counter {
     display: inline-block;
-    @apply font-bold text-gray-600 ml-4;
+    @apply font-bold text-white ml-2 px-2 py-1 rounded text-sm;
+    min-width: 24px;
+    text-align: center;
+    
+    &.success-badge {
+      @apply bg-green-500;
+    }
+    
+    &.error-badge {
+      @apply bg-red-500;
+    }
+    
+    &.skip-badge {
+      @apply bg-yellow-500 text-gray-800;
+    }
+    
+    &.pending-badge {
+      @apply bg-gray-400;
+    }
+    
+    &.total-badge {
+      @apply bg-blue-500;
+    }
+  }
+  
+  .progress-bar {
+    width: 40px;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    margin-top: 4px;
+    overflow: hidden;
+    
+    .progress-fill {
+      height: 100%;
+      transition: width 0.3s ease;
+      border-radius: 2px;
+      
+      &.success {
+        @apply bg-green-500;
+      }
+      
+      &.error {
+        @apply bg-red-500;
+      }
+    }
   }
 }
 
 .currentTest {
+  .running-indicator {
+    @apply text-blue-600 font-semibold;
+    
+    .running-text {
+      @apply text-sm;
+    }
+  }
+  
+  .test-info {
+    flex: 1;
+    margin: 0 20px;
+  }
+  
+  .current-test-link {
+    display: block;
+    @apply text-purple-800 font-bold text-center p-2 rounded;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      @apply bg-purple-100;
+    }
+  }
 
   .testTitle {
     display: inline-block;
@@ -207,9 +323,16 @@ nav {
 
   .suiteTitle {
     display: inline-block;
-    @apply text-gray-600 mr-8 ;
+    @apply text-gray-600 mr-2;
   }
 
+  .live-preview-btn {
+    animation: subtle-pulse 2s infinite;
+  }
+  
+  .pulse-button {
+    animation: urgent-pulse 1s infinite;
+  }
 }
 
 .preview {
@@ -219,6 +342,28 @@ nav {
 @keyframes blinker {
   50% {
     opacity: 0.5;
+  }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes urgent-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
   }
 }
 

@@ -82,6 +82,8 @@ Header {
     width: 100%;
     position: relative;
     top: 0px;
+    height: auto;
+    max-height: 50vh;
    }
 }
 
@@ -95,9 +97,13 @@ Header {
   width: 67%;
   height: 90vh;
   @apply p-1 bg-gray-300;
-  display: none;
-  @media (min-width: 1024px) {
-    display: block;
+  display: block;
+  @media (max-width: 1024px) {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 40vh;
+    top: 0;
    }
 }
 

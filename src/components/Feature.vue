@@ -33,14 +33,19 @@
     <ul>
       <li
         :key="scenario.id"
-        v-for="scenario in feature.scenarios"
+        v-for="scenario in visibleScenarios"
+        v-show="scenario.matchesQuery"
       >
-        <Scenario :scenario="scenario" />
+        <Scenario 
+          :scenario="scenario" 
+          @test-selected="$emit('test-selected', $event)" 
+        />
       </li>
     </ul>
     <EditorNotFound
       :error="error"
       :is-opened="!!error"
+      @close="error = null"
     />
   </div>
 </template>
@@ -68,6 +73,12 @@ export default {
     return {
       error: null,
     };
+  },
+  computed: {
+    visibleScenarios() {
+      // Only show scenarios that match the current search query for better performance
+      return this.feature.scenarios.filter(scenario => scenario.matchesQuery !== false);
+    }
   },
   methods: {
     humanize(ts) {

@@ -76,6 +76,18 @@
           style="width:300px;"
         >
           <section class="modal-card-body">
+            <p><b class="title is-size-6">File Watching</b></p>
+            <p class="mb-4">
+              <b-tag
+                type="is-success"
+                class="mr-2"
+              >
+                <i class="fas fa-eye mr-1" />
+                Active
+              </b-tag>
+              <small class="text-gray-500">Auto-reload on file changes</small>
+            </p>
+            
             <p><b class="title is-size-6">Helpers</b></p>
             <p class="mb-4">
               <b-tag

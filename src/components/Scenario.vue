@@ -121,9 +121,15 @@ export default {
     },
 
     selectScenario(scenario) {
+      // Emit test selection for IDE preview
+      this.$emit('test-selected', scenario);
+      
+      // Navigate to test run page on mobile or when explicitly clicked
       this.$store.commit('scenarios/selectScenario', scenario);
-      this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
-      this.$router.go();
+      if (window.innerWidth < 1024) {
+        this.$router.push(`/testrun/${encodeURIComponent(scenario.id)}`);
+        this.$router.go();
+      }
     }
 
   }

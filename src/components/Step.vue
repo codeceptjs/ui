@@ -51,18 +51,28 @@
           ><i class="far fa-edit" /></a>
         </span>
         <i
+          class="step-status-icon"
+          :class="stepStatusIcon"
+          v-if="!isPending"
+        />
+        <i
           class="fas fa-circle-notch fa-spin pending-icon"
           v-if="isPending"
         />
 
         <span
-          class="duration"
+          class="duration-badge"
+          :class="durationClass"
           v-if="step.duration"
-        ><b>{{ step.duration }}</b>ms</span>
-        <i
-          class="fas fa-info-circle console"
+        >{{ step.duration }}ms</span>
+        
+        <span 
+          class="console-badge"
           v-if="step.logs.length"
-        />
+        >
+          <i class="fas fa-terminal" />
+          {{ step.logs.length }}
+        </span>
         <GrabberStep
           :step="step"
           v-if="isGrabberStep"
@@ -84,6 +94,7 @@
     <EditorNotFound
       :error="error"
       :is-opened="!!error"
+      @close="error = null"
     />
   </div>
 </template>
@@ -182,6 +193,19 @@ export default {
         || this.step.name.startsWith('scroll')
         || this.step.name.startsWith('refresh');
     },
+
+    stepStatusIcon() {
+      if (this.isFailed) return 'fas fa-times-circle step-failed';
+      if (this.isPassed) return 'fas fa-check-circle step-passed';
+      return 'fas fa-circle step-pending';
+    },
+
+    durationClass() {
+      if (!this.step.duration) return '';
+      if (this.step.duration > 1000) return 'duration-slow';
+      if (this.step.duration > 500) return 'duration-medium';
+      return 'duration-fast';
+    },
   },
 
   methods: {
@@ -266,6 +290,43 @@ export default {
     }
     &.wait {
       @apply text-gray-500 bg-orange-200;
+    }
+
+    .duration-badge {
+      @apply text-xs float-right px-2 py-1 rounded-full text-white font-medium;
+      
+      &.duration-fast {
+        @apply bg-green-500;
+      }
+      
+      &.duration-medium {
+        @apply bg-yellow-500;
+      }
+      
+      &.duration-slow {
+        @apply bg-red-500;
+      }
+    }
+
+    .console-badge {
+      @apply text-xs text-white bg-orange-500 px-2 py-1 rounded-full float-right mr-2;
+      font-weight: 500;
+    }
+
+    .step-status-icon {
+      @apply float-right mr-2 text-lg;
+      
+      &.step-passed {
+        @apply text-green-500;
+      }
+      
+      &.step-failed {
+        @apply text-red-500;
+      }
+      
+      &.step-pending {
+        @apply text-gray-400;
+      }
     }
 
     .duration {

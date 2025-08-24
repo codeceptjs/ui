@@ -60,8 +60,29 @@ const scenarios = {
 
     'SOCKET_codeceptjs:scenarios.updated': function () {
       Toast.open({
-        message: 'Scenarios have been reloaded',
-        type: 'is-success'
+        message: 'Test scenarios reloaded',
+        type: 'is-success',
+        duration: 2000,
+        position: 'is-top-right'
+      });
+    },
+    'SOCKET_codeceptjs:config.updated': function (context, data) {
+      Toast.open({
+        message: `Configuration updated: ${data.file}`,
+        type: 'is-info',
+        duration: 3000,
+        position: 'is-top-right'
+      });
+    },
+    'SOCKET_codeceptjs:file.changed': function (context, data) {
+      const fileName = data.file.split('/').pop();
+      const changeType = data.changeType === 'change' ? 'modified' : data.changeType === 'add' ? 'added' : 'deleted';
+      
+      Toast.open({
+        message: `File ${changeType}: ${fileName}`,
+        type: data.changeType === 'unlink' ? 'is-warning' : 'is-info',
+        duration: 2000,
+        position: 'is-top-right'
       });
     },
     'SOCKET_codeceptjs:scenarios.parseerror': function ({ commit }, err) {

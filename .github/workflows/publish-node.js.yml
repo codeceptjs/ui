@@ -20,6 +20,8 @@ jobs:
       - run: git config --global user.email "github-cd-bot@example.com"
       - name: Install deps
         run: npm i
+      - name: Run unit tests
+        run: npm test
       - name: Build the app
         run: export NODE_OPTIONS=--openssl-legacy-provider && npm run build
       - run: npx semantic-release

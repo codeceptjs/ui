@@ -54,7 +54,10 @@
         >Contribute to CodeceptUI &raquo;</a>
       </b-dropdown-item>
       <b-dropdown-item aria-role="listitem">
-        <a href="https://bit.ly/chat-codeceptjs" @click="openUrl('https://bit.ly/chat-codeceptjs')">Join chat &raquo;</a>
+        <a
+          href="https://bit.ly/chat-codeceptjs"
+          @click="openUrl('https://bit.ly/chat-codeceptjs')"
+        >Join chat &raquo;</a>
       </b-dropdown-item>
     </b-dropdown>
   </b-navbar-item>

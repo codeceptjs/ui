@@ -33,7 +33,7 @@ const store = require('./store').default;
   } else {
     // Standard configuration - fetch port info
     try {
-      const response = await axios.get(`/api/ports`);
+      const response = await axios.get('/api/ports');
       const data = await response.data;
       wsConnection = `${window.location.protocol}//${window.location.hostname}:${data.wsPort}`;
     } catch (err) {

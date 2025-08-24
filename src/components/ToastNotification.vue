@@ -1,6 +1,9 @@
 <template>
   <div class="toast-container">
-    <transition-group name="toast" tag="div">
+    <transition-group
+      name="toast"
+      tag="div"
+    >
       <div 
         v-for="toast in toasts" 
         :key="toast.id"
@@ -8,18 +11,25 @@
         :class="[`toast-${toast.type}`, { 'toast-dismissible': toast.dismissible }]"
       >
         <div class="toast-icon">
-          <i :class="getIcon(toast.type)"></i>
+          <i :class="getIcon(toast.type)" />
         </div>
         <div class="toast-content">
-          <div class="toast-title" v-if="toast.title">{{ toast.title }}</div>
-          <div class="toast-message">{{ toast.message }}</div>
+          <div
+            class="toast-title"
+            v-if="toast.title"
+          >
+            {{ toast.title }}
+          </div>
+          <div class="toast-message">
+            {{ toast.message }}
+          </div>
         </div>
         <button 
           v-if="toast.dismissible" 
           @click="dismissToast(toast.id)"
           class="toast-dismiss"
         >
-          <i class="fas fa-times"></i>
+          <i class="fas fa-times" />
         </button>
       </div>
     </transition-group>

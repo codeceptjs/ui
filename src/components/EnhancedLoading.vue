@@ -1,20 +1,28 @@
 <template>
-  <div class="enhanced-loading-overlay" v-if="visible">
+  <div
+    class="enhanced-loading-overlay"
+    v-if="visible"
+  >
     <div class="loading-container">
       <div class="loading-animation">
         <div class="loading-spinner">
-          <i class="fas fa-cog fa-spin primary-spinner"></i>
-          <i class="fas fa-circle-notch fa-spin secondary-spinner"></i>
+          <i class="fas fa-cog fa-spin primary-spinner" />
+          <i class="fas fa-circle-notch fa-spin secondary-spinner" />
         </div>
         <div class="loading-message">
           <h3>{{ title }}</h3>
-          <p v-if="message">{{ message }}</p>
-          <div class="progress-indicator" v-if="showProgress">
+          <p v-if="message">
+            {{ message }}
+          </p>
+          <div
+            class="progress-indicator"
+            v-if="showProgress"
+          >
             <div class="progress-bar">
               <div 
                 class="progress-fill" 
                 :style="{ width: progress + '%' }"
-              ></div>
+              />
             </div>
             <span class="progress-text">{{ progress }}%</span>
           </div>
@@ -26,7 +34,7 @@
         class="cancel-button"
         type="button"
       >
-        <i class="fas fa-times"></i>
+        <i class="fas fa-times" />
         Cancel
       </button>
     </div>

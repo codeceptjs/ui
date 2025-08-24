@@ -98,7 +98,10 @@
       </div>
     </section>
     <section class="ide-layout">
-      <div class="ide-container" :class="{ 'with-preview': showPreview && selectedTest }">
+      <div
+        class="ide-container"
+        :class="{ 'with-preview': showPreview && selectedTest }"
+      >
         <div class="test-list-panel">
           <div class="container">
             <ul
@@ -132,15 +135,20 @@
         </div>
         
         <!-- IDE-like preview panel -->
-        <div v-if="showPreview && selectedTest" class="test-preview-panel">
+        <div
+          v-if="showPreview && selectedTest"
+          class="test-preview-panel"
+        >
           <div class="preview-header">
-            <h3 class="preview-title">{{ selectedTest.title }}</h3>
+            <h3 class="preview-title">
+              {{ selectedTest.title }}
+            </h3>
             <button 
               class="button is-small"
               @click="togglePreview"
               title="Close preview"
             >
-              <i class="fas fa-times"></i>
+              <i class="fas fa-times" />
             </button>
           </div>
           <div class="preview-content">
@@ -148,10 +156,16 @@
               <p><strong>File:</strong> {{ selectedTest.file }}</p>
               <p><strong>Line:</strong> {{ selectedTest.line || 'N/A' }}</p>
             </div>
-            <div class="test-code" v-if="selectedTest.body">
+            <div
+              class="test-code"
+              v-if="selectedTest.body"
+            >
               <pre><code class="javascript">{{ selectedTest.body }}</code></pre>
             </div>
-            <div v-else class="loading-placeholder">
+            <div
+              v-else
+              class="loading-placeholder"
+            >
               Loading test code...
             </div>
           </div>

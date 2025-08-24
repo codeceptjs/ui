@@ -17,8 +17,14 @@
             />
             <span class="is-hidden-touch">Successful</span>
             <span class="counter success-badge"> {{ successful }}</span>
-            <div class="progress-bar" v-if="totalTests > 0">
-              <div class="progress-fill success" :style="{ width: successPercentage + '%' }"></div>
+            <div
+              class="progress-bar"
+              v-if="totalTests > 0"
+            >
+              <div
+                class="progress-fill success"
+                :style="{ width: successPercentage + '%' }"
+              />
             </div>
           </div>
         </div>
@@ -30,11 +36,17 @@
             />
             <span class="is-hidden-touch">Failed</span>
             <span class="counter error-badge"> {{ failed }}</span>
-            <div class="progress-bar" v-if="totalTests > 0">
-              <div class="progress-fill error" :style="{ width: failedPercentage + '%' }"></div>
+            <div
+              class="progress-bar"
+              v-if="totalTests > 0"
+            >
+              <div
+                class="progress-fill error"
+                :style="{ width: failedPercentage + '%' }"
+              />
             </div>
           </div>
-        }
+        </div>
         <div class="level-item">
           <div class="stat-item">
             <i
@@ -81,7 +93,10 @@
           class="level-item test-info"
           v-if="currentTest"
         >
-          <a @click="openTest(currentTest)" class="current-test-link">
+          <a
+            @click="openTest(currentTest)"
+            class="current-test-link"
+          >
             <span class="suiteTitle is-hidden-touch">
               {{ currentTest.suite }} &rarr;
             </span>

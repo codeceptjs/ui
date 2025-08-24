@@ -66,6 +66,8 @@
       <ScenarioSource
         :source="scenario.body"
         :file="scenario.file"
+        :scenario="scenario"
+        @code-updated="onCodeUpdated"
       />
       <TestResult :test="test" />
     </div>
@@ -155,6 +157,13 @@ export default {
       this.$store.commit('testRunPage/toggleSubsteps');
       this.test.steps.filter(s => s.type === 'meta').forEach(s => this.toggleSubsteps(s, !this.isOpened));
       this.$forceUpdate();
+    },
+
+    onCodeUpdated(event) {
+      // Handle code update event - potentially refresh test data
+      console.log('Code updated:', event);
+      // You could emit this up to parent components or trigger a refresh
+      this.$emit('code-updated', event);
     },
 
     toggleSubsteps(step, force) {

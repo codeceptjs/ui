@@ -35,7 +35,10 @@
           <br>
         </div>
         <ul style="overflow-y: scroll;">
-          <li v-for="(value,name) in pageObject">
+          <li
+            v-for="(value,name) in pageObject"
+            :key="name"
+          >
             <a
               class="Scenario-detailLink"
               @click="loadPageObjectSource(value.source)"

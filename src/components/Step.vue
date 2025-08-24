@@ -84,6 +84,7 @@
     <EditorNotFound
       :error="error"
       :is-opened="!!error"
+      @close="error = null"
     />
   </div>
 </template>

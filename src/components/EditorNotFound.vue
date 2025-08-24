@@ -69,8 +69,7 @@ export default {
   },  
   methods: {
     close() {
-      this.error = null;
-      this.isOpened = false;
+      this.$emit('close');
     }
   }
 };

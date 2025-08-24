@@ -23,6 +23,8 @@ jobs:
       - run: git config --global user.email "github-cd-bot@example.com"
       - name: Install deps
         run: export NODE_OPTIONS=--openssl-legacy-provider && npm i -g wait-for-localhost-cli && npm i -f
+      - name: Run unit tests
+        run: npm test
       - name: Start app and run tests
         run: export NODE_OPTIONS=--openssl-legacy-provider && npm run serve & wait-for-localhost 8080; cd test/e2e; npm i && npx playwright install chromium && npm run test
         env:

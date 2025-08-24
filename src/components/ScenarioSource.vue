@@ -248,7 +248,7 @@ export default {
           this.error = null;
         })
         .catch((error) => {
-          this.error = error.response?.data || {
+          this.error = (error.response && error.response.data) || {
             message: 'Failed to open external editor',
             description: 'Unable to launch external editor'
           };
@@ -293,7 +293,7 @@ export default {
         console.error('Error loading editor:', error);
         this.error = {
           message: 'Failed to load code for editing',
-          description: error.response?.data?.message || 'Unable to load source code'
+          description: (error.response && error.response.data && error.response.data.message) || 'Unable to load source code'
         };
       } finally {
         this.isLoading = false;
@@ -332,7 +332,7 @@ export default {
         console.error('Error saving changes:', error);
         this.error = {
           message: 'Failed to save changes',
-          description: error.response?.data?.message || 'Unable to save code changes'
+          description: (error.response && error.response.data && error.response.data.message) || 'Unable to save code changes'
         };
       } finally {
         this.isSaving = false;

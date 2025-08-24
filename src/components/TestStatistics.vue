@@ -312,7 +312,7 @@ nav {
     transition: background-color 0.2s ease;
     
     &:hover {
-      @apply bg-purple-50;
+      @apply bg-purple-100;
     }
   }
 

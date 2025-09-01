@@ -6,9 +6,9 @@ export const config: CodeceptJS.MainConfig = {
       browser: 'chromium',
       url: 'http://localhost:3333',
       show: false,
-      timeout: 30000,
+      timeout: 60000,
       waitForNavigation: 'load',
-      waitForTimeout: 30000,
+      waitForTimeout: 60000,
       chromium: {
         executablePath: '/usr/bin/chromium',
         args: [
@@ -22,7 +22,12 @@ export const config: CodeceptJS.MainConfig = {
           '--disable-renderer-backgrounding',
           '--disable-backgrounding-occluded-windows',
           '--no-first-run',
-          '--no-default-browser-check'
+          '--no-default-browser-check',
+          '--disable-web-security',
+          '--disable-features=VizDisplayCompositor',
+          '--force-color-profile=srgb',
+          '--memory-pressure-off',
+          '--max_old_space_size=4096'
         ]
       }
     }

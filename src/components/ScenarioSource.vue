@@ -5,7 +5,7 @@
       v-if="!isEditing"
       class="source-view"
     >
-      <pre v-highlightjs="displaySource"><code class="javascript" /></pre>
+      <pre v-highlightjs="displaySource"><code :class="detectedLanguage.highlightjs" /></pre>
       <div class="source-actions">
         <b-button
           v-if="file"
@@ -39,7 +39,7 @@
               Editing: {{ file }}
             </h5>
             <p class="is-size-7 has-text-grey">
-              Lines {{ currentStartLine }}-{{ currentEndLine }} | CodeceptJS {{ mode }} Mode
+              Lines {{ currentStartLine }}-{{ currentEndLine }} | {{ languageDisplayName }} | CodeceptJS {{ mode }} Mode
             </p>
           </div>
           <div class="column is-narrow">
@@ -75,7 +75,7 @@
           v-model="editorContent"
           :options="editorOptions"
           @editorDidMount="onEditorMounted"
-          language="javascript"
+          :language="detectedLanguage.monaco"
           theme="vs-light"
           height="400"
         />
@@ -140,6 +140,7 @@
 <script>
 import axios from 'axios';
 import EditorNotFound from './EditorNotFound';
+const { detectLanguage, getLanguageDisplayName } = require('../utils/languageDetection');
 
 export default {
   name: 'ScenarioSource',
@@ -212,6 +213,14 @@ export default {
     
     hasChanges() {
       return this.editorContent !== this.originalContent;
+    },
+
+    detectedLanguage() {
+      return detectLanguage(this.file);
+    },
+
+    languageDisplayName() {
+      return getLanguageDisplayName(this.file);
     }
   },
   mounted() {

@@ -17,7 +17,27 @@ const io = require('socket.io')({
     methods: ["GET", "POST"],
     transports: ['websocket', 'polling']
   },
-  allowEIO3: true  // Support for older Socket.IO clients
+  allowEIO3: true,  // Support for older Socket.IO clients
+  // Add additional configuration for better reliability
+  pingTimeout: 60000,
+  pingInterval: 25000,
+  connectTimeout: 45000,
+  serveClient: true,
+  // Allow connections from localhost variations
+  allowRequest: (req, callback) => {
+    const origin = req.headers.origin;
+    const host = req.headers.host;
+    
+    // Allow localhost connections and same-host connections
+    if (!origin || 
+        origin.includes('localhost') || 
+        origin.includes('127.0.0.1') || 
+        (host && origin.includes(host.split(':')[0]))) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all for now, can be more restrictive if needed
+    }
+  }
 });
 
 const  { events } = require('../lib/model/ws-events');
@@ -65,17 +85,71 @@ codeceptjsFactory.create({}, options).then(() => {
   const applicationPort = options.port;
   const webSocketsPort = options.wsPort;
 
-  io.listen(webSocketsPort);
-  app.listen(applicationPort);
+  // Start servers with proper error handling and readiness checks
+  let httpServer;
+  let wsServer;
 
-  // eslint-disable-next-line no-console
-  console.log('🌟 CodeceptUI started!');
+  try {
+    // Start WebSocket server first
+    wsServer = io.listen(webSocketsPort);
+    debug(`WebSocket server started on port ${webSocketsPort}`);
 
-  // eslint-disable-next-line no-console
-  console.log(`👉 Open http://localhost:${applicationPort} to see CodeceptUI in a browser\n\n`);
+    // Start HTTP server
+    httpServer = app.listen(applicationPort, () => {
+      // eslint-disable-next-line no-console
+      console.log('🌟 CodeceptUI started!');
+      // eslint-disable-next-line no-console
+      console.log(`👉 Open http://localhost:${applicationPort} to see CodeceptUI in a browser\n\n`);
+      // eslint-disable-next-line no-console
+      debug(`Listening for websocket connections on port ${webSocketsPort}`);
+    });
 
-  // eslint-disable-next-line no-console
-  debug(`Listening for websocket connections on port ${webSocketsPort}`);
+    // Handle server errors
+    httpServer.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`❌ Port ${applicationPort} is already in use. Please try a different port or stop the service using this port.`);
+      } else {
+        console.error(`❌ Failed to start HTTP server: ${err.message}`);
+      }
+      process.exit(1);
+    });
+
+    wsServer.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        console.error(`❌ WebSocket port ${webSocketsPort} is already in use. Please try a different port or stop the service using this port.`);
+      } else {
+        console.error(`❌ Failed to start WebSocket server: ${err.message}`);
+      }
+      process.exit(1);
+    });
+
+  } catch (error) {
+    console.error(`❌ Server startup failed: ${error.message}`);
+    process.exit(1);
+  }
+
+  // Graceful shutdown handling
+  const gracefulShutdown = () => {
+    console.log('\n🛑 Shutting down CodeceptUI...');
+    if (httpServer) {
+      httpServer.close(() => {
+        debug('HTTP server closed');
+      });
+    }
+    if (wsServer) {
+      wsServer.close(() => {
+        debug('WebSocket server closed');
+      });
+    }
+    process.exit(0);
+  };
+
+  process.on('SIGINT', gracefulShutdown);
+  process.on('SIGTERM', gracefulShutdown);
+  process.on('uncaughtException', (err) => {
+    console.error('❌ Uncaught Exception:', err);
+    gracefulShutdown();
+  });
 
   if (options.app) {
     // open electron app

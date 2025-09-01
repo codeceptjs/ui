@@ -6,8 +6,43 @@ A comprehensive, modern, interactive test development environment for [CodeceptJ
 
 ![codeceptui](codecept-ui2.gif)
 
-![Main Interface](codecept-ui-main-interface.png)
-*Enhanced main interface with real-time file watching, runtime mode indicator, and comprehensive test management*
+## 📹 Feature Demonstrations
+
+### 🏠 Complete Test Management Interface
+![CodeceptUI Demo Interface](codecept-ui-demo-interface.png)
+*Complete test management interface with TodoMVC examples showing test statistics, file organization, and real-time status updates*
+
+### ✨ IDE-like Split View with Test Preview
+![CodeceptUI IDE Split View](codecept-ui-ide-split-view.png)
+*Professional IDE-like split view showing test list on the left and selected test preview on the right - perfect for code review and test exploration*
+
+### 💻 Monaco Editor with Modern CodeceptJS Support
+![CodeceptUI Monaco Editor](codecept-ui-monaco-editor-demo.png)
+*Full-featured Monaco Editor with syntax highlighting, modern async/await CodeceptJS patterns, and comprehensive how-to-guide*
+
+### 🔍 Intelligent Autocomplete & IntelliSense
+![CodeceptUI Monaco Autocomplete](codecept-ui-monaco-autocomplete-demo.png)
+*Smart autocomplete with CodeceptJS method suggestions and real-time syntax validation*
+
+### 📊 Real-time Test Execution Results
+![CodeceptUI Test Results](codecept-ui-test-results-demo.png)
+*Live test execution with detailed results, timing information, error reporting, and updated statistics*
+
+### ⚙️ Advanced Configuration & Settings
+![CodeceptUI Settings](codecept-ui-settings-demo.png)
+*Comprehensive settings panel with file watching, browser modes, helper configuration, and editor integration*
+
+### 🎬 What You Can See in Action
+
+The demonstrations above showcase real CodeceptUI features running live with the included TodoMVC test examples:
+
+✅ **Test Management**: Complete test suite organization with 17 tests across multiple files  
+✅ **Real-time Statistics**: Live tracking of successful, failed, skipped, and pending tests  
+✅ **IDE Split View**: Professional dual-pane layout for test browsing and code preview  
+✅ **Monaco Editor**: Full-featured code editor with syntax highlighting and autocomplete  
+✅ **Live Execution**: Real-time test running with detailed error reporting and timing  
+✅ **Advanced Settings**: File watching, browser configuration, and helper management  
+✅ **Modern UI**: Clean, responsive interface that works on all screen sizes
 
 ## 🔥 Major New Features
 
@@ -15,7 +50,10 @@ A comprehensive, modern, interactive test development environment for [CodeceptJ
 **Full-featured in-browser code editing with modern CodeceptJS 3.x support**
 
 ![Test Editor](codecept-ui-test-editor.png)
-*Professional Monaco Editor with modern CodeceptJS syntax support and intelligent autocompletion*
+*Original Monaco Editor integration*
+
+![Monaco Editor Demo](codecept-ui-monaco-editor-demo.png)
+*Live Monaco Editor with modern async/await syntax highlighting and intelligent code completion*
 
 **Key Editor Features:**
 - **Professional IDE Experience**: Full Monaco Editor with syntax highlighting, autocomplete, and real-time validation

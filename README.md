@@ -32,6 +32,10 @@ A comprehensive, modern, interactive test development environment for [CodeceptJ
 ![CodeceptUI Settings](codecept-ui-settings-demo.png)
 *Comprehensive settings panel with file watching, browser modes, helper configuration, and editor integration*
 
+### 📱 Mobile-Responsive Design
+![CodeceptUI Mobile Interface](codecept-ui-mobile-responsive-demo.png)
+*Fully responsive mobile interface that adapts beautifully to tablets and smartphones while maintaining all functionality*
+
 ### 🎬 What You Can See in Action
 
 The demonstrations above showcase real CodeceptUI features running live with the included TodoMVC test examples:
@@ -42,7 +46,8 @@ The demonstrations above showcase real CodeceptUI features running live with the
 ✅ **Monaco Editor**: Full-featured code editor with syntax highlighting and autocomplete  
 ✅ **Live Execution**: Real-time test running with detailed error reporting and timing  
 ✅ **Advanced Settings**: File watching, browser configuration, and helper management  
-✅ **Modern UI**: Clean, responsive interface that works on all screen sizes
+✅ **Mobile Responsive**: Fully responsive design that works perfectly on all screen sizes  
+✅ **Modern UI**: Clean, professional interface with excellent user experience
 
 ## 🔥 Major New Features
 

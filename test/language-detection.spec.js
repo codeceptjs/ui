@@ -1,5 +1,13 @@
 const test = require('ava');
-const { detectLanguage, getLanguageDisplayName } = require('../src/utils/languageDetection.js');
+
+// Use dynamic import for ES modules
+let detectLanguage, getLanguageDisplayName;
+
+test.before(async () => {
+  const module = await import('../src/utils/languageDetection.js');
+  detectLanguage = module.detectLanguage;
+  getLanguageDisplayName = module.getLanguageDisplayName;
+});
 
 test('detectLanguage › should detect JavaScript files correctly', t => {
   const result = detectLanguage('test.js');

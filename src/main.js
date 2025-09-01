@@ -35,7 +35,7 @@ const store = require('./store').default;
     try {
       const response = await axios.get('/api/ports');
       const data = await response.data;
-      wsConnection = `${window.location.protocol}//${window.location.hostname}:${data.wsPort}`;
+      wsConnection = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.hostname}:${data.wsPort}`;
     } catch (err) {
       // Fallback to same origin if port fetch fails
       wsConnection = baseUrl.replace('http', 'ws');

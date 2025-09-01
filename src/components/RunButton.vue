@@ -62,14 +62,31 @@ export default {
       this.$emit('run');
     },
     stop() {
+      // Emit CLI stop command first
       this.$socket.emit('cli.line', 'exit');
       this.$store.commit('cli/stopCli');
-      this.$store.dispatch('testRuns/stop');
-      this.disabled = true;
-      setTimeout(() => {
-        this.canBeStopped = false;
-        this.disabled = false;
-      }, 3000); // wait for 3 secs to stop
+      
+      // Call the stop API endpoint
+      this.$store.dispatch('testRuns/stop')
+        .then(() => {
+          this.disabled = true;
+          // Wait for backend to signal completion via WebSocket
+          setTimeout(() => {
+            this.canBeStopped = false;
+            this.disabled = false;
+          }, 3000); // wait for 3 secs to reset UI state
+        })
+        .catch((error) => {
+          console.error('Error stopping tests:', error);
+          // Even if API call fails, reset UI state
+          this.disabled = true;
+          setTimeout(() => {
+            this.canBeStopped = false;
+            this.disabled = false;
+            // Force UI state reset
+            this.$store.commit('testRuns/setRunning', false);
+          }, 2000);
+        });
     },
 
   }

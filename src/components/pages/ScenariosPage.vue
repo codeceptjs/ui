@@ -249,6 +249,11 @@ export default {
     },
     clearSearch() {
       this.search = '';
+      // Clear timeout to prevent race conditions
+      if (this.loadProjectTimeout) {
+        clearTimeout(this.loadProjectTimeout);
+        this.loadProjectTimeout = null;
+      }
       this.loadProject(true);
     },
 
@@ -306,10 +311,16 @@ export default {
       // Debounce the search to improve performance
       if (this.loadProjectTimeout) {
         clearTimeout(this.loadProjectTimeout);
+        this.loadProjectTimeout = null;
       }
       
       if (!immediate) {
         this.loadProjectTimeout = setTimeout(() => this.loadProject(true), 300);
+        return;
+      }
+      
+      // Prevent concurrent loading
+      if (this.loading) {
         return;
       }
       
@@ -320,9 +331,17 @@ export default {
 
       try {
         const response = await axios.get(
-          `/api/scenarios?q=${this.search}&m=${this.matchType}`
+          `/api/scenarios?q=${encodeURIComponent(this.search)}&m=${this.matchType}`
         );
         this.project = response.data;
+      } catch (error) {
+        console.error('Error loading project:', error);
+        // Show error message to user
+        this.$buefy.toast.open({
+          message: 'Failed to load test scenarios',
+          type: 'is-danger',
+          duration: 3000
+        });
       } finally {
         this.loading = false;
         loadingComponent.close();

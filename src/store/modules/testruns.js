@@ -122,8 +122,15 @@ const testRuns = {
       commit('setRunning', true);
     },
 
-    stop: async function () {
-      await axios.post('/api/scenarios/stop', {});
+    stop: async function ({ commit }) {
+      try {
+        await axios.post('/api/scenarios/stop', {});
+      } catch (error) {
+        console.error('Error calling stop API:', error);
+        // Force reset running state even if API call fails
+        commit('setRunning', false);
+        throw error;
+      }
     },
 
     runGrep: async function ({ commit }, grep) {

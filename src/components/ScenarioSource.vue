@@ -140,7 +140,7 @@
 <script>
 import axios from 'axios';
 import EditorNotFound from './EditorNotFound';
-const { detectLanguage, getLanguageDisplayName } = require('../utils/languageDetection');
+import { detectLanguage, getLanguageDisplayName } from '../utils/languageDetection';
 
 export default {
   name: 'ScenarioSource',

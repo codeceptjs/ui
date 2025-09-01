@@ -152,9 +152,9 @@ function isMonacoLanguageSupported(language) {
   return supportedLanguages.includes(language);
 }
 
-// Export for CommonJS (Node.js tests) and ES modules (Vue.js components)
-module.exports = {
+// Export using ES modules syntax for modern bundlers
+export {
   detectLanguage,
-  getLanguageDisplayName,  
+  getLanguageDisplayName,
   isMonacoLanguageSupported
 };

@@ -274,7 +274,7 @@ export default {
           this.mode = 'file';
         }
         
-        const { data } = response.data;
+        const data = response.data.data;
         this.editorContent = data.source || data.content;
         this.originalContent = this.editorContent;
         this.currentStartLine = data.startLine || 1;
@@ -363,6 +363,9 @@ export default {
           }
         });
       }
+      
+      // Setup autocomplete now that Monaco is fully loaded
+      this.setupAutocomplete();
       
       // Focus editor
       editor.focus();

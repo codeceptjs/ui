@@ -30,7 +30,7 @@
     "chokidar": "^4.0.3",
     "commander": "^14.0.1",
     "core-js": "2.6.12",
-    "dayjs": "^1.11.13",
+    "dayjs": "^1.11.19",
     "debug": "^4.3.4",
     "electron": "^38.2.0",
     "express": "^4.21.2",

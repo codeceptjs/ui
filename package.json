@@ -58,7 +58,7 @@
     "eslint-plugin-vue": "^7.20.0",
     "husky": "^8.0.3",
     "lint-staged": "^16.2.3",
-    "playwright": "^1.51.1",
+    "playwright": "^1.57.0",
     "prismjs": "^1.30.0",
     "puppeteer": "^24.17.0",
     "qrcode-terminal": "^0.12.0",

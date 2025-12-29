@@ -76,7 +76,7 @@
     "vue-socket.io": "^3.0.10",
     "vue-template-compiler": "2.7.16",
     "vuex": "^3.6.2",
-    "webdriverio": "^9.20.0"
+    "webdriverio": "^9.22.0"
   },
   "resolutions": {
     "sumchecker": "3.0.1"

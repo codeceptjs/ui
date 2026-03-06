@@ -63,7 +63,7 @@
     "puppeteer": "^24.37.5",
     "qrcode-terminal": "^0.12.0",
     "sass": "^1.97.2",
-    "sass-loader": "^10.2.0",
+    "sass-loader": "^16.0.7",
     "tailwindcss": "^1.9.6",
     "testcafe": "^3.7.2",
     "uuid": "^11.1.0",

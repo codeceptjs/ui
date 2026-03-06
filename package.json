@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "@codeceptjs/configure": "^1.0.3",
-    "axios": "^1.10.0",
+    "axios": "^1.13.6",
     "body-parser": "^2.2.0",
     "cheerio": "^1.1.0",
     "chokidar": "^4.0.3",
@@ -32,7 +32,7 @@
     "core-js": "2.6.12",
     "dayjs": "^1.11.13",
     "debug": "^4.3.4",
-    "electron": "^38.2.0",
+    "electron": "^40",
     "express": "^4.21.2",
     "lodash.clonedeep": "^4.5.0",
     "nanoid": "^5.1.5",
@@ -85,7 +85,7 @@
     "codeceptjs": "^3.7.3"
   },
   "overrides": {
-    "@achrinza/node-ipc": "9.2.9"
+    "@achrinza/node-ipc": "9.2.10"
   },
   "eslintConfig": {
     "root": true,

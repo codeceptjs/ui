@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import settingsRepo from '../lib/model/settings-repository.js';
-// Note: testrunRepo reads global.output_dir lazily at function call time, not at import time
+// Note: testrunRepo evaluates global.output_dir at import time (falls back to process.cwd())
 import testrunRepo from '../lib/model/testrun-repository.js';
 
 // ---- Snapshot Store Bounds Tests ----

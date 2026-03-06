@@ -1,12 +1,20 @@
 const test = require('ava');
-const SingleSessionHelper = require('../lib/codeceptjs/single-session.helper');
+const createSingleSessionHelper = require('../lib/codeceptjs/single-session.helper');
 
-// Mock the settings repository
-const mockSettings = {
-  isSingleSession: true
-};
+// Mock Helper base class (simulates @codeceptjs/helper)
+class MockHelper {
+  constructor() {
+    this.helpers = {};
+    this.options = {};
+  }
+  _init() {}
+  _before() {}
+  _after() {}
+  _passed() {}
+  _failed() {}
+}
 
-const mockHelper = {
+const mockBrowserHelper = {
   isRunning: false,
   _stopBrowser: async () => {},
   browser: {
@@ -20,8 +28,8 @@ const mockHelper = {
 };
 
 test('SingleSessionHelper properly closes browser when single session disabled', async (t) => {
-  const helper = new SingleSessionHelper();
-  helper.helper = mockHelper;
+  const helper = createSingleSessionHelper(MockHelper);
+  helper.helper = mockBrowserHelper;
   helper.enabled = true;
   
   // Mock settings to disable single session
@@ -39,8 +47,8 @@ test('SingleSessionHelper properly closes browser when single session disabled',
 });
 
 test('SingleSessionHelper does not close browser when single session enabled', async (t) => {
-  const helper = new SingleSessionHelper();
-  helper.helper = mockHelper;
+  const helper = createSingleSessionHelper(MockHelper);
+  helper.helper = mockBrowserHelper;
   helper.enabled = true;
   
   // Mock settings to enable single session
@@ -58,8 +66,8 @@ test('SingleSessionHelper does not close browser when single session enabled', a
 });
 
 test('forceCleanup method exists and works', async (t) => {
-  const helper = new SingleSessionHelper();
-  helper.helper = mockHelper;
+  const helper = createSingleSessionHelper(MockHelper);
+  helper.helper = mockBrowserHelper;
   
   t.is(typeof helper.forceCleanup, 'function', 'forceCleanup method should exist');
   
@@ -67,7 +75,7 @@ test('forceCleanup method exists and works', async (t) => {
 });
 
 test('_closeBrowser handles different helper types gracefully', async (t) => {
-  const helper = new SingleSessionHelper();
+  const helper = createSingleSessionHelper(MockHelper);
   
   // Test with _stopBrowser method
   helper.helper = { 

@@ -15,7 +15,8 @@
     "test": "ava",
     "test:watch": "ava -w"
   },
-  "main": "background.js",
+  "type": "module",
+  "main": "lib/app.js",
   "files": [
     "dist",
     "bin",

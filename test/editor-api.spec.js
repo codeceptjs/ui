@@ -1,8 +1,8 @@
-const test = require('ava');
-const editorApi = require('../lib/api/editor');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+import test from 'ava';
+import * as editorApi from '../lib/api/editor.js';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 // Mock request/response objects for testing
 const mockRequest = (params = {}, body = {}, query = {}) => ({
@@ -34,7 +34,7 @@ const mockConfig = {
 };
 
 // Mock the dependency - ensure the factory has the getCodeceptjsConfig method
-const codeceptjsFactory = require('../lib/model/codeceptjs-factory');
+import codeceptjsFactory from '../lib/model/codeceptjs-factory.js';
 const originalGetConfig = codeceptjsFactory.getCodeceptjsConfig;
 codeceptjsFactory.getCodeceptjsConfig = () => mockConfig;
 

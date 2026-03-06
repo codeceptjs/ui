@@ -1,5 +1,6 @@
-const test = require('ava');
-const createSingleSessionHelper = require('../lib/codeceptjs/single-session.helper');
+import test from 'ava';
+import createSingleSessionHelper from '../lib/codeceptjs/single-session.helper.js';
+import settingsRepository from '../lib/model/settings-repository.js';
 
 // Mock Helper base class (simulates @codeceptjs/helper)
 class MockHelper {
@@ -33,8 +34,8 @@ test('SingleSessionHelper properly closes browser when single session disabled',
   helper.enabled = true;
   
   // Mock settings to disable single session
-  const originalGetSettings = require('../lib/model/settings-repository').getSettings;
-  require('../lib/model/settings-repository').getSettings = () => ({ isSingleSession: false });
+  const originalGetSettings = settingsRepository.getSettings;
+  settingsRepository.getSettings = () => ({ isSingleSession: false });
   
   helper.helper.isRunning = true;
   
@@ -43,7 +44,7 @@ test('SingleSessionHelper properly closes browser when single session disabled',
   t.false(helper.helper.isRunning, 'Browser should be marked as not running');
   
   // Restore original function
-  require('../lib/model/settings-repository').getSettings = originalGetSettings;
+  settingsRepository.getSettings = originalGetSettings;
 });
 
 test('SingleSessionHelper does not close browser when single session enabled', async (t) => {
@@ -52,8 +53,8 @@ test('SingleSessionHelper does not close browser when single session enabled', a
   helper.enabled = true;
   
   // Mock settings to enable single session
-  const originalGetSettings = require('../lib/model/settings-repository').getSettings;
-  require('../lib/model/settings-repository').getSettings = () => ({ isSingleSession: true });
+  const originalGetSettings = settingsRepository.getSettings;
+  settingsRepository.getSettings = () => ({ isSingleSession: true });
   
   helper.helper.isRunning = true;
   
@@ -62,7 +63,7 @@ test('SingleSessionHelper does not close browser when single session enabled', a
   t.false(helper.helper.isRunning, 'Browser should still be marked as not running for cleanup');
   
   // Restore original function
-  require('../lib/model/settings-repository').getSettings = originalGetSettings;
+  settingsRepository.getSettings = originalGetSettings;
 });
 
 test('forceCleanup method exists and works', async (t) => {

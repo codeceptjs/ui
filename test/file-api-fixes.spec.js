@@ -1,10 +1,11 @@
-const test = require('ava');
-const fs = require('fs').promises;
-const path = require('path');
-const getFile = require('../lib/api/get-file');
+import test from 'ava';
+import fs from 'fs/promises';
+import fsSync from 'fs';
+import path from 'path';
+import getFile from '../lib/api/get-file.js';
 
 // Mock global codecept_dir
-const testDir = path.join(__dirname, 'temp');
+const testDir = path.join(import.meta.dirname, 'temp');
 global.codecept_dir = testDir;
 
 test.before(async () => {
@@ -109,8 +110,8 @@ test('getFile streams small files correctly', async (t) => {
   };
   
   // Wrap the file stream to mock pipe method
-  const originalCreateReadStream = require('fs').createReadStream;
-  require('fs').createReadStream = function(...args) {
+  const originalCreateReadStream = fsSync.createReadStream;
+  fsSync.createReadStream = function(...args) {
     const stream = originalCreateReadStream.apply(this, args);
     stream.pipe = mockPipe;
     return stream;
@@ -119,7 +120,7 @@ test('getFile streams small files correctly', async (t) => {
   await getFile(req, res);
   
   // Restore original method
-  require('fs').createReadStream = originalCreateReadStream;
+  fsSync.createReadStream = originalCreateReadStream;
   
   // Test that streaming was attempted
   t.is(statusCode, 200); // No error status

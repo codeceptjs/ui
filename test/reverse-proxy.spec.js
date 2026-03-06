@@ -1,9 +1,9 @@
-const test = require('ava');
-const fs = require('fs');
-const path = require('path');
+import test from 'ava';
+import fs from 'fs';
+import path from 'path';
 
 test('Frontend handles reverse proxy configuration', (t) => {
-  const mainJsPath = path.join(__dirname, '..', 'src', 'main.js');
+  const mainJsPath = path.join(import.meta.dirname, '..', 'src', 'main.js');
   const mainJsContent = fs.readFileSync(mainJsPath, 'utf8');
   
   // Check that reverse proxy detection is present
@@ -16,7 +16,7 @@ test('Frontend handles reverse proxy configuration', (t) => {
 });
 
 test('Frontend uses relative paths for reverse proxy', (t) => {
-  const mainJsPath = path.join(__dirname, '..', 'src', 'main.js');
+  const mainJsPath = path.join(import.meta.dirname, '..', 'src', 'main.js');
   const mainJsContent = fs.readFileSync(mainJsPath, 'utf8');
   
   // Check that relative API calls are used
@@ -25,7 +25,7 @@ test('Frontend uses relative paths for reverse proxy', (t) => {
 });
 
 test('Port API endpoint returns correct format', (t) => {
-  const apiIndexPath = path.join(__dirname, '..', 'lib', 'api', 'index.js');
+  const apiIndexPath = path.join(import.meta.dirname, '..', 'lib', 'api', 'index.js');
   const apiContent = fs.readFileSync(apiIndexPath, 'utf8');
   
   // Check that ports endpoint exists and returns correct structure

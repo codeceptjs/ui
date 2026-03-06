@@ -1,7 +1,10 @@
-const test = require('ava');
-const path = require('path');
-const fs = require('fs');
-const os = require('os');
+import test from 'ava';
+import path from 'path';
+import fs from 'fs';
+import os from 'os';
+import settingsRepo from '../lib/model/settings-repository.js';
+// Note: testrunRepo reads global.output_dir lazily at function call time, not at import time
+import testrunRepo from '../lib/model/testrun-repository.js';
 
 // ---- Snapshot Store Bounds Tests ----
 
@@ -69,8 +72,6 @@ test('snapshot store clear resets insertion order', (t) => {
 // ---- Settings Validation Tests ----
 
 test('settings repository only accepts allowed keys', (t) => {
-  const settingsRepo = require('../lib/model/settings-repository');
-  
   // Store valid settings
   settingsRepo.storeSettings({
     isSingleSession: true,
@@ -98,13 +99,9 @@ test('settings repository only accepts allowed keys', (t) => {
 // ---- Testrun Repository Error Handling Tests ----
 
 test('testrun repository handles malformed JSON gracefully', (t) => {
-  // Set global.output_dir before requiring testrun-repository
+  // Set global.output_dir before using testrun-repository
   const tmpDir = os.tmpdir();
   global.output_dir = tmpDir;
-  
-  // Clear module cache to force re-require with new global
-  delete require.cache[require.resolve('../lib/model/testrun-repository')];
-  const testrunRepo = require('../lib/model/testrun-repository');
   
   // Create a file with invalid JSON
   const testId = `malformed-test-${Date.now()}`;
@@ -134,7 +131,7 @@ test('testrun repository handles malformed JSON gracefully', (t) => {
 test('takeSnapshot retry parameter decrements correctly', (t) => {
   // This is a static analysis test - verify the source code uses `retry - 1` not `retry--`
   const reporterUtilsSource = fs.readFileSync(
-    path.join(__dirname, '..', 'lib', 'codeceptjs', 'reporter-utils.js'), 
+    path.join(import.meta.dirname, '..', 'lib', 'codeceptjs', 'reporter-utils.js'), 
     'utf8'
   );
   
@@ -147,7 +144,7 @@ test('takeSnapshot retry parameter decrements correctly', (t) => {
 
 test('new-test.js uses Function constructor instead of eval', (t) => {
   const newTestSource = fs.readFileSync(
-    path.join(__dirname, '..', 'lib', 'api', 'new-test.js'),
+    path.join(import.meta.dirname, '..', 'lib', 'api', 'new-test.js'),
     'utf8'
   );
   
@@ -163,7 +160,7 @@ test('new-test.js uses Function constructor instead of eval', (t) => {
 
 test('editor.js uses realpathSync for path traversal protection', (t) => {
   const editorSource = fs.readFileSync(
-    path.join(__dirname, '..', 'lib', 'api', 'editor.js'),
+    path.join(import.meta.dirname, '..', 'lib', 'api', 'editor.js'),
     'utf8'
   );
   
@@ -173,7 +170,7 @@ test('editor.js uses realpathSync for path traversal protection', (t) => {
 
 test('get-file.js uses realpathSync for path traversal protection', (t) => {
   const getFileSource = fs.readFileSync(
-    path.join(__dirname, '..', 'lib', 'api', 'get-file.js'),
+    path.join(import.meta.dirname, '..', 'lib', 'api', 'get-file.js'),
     'utf8'
   );
   
@@ -185,7 +182,7 @@ test('get-file.js uses realpathSync for path traversal protection', (t) => {
 
 test('scenario-repository exports closeWatcher function', (t) => {
   const repoSource = fs.readFileSync(
-    path.join(__dirname, '..', 'lib', 'model', 'scenario-repository.js'),
+    path.join(import.meta.dirname, '..', 'lib', 'model', 'scenario-repository.js'),
     'utf8'
   );
   
@@ -197,7 +194,7 @@ test('scenario-repository exports closeWatcher function', (t) => {
 
 test('run-scenario.js uses fgrep for safe fixed-string matching', (t) => {
   const runScenarioSource = fs.readFileSync(
-    path.join(__dirname, '..', 'lib', 'api', 'run-scenario.js'),
+    path.join(import.meta.dirname, '..', 'lib', 'api', 'run-scenario.js'),
     'utf8'
   );
   
@@ -209,7 +206,7 @@ test('run-scenario.js uses fgrep for safe fixed-string matching', (t) => {
 
 test('init.js wraps lstatSync in try-catch', (t) => {
   const initSource = fs.readFileSync(
-    path.join(__dirname, '..', 'lib', 'commands', 'init.js'),
+    path.join(import.meta.dirname, '..', 'lib', 'commands', 'init.js'),
     'utf8'
   );
   

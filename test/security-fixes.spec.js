@@ -117,14 +117,16 @@ test('testrun repository handles malformed JSON gracefully', (t) => {
   // Write invalid JSON
   fs.writeFileSync(testFile, '{invalid json content', 'utf8');
   
+  // Register cleanup to run even if assertions fail
+  t.teardown(() => {
+    if (fs.existsSync(testFile)) {
+      fs.unlinkSync(testFile);
+    }
+  });
+  
   // Should not throw, should return undefined
   const result = testrunRepo.getTestRun(testId);
   t.is(result, undefined);
-  
-  // Cleanup
-  if (fs.existsSync(testFile)) {
-    fs.unlinkSync(testFile);
-  }
 });
 
 // ---- Reporter Utils retry fix test ----
@@ -191,17 +193,16 @@ test('scenario-repository exports closeWatcher function', (t) => {
   t.true(repoSource.includes('watcher.close()'));
 });
 
-// ---- Run Scenario Grep Sanitization ----
+// ---- Run Scenario uses fgrep for fixed-string matching ----
 
-test('run-scenario.js sanitizes grep parameter', (t) => {
+test('run-scenario.js uses fgrep for safe fixed-string matching', (t) => {
   const runScenarioSource = fs.readFileSync(
     path.join(__dirname, '..', 'lib', 'api', 'run-scenario.js'),
     'utf8'
   );
   
-  // Should sanitize special regex characters
-  t.true(runScenarioSource.includes('sanitizedGrep'));
-  t.true(runScenarioSource.includes('replace'));
+  // Should use fgrep (fixed-string match, not regex) which is inherently safe
+  t.true(runScenarioSource.includes('mocha.fgrep'));
 });
 
 // ---- Init.js Error Handling ----

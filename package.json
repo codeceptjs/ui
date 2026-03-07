@@ -171,5 +171,13 @@
       "git add"
     ]
   },
-  "repository": "codeceptjs/ui"
+  "repository": "codeceptjs/ui",
+  "ava": {
+    "files": [
+      "test/**/*.spec.js",
+      "lib/**/*.spec.js",
+      "!test/e2e-esm/**",
+      "!test/e2e/**"
+    ]
+  }
 }

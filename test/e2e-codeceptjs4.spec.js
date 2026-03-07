@@ -74,8 +74,8 @@ test.serial('helper factory pattern produces valid helper instances', (t) => {
 // ──────────────────────────────────────────────
 
 test.serial('scenarios are loaded from ESM test files', (t) => {
-  t.is(results.suitesLoaded, 1, 'Should load one suite from the fixture');
-  t.true(results.scenarioTitles.length >= 2, 'Suite should have at least 2 scenarios');
+  t.is(results.suitesLoaded, 3, 'Should load three suites from the fixture');
+  t.true(results.scenarioTitles.length >= 6, 'Suites should have at least 6 scenarios');
 });
 
 test.serial('scenario titles are parsed correctly', (t) => {

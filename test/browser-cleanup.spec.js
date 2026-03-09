@@ -1,12 +1,21 @@
-const test = require('ava');
-const SingleSessionHelper = require('../lib/codeceptjs/single-session.helper');
+import test from 'ava';
+import createSingleSessionHelper from '../lib/codeceptjs/single-session.helper.js';
+import settingsRepository from '../lib/model/settings-repository.js';
 
-// Mock the settings repository
-const mockSettings = {
-  isSingleSession: true
-};
+// Mock Helper base class (simulates @codeceptjs/helper)
+class MockHelper {
+  constructor() {
+    this.helpers = {};
+    this.options = {};
+  }
+  _init() {}
+  _before() {}
+  _after() {}
+  _passed() {}
+  _failed() {}
+}
 
-const mockHelper = {
+const mockBrowserHelper = {
   isRunning: false,
   _stopBrowser: async () => {},
   browser: {
@@ -20,13 +29,13 @@ const mockHelper = {
 };
 
 test('SingleSessionHelper properly closes browser when single session disabled', async (t) => {
-  const helper = new SingleSessionHelper();
-  helper.helper = mockHelper;
+  const helper = createSingleSessionHelper(MockHelper);
+  helper.helper = mockBrowserHelper;
   helper.enabled = true;
   
   // Mock settings to disable single session
-  const originalGetSettings = require('../lib/model/settings-repository').getSettings;
-  require('../lib/model/settings-repository').getSettings = () => ({ isSingleSession: false });
+  const originalGetSettings = settingsRepository.getSettings;
+  settingsRepository.getSettings = () => ({ isSingleSession: false });
   
   helper.helper.isRunning = true;
   
@@ -35,17 +44,17 @@ test('SingleSessionHelper properly closes browser when single session disabled',
   t.false(helper.helper.isRunning, 'Browser should be marked as not running');
   
   // Restore original function
-  require('../lib/model/settings-repository').getSettings = originalGetSettings;
+  settingsRepository.getSettings = originalGetSettings;
 });
 
 test('SingleSessionHelper does not close browser when single session enabled', async (t) => {
-  const helper = new SingleSessionHelper();
-  helper.helper = mockHelper;
+  const helper = createSingleSessionHelper(MockHelper);
+  helper.helper = mockBrowserHelper;
   helper.enabled = true;
   
   // Mock settings to enable single session
-  const originalGetSettings = require('../lib/model/settings-repository').getSettings;
-  require('../lib/model/settings-repository').getSettings = () => ({ isSingleSession: true });
+  const originalGetSettings = settingsRepository.getSettings;
+  settingsRepository.getSettings = () => ({ isSingleSession: true });
   
   helper.helper.isRunning = true;
   
@@ -54,12 +63,12 @@ test('SingleSessionHelper does not close browser when single session enabled', a
   t.false(helper.helper.isRunning, 'Browser should still be marked as not running for cleanup');
   
   // Restore original function
-  require('../lib/model/settings-repository').getSettings = originalGetSettings;
+  settingsRepository.getSettings = originalGetSettings;
 });
 
 test('forceCleanup method exists and works', async (t) => {
-  const helper = new SingleSessionHelper();
-  helper.helper = mockHelper;
+  const helper = createSingleSessionHelper(MockHelper);
+  helper.helper = mockBrowserHelper;
   
   t.is(typeof helper.forceCleanup, 'function', 'forceCleanup method should exist');
   
@@ -67,7 +76,7 @@ test('forceCleanup method exists and works', async (t) => {
 });
 
 test('_closeBrowser handles different helper types gracefully', async (t) => {
-  const helper = new SingleSessionHelper();
+  const helper = createSingleSessionHelper(MockHelper);
   
   // Test with _stopBrowser method
   helper.helper = { 

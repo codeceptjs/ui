@@ -15,7 +15,8 @@
     "test": "ava",
     "test:watch": "ava -w"
   },
-  "main": "background.js",
+  "type": "module",
+  "main": "lib/app.js",
   "files": [
     "dist",
     "bin",
@@ -50,7 +51,7 @@
     "ava": "^6.2.0",
     "babel-eslint": "^10.1.0",
     "buefy": "^0.9.13",
-    "codeceptjs": "^3.7.3",
+    "codeceptjs": "^4.0.0-rc.1",
     "contributor-faces": "^1.1.0",
     "copy-text-to-clipboard": "^3.2.0",
     "electron-icon-builder": "^2.0.1",
@@ -82,7 +83,7 @@
     "sumchecker": "3.0.1"
   },
   "peerDependencies": {
-    "codeceptjs": "^3.7.3"
+    "codeceptjs": "^4.0.0-rc.1"
   },
   "overrides": {
     "@achrinza/node-ipc": "9.2.10"
@@ -170,5 +171,13 @@
       "git add"
     ]
   },
-  "repository": "codeceptjs/ui"
+  "repository": "codeceptjs/ui",
+  "ava": {
+    "files": [
+      "test/**/*.spec.js",
+      "lib/**/*.spec.js",
+      "!test/e2e-esm/**",
+      "!test/e2e/**"
+    ]
+  }
 }

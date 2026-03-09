@@ -1,9 +1,9 @@
-const test = require('ava');
+import test from 'ava';
 
 // Mock the Socket.IO environment to test ws-events without actually connecting
 process.env.NODE_ENV = 'test';
 
-const wsEvents = require('../lib/model/ws-events');
+import wsEvents from '../lib/model/ws-events.js';
 
 test('ws-events can emit error objects with circular references without crashing', (t) => {
   // Create an error object with a circular reference

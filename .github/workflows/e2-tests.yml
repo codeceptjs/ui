@@ -22,12 +22,18 @@ jobs:
       - run: git config --global user.name "GitHub CD bot"
       - run: git config --global user.email "github-cd-bot@example.com"
       - name: Install deps
-        run: export NODE_OPTIONS=--openssl-legacy-provider && npm i -g wait-for-localhost-cli && PUPPETEER_SKIP_DOWNLOAD=true npm i -f
+        run: npm i -g wait-for-localhost-cli && PUPPETEER_SKIP_DOWNLOAD=true npm i --legacy-peer-deps
       - name: Run unit tests
         run: npm test
       - name: Build frontend
-        run: export NODE_OPTIONS=--openssl-legacy-provider && npm run build
+        run: NODE_OPTIONS=--openssl-legacy-provider npm run build
       - name: Start app and run tests
-        run: export NODE_OPTIONS=--openssl-legacy-provider && npm run backend & wait-for-localhost 3333; cd test/e2e; npm i && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install-deps chromium && npm run test
+        run: |
+          node bin/codecept-ui.js -c node_modules/@codeceptjs/examples/codecept.conf.js &
+          wait-for-localhost 3333
+          cd test/e2e
+          npm i
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install-deps chromium
+          npm run test
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

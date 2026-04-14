@@ -14,7 +14,6 @@
 
 <script>
 // import {getSelectorString} from '../../services/selector';
-import copyToClipboard from 'copy-text-to-clipboard';
 
 export default {
   name: 'Argument',
@@ -36,8 +35,8 @@ export default {
     }
   },
   methods: {
-    copy() {
-      copyToClipboard(this.arg);
+    async copy() {
+      await navigator.clipboard.writeText(this.arg);
       this.copyText = 'Copied!';
       setTimeout(() => this.copyText = 'Copy', 3000);
     },

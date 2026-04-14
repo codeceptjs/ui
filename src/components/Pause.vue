@@ -186,7 +186,6 @@
 
 <script>
 import Convert from 'ansi-to-html';
-import copyToClipboard from 'copy-text-to-clipboard';
 
 export default {
   name: 'Pause',
@@ -268,7 +267,7 @@ export default {
   },
   methods: {
     copy(text) {
-      copyToClipboard(text);
+      return navigator.clipboard.writeText(text);
     },
     selectedAction(actionText) {
       const actions = this.$store.getters['cli/actions'];

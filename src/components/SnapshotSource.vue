@@ -22,7 +22,6 @@ import {
   highlightElement,
   highlightInIframe
 } from '../services/selector-finder';
-import copy from 'copy-text-to-clipboard';
 
 const throttled = (delay, fn) => {
   let lastCall = 0;
@@ -56,7 +55,7 @@ const handleIframeClick = (props, doc, window) =>
     if (!props.enabledSelection) return;
     const el = doc.elementFromPoint(e.x, e.y);
     const shortestSelector = highlightElement(el, doc, window);
-    copy(shortestSelector);
+    return navigator.clipboard.writeText(shortestSelector);
   });
 
 export default {

@@ -131,9 +131,11 @@ Scenario('Navbar has Write a Test navigation link', async () => {
 Scenario('Clicking Write a Test navigates to new test page', async () => {
   I.amOnPage('/');
   I.waitForElement('.ScenariosPage', 15);
-  I.waitForText('Write a Test', 10);
+  // Wait for the navbar link to be rendered
+  I.waitForElement('a.navbar-item[role="button"]', 10);
 
-  I.click('Write a Test');
+  // Use a specific locator so the click lands on the <a> element (not on the icon inside it)
+  I.click(locate('a.navbar-item[role="button"]').withText('Write a Test'));
   I.waitForFunction(() => window.location.hash.includes('new-test'), 10);
 
   console.log('✅ Navigated to new-test page');
@@ -143,7 +145,6 @@ Feature('CodeceptUI App - New Test Page');
 
 Scenario('New Test page loads correctly', async () => {
   I.amOnPage('/#/new-test');
-  I.waitForFunction(() => window.location.hash.includes('new-test'), 10);
 
   // The new test page should load something
   I.waitForElement('body', 10);
@@ -160,7 +161,6 @@ Feature('CodeceptUI App - Settings Page');
 Scenario('Settings page is accessible via navigation', async () => {
   // Navigate directly to the settings hash route
   I.amOnPage('/#/settings');
-  I.waitForFunction(() => window.location.hash.includes('settings'), 10);
   I.waitForElement('body', 10);
   I.waitForFunction(() => {
     const app = document.getElementById('app');

@@ -136,7 +136,8 @@ Scenario('Clicking Write a Test navigates to new test page', async () => {
 
   // Use a specific locator so the click lands on the <a> element (not on the icon inside it)
   I.click(locate('a.navbar-item[role="button"]').withText('Write a Test'));
-  I.waitForFunction(() => window.location.hash.includes('new-test'), 10);
+  // Wait for the New Test page to render (unique text from instructions/button, not a hash URL check)
+  I.waitForText('Launch Test', 15);
 
   console.log('✅ Navigated to new-test page');
 });

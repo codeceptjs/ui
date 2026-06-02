@@ -1,5 +1,5 @@
-const test = require('ava');
-const safeSerialize = require('../lib/utils/safe-serialize');
+import test from 'ava';
+import safeSerialize from '../lib/utils/safe-serialize.js';
 
 test('safeSerialize handles large arrays without memory issues', (t) => {
   // Create a large array that could cause memory issues

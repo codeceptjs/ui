@@ -1,10 +1,10 @@
-const test = require('ava');
-const fs = require('fs');
-const path = require('path');
+import test from 'ava';
+import fs from 'fs';
+import path from 'path';
 
 test('Enhanced UI components exist and have proper structure', (t) => {
-  const enhancedLoadingPath = path.join(__dirname, '..', 'src', 'components', 'EnhancedLoading.vue');
-  const toastNotificationPath = path.join(__dirname, '..', 'src', 'components', 'ToastNotification.vue');
+  const enhancedLoadingPath = path.join(import.meta.dirname, '..', 'src', 'components', 'EnhancedLoading.vue');
+  const toastNotificationPath = path.join(import.meta.dirname, '..', 'src', 'components', 'ToastNotification.vue');
   
   // Check that enhanced loading component exists
   t.true(fs.existsSync(enhancedLoadingPath), 'EnhancedLoading component should exist');
@@ -28,7 +28,7 @@ test('Enhanced UI components exist and have proper structure', (t) => {
 });
 
 test('TestStatistics component has enhanced visual feedback', (t) => {
-  const testStatsPath = path.join(__dirname, '..', 'src', 'components', 'TestStatistics.vue');
+  const testStatsPath = path.join(import.meta.dirname, '..', 'src', 'components', 'TestStatistics.vue');
   const content = fs.readFileSync(testStatsPath, 'utf8');
   
   // Check for progress bars
@@ -47,7 +47,7 @@ test('TestStatistics component has enhanced visual feedback', (t) => {
 });
 
 test('Step component has enhanced visual indicators', (t) => {
-  const stepPath = path.join(__dirname, '..', 'src', 'components', 'Step.vue');
+  const stepPath = path.join(import.meta.dirname, '..', 'src', 'components', 'Step.vue');
   const content = fs.readFileSync(stepPath, 'utf8');
   
   // Check for status icons
@@ -65,7 +65,7 @@ test('Step component has enhanced visual indicators', (t) => {
 });
 
 test('IDE-like split view is implemented in ScenariosPage', (t) => {
-  const scenariosPagePath = path.join(__dirname, '..', 'src', 'components', 'pages', 'ScenariosPage.vue');
+  const scenariosPagePath = path.join(import.meta.dirname, '..', 'src', 'components', 'pages', 'ScenariosPage.vue');
   const content = fs.readFileSync(scenariosPagePath, 'utf8');
   
   // Check for IDE layout structure

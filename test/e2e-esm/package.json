@@ -1,0 +1,6 @@
+{
+  "name": "e2e-esm-fixture",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module"
+}

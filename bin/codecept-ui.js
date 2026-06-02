@@ -1,73 +1,61 @@
 #!/usr/bin/env node
-const debug = require('debug')('codeceptjs:ui');
+import Debug from 'debug';
+const debug = Debug('codeceptjs:ui');
 
-// initialize CodeceptJS and return startup options
-const path = require('path');
-const { existsSync } = require('fs');
-const express = require('express');
-const options = require('../lib/commands/init')();
-const codeceptjsFactory = require('../lib/model/codeceptjs-factory');
-const { getPort } = require('../lib/config/env');
+import path from 'path';
+import { existsSync } from 'fs';
+import express from 'express';
+import init from '../lib/commands/init.js';
+import codeceptjsFactory from '../lib/model/codeceptjs-factory.js';
+import { getPort } from '../lib/config/env.js';
+import { Server } from 'socket.io';
+import { events } from '../lib/model/ws-events.js';
 
-// Configure Socket.IO with CORS support for cross-origin requests
-const io = require('socket.io')({
+const options = init();
+
+const io = new Server({
   cors: {
     origin: process.env.CORS_ORIGIN || `http://localhost:${getPort('application')}`,
     credentials: true,
     methods: ["GET", "POST"],
     transports: ['websocket', 'polling']
   },
-  allowEIO3: true,  // Support for older Socket.IO clients
-  // Add additional configuration for better reliability
+  allowEIO3: true,
   pingTimeout: 60000,
   pingInterval: 25000,
   connectTimeout: 45000,
   serveClient: true,
-  // Allow connections from localhost variations
   allowRequest: (req, callback) => {
     const origin = req.headers.origin;
     const host = req.headers.host;
     
-    // Allow localhost connections and same-host connections
     if (!origin || 
         origin.includes('localhost') || 
         origin.includes('127.0.0.1') || 
         (host && origin.includes(host.split(':')[0]))) {
       callback(null, true);
     } else {
-      callback(null, true); // Allow all for now, can be more restrictive if needed
+      callback(null, true);
     }
   }
 });
 
-const  { events } = require('../lib/model/ws-events');
-
-// Serve frontend from dist
-const AppDir = path.join(__dirname, '..', 'dist');
+const AppDir = path.join(import.meta.dirname, '..', 'dist');
 if (!existsSync(AppDir)) {
-  // eslint-disable-next-line no-console
   console.error('\n ⚠️You have to build Vue application by `npm run build`\n');
   process.exit(1);
 }
 
-
-codeceptjsFactory.create({}, options).then(() => {
+codeceptjsFactory.create({}, options).then(async () => {
   debug('CodeceptJS initialized, starting application');
 
-  const api = require('../lib/api');
+  const apiModule = await import('../lib/api/index.js');
+  const api = apiModule.default;
   const app = express();
 
-
-
-  /**
-   * HTTP Routes
-   */
   app.use(express.static(AppDir));
   app.use('/api', api);
 
-  /**
-   * Websocket Events
-   */
   io.on('connection', socket => {
     const emit = (evtName, data) => {
       debug(evtName);
@@ -85,26 +73,19 @@ codeceptjsFactory.create({}, options).then(() => {
   const applicationPort = options.port;
   const webSocketsPort = options.wsPort;
 
-  // Start servers with proper error handling and readiness checks
   let httpServer;
   let wsServer;
 
   try {
-    // Start WebSocket server first
     wsServer = io.listen(webSocketsPort);
     debug(`WebSocket server started on port ${webSocketsPort}`);
 
-    // Start HTTP server
     httpServer = app.listen(applicationPort, () => {
-      // eslint-disable-next-line no-console
       console.log('🌟 CodeceptUI started!');
-      // eslint-disable-next-line no-console
       console.log(`👉 Open http://localhost:${applicationPort} to see CodeceptUI in a browser\n\n`);
-      // eslint-disable-next-line no-console
       debug(`Listening for websocket connections on port ${webSocketsPort}`);
     });
 
-    // Handle server errors
     httpServer.on('error', (err) => {
       if (err.code === 'EADDRINUSE') {
         console.error(`❌ Port ${applicationPort} is already in use. Please try a different port or stop the service using this port.`);
@@ -128,7 +109,6 @@ codeceptjsFactory.create({}, options).then(() => {
     process.exit(1);
   }
 
-  // Graceful shutdown handling
   const gracefulShutdown = () => {
     console.log('\n🛑 Shutting down CodeceptUI...');
     if (httpServer) {
@@ -152,9 +132,8 @@ codeceptjsFactory.create({}, options).then(() => {
   });
 
   if (options.app) {
-    // open electron app
     global.isElectron = true;
-    require('../lib/commands/electron');
+    await import('../lib/commands/electron.js');
   }
 
 }).catch((e) => {

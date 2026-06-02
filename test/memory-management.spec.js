@@ -1,10 +1,9 @@
-const test = require('ava');
+import test from 'ava';
+import workerIndex from '../lib/model/codeceptjs-run-workers/index.js';
+import fs from 'fs';
 
 // Test to verify worker memory management doesn't cause issues
 test('worker cleanup functions exist and don\'t throw', (t) => {
-  // Mock the worker index module
-  const workerIndex = require('../lib/model/codeceptjs-run-workers/index');
-  
   // Test that the constants are defined correctly
   t.true(typeof workerIndex === 'function');
   
@@ -15,7 +14,6 @@ test('worker cleanup functions exist and don\'t throw', (t) => {
 
 test('memory management constants are reasonable', (t) => {
   // Read the worker file to verify constants exist
-  const fs = require('fs');
   const workerContent = fs.readFileSync('lib/model/codeceptjs-run-workers/index.js', 'utf8');
   
   // Verify memory management constants are present
@@ -39,7 +37,6 @@ test('memory management constants are reasonable', (t) => {
 });
 
 test('file API has memory protections', (t) => {
-  const fs = require('fs');
   const fileApiContent = fs.readFileSync('lib/api/get-file.js', 'utf8');
   
   // Verify memory protections are present

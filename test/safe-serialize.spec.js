@@ -1,5 +1,5 @@
-const test = require('ava');
-const safeSerialize = require('../lib/utils/safe-serialize');
+import test from 'ava';
+import safeSerialize from '../lib/utils/safe-serialize.js';
 
 test('safeSerialize handles circular references', (t) => {
   const obj = { name: 'test', id: 123 };

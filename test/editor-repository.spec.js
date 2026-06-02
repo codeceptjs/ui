@@ -1,8 +1,8 @@
-const test = require('ava');
-const editorRepository = require('../lib/model/editor-repository');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+import test from 'ava';
+import editorRepository from '../lib/model/editor-repository.js';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
 let testDir;
 let testFile;

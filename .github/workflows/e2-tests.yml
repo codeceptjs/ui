@@ -22,12 +22,24 @@ jobs:
       - run: git config --global user.name "GitHub CD bot"
       - run: git config --global user.email "github-cd-bot@example.com"
       - name: Install deps
-        run: export NODE_OPTIONS=--openssl-legacy-provider && npm i -g wait-for-localhost-cli && PUPPETEER_SKIP_DOWNLOAD=true npm i -f
+        run: npm i -g wait-for-localhost-cli && PUPPETEER_SKIP_DOWNLOAD=true npm i --legacy-peer-deps
       - name: Run unit tests
         run: npm test
       - name: Build frontend
-        run: export NODE_OPTIONS=--openssl-legacy-provider && npm run build
+        run: NODE_OPTIONS=--openssl-legacy-provider npm run build
       - name: Start app and run tests
-        run: export NODE_OPTIONS=--openssl-legacy-provider && npm run backend & wait-for-localhost 3333; cd test/e2e; npm i && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install-deps chromium && npm run test
+        timeout-minutes: 10
+        run: |
+          node bin/codecept-ui.js -c node_modules/@codeceptjs/examples/codecept.conf.js &
+          BACKEND_PID=$!
+          echo "Backend PID: $BACKEND_PID"
+          timeout 90 bash -c 'until curl -sf http://localhost:3333 > /dev/null 2>&1; do echo "Waiting for backend..."; sleep 3; done' \
+            || { echo "Backend failed to start within 90s"; kill $BACKEND_PID 2>/dev/null; exit 1; }
+          echo "Backend is up"
+          cd test/e2e
+          npm i
+          npx playwright install chromium
+          npx playwright install-deps chromium
+          npm run test
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

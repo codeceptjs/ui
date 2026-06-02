@@ -1,4 +1,4 @@
-const test = require('ava');
+import test from 'ava';
 
 // Use dynamic import for ES modules
 let detectLanguage, getLanguageDisplayName;

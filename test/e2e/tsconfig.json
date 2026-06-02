@@ -10,7 +10,8 @@
     "strictNullChecks": false,
     "types": ["codeceptjs", "node"],
     "declaration": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "moduleDetection": "force"
   },
   "exclude": ["node_modules"]
 }

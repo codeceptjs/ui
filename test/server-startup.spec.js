@@ -1,9 +1,9 @@
-const test = require('ava');
-const fs = require('fs');
-const path = require('path');
+import test from 'ava';
+import fs from 'fs';
+import path from 'path';
 
 test('Server startup script has proper error handling', (t) => {
-  const startupScript = path.join(__dirname, '..', 'bin', 'codecept-ui.js');
+  const startupScript = path.join(import.meta.dirname, '..', 'bin', 'codecept-ui.js');
   const content = fs.readFileSync(startupScript, 'utf8');
   
   // Check for error handling patterns
@@ -16,7 +16,7 @@ test('Server startup script has proper error handling', (t) => {
 });
 
 test('Frontend has retry logic for port fetching', (t) => {
-  const mainScript = path.join(__dirname, '..', 'src', 'main.js');
+  const mainScript = path.join(import.meta.dirname, '..', 'src', 'main.js');
   const content = fs.readFileSync(mainScript, 'utf8');
   
   // Check for retry logic patterns
@@ -28,7 +28,7 @@ test('Frontend has retry logic for port fetching', (t) => {
 });
 
 test('Socket.IO configuration includes reliability improvements', (t) => {
-  const startupScript = path.join(__dirname, '..', 'bin', 'codecept-ui.js');
+  const startupScript = path.join(import.meta.dirname, '..', 'bin', 'codecept-ui.js');
   const content = fs.readFileSync(startupScript, 'utf8');
   
   // Check for Socket.IO reliability configurations
@@ -39,7 +39,7 @@ test('Socket.IO configuration includes reliability improvements', (t) => {
 });
 
 test('Frontend Socket.IO has connection options for reliability', (t) => {
-  const mainScript = path.join(__dirname, '..', 'src', 'main.js');
+  const mainScript = path.join(import.meta.dirname, '..', 'src', 'main.js');
   const content = fs.readFileSync(mainScript, 'utf8');
   
   // Check for Socket.IO client options

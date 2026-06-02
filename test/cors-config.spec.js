@@ -1,10 +1,10 @@
-const test = require('ava');
-const { spawn } = require('child_process');
-const path = require('path');
+import test from 'ava';
+import { spawn } from 'child_process';
+import path from 'path';
+import fs from 'fs';
 
 test('Socket.IO server includes CORS configuration', (t) => {
-  const binPath = path.join(__dirname, '..', 'bin', 'codecept-ui.js');
-  const fs = require('fs');
+  const binPath = path.join(import.meta.dirname, '..', 'bin', 'codecept-ui.js');
   const binContent = fs.readFileSync(binPath, 'utf8');
   
   // Check that CORS configuration is present
@@ -15,8 +15,7 @@ test('Socket.IO server includes CORS configuration', (t) => {
 });
 
 test('CORS origin defaults to application port', (t) => {
-  const binPath = path.join(__dirname, '..', 'bin', 'codecept-ui.js');
-  const fs = require('fs');
+  const binPath = path.join(import.meta.dirname, '..', 'bin', 'codecept-ui.js');
   const binContent = fs.readFileSync(binPath, 'utf8');
   
   // Check that default CORS origin uses application port
@@ -26,8 +25,7 @@ test('CORS origin defaults to application port', (t) => {
 test('CORS origin can be overridden via environment variable', (t) => {
   process.env.CORS_ORIGIN = 'http://example.com:3000';
   
-  const binPath = path.join(__dirname, '..', 'bin', 'codecept-ui.js');
-  const fs = require('fs');
+  const binPath = path.join(import.meta.dirname, '..', 'bin', 'codecept-ui.js');
   const binContent = fs.readFileSync(binPath, 'utf8');
   
   // Check that CORS_ORIGIN environment variable is used
